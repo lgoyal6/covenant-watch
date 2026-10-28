@@ -33,7 +33,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                 <path d="M4 13.5 L8 10 L11 12 L16 6" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinejoin="round" />
                 <path d="M4 7 H16" stroke="var(--breach)" strokeWidth="1.4" strokeDasharray="2 1.6" />
               </svg>
-              Covenant Watch
+              <span className="brand-text">Covenant Watch</span>
             </Link>
             <Nav />
             <ThemeToggle />

@@ -107,7 +107,9 @@ export default function DemoView(p: Props) {
           (tl ? (
             <div className="stack">
               <div className="card card-pad">
-                <Timeline data={tl} selected={sel} onSelect={setSel} height={250} />
+                <div className="chart-scroll">
+                  <Timeline data={tl} selected={sel} onSelect={setSel} height={250} />
+                </div>
               </div>
               <ProvenanceDrawer inline cik={company.cik} covenantId={tl.covenant.id} periodEnd={sel ?? tl.quarters[0]?.period_end ?? null} onClose={() => {}} />
             </div>
@@ -177,7 +179,9 @@ function StepTimeline({ tl, company, cik, onPick }: { tl: TimelineResponse; comp
           </Link>
         </div>
         <div className="card-pad stack">
-          <Timeline data={tl} onSelect={onPick} emphasizeEvents height={380} />
+          <div className="chart-scroll">
+            <Timeline data={tl} onSelect={onPick} emphasizeEvents height={380} />
+          </div>
           <TimelineLegend direction={tl.covenant.direction} hasEvents={tl.events.length > 0} hasDisclosed={tl.disclosed.length > 0} hasAmendments={tl.agreements.some((a) => a.kind !== "original")} />
         </div>
       </div>

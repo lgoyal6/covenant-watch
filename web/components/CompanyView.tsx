@@ -121,7 +121,9 @@ export default function CompanyView({ source, artifact, timelines, timelineError
           <div className="card-pad">
             {tl ? (
               tl.quarters.length ? (
-                <Timeline data={tl} selected={quarter} onSelect={openQuarter} />
+                <div className="chart-scroll">
+                  <Timeline data={tl} selected={quarter} onSelect={openQuarter} />
+                </div>
               ) : (
                 <div className="empty">
                   <h3>No quarters computed</h3>
@@ -161,8 +163,9 @@ function Agreements({ artifact }: { artifact: CovenantArtifact }) {
   const ags = artifact.contract.agreements;
   if (!ags.length) return null;
   return (
-    <div className="card" style={{ minWidth: 300 }}>
+    <div className="card agreements-card" style={{ minWidth: 300 }}>
       <div className="upper" style={{ padding: "10px 14px 4px" }}>Credit agreements</div>
+      <div className="table-wrap">
       <table className="t">
         <tbody>
           {ags.map((a) => (
@@ -187,6 +190,7 @@ function Agreements({ artifact }: { artifact: CovenantArtifact }) {
           ))}
         </tbody>
       </table>
+      </div>
     </div>
   );
 }

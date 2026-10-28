@@ -51,6 +51,8 @@ export default function Timeline({ data, selected, onSelect, height = 360, empha
   useEffect(() => {
     const el = wrapRef.current;
     if (!el) return;
+    const w0 = Math.round(el.getBoundingClientRect().width);
+    if (w0 > 0) setW(w0);
     const ro = new ResizeObserver((entries) => {
       const w = Math.round(entries[0].contentRect.width);
       if (w > 0) setW(w);

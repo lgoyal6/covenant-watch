@@ -10,7 +10,7 @@ from contracts.tests.test_extract import FakeExtractor
 from contracts.verify import all_spans, verify_contract
 
 
-def test_synthetic_agreement_reproduces_frozen_fixture_structure():
+def test_synthetic_agreement_reproduces_frozen_fixture_structure(tmp_path):
     golden = ContractExtraction.model_validate_json((FIXTURES / 'contract_example.json').read_text())
     original, amendment = golden.agreements
     documents = []
@@ -70,3 +70,29 @@ def test_synthetic_agreement_reproduces_frozen_fixture_structure():
         n.id: n.model_dump(mode='json') for n in golden.terms}
     assert {c.id.removeprefix('fixture:'): remove_namespace(c) for c in actual.covenants} == {
         c.id: c.model_dump(mode='json') for c in golden.covenants}
+
+    # Exercise the complete guarded transport for a one-document pilot, then resume
+    # with no new budget. This is still a synthetic, mocked API test.
+    from decimal import Decimal
+    from types import SimpleNamespace
+    from contracts.runtime import Price, Runtime
+    requests = []
+    def create(**kwargs):
+        requests.append(kwargs)
+        return SimpleNamespace(stop_reason='tool_use', content=[SimpleNamespace(type='tool_use',
+            name='record_extraction', input=response_original.model_dump(mode='json'))],
+            usage=SimpleNamespace(input_tokens=1000, output_tokens=400))
+    messages = SimpleNamespace(create=create, count_tokens=lambda **kw: SimpleNamespace(input_tokens=1000))
+    prices = {name: Price(Decimal(rate), Decimal(rate) * 5, Decimal(rate) * 2, Decimal('.1'))
+              for name, rate in [('claude-sonnet-5-5', 2), ('claude-opus-5-5', 4)]}
+    runtime = Runtime(tmp_path, '1', prices=prices)
+    one_document = Discovery(golden.company, documents[:1], notes=['SYNTHETIC PILOT ONLY'])
+    pilot = build_contract(one_document, Extractor(SimpleNamespace(messages=messages), runtime=runtime, pilot=True), pilot=True)
+    assert len(pilot.covenants) == 1 and not pilot.refusals
+    assert verify_contract(pilot, {documents[0].key: documents[0]}) > 10
+    billed_requests = len(requests)
+    assert billed_requests >= 2 and Decimal(0) < runtime.charged <= runtime.cap
+    resumed = Runtime(tmp_path)
+    again = build_contract(one_document, Extractor(SimpleNamespace(messages=messages), runtime=resumed, pilot=True), pilot=True)
+    assert again.terms == pilot.terms and again.covenants == pilot.covenants
+    assert len(requests) == billed_requests and resumed.charged == 0

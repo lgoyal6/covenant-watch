@@ -19,16 +19,18 @@ def visible_text(text: str) -> str:
 
 
 def segment(text: str) -> list[Segment]:
-    # Mask markup without changing any character positions.
-    masked = re.sub(r"<[^>]*>", lambda m: " " * len(m[0]), text)
+    # Block tags create header boundaries; every replacement keeps its length.
+    def mask(match):
+        raw = match[0]
+        block = re.match(r'</?(?:p|div|h[1-6]|tr|br)\b', raw, re.I)
+        return ('\n' + ' ' * (len(raw) - 1)) if block else ' ' * len(raw)
+
+    masked = re.sub(r'<[^>]*>', mask, text)
+    masked = re.sub(r'&(?:nbsp|#160|#x[aA]0);', lambda m: ' ' * len(m[0]), masked)
     headers = list(re.finditer(
-        r"(?im)(?:^|(?<=\n)|(?<=\r))\s*"
-        r"(?P<section>(?:ARTICLE\s+[IVXLCDM]+|SECTION\s+\d+(?:\.\d+)*(?:\([a-z0-9]+\))?))\b",
+        r"(?im)(?:^|(?<=\n)|(?<=\r))[ \t]*"
+        r"(?P<section>(?:ARTICLE\s+[IVXLCDM]+|(?:SECTION\s+)?\d+\.\d+(?:\([a-z0-9]+\))?))\b",
         masked,
-    ))
-    # HTML often has no literal newlines around a section heading.
-    headers += list(re.finditer(
-        r"(?i)\b(?P<section>SECTION\s+\d+\.\d+(?:\([a-z0-9]+\))?)", masked
     ))
     starts = {m.start('section'): m.group('section').strip() for m in headers}
     starts.setdefault(0, None)

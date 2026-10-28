@@ -153,3 +153,10 @@ def test_number_claims_must_match_cited_values_and_scaling():
         verify_number(5.25, 'maximum 4.50 to 1.00')
     with pytest.raises(EvidenceError):
         verify_number(0.10, 'a fee of $0.10', percentage=True)
+
+
+def test_html_section_headers_do_not_split_inline_cross_references():
+    text = '<p>SECTION 1.01 Definitions</p><p>See Section 7.11 for limits.</p><p>SECTION 7.11 Financial Covenants</p>'
+    parts = segment(text)
+    assert [s.section for s in parts if s.section] == ['SECTION 1.01', 'SECTION 7.11']
+    assert ''.join(s.text for s in parts) == text

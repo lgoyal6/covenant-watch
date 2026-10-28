@@ -19,6 +19,7 @@ from contracts.discover import Discovery, DiscoveryError, dev_companies, discove
 from contracts.extract import ExtractionError, Extractor
 from contracts.context import ContextError, plan_context
 from contracts.runtime import BudgetError, Runtime, atomic_json
+from contracts.credentials import load_api_key
 from contracts.verify import EvidenceError, fingerprint, summarize, verify_contract
 
 
@@ -175,9 +176,12 @@ def main(argv=None) -> int:
     if not args.plan_only and args.max_cost_usd is None:
         print('Paid extraction requires --max-cost-usd. Use --plan-only for an offline model-free plan.', file=sys.stderr)
         return 2
-    if not args.plan_only and not os.environ.get('ANTHROPIC_API_KEY'):
-        print('ANTHROPIC_API_KEY is missing.', file=sys.stderr)
-        return 2
+    if not args.plan_only:
+        key = load_api_key()
+        if not key:
+            print('No Anthropic key in the project Keychain item or environment.', file=sys.stderr)
+            return 2
+        os.environ['ANTHROPIC_API_KEY'] = key
     runtime = None
     try:
         if args.cik and (not args.cik.isdigit() or not 0 < int(args.cik) < 10**10):

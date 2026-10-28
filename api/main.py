@@ -5,6 +5,7 @@ Every response that comes from fixtures carries "source": "fixture" so the UI ca
 """
 
 import json
+import os
 from datetime import date
 
 from fastapi import FastAPI, HTTPException, Query
@@ -62,21 +63,44 @@ def filing_url(cik: str, accession: str | None) -> str | None:
     return f"https://www.sec.gov/Archives/edgar/data/{int(cik)}/{accession.replace('-', '')}/{accession}-index.htm"
 
 
+def _document(url: str) -> bytes | None:
+    """The filing document: from the EDGAR cache, or fetched (and cached) unless CW_OFFLINE is set."""
+    path = edgar._cache_path(url)
+    if path.exists():
+        return path.read_bytes()
+    if os.environ.get("CW_OFFLINE") or "fixture" in url:
+        return None
+    try:
+        return edgar.get(url)
+    except Exception:
+        return None
+
+
 def span_context(span: dict) -> dict:
-    """The span plus surrounding text if the source document is already in the EDGAR cache (never fetches)."""
-    out = dict(span)
-    path = edgar._cache_path(span["url"])
-    if not path.exists():
-        out["context"] = None
+    """The span plus surrounding text. Offsets may index the raw document or its plain-text
+    conversion (validation.text.html_to_text); if neither matches, the text is located by search."""
+    out = dict(span, context=None, context_basis=None)
+    raw = _document(span["url"])
+    if raw is None:
         return out
-    doc = path.read_bytes().decode("utf-8", errors="replace")
-    s, e = span["char_start"], span["char_end"]
-    if doc[s:e] != span["text"]:
-        out["context"] = None
-        out["context_note"] = "span offsets do not match the cached document"
+    s, e, text = span["char_start"], span["char_end"], span["text"]
+    for basis, doc in (("raw", raw.decode("utf-8", errors="replace")), ("text", None)):
+        if doc is None:
+            from validation.text import html_to_text
+
+            doc = html_to_text(raw)
+        if doc[s:e] == text:
+            break
+        found = doc.find(text)
+        if found >= 0:
+            s, e, basis = found, found + len(text), basis + "+search"
+            break
+    else:
+        out["context_note"] = "clause text not found in the source document"
         return out
     lo, hi = max(0, s - CONTEXT_CHARS), min(len(doc), e + CONTEXT_CHARS)
     out["context"] = {"before": doc[lo:s], "match": doc[s:e], "after": doc[e:hi]}
+    out["context_basis"] = basis
     return out
 
 

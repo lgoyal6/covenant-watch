@@ -92,3 +92,21 @@ def test_step_down_table_rows_are_not_mistaken_for_section_headers():
     assert '3.50 to 1.00' in selected
     assert 'Applies only while revolving loans' in selected
     assert '1.00 through' in selected
+
+
+def test_header_and_legal_roles_are_not_financial_dependency_roots():
+    source = document('<p>Credit Agreement among Borrower, Lenders and Administrative Agent.</p>'
+        '<p>' + 'Unrelated warranty. ' * 200 + '</p>'
+        '<p>SECTION 1.01 Definitions</p>'
+        '<p>“Borrower” means Example Corporation, an Affiliate of Person.</p>'
+        '<p>“Lenders” means every Person governed by Boilerplate.</p>'
+        '<p>“Boilerplate” means Unrelated Rate.</p>'
+        '<p>“Unrelated Rate” means a published benchmark.</p>'
+        '<p>“Debt” means aggregate principal borrowings of Borrower.</p>'
+        '<p>SECTION 7.11 Financial Covenants</p>'
+        '<p>Borrower shall maintain minimum liquidity and Debt below the maximum.</p>'
+        '<p>SECTION 8.01 Other Provisions</p>')
+    plan = plan_context(source)
+    selected = '\n'.join(readable(source, unit) for unit in plan.units)
+    assert '“Debt”' in selected and '“Borrower”' in selected
+    assert '“Boilerplate”' not in selected and '“Unrelated Rate”' not in selected

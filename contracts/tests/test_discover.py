@@ -29,7 +29,8 @@ def test_search_pagination_includes_exhibits(monkeypatch):
 
 
 def test_discovery_finds_amendment_not_in_search_and_historical_original(monkeypatch):
-    monkeypatch.setattr(discovery, 'search', lambda *a, **k: iter([]))
+    monkeypatch.setattr(discovery, 'search', lambda *a, **k: iter([{'_source': {
+        'ciks': ['0000000001'], 'adsh': 'b', 'file_date': '2024-01-01'}}]))
     monkeypatch.setattr(discovery.edgar, 'submissions', lambda cik: {
         'cik': '1', 'name': 'Borrower', 'tickers': ['BOR'], 'sic': '2000',
         'filings': {'recent': {'accessionNumber': ['b'], 'filingDate': ['2024-01-01'], 'form': ['8-K']},

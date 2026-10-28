@@ -145,10 +145,9 @@ def discover(cik: str) -> Discovery:
         except (httpx.HTTPError, RuntimeError) as error:
             output.refusals.append(Refusal(scope='company', ref=output.company.cik,
                                   reason='missing_filing', detail=f'Historical submissions unavailable: {error}'))
-    earliest = min(filings.values(), default='1994-01-01')
     for history in histories:
         for accession, filed, form in filing_rows(history):
-            if form.removesuffix('/A') in {'8-K', '10-K', '10-Q', '6-K', '20-F', '40-F'} and earliest <= filed <= date.today().isoformat():
+            if form.removesuffix('/A') in {'8-K', '10-K', '10-Q', '6-K', '20-F', '40-F'} and filed <= date.today().isoformat():
                 filings[accession] = filed
     seen = set()
     for accession, filed in sorted(filings.items(), key=lambda item: (item[1], item[0])):

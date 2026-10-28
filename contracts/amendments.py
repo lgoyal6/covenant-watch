@@ -76,6 +76,11 @@ def apply_amendments(results: list[DocumentResult]) -> tuple[list[TermNode], lis
             refusals.append(Refusal(scope='agreement', ref=agreement.url, reason='missing_filing',
                                     detail='Amendment has no verified original or restated facility.'))
             continue
+        if agreement.kind == 'amendment' and not (result.terms or result.covenants or result.removed_covenants):
+            state['blocked'] = True
+            refusals.append(Refusal(scope='agreement', ref=agreement.url, reason='ambiguous_definition',
+                                    detail='No supported amendment delta; absence of extraction does not prove unchanged financial terms.'))
+            continue
         # Any unresolved agreement or covenant can affect the in-force result.
         if result.refusals:
             state['blocked'] = True

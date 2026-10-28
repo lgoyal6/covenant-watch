@@ -1,0 +1,23 @@
+{
+ "cik": "0000000000",
+ "agreement_accession": "0000000000-00-000000",
+ "agreement_url": "",
+ "labeled_by": "",
+ "labeled_at": "",
+ "status": "template",
+ "covenants": [
+  {
+   "kind": "max_leverage",
+   "direction": "max",
+   "test_period": "ttm",
+   "thresholds": [
+    {"value": 0.0, "effective_from": "YYYY-MM-DD", "effective_to": null}
+   ],
+   "numerator_label": "",
+   "denominator_label": ""
+  }
+ ],
+ "terms": [
+  {"label": "", "op": "sum", "children_labels": [], "cap": null}
+ ]
+}

@@ -1,0 +1,228 @@
+{
+ "cik": "0001377630",
+ "agreement_accession": "0000950170-25-008998",
+ "agreement_url": "https://www.sec.gov/Archives/edgar/data/1377630/000095017025008998/ncmi-ex10.htm",
+ "labeled_by": "claude-draft (unverified; Dat must check each field against evidence)",
+ "labeled_at": "2026-10-28",
+ "status": "draft",
+ "covenants": [
+  {
+   "kind": "min_fixed_charge_coverage",
+   "direction": "min",
+   "test_period": "ttm",
+   "thresholds": [
+    {
+     "value": 1.5,
+     "effective_from": "2024-12-31",
+     "effective_to": null
+    }
+   ],
+   "numerator_label": "Cash Flow Available for Debt Service",
+   "denominator_label": "Debt Service",
+   "evidence": {
+    "covenant": {
+     "url": "https://www.sec.gov/Archives/edgar/data/1377630/000095017025008998/ncmi-ex10.htm",
+     "quote": "\"Fixed Charge Coverage Ratio\" means, as of any date of determination, determined on a consolidated basis for Borrower and its Subsidiaries, the ratio of (a) Cash Flow Available for Debt Service to (b) Debt Service."
+    },
+    "thresholds": [
+     {
+      "url": "https://www.sec.gov/Archives/edgar/data/1377630/000095017025008998/ncmi-ex10.htm",
+      "quote": "8.1 Minimum Fixed Charge Coverage Ratio. Borrower will not permit the Fixed Charge Coverage Ratio, as of the last day of each of its Fiscal Quarters (commencing with the Fiscal Quarter ending on or about December 31, 2024) for the four-Fiscal Quarter period then ended, to be less than 1.50 to 1.00."
+     }
+    ]
+   }
+  },
+  {
+   "kind": "max_leverage",
+   "direction": "max",
+   "test_period": "ttm",
+   "thresholds": [
+    {
+     "value": 2.25,
+     "effective_from": "2024-12-31",
+     "effective_to": null
+    }
+   ],
+   "numerator_label": "Funded Indebtedness",
+   "denominator_label": "EBITDA",
+   "evidence": {
+    "covenant": {
+     "url": "https://www.sec.gov/Archives/edgar/data/1377630/000095017025008998/ncmi-ex10.htm",
+     "quote": "\"Cash Flow Leverage Ratio\" means, as of any date of determination, determined on a consolidated basis for Borrower and its Subsidiaries, the ratio of (a) Funded Indebtedness as of such date to (b) EBITDA for the four Fiscal Quarter period then most recently ended (which may include such date of determination)."
+    },
+    "thresholds": [
+     {
+      "url": "https://www.sec.gov/Archives/edgar/data/1377630/000095017025008998/ncmi-ex10.htm",
+      "quote": "8.2 Maximum Cash Flow Leverage Ratio. Borrower will not permit the Cash Flow Leverage Ratio, as of the last day of each of its Fiscal Quarters (commencing with the Fiscal Quarter ending on or about December 31, 2024) for the four-Fiscal Quarter period then ended, to be greater than 2.25 to 1.00."
+     }
+    ]
+   }
+  }
+ ],
+ "terms": [
+  {
+   "label": "EBITDA",
+   "op": "sum",
+   "children_labels": [
+    "Net Income",
+    "interest expense",
+    "income taxes",
+    "depreciation and amortization",
+    "unusual or non-recurring charges, expenses or losses",
+    "non-cash charges, expenses or losses",
+    "fees, costs and expenses incurred in connection with the Loan Documents",
+    "indemnified, insured or reimbursed charges",
+    "business interruption insurance proceeds",
+    "payments to directors of parents",
+    "transaction fees and expenses",
+    "Earn-Outs and contingent consideration paid in cash",
+    "restructuring and business optimization charges",
+    "pro forma run rate cost savings",
+    "Specified Equity Contribution",
+    "litigation and settlement expenses",
+    "non-recurring or unusual income",
+    "non-cash or unusual gains",
+    "interest income"
+   ],
+   "cap": null,
+   "evidence": {
+    "url": "https://www.sec.gov/Archives/edgar/data/1377630/000095017025008998/ncmi-ex10.htm",
+    "quote": "\"EBITDA\" means, with respect to any period of determination, the total (without duplication), in Dollars, for Borrower and its Subsidiaries on a consolidated basis and as determined in accordance with GAAP consistently applied, of: (a) Net Income for such period, plus (b) in each case to the extent deducted in calculating Net Income (other than clauses (vi), (viii), (x), (xiii) and (xiv)) for such period:\n(i) interest expense;\n(ii) income taxes;\n(iii) depreciation and amortization;"
+   }
+  },
+  {
+   "label": "Specified Addbacks",
+   "op": "cap",
+   "children_labels": [
+    "unusual or non-recurring charges, expenses or losses",
+    "transaction fees and expenses",
+    "restructuring and business optimization charges",
+    "pro forma run rate cost savings"
+   ],
+   "cap": {
+    "kind": "pct_of",
+    "of": "EBITDA",
+    "pct": 0.2
+   },
+   "evidence": {
+    "url": "https://www.sec.gov/Archives/edgar/data/1377630/000095017025008998/ncmi-ex10.htm",
+    "quote": "(x) \"Specified Addbacks\" means the addbacks set forth in and covered by clauses (iv), (x), (xii) and (xiii) of this definition, and (y) \"Aggregate Cap\" means, for any period, 20% of EBITDA (calculated prior to giving effect to the Specified Addbacks)."
+   },
+   "note": "Aggregate Cap = 20% of EBITDA calculated before the Specified Addbacks (clauses (iv), (x), (xii), (xiii))."
+  },
+  {
+   "label": "transaction fees and expenses",
+   "op": "cap",
+   "children_labels": [],
+   "cap": {
+    "kind": "abs",
+    "usd": 2500000
+   },
+   "evidence": {
+    "url": "https://www.sec.gov/Archives/edgar/data/1377630/000095017025008998/ncmi-ex10.htm",
+    "quote": "(a) the amount of addbacks pursuant to this clause (x) for any transactions that are not consummated shall not exceed $2,500,000 in the aggregate during such period"
+   },
+   "note": "$2,500,000 applies only to non-consummated transactions; the clause also counts toward the 20% Aggregate Cap."
+  },
+  {
+   "label": "litigation and settlement expenses",
+   "op": "cap",
+   "children_labels": [],
+   "cap": {
+    "kind": "abs",
+    "usd": 2500000
+   },
+   "evidence": {
+    "url": "https://www.sec.gov/Archives/edgar/data/1377630/000095017025008998/ncmi-ex10.htm",
+    "quote": "(xv) litigation and settlement expenses and charges, including expenses incurred to settle or adjust claims and collect business interruption, liability or casualty insurance proceeds with respect to business interruption, liability or casualty events that are covered by insurance; provided, that the amount added back pursuant to this clause (xv) shall not exceed $2,500,000 in the aggregate during any Fiscal Year;"
+   }
+  },
+  {
+   "label": "Cash Flow Available for Debt Service",
+   "op": "subtract",
+   "children_labels": [
+    "EBITDAR",
+    "Restricted Payments"
+   ],
+   "cap": null,
+   "evidence": {
+    "url": "https://www.sec.gov/Archives/edgar/data/1377630/000095017025008998/ncmi-ex10.htm",
+    "quote": "\"Cash Flow Available for Debt Service\" means, for any period of determination, EBITDAR for such period minus all Restricted Payments (other than any Restricted Payment made pursuant to Section 7.6(m)) paid in cash, including"
+   }
+  },
+  {
+   "label": "EBITDAR",
+   "op": "sum",
+   "children_labels": [
+    "EBITDA",
+    "scheduled Capital Lease payments",
+    "aggregate rent expense"
+   ],
+   "cap": null,
+   "evidence": {
+    "url": "https://www.sec.gov/Archives/edgar/data/1377630/000095017025008998/ncmi-ex10.htm",
+    "quote": "\"EBITDAR\" means, with respect to any period of determination, the total (without duplication), in Dollars, for Borrower and its Subsidiaries on a consolidated basis and as determined in accordance with GAAP consistently applied, of: (a) EBITDA plus (b) scheduled Capital Lease payments paid or which were scheduled to be paid during such period plus (c) aggregate rent expense for such period."
+   }
+  },
+  {
+   "label": "Debt Service",
+   "op": "sum",
+   "children_labels": [
+    "scheduled principal payments of long-term Indebtedness for borrowed money",
+    "scheduled Capital Lease payments",
+    "cash portion of aggregate interest expense",
+    "cash portion of aggregate rent expense"
+   ],
+   "cap": null,
+   "evidence": {
+    "url": "https://www.sec.gov/Archives/edgar/data/1377630/000095017025008998/ncmi-ex10.htm",
+    "quote": "(a) scheduled principal payments of long-term Indebtedness for borrowed money paid or which were scheduled to be paid during such period, (b) scheduled Capital Lease payments paid or which were scheduled to be paid during such period, (c) the cash portion of aggregate interest expense for such period"
+   },
+   "note": "Quote truncated for length; clause (d) 'the cash portion of aggregate rent expense for such period' follows immediately after (c) in the definition."
+  },
+  {
+   "label": "Funded Indebtedness",
+   "op": "sum",
+   "children_labels": [
+    "Indebtedness",
+    "undrawn portion of standby letters of credit"
+   ],
+   "cap": null,
+   "evidence": {
+    "url": "https://www.sec.gov/Archives/edgar/data/1377630/000095017025008998/ncmi-ex10.htm",
+    "quote": "\"Funded Indebtedness\" means, as of any date of determination, (i) all Indebtedness of Borrower and its Subsidiaries as of such date described in clauses (a), (c), (d), and (f) of the definition of Indebtedness and (ii) the undrawn portion of standby letters of credit issued for the account of any Credit Party."
+   }
+  },
+  {
+   "label": "Net Income",
+   "op": "leaf",
+   "children_labels": [],
+   "cap": null,
+   "evidence": {
+    "url": "https://www.sec.gov/Archives/edgar/data/1377630/000095017025008998/ncmi-ex10.htm",
+    "quote": "\"Net Income\" means, with respect to any period of determination, the total net income (or\n-21-\nloss), in Dollars, for Borrower and its Subsidiaries"
+   }
+  }
+ ],
+ "amendments_considered": [
+  {
+   "accession": "0001377630-23-000124",
+   "url": "https://www.sec.gov/Archives/edgar/data/1377630/000137763023000124/loansecurityandguaranteeag.htm",
+   "filed": "2023-08-07",
+   "what_changed": "Not an amendment: prior Loan, Security and Guarantee Agreement (CIT Northbridge, 2023-08-07; ABL with springing 1.1x FCCR during a Trigger Period), terminated 2025-01-24 per the 2024 10-K. Not labeled."
+  },
+  {
+   "accession": "0001193125-26-396098",
+   "url": "https://www.sec.gov/Archives/edgar/data/1377630/000119312526396098/ncmi-ex10_1.htm",
+   "filed": "2026-09-21",
+   "what_changed": "Not an amendment: new Credit Agreement dated 2026-09-18 (Crestline). Whether it replaced the U.S. Bank facility was not checked; not labeled."
+  }
+ ],
+ "draft_notes": [
+  "No amendment to the 2025 U.S. Bank Loan and Security Agreement was found in EX-10 full-text search. 10-Qs through the period ended 2026-07-02 still describe 2.25x max leverage / 1.50x min FCCR.",
+  "First test date: the agreement says 'Fiscal Quarter ending on or about December 31, 2024'. NCM's actual fiscal Q4 2024 ended 2024-12-26, so effective_from may need to be 2024-12-26.",
+  "Agreement accession 0000950170-25-008998 is the 8-K filed 2025-01-27. The exhibit is typed 'EX-10' (ncmi-ex10.htm).",
+  "Cash Flow Available for Debt Service also adds back payments under the Management Agreement, Common Unit Adjustment Agreement and Equity Incentive Plan, and nets TRA payments against Holdings contributions. These are not modeled as children.",
+  "EBITDA clause (xiv) Specified Equity Contribution applies solely for Section 9.6 (equity cure)."
+ ]
+}

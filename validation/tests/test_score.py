@@ -39,17 +39,18 @@ def test_extraction_scoring(tmp_path):
     contracts.mkdir()
     labels.mkdir()
     (contracts / "0000000001.json").write_text((FIXTURES / "contract_example.json").read_text())
-    gold = {"cik": "1", "agreement_accession": "x", "status": "labeled",
+    gold = {"cik": "1", "agreement_accession": "0000000001-22-000010", "status": "labeled",
             "covenants": [{"kind": "max_leverage", "direction": "max", "test_period": "ttm",
                            "thresholds": [{"value": 4.5, "effective_from": "2022-03-15", "effective_to": None}, {"value": 6.0, "effective_from": "2023-01-01"}]},
                           {"kind": "min_fixed_charge_coverage", "direction": "min", "test_period": "ttm", "thresholds": []}],
             "terms": [{"label": "Consolidated EBITDA", "children_labels": ["EBITDA before addbacks", "non-cash charges", "something else"]}]}
     (labels / "a.json").write_text(json.dumps(gold))
     (labels / "b.json").write_text(json.dumps({**gold, "status": "template"}))
+    (labels / "c.json").write_text(json.dumps({**gold, "agreement_accession": "other-agreement"}))
     arts, gt = fixture_inputs()
     report, _ = build_report(arts, gt.disclosed, gt.events, gt.universe, labels_dir=labels, contracts_dir=contracts)
     ex = report.extraction
-    assert ex["agreements_labeled"] == 1
+    assert ex["agreements_labeled"] == 1 and ex["agreement_mismatch"] == 1
     assert ex["covenant_kind"] == {"precision": 0.5, "recall": 0.5, "tp": 1, "fp": 1, "fn": 1}
     assert ex["threshold_value"]["tp"] == 1 and ex["threshold_value"]["fn"] == 1
     assert ex["term_structure"]["tp"] == 2 and ex["term_structure"]["fn"] == 1

@@ -1,0 +1,390 @@
+{
+ "cik": "0000106040",
+ "agreement_accession": "0000106040-22-000040",
+ "agreement_url": "https://www.sec.gov/Archives/edgar/data/106040/000010604022000040/wdc-2022q3ex102.htm",
+ "labeled_by": "claude-draft (unverified; Dat must check each field against evidence)",
+ "labeled_at": "2026-10-28",
+ "status": "draft",
+ "covenants": [
+  {
+   "kind": "max_leverage",
+   "direction": "max",
+   "test_period": "ttm",
+   "thresholds": [
+    {
+     "value": 3.75,
+     "effective_from": "2022-01-07",
+     "effective_to": "2022-03-31"
+    },
+    {
+     "value": 3.5,
+     "effective_from": "2022-04-01",
+     "effective_to": "2022-08-31"
+    },
+    {
+     "value": 3.25,
+     "effective_from": "2022-09-01",
+     "effective_to": "2022-12-30"
+    },
+    {
+     "value": 3.75,
+     "effective_from": "2022-12-31",
+     "effective_to": "2023-03-31"
+    },
+    {
+     "value": 5.5,
+     "effective_from": "2023-04-01",
+     "effective_to": "2023-06-30"
+    },
+    {
+     "value": 6.25,
+     "effective_from": "2023-12-30",
+     "effective_to": "2024-03-29"
+    },
+    {
+     "value": 5.25,
+     "effective_from": "2024-03-30",
+     "effective_to": "2024-06-28"
+    },
+    {
+     "value": 5.0,
+     "effective_from": "2024-06-29",
+     "effective_to": "2024-09-27"
+    },
+    {
+     "value": 4.5,
+     "effective_from": "2024-09-28",
+     "effective_to": "2024-12-30"
+    },
+    {
+     "value": 4.0,
+     "effective_from": "2024-12-31",
+     "effective_to": "2025-03-31"
+    },
+    {
+     "value": 3.75,
+     "effective_from": "2025-04-01",
+     "effective_to": "2025-06-30"
+    },
+    {
+     "value": 3.25,
+     "effective_from": "2025-07-01",
+     "effective_to": null
+    }
+   ],
+   "numerator_label": "Total Funded Debt",
+   "denominator_label": "Consolidated Adjusted EBITDA",
+   "evidence": {
+    "covenant": {
+     "url": "https://www.sec.gov/Archives/edgar/data/106040/000119312525033383/d847507dex107.htm",
+     "quote": "Except as otherwise provided in Section 6.24(a)(ii), the Lead\nBorrower shall not, as of the last day of each fiscal quarter of the Lead Borrower during each of the periods specified below, permit the Leverage Ratio to be greater than:"
+    },
+    "thresholds": [
+     {
+      "url": "https://www.sec.gov/Archives/edgar/data/106040/000119312525033383/d847507dex107.htm",
+      "quote": "Amendment and Restatement Effective Date\nMarch 31, 2022\n3.75 to 1.00"
+     },
+     {
+      "url": "https://www.sec.gov/Archives/edgar/data/106040/000119312525033383/d847507dex107.htm",
+      "quote": "April 1, 2022\nAugust 31, 2022\n3.50 to 1.00"
+     },
+     {
+      "url": "https://www.sec.gov/Archives/edgar/data/106040/000119312525033383/d847507dex107.htm",
+      "quote": "September 1, 2022\nDecember 30, 2022\n3.25 to 1.00"
+     },
+     {
+      "url": "https://www.sec.gov/Archives/edgar/data/106040/000119312525033383/d847507dex107.htm",
+      "quote": "December 31, 2022\nMarch 31, 2023\n3.75 to 1.00"
+     },
+     {
+      "url": "https://www.sec.gov/Archives/edgar/data/106040/000119312525033383/d847507dex107.htm",
+      "quote": "April 1, 2023\nJune 30, 2023\n5.50 to 1.00"
+     },
+     {
+      "url": "https://www.sec.gov/Archives/edgar/data/106040/000119312525033383/d847507dex107.htm",
+      "quote": "December 30, 2023\nMarch 29, 2024\n6.25 to 1.00"
+     },
+     {
+      "url": "https://www.sec.gov/Archives/edgar/data/106040/000119312525033383/d847507dex107.htm",
+      "quote": "March 30, 2024\nJune 28, 2024\n5.25 to 1.00"
+     },
+     {
+      "url": "https://www.sec.gov/Archives/edgar/data/106040/000119312525033383/d847507dex107.htm",
+      "quote": "June 29, 2024\nSeptember 27, 2024\n5.00 to 1.00"
+     },
+     {
+      "url": "https://www.sec.gov/Archives/edgar/data/106040/000119312525033383/d847507dex107.htm",
+      "quote": "September 28, 2024\nDecember 30, 2024\n4.50 to 1.00"
+     },
+     {
+      "url": "https://www.sec.gov/Archives/edgar/data/106040/000119312525033383/d847507dex107.htm",
+      "quote": "December 31, 2024\nMarch 31, 2025\n4.00 to 1.00"
+     },
+     {
+      "url": "https://www.sec.gov/Archives/edgar/data/106040/000119312525033383/d847507dex107.htm",
+      "quote": "April 1, 2025\nJune 30, 2025\n3.75 to 1.00"
+     },
+     {
+      "url": "https://www.sec.gov/Archives/edgar/data/106040/000119312525033383/d847507dex107.htm",
+      "quote": "July 1, 2025\nAt all times thereafter\n3.25 to 1.00"
+     }
+    ],
+    "na_periods": {
+     "url": "https://www.sec.gov/Archives/edgar/data/106040/000119312525033383/d847507dex107.htm",
+     "quote": "July 1, 2023\nSeptember 29, 2023\nN/A\nSeptember 30, 2023\nDecember 29, 2023\nN/A"
+    },
+    "ratio_definition": {
+     "url": "https://www.sec.gov/Archives/edgar/data/106040/000119312525033383/d847507dex107.htm",
+     "quote": "\"Leverage Ratio\" means, as of the date of determination thereof, the ratio of Total Funded Debt of\nthe Lead Borrower and its Restricted Subsidiaries as of such date to Consolidated Adjusted EBITDA for the period of four (4) fiscal quarters then ended."
+    },
+    "original_schedule": {
+     "url": "https://www.sec.gov/Archives/edgar/data/106040/000010604022000040/wdc-2022q3ex102.htm",
+     "quote": "April 1, 2022 August 31, 2022 3.50 to 1.00\nSeptember 1, 2022 All times thereafter 3.25 to 1.00"
+    }
+   }
+  },
+  {
+   "kind": "min_liquidity",
+   "direction": "min",
+   "test_period": "point_in_time",
+   "thresholds": [
+    {
+     "value": 2000000000,
+     "effective_from": "2023-06-20",
+     "effective_to": "2024-09-27"
+    }
+   ],
+   "numerator_label": "Covenant Liquidity",
+   "denominator_label": null,
+   "evidence": {
+    "covenant": {
+     "url": "https://www.sec.gov/Archives/edgar/data/106040/000119312525033383/d847507dex107.htm",
+     "quote": "The Lead Borrower shall not permit Covenant Liquidity as of any Fiscal Quarter End Date from the Amendment No. 2 Effective Date through September 27, 2024, to be less than $2,000 million."
+    },
+    "thresholds": [
+     {
+      "url": "https://www.sec.gov/Archives/edgar/data/106040/000119312525033383/d847507dex107.htm",
+      "quote": "from the Amendment No. 2 Effective Date through September 27, 2024, to be less than $2,000 million."
+     }
+    ]
+   }
+  }
+ ],
+ "terms": [
+  {
+   "label": "Total Funded Debt",
+   "op": "sum",
+   "children_labels": [
+    "Indebtedness under clause (a)",
+    "Indebtedness under clause (c)",
+    "Indebtedness under clause (d)",
+    "Indebtedness under clause (e) (funded, unreimbursed after 2 Business Days)"
+   ],
+   "cap": null,
+   "evidence": {
+    "url": "https://www.sec.gov/Archives/edgar/data/106040/000119312525033383/d847507dex107.htm",
+    "quote": "\"Total Funded Debt\" means, at any time the same is to be determined, the aggregate amount of all Indebtedness under clauses\n(a), (c), (d) and (e) of such definition"
+   }
+  },
+  {
+   "label": "Consolidated Adjusted EBITDA",
+   "op": "sum",
+   "children_labels": [
+    "Consolidated Net Income",
+    "interest expense",
+    "provision for taxes based on income, profits or capital",
+    "depreciation and amortization",
+    "Charges related to equity offerings, investments, acquisitions, dispositions, recapitalizations or Indebtedness",
+    "Non-Cash Charges",
+    "extraordinary Charges and unusual or nonrecurring Charges",
+    "Charges attributable to cost savings initiatives, operating expense reductions and restructuring",
+    "minority interest expense",
+    "expected cost savings, operating expense reductions, restructuring charges and synergies",
+    "transaction fees reimbursable by third parties",
+    "earn-out obligations",
+    "casualty or business interruption insurance"
+   ],
+   "less_labels": [
+    "extraordinary gains and unusual or non-recurring gains",
+    "non-cash gains"
+   ],
+   "plus_or_minus_labels": [
+    "Hedging Obligations gains/losses (ASC 815 / IAS 39)",
+    "currency translation gains/losses on indebtedness",
+    "purchase accounting adjustments",
+    "ASC 460 adjustments"
+   ],
+   "cap": null,
+   "evidence": {
+    "url": "https://www.sec.gov/Archives/edgar/data/106040/000119312525033383/d847507dex107.htm",
+    "quote": "\"Consolidated Adjusted EBITDA\" means, for any\nperiod, the Consolidated Net Income for such period, plus:"
+   },
+   "evidence_more": [
+    {
+     "url": "https://www.sec.gov/Archives/edgar/data/106040/000119312525033383/d847507dex107.htm",
+     "quote": "(ii)\nprovision for taxes based on income, profits or capital"
+    },
+    {
+     "url": "https://www.sec.gov/Archives/edgar/data/106040/000119312525033383/d847507dex107.htm",
+     "quote": "(iii) depreciation and amortization, including amortization of intangible assets"
+    },
+    {
+     "url": "https://www.sec.gov/Archives/edgar/data/106040/000119312525033383/d847507dex107.htm",
+     "quote": "(v) Non-Cash Charges,"
+    },
+    {
+     "url": "https://www.sec.gov/Archives/edgar/data/106040/000119312525033383/d847507dex107.htm",
+     "quote": "(vi) (A) extraordinary Charges and"
+    },
+    {
+     "url": "https://www.sec.gov/Archives/edgar/data/106040/000119312525033383/d847507dex107.htm",
+     "quote": "(ix) the amount of any minority interest expense"
+    },
+    {
+     "url": "https://www.sec.gov/Archives/edgar/data/106040/000119312525033383/d847507dex107.htm",
+     "quote": "(xiv) earn-out obligations incurred in connection with any"
+    },
+    {
+     "url": "https://www.sec.gov/Archives/edgar/data/106040/000119312525033383/d847507dex107.htm",
+     "quote": "(xv) casualty or\nbusiness interruption insurance"
+    },
+    {
+     "url": "https://www.sec.gov/Archives/edgar/data/106040/000119312525033383/d847507dex107.htm",
+     "quote": "(i) extraordinary gains and unusual or\nnon-recurring gains, and"
+    },
+    {
+     "url": "https://www.sec.gov/Archives/edgar/data/106040/000119312525033383/d847507dex107.htm",
+     "quote": "for the fiscal quarters ending March 29, 2024, June 28, 2024 and September 27, 2024, Consolidated Adjusted EBITDA shall\nbe determined in accordance with the definition of \"Annualized EBITDA\"."
+    }
+   ]
+  },
+  {
+   "label": "Charges attributable to cost savings initiatives, operating expense reductions and restructuring",
+   "op": "cap",
+   "children_labels": [],
+   "cap": {
+    "kind": "pct_of",
+    "of": "Consolidated Adjusted EBITDA",
+    "pct": 0.15
+   },
+   "cap_alt": {
+    "kind": "abs",
+    "usd": 500000000,
+    "combine": "greater_of",
+    "shared_with": [
+     "expected cost savings, operating expense reductions, restructuring charges and synergies",
+     "Pro Forma Adjustment"
+    ]
+   },
+   "evidence": {
+    "url": "https://www.sec.gov/Archives/edgar/data/106040/000119312525033383/d847507dex107.htm",
+    "quote": "provided that amounts added back pursuant to this clause (viii), together with any amounts added back pursuant to clause (xii) below and the amount of any Pro Forma Adjustment to Consolidated Adjusted EBITDA for such\nperiod, shall not exceed the greater of $500 million and 15% of Consolidated Adjusted EBITDA for such period (calculated prior to giving effect to any such add-back)"
+   }
+  },
+  {
+   "label": "expected cost savings, operating expense reductions, restructuring charges and synergies",
+   "op": "cap",
+   "children_labels": [],
+   "cap": {
+    "kind": "pct_of",
+    "of": "Consolidated Adjusted EBITDA",
+    "pct": 0.15
+   },
+   "cap_alt": {
+    "kind": "abs",
+    "usd": 500000000,
+    "combine": "greater_of",
+    "shared_with": [
+     "Charges attributable to cost savings initiatives, operating expense reductions and restructuring",
+     "Pro Forma Adjustment"
+    ]
+   },
+   "evidence": {
+    "url": "https://www.sec.gov/Archives/edgar/data/106040/000119312525033383/d847507dex107.htm",
+    "quote": "provided\nthat amounts added back pursuant to this clause (xii), together with any amounts added back pursuant to clause (viii) above and the amount of any Pro Forma Adjustment to Consolidated Adjusted EBITDA for such period, shall not exceed the\ngreater of $500 million and 15% of Consolidated Adjusted EBITDA for such period (calculated prior to giving effect to any such add-back)"
+   }
+  },
+  {
+   "label": "Consolidated Net Income",
+   "op": "leaf",
+   "children_labels": [],
+   "cap": null,
+   "note": "GAAP net income of Lead Borrower and Restricted Subsidiaries with exclusions (a)-(i) (accounting changes, equity-method income except cash received, dispositions, early extinguishment, etc.).",
+   "evidence": {
+    "url": "https://www.sec.gov/Archives/edgar/data/106040/000119312525033383/d847507dex107.htm",
+    "quote": "\"Consolidated Net Income\" means, for\nany period, the net income (loss) attributable to the Lead Borrower and its Restricted Subsidiaries for such period determined on a consolidated basis in accordance with GAAP, excluding, without duplication"
+   }
+  },
+  {
+   "label": "Covenant Liquidity",
+   "op": "sum",
+   "children_labels": [
+    "cash and Cash Equivalents (excluding restricted)",
+    "availability under the Revolving Facility"
+   ],
+   "less_labels": [
+    "Indebtedness under clause (a) maturing within 12 months (excluding 364 Day Credit Agreement term loans and the Western Digital Receivables Facility)"
+   ],
+   "cap": null,
+   "evidence": {
+    "url": "https://www.sec.gov/Archives/edgar/data/106040/000119312525033383/d847507dex107.htm",
+    "quote": "\"Covenant Liquidity\" means the aggregate amount of cash and Cash Equivalents of the Lead Borrower and its Restricted\nSubsidiaries, excluding cash and Cash Equivalents which are listed as \"restricted\" on the consolidated balance sheet of the Lead Borrower, plus availability under the Revolving Facility"
+   },
+   "evidence_more": [
+    {
+     "url": "https://www.sec.gov/Archives/edgar/data/106040/000119312525033383/d847507dex107.htm",
+     "quote": "less the aggregate principal amount of\nIndebtedness incurred pursuant to clause (a) of the definition thereof (but excluding any intercompany Indebtedness) of the Lead Borrower and its Restricted Subsidiaries that matures within 12 months"
+    }
+   ]
+  }
+ ],
+ "amendments_considered": [
+  {
+   "accession": "0001193125-22-311796",
+   "url": "https://www.sec.gov/Archives/edgar/data/106040/000119312522311796/d438737dex101.htm",
+   "filed": "2022-12-23",
+   "what_changed": "Amendment No. 1 (Dec 23, 2022; full A&R Annex A): leverage schedule raised (3.75 to 3/31/2023, 4.75, 5.00, 4.75, 4.50, 4.25, 3.75, then 3.25 from 9/28/2024)."
+  },
+  {
+   "accession": "0001193125-23-171211",
+   "url": "https://www.sec.gov/Archives/edgar/data/106040/000119312523171211/d447413dex101.htm",
+   "filed": "2023-06-21",
+   "what_changed": "Amendment No. 2 (Jun 20, 2023; full A&R Annex A): leverage 5.50 to 6/30/2023, N/A for two quarters, 6.25 stepping to 3.25 from 7/1/2025; added Minimum Covenant Liquidity $2,000M through 9/27/2024 and minimum Free Cash Flow through 12/29/2023; Annualized EBITDA for three 2024 quarters."
+  },
+  {
+   "accession": "0000106040-24-000031",
+   "url": "https://www.sec.gov/Archives/edgar/data/106040/000010604024000031/wdc-2024q4ex10163.htm",
+   "filed": "2024-08-20",
+   "what_changed": "Amendment No. 3 (Jun 11, 2024): Excluded Property / Great Oaks sale-leaseback only; no covenant change."
+  },
+  {
+   "accession": "0001193125-25-033383",
+   "url": "https://www.sec.gov/Archives/edgar/data/106040/000119312525033383/d847507dex107.htm",
+   "filed": "2025-02-24",
+   "what_changed": "Amendment No. 4 (Feb 20, 2025; conformed agreement): Term A-3 loans; Section 6.24 schedule unchanged; Total Funded Debt drops the 2024 Convertible Notes Early Refinancing proviso."
+  },
+  {
+   "accession": "0000106040-25-000038",
+   "url": "https://www.sec.gov/Archives/edgar/data/106040/000010604025000038/exhibit1015westerndigital-.htm",
+   "filed": "2025-08-14",
+   "what_changed": "Amendment No. 5 (May 21, 2025): 'Open Market Purchase' wording only; no covenant change."
+  },
+  {
+   "accession": "0001628280-26-029054",
+   "url": "https://www.sec.gov/Archives/edgar/data/106040/000162828026029054/westerndigital-amendmentno.htm",
+   "filed": "2026-05-01",
+   "what_changed": "Amendment No. 6 (Feb 5, 2026): notes naming and debt basket (ll); no covenant change."
+  }
+ ],
+ "draft_notes": [
+  "Leverage thresholds use the contract's period start/end dates as written (WDC fiscal quarters end on Fridays, e.g. 2024-03-29), not test dates. The latest table (Amendment No. 2, carried into Amendment No. 4) restates the full history; evidence quotes are from the Amendment No. 4 conformed agreement.",
+  "First row starts at the 'Amendment and Restatement Effective Date'; recorded as 2022-01-07 (Restatement Agreement date), not separately verified.",
+  "Leverage covenant is N/A for 2023-07-01 to 2023-12-29 (two quarters): no threshold entries for that gap.",
+  "Section 6.24(a)(ii): after a Leverage Ratio Covenant Notice the max becomes 3.25x (optional election; ignored). Qualified Acquisition step-up ignored.",
+  "Consolidated Adjusted EBITDA is replaced by 'Annualized EBITDA' for the leverage test at FQs ending 2024-03-29, 2024-06-28, 2024-09-27; Annualized EBITDA not labeled.",
+  "Min liquidity effective_from = Amendment No. 2 Effective Date, assumed 2023-06-20 (amendment date). Test is at each Fiscal Quarter End Date.",
+  "Minimum Free Cash Flow covenant (Section 6.24(d): $(550.0)M Apr 1-Jun 30 2023, $(500.0)M Jul 1-Sep 29 2023, $(500.0)M Sep 30-Dec 29 2023) intentionally NOT labeled: the Free Cash Flow definition does not state its measurement period, so test_period would be a guess.",
+  "The (viii)+(xii)+Pro Forma Adjustment add-back cap is 'greater of $500 million and 15% of Consolidated Adjusted EBITDA' and is shared across both items; modeled as cap pct_of 0.15 plus cap_alt abs $500M (greater_of).",
+  "Total Funded Debt children reference clauses of 'Indebtedness' not expanded here."
+ ]
+}

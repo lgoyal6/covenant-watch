@@ -1,0 +1,331 @@
+{
+ "cik": "0001070750",
+ "agreement_accession": "0000950170-23-000254",
+ "agreement_url": "https://www.sec.gov/Archives/edgar/data/1070750/000095017023000254/hst-ex10_1.htm",
+ "labeled_by": "claude-draft (unverified; Dat must check each field against evidence)",
+ "labeled_at": "2026-10-28",
+ "status": "draft",
+ "covenants": [
+  {
+   "kind": "max_leverage",
+   "direction": "max",
+   "test_period": "ttm",
+   "thresholds": [
+    {
+     "value": 7.25,
+     "effective_from": "2023-03-31",
+     "effective_to": null
+    }
+   ],
+   "numerator_label": "Consolidated Total Debt",
+   "denominator_label": "Consolidated EBITDA",
+   "evidence": {
+    "covenant": {
+     "url": "https://www.sec.gov/Archives/edgar/data/1070750/000095017023000254/hst-ex10_1.htm",
+     "quote": "7.15. Maximum Leverage Ratio. So long as there exists any Outstanding Amounts, the Company will not permit the Leverage Ratio at any time to exceed 7.25:1.00."
+    },
+    "thresholds": [
+     {
+      "url": "https://www.sec.gov/Archives/edgar/data/1070750/000095017023000254/hst-ex10_1.htm",
+      "quote": "7.15. Maximum Leverage Ratio. So long as there exists any Outstanding Amounts, the Company will not permit the Leverage Ratio at any time to exceed 7.25:1.00."
+     }
+    ],
+    "ratio_definition": {
+     "url": "https://www.sec.gov/Archives/edgar/data/1070750/000095017023000254/hst-ex10_1.htm",
+     "quote": "\"Leverage Ratio\" means, at any time, the ratio of (a) Consolidated Total Debt at such time to (b) Consolidated EBITDA for the Test Period then last ended"
+    },
+    "test_period": {
+     "url": "https://www.sec.gov/Archives/edgar/data/1070750/000095017023000254/hst-ex10_1.htm",
+     "quote": "\"Test Period\" means each period of four consecutive fiscal quarters of the Company then last ended"
+    },
+    "springing_note": {
+     "url": "https://www.sec.gov/Archives/edgar/data/1070750/000095017023000254/hst-ex10_1.htm",
+     "quote": "the Company and Loan Parties are not required to comply with\n170\nthe Financial Covenants set forth in clause (a) of the definition thereof, when there are no Outstanding Amounts"
+    }
+   }
+  },
+  {
+   "kind": "min_interest_coverage",
+   "direction": "min",
+   "test_period": "ttm",
+   "thresholds": [
+    {
+     "value": 1.75,
+     "effective_from": "2023-03-31",
+     "effective_to": null,
+     "condition": "Leverage Ratio < 7.00:1.00"
+    }
+   ],
+   "alt_thresholds": [
+    {
+     "value": 1.5,
+     "effective_from": "2023-03-31",
+     "effective_to": null,
+     "condition": "Leverage Ratio >= 7.00:1.00"
+    }
+   ],
+   "numerator_label": "Unencumbered Consolidated EBITDA",
+   "denominator_label": "Unsecured Consolidated Interest Expense",
+   "evidence": {
+    "covenant": {
+     "url": "https://www.sec.gov/Archives/edgar/data/1070750/000095017023000254/hst-ex10_1.htm",
+     "quote": "7.16. Minimum Unsecured Interest Coverage Ratio. So long as there exists any Outstanding Amounts, the Company will not permit the Unsecured Interest Coverage Ratio for any Test Period to be less than (a) 1.75:1.00, if the Leverage Ratio as of such date is less than 7.00:1.00 and (b) 1.50:1.00, if the Leverage Ratio as of such date is equal to or greater than 7.00:1.00."
+    },
+    "thresholds": [
+     {
+      "url": "https://www.sec.gov/Archives/edgar/data/1070750/000095017023000254/hst-ex10_1.htm",
+      "quote": "(a) 1.75:1.00, if the Leverage Ratio as of such date is less than 7.00:1.00"
+     }
+    ],
+    "alt_thresholds": [
+     {
+      "url": "https://www.sec.gov/Archives/edgar/data/1070750/000095017023000254/hst-ex10_1.htm",
+      "quote": "(b) 1.50:1.00, if the Leverage Ratio as of such date is equal to or greater than 7.00:1.00."
+     }
+    ],
+    "ratio_definition": {
+     "url": "https://www.sec.gov/Archives/edgar/data/1070750/000095017023000254/hst-ex10_1.htm",
+     "quote": "\"Unsecured Interest Coverage Ratio\" means, for any period, the ratio of (a) Unencumbered Consolidated EBITDA for such period to (b) Unsecured Consolidated Interest Expense for such period."
+    }
+   }
+  },
+  {
+   "kind": "min_fixed_charge_coverage",
+   "direction": "min",
+   "test_period": "ttm",
+   "thresholds": [
+    {
+     "value": 1.25,
+     "effective_from": "2023-03-31",
+     "effective_to": null
+    }
+   ],
+   "numerator_label": "Consolidated EBITDA",
+   "denominator_label": "Consolidated Fixed Charges",
+   "evidence": {
+    "covenant": {
+     "url": "https://www.sec.gov/Archives/edgar/data/1070750/000095017023000254/hst-ex10_1.htm",
+     "quote": "7.17. Minimum Fixed Charge Coverage Ratio. So long as there exists any Outstanding Amounts, the Company will not permit the Consolidated Fixed Charge Coverage Ratio for any Test Period to be less than 1.25:1.00."
+    },
+    "thresholds": [
+     {
+      "url": "https://www.sec.gov/Archives/edgar/data/1070750/000095017023000254/hst-ex10_1.htm",
+      "quote": "7.17. Minimum Fixed Charge Coverage Ratio. So long as there exists any Outstanding Amounts, the Company will not permit the Consolidated Fixed Charge Coverage Ratio for any Test Period to be less than 1.25:1.00."
+     }
+    ],
+    "ratio_definition": {
+     "url": "https://www.sec.gov/Archives/edgar/data/1070750/000095017023000254/hst-ex10_1.htm",
+     "quote": "\"Consolidated Fixed Charge Coverage Ratio\" means, for any period, the ratio of (a) Consolidated EBITDA for such period, less the sum for such period of (i) 5% of Gross Revenues received from Hotel Properties and (ii) 3% of Gross Revenues received from all other real estate to (b) Consolidated Fixed Charges for such period."
+    }
+   }
+  },
+  {
+   "kind": "other",
+   "direction": "min",
+   "test_period": "point_in_time",
+   "thresholds": [
+    {
+     "value": 1.5,
+     "effective_from": "2023-01-04",
+     "effective_to": null
+    }
+   ],
+   "numerator_label": "Total Unencumbered Assets",
+   "denominator_label": "Unsecured Indebtedness",
+   "evidence": {
+    "covenant": {
+     "url": "https://www.sec.gov/Archives/edgar/data/1070750/000095017023000254/hst-ex10_1.htm",
+     "quote": "(b) Unencumbered Assets. The Company will maintain at all times Total Unencumbered Assets of not less than 150% of the aggregate outstanding amount of the Unsecured Indebtedness"
+    },
+    "thresholds": [
+     {
+      "url": "https://www.sec.gov/Archives/edgar/data/1070750/000095017023000254/hst-ex10_1.htm",
+      "quote": "Total Unencumbered Assets of not less than 150% of the aggregate outstanding amount of the Unsecured Indebtedness"
+     }
+    ],
+    "definitions_source": {
+     "url": "https://www.sec.gov/Archives/edgar/data/1070750/000095017023000254/hst-ex10_1.htm",
+     "quote": "all capitalized terms used in this Section 7.18 that are defined in the Governing Senior Note Indenture shall have the meanings given to them in the Governing Senior Note Indenture"
+    }
+   }
+  }
+ ],
+ "terms": [
+  {
+   "label": "Consolidated Total Debt",
+   "op": "subtract",
+   "children_labels": [
+    "Indebtedness of the Company and its Subsidiaries (GAAP balance sheet liabilities)",
+    "guarantees of third party debt, letters of credit supporting third party debt and secured obligations in favor of hotel managers",
+    "unrestricted cash on hand in excess of $100,000,000",
+    "Indebtedness subject to an irrevocable prepayment notice (due within 30 days, cash reserved)"
+   ],
+   "note": "first two children added, last two subtracted; result floored at zero ('difference, if positive')",
+   "cap": null,
+   "evidence": {
+    "url": "https://www.sec.gov/Archives/edgar/data/1070750/000095017023000254/hst-ex10_1.htm",
+    "quote": "\"Consolidated Total Debt\" means, at any time, the difference, if positive, of (a) the sum of (without duplication) (i) the amount of all Indebtedness of the Company and its Subsidiaries"
+   },
+   "evidence_more": [
+    {
+     "url": "https://www.sec.gov/Archives/edgar/data/1070750/000095017023000254/hst-ex10_1.htm",
+     "quote": "(ii) guarantees of third party debt, letters of credit issued to support third party debt and secured obligations in favor of hotel managers"
+    },
+    {
+     "url": "https://www.sec.gov/Archives/edgar/data/1070750/000095017023000254/hst-ex10_1.htm",
+     "quote": "less (b) the sum of (i) unrestricted cash on hand (excluding any amounts of cash on hand that have been designated by the Company for application to prepay Indebtedness described in clause (b)(ii)) in excess of $100,000,000 plus (ii) any Indebtedness outstanding on the date of determination in respect of which an irrevocable prepayment notice has been delivered"
+    }
+   ]
+  },
+  {
+   "label": "Consolidated EBITDA",
+   "op": "sum",
+   "children_labels": [
+    "Consolidated Net Income",
+    "Consolidated Interest Expense",
+    "provisions for taxes based on income",
+    "amortization of debt discount and deferred financing costs",
+    "gains and losses from sales or other dispositions of depreciable property and other investments",
+    "property depreciation and amortization expense, including any impairment charges",
+    "the effect of any noncash items",
+    "amortization of deferred charges",
+    "break-up fees and lost deposits on acquisitions not pursued"
+   ],
+   "cap": null,
+   "evidence": {
+    "url": "https://www.sec.gov/Archives/edgar/data/1070750/000095017023000254/hst-ex10_1.htm",
+    "quote": "\"Consolidated EBITDA\" means, for any Person and for any period on a Pro Forma Basis, the Consolidated Net Income of such Person for such period, plus amounts which have been deducted and minus amounts which have been added for"
+   },
+   "evidence_more": [
+    {
+     "url": "https://www.sec.gov/Archives/edgar/data/1070750/000095017023000254/hst-ex10_1.htm",
+     "quote": "(1) Consolidated Interest Expense on Indebtedness, (2) provisions for taxes based on income, (3) amortization of debt discount and deferred financing costs, (4) gains and losses from sales or other dispositions of depreciable property and other investments"
+    },
+    {
+     "url": "https://www.sec.gov/Archives/edgar/data/1070750/000095017023000254/hst-ex10_1.htm",
+     "quote": "(5) property depreciation and amortization expense, including any impairment charges, (6) the effect of any noncash items, (7) amortization of deferred charges and (8) any break-up fees and lost deposits"
+    }
+   ]
+  },
+  {
+   "label": "Consolidated Net Income",
+   "op": "leaf",
+   "children_labels": [],
+   "cap": null,
+   "note": "net income excluding extraordinary/non-recurring gains or losses and certain non-controlling interest amounts",
+   "evidence": {
+    "url": "https://www.sec.gov/Archives/edgar/data/1070750/000095017023000254/hst-ex10_1.htm",
+    "quote": "\"Consolidated Net Income\" means, with respect to any Person for any period, the amount of net income, or loss, for such Person and its Subsidiaries for such period, excluding"
+   }
+  },
+  {
+   "label": "Consolidated Interest Expense",
+   "op": "sum",
+   "children_labels": [
+    "interest expense of the Company and its Subsidiaries",
+    "amortization of debt discount",
+    "accrued interest",
+    "capitalized interest",
+    "interest component of Capitalized Lease Obligations"
+   ],
+   "less_labels": [
+    "interest income",
+    "net amounts under Interest Rate Protection Agreements"
+   ],
+   "cap": null,
+   "evidence": {
+    "url": "https://www.sec.gov/Archives/edgar/data/1070750/000095017023000254/hst-ex10_1.htm",
+    "quote": "\"Consolidated Interest Expense\" means, for any period on a Pro Forma Basis, the Company's interest expense and the interest expense of its Subsidiaries, including, without duplication, (a) all amortization of debt discount"
+   },
+   "evidence_more": [
+    {
+     "url": "https://www.sec.gov/Archives/edgar/data/1070750/000095017023000254/hst-ex10_1.htm",
+     "quote": "(b) all accrued interest, (c) all capitalized interest (other than capitalized interest funded under a construction loan interest reserve account) and (d) the interest component of Capitalized Lease Obligations"
+    },
+    {
+     "url": "https://www.sec.gov/Archives/edgar/data/1070750/000095017023000254/hst-ex10_1.htm",
+     "quote": "net of all interest income and (ii) net of amounts paid or payable and/or received or receivable by the Company and its Subsidiaries under Interest Rate Protection Agreements"
+    }
+   ]
+  },
+  {
+   "label": "Unencumbered Consolidated EBITDA",
+   "op": "sum",
+   "children_labels": [
+    "Consolidated EBITDA"
+   ],
+   "cap": null,
+   "note": "portion of Consolidated EBITDA from assets that do not secure borrowed-money debt and are not owned by Subsidiaries with Subsidiary Indebtedness",
+   "evidence": {
+    "url": "https://www.sec.gov/Archives/edgar/data/1070750/000095017023000254/hst-ex10_1.htm",
+    "quote": "\"Unencumbered Consolidated EBITDA\" means, for any period, that portion of Consolidated EBITDA for such period attributable to those assets which"
+   }
+  },
+  {
+   "label": "Unsecured Consolidated Interest Expense",
+   "op": "sum",
+   "children_labels": [
+    "Consolidated Interest Expense"
+   ],
+   "cap": null,
+   "note": "portion of Consolidated Interest Expense on debt that is neither Secured Indebtedness nor Subsidiary Indebtedness",
+   "evidence": {
+    "url": "https://www.sec.gov/Archives/edgar/data/1070750/000095017023000254/hst-ex10_1.htm",
+    "quote": "\"Unsecured Consolidated Interest Expense\" means, for any period, that portion of Consolidated Interest Expense attributable to Indebtedness that is neither Secured Indebtedness nor Subsidiary Indebtedness."
+   }
+  },
+  {
+   "label": "Consolidated Fixed Charge Coverage Ratio",
+   "op": "ratio",
+   "children_labels": [
+    "Consolidated EBITDA",
+    "5% of Gross Revenues from Hotel Properties",
+    "3% of Gross Revenues from all other real estate",
+    "Consolidated Fixed Charges"
+   ],
+   "cap": null,
+   "note": "numerator = Consolidated EBITDA less 5%/3% Gross Revenues reserves; denominator = Consolidated Fixed Charges",
+   "evidence": {
+    "url": "https://www.sec.gov/Archives/edgar/data/1070750/000095017023000254/hst-ex10_1.htm",
+    "quote": "\"Consolidated Fixed Charge Coverage Ratio\" means, for any period, the ratio of (a) Consolidated EBITDA for such period, less the sum for such period of (i) 5% of Gross Revenues received from Hotel Properties and (ii) 3% of Gross Revenues received from all other real estate to (b) Consolidated Fixed Charges for such period."
+   }
+  },
+  {
+   "label": "Consolidated Fixed Charges",
+   "op": "sum",
+   "children_labels": [
+    "Consolidated Interest Expense",
+    "preferred stock dividends accrued and/or paid in cash",
+    "scheduled amortization payments (other than balloon payments)",
+    "cash taxes on ordinary income"
+   ],
+   "cap": null,
+   "evidence": {
+    "url": "https://www.sec.gov/Archives/edgar/data/1070750/000095017023000254/hst-ex10_1.htm",
+    "quote": "\"Consolidated Fixed Charges\" means, for any period, on a Pro Forma Basis, the sum of (a) Consolidated Interest Expense for such period, (b) preferred stock dividends (or the equivalent thereof) accrued and/or paid in cash (to the extent not accrued during a prior period) by the Company during such period, (c) scheduled amortization payments (other than balloon payments) during such period and (d) cash taxes on ordinary income for such period."
+   }
+  }
+ ],
+ "amendments_considered": [
+  {
+   "accession": "0001070750-24-000167",
+   "url": "https://www.sec.gov/Archives/edgar/data/1070750/000107075024000167/hst-10qxexx1016.htm",
+   "filed": "2024-08-02",
+   "what_changed": "First Amendment (Jun 28, 2024; redline conformed copy): CDOR replaced by Term CORRA; Sections 7.15-7.17 and covenant definitions unchanged."
+  },
+  {
+   "accession": "0001070750-25-000168",
+   "url": "https://www.sec.gov/Archives/edgar/data/1070750/000107075025000168/hst-10qxexx1017.htm",
+   "filed": "2025-11-07",
+   "what_changed": "Second Amendment (Sep 15, 2025; redline conformed copy): Sections 7.15-7.17 text and covenant definitions unchanged."
+  }
+ ],
+ "draft_notes": [
+  "Financial Covenants (7.15-7.17) apply only 'So long as there exists any Outstanding Amounts' (springing on usage); Section 8.01(b) confirms no compliance needed with no Outstanding Amounts. Recorded as maintenance covenants.",
+  "Leverage test is 'at any time' but the ratio uses Consolidated EBITDA for the Test Period then last ended -> test_period ttm. effective_from 2023-03-31 assumed = first quarter-end after the Jan 4, 2023 agreement.",
+  "Unsecured Interest Coverage has a leverage-dependent level: 1.75x if Leverage Ratio < 7.00x, 1.50x if >= 7.00x. Base recorded as 1.75 with 'condition'; 1.50 in 'alt_thresholds'.",
+  "FCCR numerator is Consolidated EBITDA LESS 5% of Hotel Property Gross Revenues and 3% of other real estate Gross Revenues; numerator_label set to 'Consolidated EBITDA' and the reserve deduction recorded on the ratio term.",
+  "Section 7.18(b) Unencumbered Assets test (>=150% of Unsecured Indebtedness, at all times) labeled as kind 'other'; its terms are defined in the Governing Senior Note Indenture (not this exhibit), so no terms[] entries for it. Verifier may prefer to drop it.",
+  "Seventh Amended and Restated Credit Agreement dated October 21, 2026 (accession 0001070750-26-000150) supersedes this one; not reviewed."
+ ]
+}

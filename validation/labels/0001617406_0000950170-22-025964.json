@@ -1,0 +1,446 @@
+{
+ "cik": "0001617406",
+ "agreement_accession": "0000950170-22-025964",
+ "agreement_url": "https://www.sec.gov/Archives/edgar/data/1617406/000095017022025964/pk-ex10_1.htm",
+ "labeled_by": "claude-draft (unverified; Dat must check each field against evidence)",
+ "labeled_at": "2026-10-28",
+ "status": "draft",
+ "agreement_title": "Amended and Restated Credit Agreement dated as of December 1, 2022 (Park Intermediate Holdings LLC / Park Hotels & Resorts Inc.; Wells Fargo Bank, N.A., Administrative Agent), as amended May 16, 2024",
+ "covenants": [
+  {
+   "kind": "max_leverage",
+   "direction": "max",
+   "test_period": "ttm",
+   "thresholds": [
+    {
+     "value": 8.0,
+     "effective_from": "2022-12-31",
+     "effective_to": "2023-06-30"
+    },
+    {
+     "value": 7.75,
+     "effective_from": "2023-09-30",
+     "effective_to": "2023-12-31"
+    },
+    {
+     "value": 7.5,
+     "effective_from": "2024-03-31",
+     "effective_to": "2024-03-31"
+    },
+    {
+     "value": 7.25,
+     "effective_from": "2024-06-30",
+     "effective_to": null
+    }
+   ],
+   "numerator_label": "Indebtedness",
+   "denominator_label": "Consolidated EBITDA",
+   "ratio_label": "Leverage Ratio",
+   "evidence": {
+    "covenant": {
+     "url": "https://www.sec.gov/Archives/edgar/data/1617406/000095017022025964/pk-ex10_1.htm",
+     "quote": "(a) Leverage Ratio. The Company shall not permit the Leverage Ratio to exceed"
+    },
+    "thresholds": [
+     {
+      "url": "https://www.sec.gov/Archives/edgar/data/1617406/000095017022025964/pk-ex10_1.htm",
+      "quote": "(i) 8.00 to 1.00 as at the end of the Test Periods ending December 31, 2022, March 31, 2023 and June 30, 2023"
+     },
+     {
+      "url": "https://www.sec.gov/Archives/edgar/data/1617406/000095017022025964/pk-ex10_1.htm",
+      "quote": "(ii) 7.75 to 1.00 as at the end of the Test Periods ending September 30, 2023 and December 31, 2023"
+     },
+     {
+      "url": "https://www.sec.gov/Archives/edgar/data/1617406/000095017022025964/pk-ex10_1.htm",
+      "quote": "(iii) 7.50 to 1.00 as at the end of the Test Period ending March 31, 2024"
+     },
+     {
+      "url": "https://www.sec.gov/Archives/edgar/data/1617406/000095017022025964/pk-ex10_1.htm",
+      "quote": "(iv) 7.25 to 1.00 as at the end of each subsequent fiscal quarter thereafter"
+     }
+    ],
+    "test_period": {
+     "url": "https://www.sec.gov/Archives/edgar/data/1617406/000095017022025964/pk-ex10_1.htm",
+     "quote": "\"Test Period\" means, as of any date of determination"
+    }
+   }
+  },
+  {
+   "kind": "min_fixed_charge_coverage",
+   "direction": "min",
+   "test_period": "ttm",
+   "thresholds": [
+    {
+     "value": 1.5,
+     "effective_from": "2022-12-31",
+     "effective_to": null
+    }
+   ],
+   "numerator_label": "Consolidated Reserve Adjusted EBITDA",
+   "denominator_label": "Consolidated Fixed Charges",
+   "ratio_label": "Fixed Charge Coverage Ratio",
+   "evidence": {
+    "covenant": {
+     "url": "https://www.sec.gov/Archives/edgar/data/1617406/000095017022025964/pk-ex10_1.htm",
+     "quote": "(b) Ratio of Consolidated Reserve Adjusted EBITDA to Consolidated Fixed Charges. The Company shall not permit the ratio (the \"Fixed Charge Coverage Ratio\") of Consolidated Reserve Adjusted EBITDA of the Parent as at the end of the most recent Test Period to Consolidated Fixed Charges of the Parent for such period to be less than 1.50 to 1.00"
+    },
+    "thresholds": [
+     {
+      "url": "https://www.sec.gov/Archives/edgar/data/1617406/000095017022025964/pk-ex10_1.htm",
+      "quote": "Consolidated Fixed Charges of the Parent for such period to be less than 1.50 to 1.00"
+     }
+    ]
+   }
+  },
+  {
+   "kind": "max_senior_leverage",
+   "direction": "max",
+   "test_period": "point_in_time",
+   "thresholds": [
+    {
+     "value": 0.45,
+     "effective_from": "2022-12-31",
+     "effective_to": null
+    }
+   ],
+   "numerator_label": "Secured Indebtedness",
+   "denominator_label": "Total Asset Value",
+   "ratio_label": "Secured Leverage Ratio",
+   "evidence": {
+    "covenant": {
+     "url": "https://www.sec.gov/Archives/edgar/data/1617406/000095017022025964/pk-ex10_1.htm",
+     "quote": "(c) Ratio of Secured Indebtedness to Total Asset Value. The Company shall not permit the ratio (the \"Secured Leverage Ratio\") of (i) Secured Indebtedness of the Parent to (ii) Total Asset Value to exceed 0.45 to 1.00 as at the end of the most recent Test Period"
+    },
+    "thresholds": [
+     {
+      "url": "https://www.sec.gov/Archives/edgar/data/1617406/000095017022025964/pk-ex10_1.htm",
+      "quote": "Total Asset Value to exceed 0.45 to 1.00 as at the end of the most recent Test Period"
+     }
+    ]
+   }
+  },
+  {
+   "kind": "other",
+   "direction": "max",
+   "test_period": "point_in_time",
+   "thresholds": [
+    {
+     "value": 0.6,
+     "effective_from": "2022-12-31",
+     "effective_to": null
+    }
+   ],
+   "numerator_label": "Unsecured Indebtedness",
+   "denominator_label": "Unencumbered Asset Value",
+   "ratio_label": "Unencumbered Leverage Ratio",
+   "evidence": {
+    "covenant": {
+     "url": "https://www.sec.gov/Archives/edgar/data/1617406/000095017022025964/pk-ex10_1.htm",
+     "quote": "(d) Maximum Unencumbered Leverage Ratio. The Company shall not permit the ratio (the \"Unencumbered Leverage Ratio\") of (i) (x) Unsecured Indebtedness of the Parent minus (y) Unrestricted Cash and Cash Equivalents of the Company and its Subsidiaries in excess of $50,000,000, to (ii) Unencumbered Asset Value to exceed 0.60 to 1.00 as at the end of the most recent Test Period"
+    },
+    "thresholds": [
+     {
+      "url": "https://www.sec.gov/Archives/edgar/data/1617406/000095017022025964/pk-ex10_1.htm",
+      "quote": "to (ii) Unencumbered Asset Value to exceed 0.60 to 1.00 as at the end of the most recent Test Period"
+     }
+    ],
+    "elective_increase_not_in_schedule": {
+     "url": "https://www.sec.gov/Archives/edgar/data/1617406/000095017022025964/pk-ex10_1.htm",
+     "quote": "that the Unencumbered Leverage Ratio may exceed 0.60 to 1.00 but shall in no event exceed 0.65 to 1.00 for such fiscal quarter and the next three succeeding fiscal quarters"
+    }
+   }
+  },
+  {
+   "kind": "min_interest_coverage",
+   "direction": "min",
+   "test_period": "ttm",
+   "thresholds": [
+    {
+     "value": 1.5,
+     "effective_from": "2022-12-31",
+     "effective_to": "2023-12-31"
+    },
+    {
+     "value": 1.75,
+     "effective_from": "2024-03-31",
+     "effective_to": null
+    }
+   ],
+   "numerator_label": "Unencumbered Adjusted NOI",
+   "denominator_label": "Unsecured Interest Expense",
+   "ratio_label": "ratio of Unencumbered Adjusted NOI to Unsecured Interest Expense",
+   "evidence": {
+    "covenant": {
+     "url": "https://www.sec.gov/Archives/edgar/data/1617406/000095017022025964/pk-ex10_1.htm",
+     "quote": "(e) Ratio of Unencumbered Adjusted NOI to Unsecured Interest Expense. The Company shall not permit the ratio of (i) Unencumbered Adjusted NOI for any Test Period to (ii) Unsecured Interest Expense of the Parent for such period to be less than"
+    },
+    "thresholds": [
+     {
+      "url": "https://www.sec.gov/Archives/edgar/data/1617406/000095017022025964/pk-ex10_1.htm",
+      "quote": "(x) 1.50 to 1.00 as at the end of the Test Periods ending December 31, 2022, March 31, 2023, June 30, 2023, September 30, 2023 and December 31, 2023"
+     },
+     {
+      "url": "https://www.sec.gov/Archives/edgar/data/1617406/000095017022025964/pk-ex10_1.htm",
+      "quote": "and (y) 1.75 to 1.00 thereafter."
+     }
+    ]
+   }
+  }
+ ],
+ "terms": [
+  {
+   "label": "Leverage Ratio",
+   "op": "ratio",
+   "children_labels": [
+    "Indebtedness",
+    "Unrestricted Cash and Cash Equivalents",
+    "Consolidated EBITDA"
+   ],
+   "cap": null,
+   "evidence": {
+    "url": "https://www.sec.gov/Archives/edgar/data/1617406/000095017022025964/pk-ex10_1.htm",
+    "quote": "\"Leverage Ratio\" means, as of a given date, the ratio of (a) (i) Indebtedness of the Parent determined as of such date minus (ii) Unrestricted Cash and Cash Equivalents of the Parent in excess of $50,000,000 on such date, to (b) Consolidated EBITDA of the Parent as at the end of the most recent Test Period"
+   },
+   "note": "numerator = Indebtedness minus Unrestricted Cash and Cash Equivalents in excess of $50,000,000"
+  },
+  {
+   "label": "Indebtedness",
+   "op": "sum",
+   "children_labels": [
+    "obligations in respect of money borrowed or for the deferred purchase price of property or services",
+    "obligations represented by notes payable, bonds, debentures, notes or similar instruments",
+    "Capitalized Lease Obligations",
+    "reimbursement obligations under letters of credit or acceptances",
+    "Off-Balance Sheet Obligations",
+    "obligations in respect of Mandatorily Redeemable Stock",
+    "purchase obligation, repurchase obligation, takeout commitment or forward equity commitment",
+    "net obligations under any Derivatives Contract",
+    "Indebtedness of other Persons which such Person has Guaranteed",
+    "Indebtedness of another Person secured by any Lien on property owned by such Person",
+    "Ownership Share of the Indebtedness of any Unconsolidated Affiliate"
+   ],
+   "cap": null,
+   "evidence": {
+    "url": "https://www.sec.gov/Archives/edgar/data/1617406/000095017022025964/pk-ex10_1.htm",
+    "quote": "\"Indebtedness\" means, with respect to a Person, at the time of computation thereof, all of the following (without duplication):\n(a) all obligations of such Person in respect of money borrowed or for the deferred purchase price of property or services"
+   },
+   "note": "clauses (a)-(k), paraphrased"
+  },
+  {
+   "label": "Unrestricted Cash and Cash Equivalents",
+   "op": "leaf",
+   "children_labels": [],
+   "cap": null,
+   "evidence": {
+    "url": "https://www.sec.gov/Archives/edgar/data/1617406/000095017022025964/pk-ex10_1.htm",
+    "quote": "\"Unrestricted Cash and Cash Equivalents\" means, (i) with respect to any Person, cash and Cash Equivalents of such Person that are free and clear of all Liens and not subject to any restrictions on the use thereof to pay Indebtedness and other obligations of the such Person"
+   }
+  },
+  {
+   "label": "Consolidated EBITDA",
+   "op": "sum",
+   "children_labels": [
+    "net income (loss)",
+    "depreciation and amortization",
+    "interest expense",
+    "income tax expense",
+    "extraordinary or nonrecurring items",
+    "other non-cash charges",
+    "equity in net income (loss) of its Unconsolidated Affiliates",
+    "Ownership Share of Consolidated EBITDA of its Unconsolidated Affiliates"
+   ],
+   "cap": null,
+   "evidence": {
+    "url": "https://www.sec.gov/Archives/edgar/data/1617406/000095017022025964/pk-ex10_1.htm",
+    "quote": "\"Consolidated EBITDA\" means, with respect to a Person for any period and without duplication, the sum of:\n(a) net income (loss) of such Person for such period determined on a consolidated basis excluding the following (but only to the extent included in determining net income (loss) for such period):"
+   },
+   "note": "items (i)-(vi) are excluded from net income (added back / removed); (b) adds Ownership Share of Unconsolidated Affiliates' Consolidated EBITDA"
+  },
+  {
+   "label": "Consolidated Reserve Adjusted EBITDA",
+   "op": "subtract",
+   "children_labels": [
+    "Consolidated EBITDA",
+    "FF&E Reserves",
+    "Ownership Share of the FF&E Reserves for all Hotel Properties of their Unconsolidated Affiliates"
+   ],
+   "cap": null,
+   "evidence": {
+    "url": "https://www.sec.gov/Archives/edgar/data/1617406/000095017022025964/pk-ex10_1.htm",
+    "quote": "\"Consolidated Reserve Adjusted EBITDA\" means, for any given period, (a) the Consolidated EBITDA of the Parent minus (b) the sum of (i) FF&E Reserves for all Hotel Properties of the Parent and its Subsidiaries for such period and (ii) the Parent's and its Subsidiaries' Ownership Share of the FF&E Reserves for all Hotel Properties of their Unconsolidated Affiliates for such period."
+   }
+  },
+  {
+   "label": "FF&E Reserves",
+   "op": "leaf",
+   "children_labels": [],
+   "cap": null,
+   "evidence": {
+    "url": "https://www.sec.gov/Archives/edgar/data/1617406/000095017022025964/pk-ex10_1.htm",
+    "quote": "\"FF&E Reserves\" means, for any period and with respect to any Hotel Property, an amount equal to 4.0% of Gross Operating Revenues of such Hotel Property."
+   },
+   "note": "= 4.0% of Gross Operating Revenues (a formula, not a cap)"
+  },
+  {
+   "label": "Consolidated Fixed Charges",
+   "op": "sum",
+   "children_labels": [
+    "Consolidated Interest Expense",
+    "regularly scheduled principal payments on Indebtedness",
+    "Preferred Dividends"
+   ],
+   "cap": null,
+   "evidence": {
+    "url": "https://www.sec.gov/Archives/edgar/data/1617406/000095017022025964/pk-ex10_1.htm",
+    "quote": "\"Consolidated Fixed Charges\" means, with respect to a Person and for a given period, the sum of (a) the Consolidated Interest Expense of such Person for such period, plus (b) the aggregate of all regularly scheduled principal payments on Indebtedness payable by such Person during such period (excluding balloon, bullet or similar payments of principal due upon the stated maturity of Indebtedness), plus (c) the aggregate amount of all Preferred Dividends paid by such Person during such period."
+   }
+  },
+  {
+   "label": "Consolidated Interest Expense",
+   "op": "sum",
+   "children_labels": [
+    "total interest expense including capitalized interest",
+    "Ownership Share of Consolidated Interest Expense of its Unconsolidated Affiliates"
+   ],
+   "cap": null,
+   "evidence": {
+    "url": "https://www.sec.gov/Archives/edgar/data/1617406/000095017022025964/pk-ex10_1.htm",
+    "quote": "\"Consolidated Interest Expense\" means, with respect to a Person for a given period, without duplication, (a) total interest expense of such Person including capitalized interest (other than capitalized interest funded under a construction loan interest reserve account), determined on a consolidated basis in accordance with GAAP for such period, plus (b) such Person's Ownership Share of Consolidated Interest Expense described in clause (a) of its Unconsolidated Affiliates for such period."
+   }
+  },
+  {
+   "label": "Preferred Dividends",
+   "op": "leaf",
+   "children_labels": [],
+   "cap": null,
+   "evidence": {
+    "url": "https://www.sec.gov/Archives/edgar/data/1617406/000095017022025964/pk-ex10_1.htm",
+    "quote": "\"Preferred Dividends\" means, for any period and without duplication, all Restricted Payments paid during such period on Preferred Equity Interests issued by the Parent, the Company or any of their Subsidiaries."
+   }
+  },
+  {
+   "label": "Secured Indebtedness",
+   "op": "leaf",
+   "children_labels": [],
+   "cap": null,
+   "evidence": {
+    "url": "https://www.sec.gov/Archives/edgar/data/1617406/000095017022025964/pk-ex10_1.htm",
+    "quote": "\"Secured Indebtedness\" means, with respect to a Person as of a given date, the aggregate principal amount of all Indebtedness of such Person outstanding on such date that is secured in any manner by any Lien on any Property"
+   }
+  },
+  {
+   "label": "Total Asset Value",
+   "op": "sum",
+   "children_labels": [
+    "Operating Property Value of the Hotel Properties",
+    "Unrestricted Cash and Cash Equivalents",
+    "book value of all Development/Redevelopment Properties, Mortgage Receivables, Laundry Service Properties and Unimproved Land",
+    "contract purchase price for all assets under contract for purchase",
+    "Ownership Share of any Unconsolidated Affiliate"
+   ],
+   "cap": null,
+   "evidence": {
+    "url": "https://www.sec.gov/Archives/edgar/data/1617406/000095017022025964/pk-ex10_1.htm",
+    "quote": "\"Total Asset Value\" means, without duplication, the sum of (a) the following amounts with respect to the following assets owned by the Company and its Subsidiaries: (i) the Operating Property Value of the Hotel Properties; (ii) the amount of all Unrestricted Cash and Cash Equivalents; (iii) the book value of all Development/Redevelopment Properties"
+   },
+   "evidence_2": {
+    "url": "https://www.sec.gov/Archives/edgar/data/1617406/000095017022025964/pk-ex10_1.htm",
+    "quote": "(iv) the contract purchase price for all assets under contract for purchase (to the extent included in Indebtedness); plus (b) the applicable Ownership Share of any Unconsolidated Affiliate of the Parent of any asset described in clause (a) above."
+   },
+   "note": "concentration caps (u)-(z): Unconsolidated Affiliates 20%, Mortgage Receivables 15%, Development/Redevelopment 20%, Major Renovation 20%, Unimproved Land 5.0%, aggregate 35% of Total Asset Value; not encoded as cap terms"
+  },
+  {
+   "label": "Unsecured Indebtedness",
+   "op": "leaf",
+   "children_labels": [],
+   "cap": null,
+   "evidence": {
+    "url": "https://www.sec.gov/Archives/edgar/data/1617406/000095017022025964/pk-ex10_1.htm",
+    "quote": "\"Unsecured Indebtedness\" means, with respect to a Person, Indebtedness of such Person that is not Secured Indebtedness"
+   }
+  },
+  {
+   "label": "Unencumbered Asset Value",
+   "op": "sum",
+   "children_labels": [
+    "Operating Property Value of the Eligible Properties"
+   ],
+   "cap": null,
+   "evidence": {
+    "url": "https://www.sec.gov/Archives/edgar/data/1617406/000095017022025964/pk-ex10_1.htm",
+    "quote": "\"Unencumbered Asset Value\" means, for any period, the aggregate Operating Property Value of the Eligible Properties at such time."
+   },
+   "note": "concentration caps: 1031 Properties 15%, Major Renovation 15%, Qualified Ground Lease 30%, non-US 5.0% of Unencumbered Asset Value"
+  },
+  {
+   "label": "Unencumbered Adjusted NOI",
+   "op": "sum",
+   "children_labels": [
+    "Adjusted NOI"
+   ],
+   "cap": null,
+   "evidence": {
+    "url": "https://www.sec.gov/Archives/edgar/data/1617406/000095017022025964/pk-ex10_1.htm",
+    "quote": "\"Unencumbered Adjusted NOI\" means, for any period, the aggregate Adjusted NOI of the Eligible Properties."
+   }
+  },
+  {
+   "label": "Adjusted NOI",
+   "op": "leaf",
+   "children_labels": [],
+   "cap": null,
+   "evidence": {
+    "url": "https://www.sec.gov/Archives/edgar/data/1617406/000095017022025964/pk-ex10_1.htm",
+    "quote": "\"Adjusted NOI\" means, for any period, the Net Operating Income of the applicable Hotel Properties for such period, subject to the following adjustments:"
+   },
+   "note": "Net Operating Income adjusted for base management fees (greater of 3.0% of Gross Operating Revenues or actual), FF&E Reserves, and franchise royalty fees (greater of 4.0% or actual)"
+  },
+  {
+   "label": "Unsecured Interest Expense",
+   "op": "leaf",
+   "children_labels": [],
+   "cap": null,
+   "evidence": {
+    "url": "https://www.sec.gov/Archives/edgar/data/1617406/000095017022025964/pk-ex10_1.htm",
+    "quote": "\"Unsecured Interest Expense\" means, with respect to a Person and for any period of four consecutive fiscal quarters, the actual Consolidated Interest Expense of such Person for such period on all Unsecured Indebtedness of such Person."
+   }
+  }
+ ],
+ "amendments_considered": [
+  {
+   "accession": "0001617406-24-000056",
+   "url": "https://www.sec.gov/Archives/edgar/data/1617406/000161740624000056/exhibit101-firstamendmen.htm",
+   "filed": "2024-05-16",
+   "what_changed": "First Amendment (May 16, 2024): $200M incremental term loan; delivered as a marked copy. Section 9.1 threshold levels identical to the original; text-level comparison of the covenant definitions (Leverage Ratio, Indebtedness, Consolidated EBITDA, Consolidated Reserve Adjusted EBITDA, Consolidated Fixed Charges, Secured/Unsecured Indebtedness, Total Asset Value, Unencumbered Asset Value, Unencumbered Adjusted NOI, Unsecured Interest Expense, FF&E Reserves, Adjusted NOI, Test Period) found only hyphenation differences.",
+   "evidence": {
+    "url": "https://www.sec.gov/Archives/edgar/data/1617406/000161740624000056/exhibit101-firstamendmen.htm",
+    "quote": "(iv) 7.25 to 1.00 as at the end of each subsequent fiscal quarter thereafter"
+   }
+  },
+  {
+   "accession": "0001617406-25-000048",
+   "url": "https://www.sec.gov/Archives/edgar/data/1617406/000161740625000048/exhibit101-secondamended.htm",
+   "filed": "2025-09-17",
+   "what_changed": "Not an amendment: Second Amended and Restated Credit Agreement dated September 17, 2025 replaces this agreement. Levels: Leverage 7.25x, FCCR 1.50x, Secured 0.45, Unencumbered Leverage 0.60 (cash netting threshold $35M instead of $50M), Unencumbered NOI/Unsecured Interest 1.75x. Not merged into this label.",
+   "evidence": {
+    "url": "https://www.sec.gov/Archives/edgar/data/1617406/000161740625000048/exhibit101-secondamended.htm",
+    "quote": "The Company shall not permit the Leverage Ratio to exceed 7.25 to 1.00 as at the end of any fiscal quarter."
+   }
+  },
+  {
+   "accession": "0000950170-22-001426",
+   "url": "https://www.sec.gov/Archives/edgar/data/1617406/000095017022001426/pk-ex10_1.htm",
+   "filed": "2022-02-17",
+   "what_changed": "Fifth Amendment (Feb 16, 2022) to the predecessor credit agreement; superseded by the Dec 1, 2022 A&R agreement labeled here."
+  }
+ ],
+ "draft_notes": [
+  "Test Period for the Dec 31, 2022 quarter is three fiscal quarters annualized (EBITDA/NOI only); thereafter trailing twelve months. Labeled ttm.",
+  "Secured Leverage Ratio labeled kind max_senior_leverage and Unencumbered Leverage Ratio labeled kind 'other' (both point_in_time balance-sheet-style tests; asset values rely on Operating Property Value, not decomposed). Unencumbered Adjusted NOI / Unsecured Interest Expense labeled min_interest_coverage. These kind choices are judgment calls.",
+  "Unencumbered Leverage Ratio numerator nets Unrestricted Cash and Cash Equivalents in excess of $50,000,000; elective 0.65 increase period (up to two, non-consecutive) excluded from the schedule per README rule 3.",
+  "Leverage Ratio numerator is not a single defined term: Indebtedness minus Unrestricted Cash and Cash Equivalents in excess of $50,000,000. numerator_label set to 'Indebtedness'.",
+  "Hilton New York / Hilton San Francisco Union Square / Parc 55 valued at undepreciated book value through Jun 30, 2023 for Secured and Unencumbered Leverage (definition adjustment, not a threshold change).",
+  "Indebtedness children are paraphrased clause labels (a)-(k); Operating Property Value, Eligible Properties, Net Operating Income not decomposed.",
+  "effective_to convention: last test date the level applies to; open-ended levels left null although the 2022 agreement was replaced on Sep 17, 2025."
+ ]
+}

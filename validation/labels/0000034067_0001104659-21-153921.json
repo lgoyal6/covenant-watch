@@ -1,0 +1,296 @@
+{
+ "cik": "0000034067",
+ "agreement_accession": "0001104659-21-153921",
+ "agreement_url": "https://www.sec.gov/Archives/edgar/data/34067/000110465921153921/tm2136265d1_ex10-1.htm",
+ "labeled_by": "claude-draft (unverified; Dat must check each field against evidence)",
+ "labeled_at": "2026-10-28",
+ "status": "draft",
+ "agreement_title": "Amended and Restated Credit and Security Agreement dated as of December 23, 2021 (DMC Global Inc.; KeyBank National Association, Administrative Agent), as amended",
+ "covenants": [
+  {
+   "kind": "max_leverage",
+   "direction": "max",
+   "test_period": "ttm",
+   "thresholds": [
+    {
+     "value": 3.5,
+     "effective_from": "2021-12-31",
+     "effective_to": "2022-03-31"
+    },
+    {
+     "value": 3.25,
+     "effective_from": "2022-06-30",
+     "effective_to": "2023-03-31"
+    },
+    {
+     "value": 3.0,
+     "effective_from": "2023-06-30",
+     "effective_to": null
+    }
+   ],
+   "numerator_label": "Consolidated Funded Indebtedness",
+   "denominator_label": "Consolidated EBITDA",
+   "ratio_label": "Leverage Ratio",
+   "evidence": {
+    "covenant": {
+     "url": "https://www.sec.gov/Archives/edgar/data/34067/000110465921153921/tm2136265d1_ex10-1.htm",
+     "quote": "The Borrowers shall not suffer or permit at any time the Leverage Ratio to exceed (i) 3.50 to 1.00 as of the last day"
+    },
+    "thresholds": [
+     {
+      "url": "https://www.sec.gov/Archives/edgar/data/34067/000110465921153921/tm2136265d1_ex10-1.htm",
+      "quote": "(i) 3.50 to 1.00 as of the last day\nof each of the fiscal quarters ending December 31, 2021 and March 31, 2022"
+     },
+     {
+      "url": "https://www.sec.gov/Archives/edgar/data/34067/000110465921153921/tm2136265d1_ex10-1.htm",
+      "quote": "(ii) 3.25 to 1.00 as of the last day of each\nof the fiscal quarters ending June 30, 2022, September 30, 2022, December 31, 2022 and March 31, 2023"
+     },
+     {
+      "url": "https://www.sec.gov/Archives/edgar/data/34067/000110465921153921/tm2136265d1_ex10-1.htm",
+      "quote": "(iii) 3.00\nto 1.00 as of the last day of the fiscal quarter ending June 30, 2023 and as of the last day of each fiscal quarter ending thereafter."
+     }
+    ],
+    "second_amendment_base": {
+     "url": "https://www.sec.gov/Archives/edgar/data/34067/000003406725000117/dmc-secondamendmentagree.htm",
+     "quote": "(a) Leverage Ratio. The Borrowers shall not suffer or permit at any time the Leverage Ratio to exceed 3.00 to 1.00; provided that, notwithstanding the foregoing, during the Covenant Relief Period"
+    }
+   }
+  },
+  {
+   "kind": "min_fixed_charge_coverage",
+   "direction": "min",
+   "test_period": "ttm",
+   "thresholds": [
+    {
+     "value": 1.35,
+     "effective_from": "2021-12-31",
+     "effective_to": "2023-12-31",
+     "source": "original agreement"
+    },
+    {
+     "value": 1.25,
+     "effective_from": "2024-03-31",
+     "effective_to": null,
+     "source": "First Amendment (Feb 6, 2024)"
+    }
+   ],
+   "numerator_label": "Consolidated EBITDA",
+   "denominator_label": "Consolidated Debt Service",
+   "ratio_label": "Debt Service Coverage Ratio",
+   "evidence": {
+    "covenant": {
+     "url": "https://www.sec.gov/Archives/edgar/data/34067/000110465921153921/tm2136265d1_ex10-1.htm",
+     "quote": "Service Coverage Ratio. The Borrowers shall not suffer or permit at any time the Debt Service Coverage Ratio to be less than 1.35\nto 1.00."
+    },
+    "thresholds": [
+     {
+      "url": "https://www.sec.gov/Archives/edgar/data/34067/000110465921153921/tm2136265d1_ex10-1.htm",
+      "quote": "the Debt Service Coverage Ratio to be less than 1.35\nto 1.00."
+     },
+     {
+      "url": "https://www.sec.gov/Archives/edgar/data/34067/000003406724000010/a101dmc-firstamendmentag.htm",
+      "quote": "The Borrowers shall not suffer or permit at any time the Debt Service Coverage Ratio to be less than 1.351.25 to 1.00."
+     }
+    ],
+    "threshold_corroboration": {
+     "url": "https://www.sec.gov/Archives/edgar/data/34067/000003406724000075/boom-20240331.htm",
+     "quote": "Under our credit facility, the minimum debt service coverage ratio permitted is 1.25 to 1.0."
+    }
+   }
+  }
+ ],
+ "terms": [
+  {
+   "label": "Leverage Ratio",
+   "op": "ratio",
+   "children_labels": [
+    "Consolidated Funded Indebtedness",
+    "Consolidated EBITDA"
+   ],
+   "cap": null,
+   "evidence": {
+    "url": "https://www.sec.gov/Archives/edgar/data/34067/000110465921153921/tm2136265d1_ex10-1.htm",
+    "quote": "\"Leverage Ratio\"\nmeans, as determined on a Consolidated basis, the ratio of (a) Consolidated Funded Indebtedness (as of the end of the most recently\ncompleted fiscal quarter of DMC Global); to (b) Consolidated EBITDA (for the most recently completed four fiscal quarters of DMC\nGlobal)."
+   }
+  },
+  {
+   "label": "Consolidated Funded Indebtedness",
+   "op": "leaf",
+   "children_labels": [],
+   "cap": null,
+   "evidence": {
+    "url": "https://www.sec.gov/Archives/edgar/data/34067/000003406724000010/a101dmc-firstamendmentag.htm",
+    "quote": "\"Consolidated Funded Indebtedness\" means, at any date, all Indebtedness of DMC Global, as determined on a Consolidated basis, evidenced by a note, bond, debenture or similar instrument with regularly scheduled interest payments and a maturity date."
+   }
+  },
+  {
+   "label": "Consolidated EBITDA",
+   "op": "sum",
+   "children_labels": [
+    "Consolidated Net Earnings",
+    "Consolidated Interest Expense",
+    "Consolidated Income Tax Expense",
+    "Consolidated Depreciation and Amortization Charges",
+    "non-cash charges excluding inventory reserves",
+    "non-recurring cash charges not incurred in the ordinary course of business",
+    "unrealized foreign currency losses",
+    "non-cash stock-based compensation expense",
+    "one time integration expenses",
+    "transaction-related expenses",
+    "non-cash gains",
+    "non-recurring cash gains not incurred in the ordinary course of business",
+    "unrealized foreign currency gains"
+   ],
+   "cap": null,
+   "evidence": {
+    "url": "https://www.sec.gov/Archives/edgar/data/34067/000003406725000117/dmc-secondamendmentagree.htm",
+    "quote": "\"Consolidated EBITDA\" means, for any period, as determined on a Consolidated basis, (a) Consolidated Net Earnings for such period plus, without duplication, the aggregate amounts deducted in determining such Consolidated Net Earnings in respect of (i) Consolidated Interest Expense, (ii) Consolidated Income Tax Expense, (iii) Consolidated Depreciation and Amortization Charges, (iv) non-cash charges excluding inventory reserves"
+   },
+   "evidence_subtractions": {
+    "url": "https://www.sec.gov/Archives/edgar/data/34067/000003406725000117/dmc-secondamendmentagree.htm",
+    "quote": "minus (b) to the extent included in Consolidated Net Earnings for such period, (i) non-cash gains, (ii) non- recurring cash gains not incurred in the ordinary course of business, and (iii) unrealized foreign currency gains."
+   }
+  },
+  {
+   "label": "one time integration expenses",
+   "op": "cap",
+   "children_labels": [],
+   "cap": {
+    "kind": "pct_of",
+    "of": "Consolidated EBITDA",
+    "pct": 0.1
+   },
+   "evidence": {
+    "url": "https://www.sec.gov/Archives/edgar/data/34067/000003406725000117/dmc-secondamendmentagree.htm",
+    "quote": "provided that, the sum of the amounts added back pursuant to clauses (viii) and (ix) hereof shall not exceed ten percent (10%) of Consolidated EBITDA as calculated pursuant to this definition without reference to clause (viii) or (ix)"
+   },
+   "cap_note": "combined cap on clauses (viii) integration expenses and (ix) transaction-related expenses"
+  },
+  {
+   "label": "transaction-related expenses",
+   "op": "cap",
+   "children_labels": [],
+   "cap": {
+    "kind": "pct_of",
+    "of": "Consolidated EBITDA",
+    "pct": 0.1
+   },
+   "evidence": {
+    "url": "https://www.sec.gov/Archives/edgar/data/34067/000003406725000117/dmc-secondamendmentagree.htm",
+    "quote": "provided that, the sum of the amounts added back pursuant to clauses (viii) and (ix) hereof shall not exceed ten percent (10%) of Consolidated EBITDA"
+   },
+   "cap_note": "same combined cap as clause (viii)"
+  },
+  {
+   "label": "Consolidated Net Earnings",
+   "op": "leaf",
+   "children_labels": [],
+   "cap": null,
+   "evidence": {
+    "url": "https://www.sec.gov/Archives/edgar/data/34067/000003406724000010/a101dmc-firstamendmentag.htm",
+    "quote": "\"Consolidated Net Earnings\" means, for any period, the net income (loss) of DMC Global for such period, as determined on a Consolidated basis; provided that for purposes of calculating Consolidated Net Earnings, a portion equal to the Arcadia Minority Ownership Percentage"
+   }
+  },
+  {
+   "label": "Consolidated Interest Expense",
+   "op": "leaf",
+   "children_labels": [],
+   "cap": null,
+   "evidence": {
+    "url": "https://www.sec.gov/Archives/edgar/data/34067/000003406724000010/a101dmc-firstamendmentag.htm",
+    "quote": "\"Consolidated Interest Expense\" means, for any period, the interest expense on Indebtedness (including, without limitation, the Preferred Stock and the \"imputed interest\" portion of Capitalized Lease Obligations"
+   }
+  },
+  {
+   "label": "Consolidated Income Tax Expense",
+   "op": "leaf",
+   "children_labels": [],
+   "cap": null,
+   "evidence": {
+    "url": "https://www.sec.gov/Archives/edgar/data/34067/000003406724000010/a101dmc-firstamendmentag.htm",
+    "quote": "\"Consolidated Income Tax Expense\" means, for any period, all provisions for taxes based on the gross or net income of DMC Global"
+   }
+  },
+  {
+   "label": "Consolidated Depreciation and Amortization Charges",
+   "op": "leaf",
+   "children_labels": [],
+   "cap": null,
+   "evidence": {
+    "url": "https://www.sec.gov/Archives/edgar/data/34067/000003406724000010/a101dmc-firstamendmentag.htm",
+    "quote": "\"Consolidated Depreciation and Amortization Charges\" means, for any period, the aggregate of all depreciation and amortization charges for fixed assets, leasehold improvements and general intangibles (specifically including goodwill)"
+   }
+  },
+  {
+   "label": "Debt Service Coverage Ratio",
+   "op": "ratio",
+   "children_labels": [
+    "Consolidated EBITDA",
+    "Capital Distributions paid in cash",
+    "Consolidated Unfunded Capital Expenditures",
+    "Consolidated Income Tax Expense paid in cash",
+    "cash Restricted Payments",
+    "Consolidated Debt Service"
+   ],
+   "cap": null,
+   "evidence": {
+    "url": "https://www.sec.gov/Archives/edgar/data/34067/000003406725000117/dmc-secondamendmentagree.htm",
+    "quote": "\"Debt Service Coverage Ratio\" means, as determined for the most recently completed four fiscal quarters of DMC Global on a Consolidated basis, the ratio of (a) the sum of (i) Consolidated EBITDA, minus (ii) Capital Distributions paid in cash"
+   }
+  },
+  {
+   "label": "Consolidated Unfunded Capital Expenditures",
+   "op": "leaf",
+   "children_labels": [],
+   "cap": null,
+   "evidence": {
+    "url": "https://www.sec.gov/Archives/edgar/data/34067/000003406724000010/a101dmc-firstamendmentag.htm",
+    "quote": "\"Consolidated Unfunded Capital Expenditures\" means, for any period, Consolidated Capital Expenditures that are not directly financed by the Companies with long-term Indebtedness (other than Revolving Loans) or Capitalized Lease Obligations"
+   }
+  },
+  {
+   "label": "Consolidated Debt Service",
+   "op": "sum",
+   "children_labels": [
+    "Consolidated Interest Expense paid in cash",
+    "cash Capital Distributions",
+    "scheduled principal payments on Consolidated Funded Indebtedness"
+   ],
+   "cap": null,
+   "evidence": {
+    "url": "https://www.sec.gov/Archives/edgar/data/34067/000003406724000010/a101dmc-firstamendmentag.htm",
+    "quote": "\"Consolidated Debt Service\" means, for any period, as determined on a Consolidated basis, the aggregate, without duplication, of (a) Consolidated Interest Expense paid in cash, (b) cash Capital Distributions (other than redemptions of the Preferred Stock) made pursuant to Section 5.15(c) hereof, and (c) scheduled principal payments on Consolidated Funded Indebtedness"
+   }
+  }
+ ],
+ "amendments_considered": [
+  {
+   "accession": "0000034067-24-000010",
+   "url": "https://www.sec.gov/Archives/edgar/data/34067/000003406724000010/a101dmc-firstamendmentag.htm",
+   "filed": "2024-02-07",
+   "what_changed": "First Amendment (Feb 6, 2024): conformed copy (stricken/underlined markup lost in text) indicates leverage covenant collapsed to flat 3.00x (no effective change for 2024+) and minimum DSCR lowered 1.35x -> 1.25x; EBITDA clauses (viii)/(ix) generalized to any permitted Acquisition with a combined 10% cap; Consolidated Debt Service excludes Preferred Stock redemptions.",
+   "evidence": {
+    "url": "https://www.sec.gov/Archives/edgar/data/34067/000003406724000010/a101dmc-firstamendmentag.htm",
+    "quote": "Section 5.7. Financial Covenants. (a) Leverage Ratio."
+   }
+  },
+  {
+   "accession": "0000034067-25-000117",
+   "url": "https://www.sec.gov/Archives/edgar/data/34067/000003406725000117/dmc-secondamendmentagree.htm",
+   "filed": "2025-06-11",
+   "what_changed": "Second Amendment (June 10, 2025): leverage base 3.00x with temporary relief (3.50x first two quarters, 3.25x third, 3.00x fourth) during a Covenant Relief Period triggered by final payment of the Arcadia Equity Repurchase; replaced Consolidated EBITDA and Debt Service Coverage Ratio definitions (DSCR numerator now nets German cash taxes for FY2022/FY2023 up to $4M/$7M and excludes Arcadia Equity Repurchase distributions).",
+   "evidence": {
+    "url": "https://www.sec.gov/Archives/edgar/data/34067/000003406725000117/dmc-secondamendmentagree.htm",
+    "quote": "3. Amendment to Financial Covenants. Section 5.7 of the Credit Agreement is hereby amended to delete subsection (a) therefrom"
+   }
+  }
+ ],
+ "draft_notes": [
+  "First Amendment exhibit is a scanned image with hidden OCR text, so struck and inserted text are concatenated in doc_text (e.g. 'less than 1.351.25 to 1.00'). The 1.25x DSCR reading is corroborated by the Q1 2024 10-Q (evidence.threshold_corroboration). Verifier should confirm against the PDF/images.",
+  "DSCR boundary: 1.35x assumed through the Dec 31, 2023 test and 1.25x from Mar 31, 2024 (amendment dated Feb 6, 2024, before the FY2023 compliance certificate). Check which level applied at Dec 31, 2023.",
+  "DSCR has no single defined numerator term: numerator is Consolidated EBITDA minus cash Capital Distributions, Consolidated Unfunded Capital Expenditures, cash taxes and cash Restricted Payments. numerator_label set to Consolidated EBITDA; kind mapped to min_fixed_charge_coverage (no DSCR kind in README).",
+  "Second Amendment Covenant Relief Period step-up (3.50/3.25/3.00) is contingent on the Arcadia put/call payment; per README only the base 3.00x schedule is listed. Q1 2026 10-Q still describes it as contingent ('should either the Put Option or the Call Option be exercised').",
+  "Consolidated EBITDA children and cap reflect the Second Amendment definition (in force from June 10, 2025); the original 2021 definition had Arcadia-specific caps of $5,000,000 (integration) and $4,500,000 (transaction expenses) and an inventory step-up addback.",
+  "Leaf definitions (CFI, CNE, CIE, tax, D&A, CUCE, Consolidated Debt Service) quoted from the First Amendment conformed copy; they read the same as the original agreement except Consolidated Debt Service (Preferred Stock redemption carve-out)."
+ ]
+}

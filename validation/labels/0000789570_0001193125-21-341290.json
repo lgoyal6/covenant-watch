@@ -1,0 +1,298 @@
+{
+ "cik": "0000789570",
+ "agreement_accession": "0001193125-21-341290",
+ "agreement_url": "https://www.sec.gov/Archives/edgar/data/789570/000119312521341290/d260983dex101.htm",
+ "labeled_by": "claude-draft (unverified; Dat must check each field against evidence)",
+ "labeled_at": "2026-10-28",
+ "status": "draft",
+ "covenants": [
+  {
+   "kind": "max_leverage",
+   "direction": "max",
+   "test_period": "ttm",
+   "thresholds": [
+    {
+     "value": 6.0,
+     "effective_from": "2021-12-31",
+     "effective_to": "2023-12-31"
+    },
+    {
+     "value": 5.5,
+     "effective_from": "2024-03-31",
+     "effective_to": null
+    }
+   ],
+   "numerator_label": "Net Indebtedness",
+   "denominator_label": "Borrower Group EBITDA",
+   "evidence": {
+    "covenant": {
+     "url": "https://www.sec.gov/Archives/edgar/data/789570/000119312521341290/d260983dex101.htm",
+     "quote": "8.12 Financial Covenant. The Company will not permit the Rent-Adjusted Total Net Leverage Ratio as of the last day of such Fiscal\nQuarter (commencing with the Fiscal Quarter ending December 31, 2021)"
+    },
+    "thresholds": [
+     {
+      "url": "https://www.sec.gov/Archives/edgar/data/789570/000119312521341290/d260983dex101.htm",
+      "quote": "From the Closing Date to, but excluding, January 1, 2024\n6.00:1.00"
+     },
+     {
+      "url": "https://www.sec.gov/Archives/edgar/data/789570/000119312521341290/d260983dex101.htm",
+      "quote": "From and after January 1, 2024\n5.50:1.00"
+     }
+    ],
+    "ratio_definition": {
+     "url": "https://www.sec.gov/Archives/edgar/data/789570/000119312521341290/d260983dex101.htm",
+     "quote": "\"Rent-Adjusted Total Net Leverage Ratio\" means, as of any date of determination, ratio of (i) the aggregate amount of\nNet Indebtedness of the Borrower Group as of such date plus (x) 8.00 to 1.00 multiplied by (y) annual rent payments"
+    },
+    "ratio_definition_2": {
+     "url": "https://www.sec.gov/Archives/edgar/data/789570/000119312521341290/d260983dex101.htm",
+     "quote": "to (b) Borrower Group EBITDA for\nthe most recently ended Test Period, excluding annual rent payments of the Borrower Group incurred under the MGM Master Leases (excluding any ground leases)."
+    },
+    "test_period": {
+     "url": "https://www.sec.gov/Archives/edgar/data/789570/000119312521341290/d260983dex101.htm",
+     "quote": "\"Test Period\" means for any date of determination the period of the four\nmost recently ended consecutive Fiscal Quarters"
+    },
+    "unchanged_in_latest_amendment": {
+     "url": "https://www.sec.gov/Archives/edgar/data/789570/000078957026000018/exhibit1014-q42025.htm",
+     "quote": "From the Closing Date to, but excluding, January 1, 2024 6.00:1.00\nFrom and after January 1, 2024 5.50:1.00"
+    }
+   }
+  }
+ ],
+ "terms": [
+  {
+   "label": "Rent-Adjusted Total Net Leverage Ratio",
+   "op": "ratio",
+   "children_labels": [
+    "Net Indebtedness",
+    "annual rent payments under the MGM Master Leases (x 8.00)",
+    "Borrower Group EBITDA"
+   ],
+   "cap": null,
+   "note": "numerator = Net Indebtedness + 8.00 x annual MGM Master Lease rent (excl. ground leases); denominator = Borrower Group EBITDA excluding that rent (i.e. rent added back). Second Amendment adds Qualifying Act of Terrorism substitution proviso.",
+   "evidence": {
+    "url": "https://www.sec.gov/Archives/edgar/data/789570/000119312521341290/d260983dex101.htm",
+    "quote": "\"Rent-Adjusted Total Net Leverage Ratio\" means, as of any date of determination, ratio of (i) the aggregate amount of\nNet Indebtedness of the Borrower Group as of such date plus (x) 8.00 to 1.00 multiplied by (y) annual rent payments"
+   },
+   "evidence_more": [
+    {
+     "url": "https://www.sec.gov/Archives/edgar/data/789570/000119312524034495/d778367dex101.htm",
+     "quote": "provided that for purposes of calculating the Rent-Adjusted Total Net Leverage Ratio, Borrower Group EBITDA for the fiscal quarter in which a Qualifying Act of Terrorism shall have occurred and the next two succeeding fiscal quarters thereafter\nshall, in each case, be the greater of (a) Substituted Borrower Group EBITDA and (b) actual Borrower Group EBITDA for such fiscal quarter."
+    }
+   ]
+  },
+  {
+   "label": "Net Indebtedness",
+   "op": "subtract",
+   "children_labels": [
+    "Total Indebtedness",
+    "Unrestricted Cash"
+   ],
+   "cap": null,
+   "evidence": {
+    "url": "https://www.sec.gov/Archives/edgar/data/789570/000119312521341290/d260983dex101.htm",
+    "quote": "Indebtedness\" means, as at any date of determination Total Indebtedness minus Unrestricted Cash."
+   }
+  },
+  {
+   "label": "Total Indebtedness",
+   "op": "sum",
+   "children_labels": [
+    "Indebtedness of the kind described in clause (a) of the definition of \"Indebtedness\"",
+    "Indebtedness evidenced by promissory notes and similar instruments",
+    "Guaranty Obligations"
+   ],
+   "less_labels": [
+    "Indebtedness in respect of letters of credit (except unreimbursed amounts)",
+    "Guaranty Obligations (unless demanded)",
+    "Indebtedness evidenced by the Specified 2023 Intercompany Note"
+   ],
+   "cap": null,
+   "evidence": {
+    "url": "https://www.sec.gov/Archives/edgar/data/789570/000078957023000024/exhibit1011-q32023.htm",
+    "quote": "\"Total Indebtedness\" means, as at any date of determination, the aggregate principal amount of all outstanding Indebtedness of the Borrower Group (other than any such Indebtedness that has been Discharged) consisting of (w) Indebtedness of the kind described in clause (a) of the definition of \"Indebtedness,\" (x) Indebtedness evidenced by promissory notes and similar instruments and (y) Guaranty Obligations in respect of any of the foregoing"
+   },
+   "evidence_more": [
+    {
+     "url": "https://www.sec.gov/Archives/edgar/data/789570/000078957023000024/exhibit1011-q32023.htm",
+     "quote": "provided that Total Indebtedness shall not include (i) Indebtedness in respect of letters of credit (including Letters of Credit), except to the extent of unreimbursed amounts thereunder, (ii) Guaranty Obligations (provided"
+    },
+    {
+     "url": "https://www.sec.gov/Archives/edgar/data/789570/000078957023000024/exhibit1011-q32023.htm",
+     "quote": "and (iii) Indebtedness evidenced by the Specified 2023 Intercompany Note."
+    }
+   ]
+  },
+  {
+   "label": "Unrestricted Cash",
+   "op": "leaf",
+   "children_labels": [],
+   "cap": null,
+   "evidence": {
+    "url": "https://www.sec.gov/Archives/edgar/data/789570/000119312521341290/d260983dex101.htm",
+    "quote": "\"Unrestricted Cash\" means, as of any date of determination, all cash and\nCash Equivalents included in the balance sheets of any Person in the Borrower Group as of such date that, in each case, are free and clear of all Liens"
+   },
+   "evidence_more": [
+    {
+     "url": "https://www.sec.gov/Archives/edgar/data/789570/000119312521341290/d260983dex101.htm",
+     "quote": "but excluding all cash and Cash Equivalents of the Borrower Group held in casino cages."
+    }
+   ]
+  },
+  {
+   "label": "Borrower Group EBITDA",
+   "op": "sum",
+   "children_labels": [
+    "EBITDA",
+    "recurring or ordinary course cash dividends, distributions, interest payments, returns of capital and repayments received from Unconsolidated Affiliates, Unrestricted Subsidiaries or cost method investments"
+   ],
+   "less_labels": [
+    "EBITDA attributable to Unconsolidated Affiliates",
+    "rent payments incurred under the MGM Master Leases (net of certain Unrestricted Subsidiary rent received)"
+   ],
+   "cap": null,
+   "evidence": {
+    "url": "https://www.sec.gov/Archives/edgar/data/789570/000119312521341290/d260983dex101.htm",
+    "quote": "\"Borrower Group EBITDA\" means, for any fiscal period, (i) the EBITDA of the Borrower Group for that fiscal period, after\neliminating EBITDA of the Borrower Group attributable to Unconsolidated Affiliates plus, (ii) without duplication, the aggregate amount of any recurring or ordinary course (A) cash dividends or distributions"
+   },
+   "evidence_more": [
+    {
+     "url": "https://www.sec.gov/Archives/edgar/data/789570/000119312521341290/d260983dex101.htm",
+     "quote": "and received by the Borrower Group from Unconsolidated Affiliates, Unrestricted Subsidiaries or from cost method investments"
+    },
+    {
+     "url": "https://www.sec.gov/Archives/edgar/data/789570/000119312521341290/d260983dex101.htm",
+     "quote": "minus rent payments incurred under the MGM Master Leases\n(regardless of whether such rent was reflected in Net Income for such period)"
+    }
+   ]
+  },
+  {
+   "label": "EBITDA",
+   "op": "sum",
+   "children_labels": [
+    "Net Income",
+    "extraordinary loss; loss on early retirement of Indebtedness and non-ordinary-course dispositions",
+    "Interest Expense",
+    "income tax expense",
+    "depreciation and amortization expenses",
+    "unusual or non-recurring expenses",
+    "non-cash items, expenses or charges",
+    "pre-opening and start-up expenses",
+    "rent expense under the MGM Master Leases",
+    "transaction fees, costs and expenses (equity issuance, Investments, acquisitions, dispositions, debt incurrence/modification, leases)",
+    "non-operating or non-recurring professional fees",
+    "costs associated with debt or equity issuance or refinancing",
+    "costs related to Permitted Acquisitions, Investments or dispositions",
+    "costs of non-recurring strategic initiatives"
+   ],
+   "less_labels": [
+    "extraordinary gain; gains on early retirement of Indebtedness and non-ordinary-course dispositions",
+    "income tax benefit"
+   ],
+   "cap": null,
+   "evidence": {
+    "url": "https://www.sec.gov/Archives/edgar/data/789570/000119312521341290/d260983dex101.htm",
+    "quote": "\"EBITDA\" means, with respect\nto any fiscal period and with respect to any Person, the sum of (a) Net Income of such Person for that period, plus (b) any extraordinary loss reflected in such Net Income"
+   },
+   "evidence_more": [
+    {
+     "url": "https://www.sec.gov/Archives/edgar/data/789570/000119312521341290/d260983dex101.htm",
+     "quote": "minus (c) any extraordinary gain reflected in such Net Income, and, without duplication, any gains associated with the early retirement of\nIndebtedness and with any disposition not in the ordinary course of business, plus (d) Interest Expense of such Person for that period, plus (e) the aggregate amount of expense for federal, foreign, state and local taxes"
+    },
+    {
+     "url": "https://www.sec.gov/Archives/edgar/data/789570/000119312521341290/d260983dex101.htm",
+     "quote": "plus (g) (1) any depreciation and amortization expenses, (2) all unusual or non-recurring expenses and/or (3) all non-cash items, expenses or charges"
+    },
+    {
+     "url": "https://www.sec.gov/Archives/edgar/data/789570/000119312521341290/d260983dex101.htm",
+     "quote": "plus (h) expenses classified as\n\"pre-opening and start-up expenses\" on the applicable financial statements of that Person for that fiscal period, plus (i) any rent expense under"
+    },
+    {
+     "url": "https://www.sec.gov/Archives/edgar/data/789570/000119312521341290/d260983dex101.htm",
+     "quote": "plus (j) (i) all transaction fees, costs and expenses in connection with any equity issuance"
+    },
+    {
+     "url": "https://www.sec.gov/Archives/edgar/data/789570/000119312521341290/d260983dex101.htm",
+     "quote": "(ii) without duplication of any of the foregoing, non-operating or non-recurring\nprofessional fees, costs and expenses for such period plus (k) any costs, charges, fees or expenses"
+    },
+    {
+     "url": "https://www.sec.gov/Archives/edgar/data/789570/000119312521341290/d260983dex101.htm",
+     "quote": "plus (l) any costs, charges, fees and expenses (or any\namortization thereof) (including, without limitation, all legal, accounting, advisory or other transaction-related fees, charges, costs and expenses and any bonuses or success fee payments) related to any Permitted Acquisition or Investment or"
+    },
+    {
+     "url": "https://www.sec.gov/Archives/edgar/data/789570/000119312521341290/d260983dex101.htm",
+     "quote": "plus (m) any costs, charges, fees and expenses incurred in connection with any non-recurring strategic initiatives"
+    }
+   ]
+  },
+  {
+   "label": "Net Income",
+   "op": "leaf",
+   "children_labels": [],
+   "cap": null,
+   "evidence": {
+    "url": "https://www.sec.gov/Archives/edgar/data/789570/000119312521341290/d260983dex101.htm",
+    "quote": "\"Net Income\" means, with respect to any fiscal period and with\nrespect to any Person, the net income (or net loss) of that Person for that period, determined in accordance with GAAP."
+   }
+  },
+  {
+   "label": "Interest Expense",
+   "op": "sum",
+   "children_labels": [
+    "interest expense of the Borrower Group (GAAP)",
+    "interest portion of Finance Lease payments",
+    "amortization of financing fees and debt issuance costs",
+    "arrangement, commitment or upfront fees, OID, redemption or prepayment premiums",
+    "letter of credit and bankers' acceptance fees",
+    "interest on Discharged Indebtedness",
+    "accretion of discounted liabilities",
+    "mark-to-market interest expense on Swap Contracts",
+    "interest rate Swap Contract payments and breakage costs",
+    "registration-rights liquidated damages and financing fees",
+    "Transactions fees and expenses",
+    "agency fees",
+    "interest expense under the MGM Master Leases",
+    "costs and fees of obtaining Swap Contracts"
+   ],
+   "cap": null,
+   "evidence": {
+    "url": "https://www.sec.gov/Archives/edgar/data/789570/000119312521341290/d260983dex101.htm",
+    "quote": "\"Interest Expense\" means, for any Test Period, the sum of interest expense of the Borrower Group for such Test Period as\ndetermined in accordance with GAAP, plus, to the extent deducted in arriving at Net Income and without duplication, (a) the interest portion of payments paid or payable (without duplication) on Finance Leases"
+   },
+   "evidence_more": [
+    {
+     "url": "https://www.sec.gov/Archives/edgar/data/789570/000119312521341290/d260983dex101.htm",
+     "quote": "(l) all interest expense recognized by the Borrower Group under the MGM Master Leases and (m) costs and fees associated with obtaining Swap Contracts"
+    }
+   ]
+  }
+ ],
+ "amendments_considered": [
+  {
+   "accession": "0000789570-23-000024",
+   "url": "https://www.sec.gov/Archives/edgar/data/789570/000078957023000024/exhibit1011-q32023.htm",
+   "filed": "2023-11-08",
+   "what_changed": "First Amendment (Aug 31, 2023): restated Total Indebtedness to exclude the Specified 2023 Intercompany Note; restated Cash Equivalents. No threshold change."
+  },
+  {
+   "accession": "0001193125-24-034495",
+   "url": "https://www.sec.gov/Archives/edgar/data/789570/000119312524034495/d778367dex101.htm",
+   "filed": "2024-02-14",
+   "what_changed": "Second Amendment (Feb 9, 2024; redline conformed copy): added Covenant Suspension Period (Qualifying Act of Terrorism) carve-out to Section 8.12 and Substituted Borrower Group EBITDA proviso in the ratio definition; thresholds unchanged (6.00x / 5.50x)."
+  },
+  {
+   "accession": "0000789570-26-000018",
+   "url": "https://www.sec.gov/Archives/edgar/data/789570/000078957026000018/exhibit1014-q42025.htm",
+   "filed": "2026-02-11",
+   "what_changed": "Third Amendment (Oct 3, 2025; conformed copy): Section 8.12 schedule still 6.00x to 1/1/2024, 5.50x after; key definitions compared and unchanged vs Second Amendment."
+  }
+ ],
+ "draft_notes": [
+  "Covenant is 'not permit ... greater than'; first test FQ ending 2021-12-31 per the section. 6.00x period runs 'to, but excluding, January 1, 2024' so last quarter-end test is 2023-12-31.",
+  "Numerator has no single defined term: it is Net Indebtedness PLUS 8.00x annual MGM Master Lease rent. numerator_label set to 'Net Indebtedness'; the rent leg is recorded on the ratio term.",
+  "Denominator: Borrower Group EBITDA 'excluding annual rent payments ... under the MGM Master Leases' (i.e. EBITDAR-like). Borrower Group EBITDA itself deducts Master Lease rent, the ratio adds it back.",
+  "Second/Third Amendment exhibits are redline conformed copies; doc_text merges stricken and inserted text (e.g. 'ratio of (ia\\n)'). Quotes from them were chosen from clean spans only.",
+  "Covenant Suspension Period (Qualifying Act of Terrorism) is an optional event; ignored per guide. 'Indebtedness' and 'Cash Equivalents' not expanded further.",
+  "EBITDA and Interest Expense children are paraphrased line-item labels (not defined terms) except Net Income and Interest Expense.",
+  "A separate new Credit Agreement dated October 23, 2025 (SMBC agent, accession 0000789570-25-000073) exists; not reviewed here."
+ ]
+}

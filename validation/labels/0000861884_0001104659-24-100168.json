@@ -1,0 +1,115 @@
+{
+ "cik": "0000861884",
+ "agreement_accession": "0001104659-24-100168",
+ "agreement_url": "https://www.sec.gov/Archives/edgar/data/861884/000110465924100168/tm2423965d1_ex10-1.htm",
+ "labeled_by": "claude-draft (unverified; Dat must check each field against evidence)",
+ "labeled_at": "2026-10-28",
+ "status": "draft",
+ "covenants": [
+  {
+   "kind": "max_leverage",
+   "direction": "max",
+   "test_period": "point_in_time",
+   "thresholds": [
+    {
+     "value": 0.6,
+     "effective_from": "2024-09-30",
+     "effective_to": null
+    }
+   ],
+   "numerator_label": "Funded Debt",
+   "denominator_label": "Stockholders' Equity",
+   "evidence": {
+    "covenant": {
+     "url": "https://www.sec.gov/Archives/edgar/data/861884/000110465924100168/tm2423965d1_ex10-1.htm",
+     "quote": "Ratio\" means, as of the last day of any Fiscal Quarter (including the last day of a Fiscal Quarter which is also the last\nday of a Fiscal Year), the ratio, calculated on a consolidated basis for Borrower and its Subsidiaries, of (a) the positive difference\nof (i) Funded Debt as of such date minus (ii) Domestic Cash as of such date to (b) the sum of (i) the\npositive difference of (A) Funded Debt as of such date minus (B) Domestic Cash as of such date plus (ii) Stockholders'\nEquity as of such date."
+    },
+    "thresholds": [
+     {
+      "url": "https://www.sec.gov/Archives/edgar/data/861884/000110465924100168/tm2423965d1_ex10-1.htm",
+      "quote": "Net Leverage Ratio. Permit the Total Net Leverage Ratio, as of the last day of any Fiscal Quarter, to be greater than 0.60 to\n1.00."
+     }
+    ]
+   }
+  }
+ ],
+ "terms": [
+  {
+   "label": "Funded Debt",
+   "op": "sum",
+   "children_labels": [
+    "principal Indebtedness for borrowed money",
+    "Guaranty Obligations in connection with Synthetic Leases",
+    "Capital Lease Obligations",
+    "Letter of Credit Usage",
+    "other letters of credit"
+   ],
+   "cap": null,
+   "evidence": {
+    "url": "https://www.sec.gov/Archives/edgar/data/861884/000110465924100168/tm2423965d1_ex10-1.htm",
+    "quote": "Debt\" means, as of the date of determination, without duplication, the sum of (a) all principal Indebtedness\nof Borrower and its Subsidiaries for borrowed money (including debt securities issued by Borrower or any of its Subsidiaries) on that\ndate plus (b) Guaranty Obligations in connection with Synthetic Leases, plus (c) the aggregate amount of all\nCapital Lease Obligations of Borrower and its Subsidiaries on that date, plus (d) all Letter of Credit Usage"
+   }
+  },
+  {
+   "label": "Domestic Cash",
+   "op": "cap",
+   "children_labels": [
+    "Cash"
+   ],
+   "cap": {
+    "kind": "abs",
+    "usd": 500000000
+   },
+   "evidence": {
+    "url": "https://www.sec.gov/Archives/edgar/data/861884/000110465924100168/tm2423965d1_ex10-1.htm",
+    "quote": "\"Domestic Cash\" means the lesser of (a) 100% of unrestricted\nand unencumbered Cash of Borrower and its Domestic Subsidiaries maintained in the United States and (b) $500,000,000."
+   },
+   "note": "Netted from Funded Debt in both numerator and denominator of the Total Net Leverage Ratio."
+  },
+  {
+   "label": "Stockholders' Equity",
+   "op": "leaf",
+   "children_labels": [],
+   "cap": null,
+   "evidence": {
+    "url": "https://www.sec.gov/Archives/edgar/data/861884/000110465924100168/tm2423965d1_ex10-1.htm",
+    "quote": "Equity\" means, as of any date of determination for Borrower and its Subsidiaries on a consolidated basis, stockholders'\nequity as of that date determined in accordance with GAAP."
+   }
+  },
+  {
+   "label": "Capital Lease Obligations",
+   "op": "leaf",
+   "children_labels": [],
+   "cap": null,
+   "evidence": {
+    "url": "https://www.sec.gov/Archives/edgar/data/861884/000110465924100168/tm2423965d1_ex10-1.htm",
+    "quote": "Lease Obligations\" means all monetary obligations of a Person under any leasing or similar arrangement which, in accordance\nwith GAAP, is classified as a Capital Lease."
+   }
+  },
+  {
+   "label": "Letter of Credit Usage",
+   "op": "leaf",
+   "children_labels": [],
+   "cap": null,
+   "evidence": {
+    "url": "https://www.sec.gov/Archives/edgar/data/861884/000110465924100168/tm2423965d1_ex10-1.htm",
+    "quote": "of Credit Usage\" means, as at any date of determination, the aggregate amount available to be drawn under all outstanding\nLetters of Credit plus the aggregate amount of all Unreimbursed Amounts"
+   }
+  }
+ ],
+ "amendments_considered": [
+  {
+   "accession": "0001104659-25-079220",
+   "url": "https://www.sec.gov/Archives/edgar/data/861884/000110465925079220/tm2523573d1_ex10-1.htm",
+   "filed": "2025-08-15",
+   "what_changed": "Not an amendment: separate Term Loan Agreement dated 2025-08-14 with its own Section 7.6 Total Net Leverage Ratio covenant. No amendment to the 2024 Second A&R Credit Agreement found via full-text search."
+  }
+ ],
+ "draft_notes": [
+  "This is a debt-to-capitalization test even though the agreement names it 'Total Net Leverage Ratio': (Funded Debt - Domestic Cash) / ((Funded Debt - Domestic Cash) + Stockholders' Equity). kind=max_leverage is a judgment call (could be 'other'); denominator_label records only the Stockholders' Equity component.",
+  "test_period=point_in_time because all components are balance-sheet amounts as of the quarter end.",
+  "effective_from 2024-09-30 = first fiscal quarter end after the 2024-09-10 agreement date (assumed first test).",
+  "The prior (2020 A&R) Reliance credit agreement, in force for 2023 to Sept 2024, was not labeled.",
+  "Compliance certificate (Exhibit B) labels the equity line \"Shareholders' Equity\" but the defined term in Section 1.1 is \"Stockholders' Equity\"."
+ ]
+}

@@ -1,0 +1,358 @@
+{
+ "cik": "0001174922",
+ "agreement_accession": "0001174922-19-000115",
+ "agreement_url": "https://www.sec.gov/Archives/edgar/data/1174922/000117492219000115/ex101-wynn2019xcredita.htm",
+ "labeled_by": "claude-draft (unverified; Dat must check each field against evidence)",
+ "labeled_at": "2026-10-28",
+ "status": "draft",
+ "covenants": [
+  {
+   "kind": "max_senior_leverage",
+   "direction": "max",
+   "test_period": "ttm",
+   "thresholds": [
+    {
+     "value": 3.75,
+     "effective_from": "2019-12-31",
+     "effective_to": "2020-03-31"
+    },
+    {
+     "value": 4.5,
+     "effective_from": "2022-06-30",
+     "effective_to": "2022-06-30"
+    },
+    {
+     "value": 4.25,
+     "effective_from": "2022-09-30",
+     "effective_to": "2022-09-30"
+    },
+    {
+     "value": 4.0,
+     "effective_from": "2022-12-31",
+     "effective_to": "2022-12-31"
+    },
+    {
+     "value": 3.75,
+     "effective_from": "2023-03-31",
+     "effective_to": null
+    }
+   ],
+   "numerator_label": "Consolidated Indebtedness",
+   "denominator_label": "Consolidated EBITDA",
+   "evidence": {
+    "covenant": {
+     "url": "https://www.sec.gov/Archives/edgar/data/1174922/000117492219000115/ex101-wynn2019xcredita.htm",
+     "quote": "SECTION 10.08. Financial Maintenance Covenant. Borrower shall not permit the Consolidated First Lien Net Leverage Ratio as of the last day of any fiscal quarter of Borrower commencing with the first full fiscal quarter ending after the Closing Date to exceed 3.75 to 1.00."
+    },
+    "thresholds": [
+     {
+      "url": "https://www.sec.gov/Archives/edgar/data/1174922/000117492225000095/wynn-exatoamendmentno5amen.htm",
+      "quote": "Borrower shall not permit the Consolidated First Lien Net Leverage Ratio as of the last day of any fiscal quarter to exceed (A) for the fiscal quarter of the Borrower ended March 31, 2020, 3.75 to 1.00 and (B)"
+     },
+     {
+      "url": "https://www.sec.gov/Archives/edgar/data/1174922/000117492225000095/wynn-exatoamendmentno5amen.htm",
+      "quote": "(w) for the first fiscal quarter of the Financial Covenant Increase Period, 4.50 to 1.00"
+     },
+     {
+      "url": "https://www.sec.gov/Archives/edgar/data/1174922/000117492225000095/wynn-exatoamendmentno5amen.htm",
+      "quote": "(x) for the second fiscal quarter of the Financial Covenant Increase Period, 4.25 to 1.00"
+     },
+     {
+      "url": "https://www.sec.gov/Archives/edgar/data/1174922/000117492225000095/wynn-exatoamendmentno5amen.htm",
+      "quote": "(y) for the third fiscal quarter of the Financial Covenant Increase Period, 4.00 to 1.00"
+     },
+     {
+      "url": "https://www.sec.gov/Archives/edgar/data/1174922/000117492225000095/wynn-exatoamendmentno5amen.htm",
+      "quote": "(z) for each subsequent fiscal quarter thereafter (including from and including the first fiscal quarter during which the Financial Covenant Increase Period has been terminated by the Borrower pursuant to the definition thereof), 3.75 to 1.00."
+     }
+    ],
+    "relief_period": {
+     "url": "https://www.sec.gov/Archives/edgar/data/1174922/000117492225000095/wynn-exatoamendmentno5amen.htm",
+     "quote": "\"Financial Covenant Relief Period\" shall mean the period commencing on the Section 2.1 Effective Date and ending on the earlier of (x) the first day of the fiscal quarter beginning April 1, 2022"
+    },
+    "increase_period": {
+     "url": "https://www.sec.gov/Archives/edgar/data/1174922/000117492225000095/wynn-exatoamendmentno5amen.htm",
+     "quote": "\"Financial Covenant Increase Period\" shall mean the period commencing on the first day after the expiration of the Financial Covenant Relief Period and ending on the earlier of (x) the first day of the fourth fiscal quarter after the expiration of the Financial Covenant Relief Period"
+    },
+    "relief_extension": {
+     "url": "https://www.sec.gov/Archives/edgar/data/1174922/000117492221000029/ex1014-amendmentno2tocredi.htm",
+     "quote": "replacing the term \"April 1, 2021\" contained in clause (x) thereof with the term \"April 1, 2022\"."
+    },
+    "ratio_definition": {
+     "url": "https://www.sec.gov/Archives/edgar/data/1174922/000117492219000115/ex101-wynn2019xcredita.htm",
+     "quote": "Consolidated First Lien Net Leverage Ratio\" shall mean, as of any date of determination, the ratio of (a) (i) Consolidated Indebtedness of Borrower and its Restricted Subsidiaries that is secured by Liens"
+    },
+    "ratio_definition_2": {
+     "url": "https://www.sec.gov/Archives/edgar/data/1174922/000117492219000115/ex101-wynn2019xcredita.htm",
+     "quote": "minus (ii) Unrestricted Operating Cash to (b) Consolidated EBITDA for the Test Period most recently ended prior to such date"
+    }
+   }
+  },
+  {
+   "kind": "min_liquidity",
+   "direction": "min",
+   "test_period": "point_in_time",
+   "thresholds": [
+    {
+     "value": 300000000,
+     "effective_from": "2020-04-10",
+     "effective_to": "2020-11-26"
+    },
+    {
+     "value": 325000000,
+     "effective_from": "2020-11-27",
+     "effective_to": "2022-04-01"
+    }
+   ],
+   "numerator_label": "Liquidity",
+   "denominator_label": null,
+   "evidence": {
+    "covenant": {
+     "url": "https://www.sec.gov/Archives/edgar/data/1174922/000117492220000085/ex101-wynnxamendmentno.htm",
+     "quote": "Minimum Liquidity Covenant. At all times during the Financial Covenant Relief Period, Borrower shall not permit Liquidity at any time to be less than $300,000,000."
+    },
+    "thresholds": [
+     {
+      "url": "https://www.sec.gov/Archives/edgar/data/1174922/000117492220000085/ex101-wynnxamendmentno.htm",
+      "quote": "Borrower shall not permit Liquidity at any time to be less than $300,000,000."
+     },
+     {
+      "url": "https://www.sec.gov/Archives/edgar/data/1174922/000117492221000029/ex1014-amendmentno2tocredi.htm",
+      "quote": "Section 10.13 of the Existing Credit Agreement is hereby amended by replacing the term \"$300,000,000\" contained therein with the term \"$325,000,000\"."
+     }
+    ],
+    "latest_text": {
+     "url": "https://www.sec.gov/Archives/edgar/data/1174922/000117492225000095/wynn-exatoamendmentno5amen.htm",
+     "quote": "At all times during the Financial Covenant Relief Period, Borrower shall not permit Liquidity at any time to be less than $325,000,000."
+    }
+   }
+  }
+ ],
+ "terms": [
+  {
+   "label": "Consolidated First Lien Net Leverage Ratio",
+   "op": "ratio",
+   "children_labels": [
+    "Consolidated Indebtedness (secured by pari passu Liens)",
+    "Unrestricted Operating Cash",
+    "Consolidated EBITDA"
+   ],
+   "cap": null,
+   "note": "numerator = first-lien (pari passu with Obligations) secured Consolidated Indebtedness minus Unrestricted Operating Cash; denominator = Consolidated EBITDA for the Test Period.",
+   "evidence": {
+    "url": "https://www.sec.gov/Archives/edgar/data/1174922/000117492219000115/ex101-wynn2019xcredita.htm",
+    "quote": "Consolidated First Lien Net Leverage Ratio\" shall mean, as of any date of determination, the ratio of (a) (i) Consolidated Indebtedness of Borrower and its Restricted Subsidiaries that is secured by Liens"
+   }
+  },
+  {
+   "label": "Consolidated Indebtedness",
+   "op": "sum",
+   "children_labels": [
+    "Indebtedness for borrowed money",
+    "obligations in respect of Capital Leases",
+    "purchase money Indebtedness",
+    "Indebtedness of the kind described in clause (d) of the definition of \"Indebtedness\"",
+    "Indebtedness evidenced by promissory notes and similar instruments",
+    "Contingent Obligations"
+   ],
+   "less_labels": [
+    "Development Expenses"
+   ],
+   "cap": null,
+   "evidence": {
+    "url": "https://www.sec.gov/Archives/edgar/data/1174922/000117492219000115/ex101-wynn2019xcredita.htm",
+    "quote": "consisting of Indebtedness for borrowed money, obligations in respect of Capital Leases, purchase money Indebtedness, Indebtedness of the kind described in clause (d) of the definition of \"Indebtedness,\" Indebtedness evidenced by promissory notes and similar instruments and Contingent Obligations in respect of any of the foregoing (to be included only to the extent set forth in clause (iii) below) minus (b) Development Expenses"
+   },
+   "evidence_more": [
+    {
+     "url": "https://www.sec.gov/Archives/edgar/data/1174922/000117492219000115/ex101-wynn2019xcredita.htm",
+     "quote": "\"Consolidated Indebtedness\" shall mean, as at any date of determination, (a) the aggregate amount of all Indebtedness of Borrower and its Restricted Subsidiaries"
+    }
+   ]
+  },
+  {
+   "label": "Unrestricted Operating Cash",
+   "op": "leaf",
+   "children_labels": [],
+   "cap": null,
+   "evidence": {
+    "url": "https://www.sec.gov/Archives/edgar/data/1174922/000117492219000115/ex101-wynn2019xcredita.htm",
+    "quote": "\"Unrestricted Operating Cash\" shall mean, as of any date of determination, cash and Cash Equivalents of Borrower and its Restricted Subsidiaries that would not appear as \"restricted\" on a combined or consolidated balance sheet of the Consolidated Companies in an amount in excess of the Minimum Cage Cash Amount"
+   }
+  },
+  {
+   "label": "Consolidated EBITDA",
+   "op": "sum",
+   "children_labels": [
+    "Consolidated Net Income",
+    "provisions for taxes based on income or profits or capital gains, plus franchise or similar taxes",
+    "Consolidated Interest Expense",
+    "costs associated with debt or equity issuance, refinancing or debt amendments",
+    "depreciation, amortization and other non-cash charges",
+    "Pre-Opening Expenses",
+    "restructuring costs and unusual or non-recurring costs",
+    "charges related to the Transactions, Permitted Acquisitions, Investments or dispositions",
+    "losses from mark to market accounting of Swap Contracts",
+    "accrued and unpaid Management Fees, IP Licensing Fees and Allocable Overhead",
+    "projected cost savings, operating expense reductions and synergies",
+    "business interruption insurance proceeds",
+    "cash receipts relating to previously deducted non-cash gains"
+   ],
+   "less_labels": [
+    "non-cash items increasing Consolidated Net Income",
+    "gains from mark to market accounting of Swap Contracts"
+   ],
+   "cap": null,
+   "evidence": {
+    "url": "https://www.sec.gov/Archives/edgar/data/1174922/000117492219000115/ex101-wynn2019xcredita.htm",
+    "quote": "\"Consolidated EBITDA\" shall mean, for any Test Period, the sum (without duplication) of Consolidated Net Income for such Test Period; plus"
+   },
+   "evidence_more": [
+    {
+     "url": "https://www.sec.gov/Archives/edgar/data/1174922/000117492219000115/ex101-wynn2019xcredita.htm",
+     "quote": "(i) provisions for taxes based on income or profits or capital gains"
+    },
+    {
+     "url": "https://www.sec.gov/Archives/edgar/data/1174922/000117492219000115/ex101-wynn2019xcredita.htm",
+     "quote": "(ii) Consolidated Interest Expense of Borrower and its Restricted Subsidiaries for such Test Period"
+    },
+    {
+     "url": "https://www.sec.gov/Archives/edgar/data/1174922/000117492219000115/ex101-wynn2019xcredita.htm",
+     "quote": "(v) any Pre-Opening Expenses;"
+    },
+    {
+     "url": "https://www.sec.gov/Archives/edgar/data/1174922/000117492219000115/ex101-wynn2019xcredita.htm",
+     "quote": "(viii) any losses resulting from mark to market accounting of Swap Contracts or other derivative instruments; and"
+    },
+    {
+     "url": "https://www.sec.gov/Archives/edgar/data/1174922/000117492219000115/ex101-wynn2019xcredita.htm",
+     "quote": "(ix) the aggregate amount of accrued and unpaid Management Fees, IP Licensing Fees and Allocable Overhead"
+    },
+    {
+     "url": "https://www.sec.gov/Archives/edgar/data/1174922/000117492219000115/ex101-wynn2019xcredita.htm",
+     "quote": "(i) non-cash items increasing such Consolidated Net Income for such Test Period"
+    },
+    {
+     "url": "https://www.sec.gov/Archives/edgar/data/1174922/000117492219000115/ex101-wynn2019xcredita.htm",
+     "quote": "(ii) the amount of any gains resulting from mark to market accounting of Swap Contracts or other derivative instruments; plus"
+    },
+    {
+     "url": "https://www.sec.gov/Archives/edgar/data/1174922/000117492219000115/ex101-wynn2019xcredita.htm",
+     "quote": "to the extent not included in Consolidated Net Income, the amount of business interruption insurance proceeds received during such Test Period"
+    }
+   ]
+  },
+  {
+   "label": "projected cost savings, operating expense reductions and synergies",
+   "op": "cap",
+   "children_labels": [],
+   "cap": {
+    "kind": "pct_of",
+    "of": "Consolidated EBITDA",
+    "pct": 0.2
+   },
+   "note": "cap shared with Section 1.06(c) pro forma adjustments; measured after giving effect to the addback",
+   "evidence": {
+    "url": "https://www.sec.gov/Archives/edgar/data/1174922/000117492219000115/ex101-wynn2019xcredita.htm",
+    "quote": "provided, that the aggregate amount of additions made to Consolidated EBITDA for any Test Period pursuant to this clause (c) and Section 1.06(c) shall not (i) exceed 20.0% of Consolidated EBITDA for such Test Period"
+   }
+  },
+  {
+   "label": "Consolidated Net Income",
+   "op": "leaf",
+   "children_labels": [],
+   "cap": null,
+   "note": "GAAP net income of Borrower and Restricted Subsidiaries with exclusions (a)-(k); later amendments add deduction of cash rent etc. under gaming leases and purchase-accounting exclusion (see A3/A5 conformed copies).",
+   "evidence": {
+    "url": "https://www.sec.gov/Archives/edgar/data/1174922/000117492219000115/ex101-wynn2019xcredita.htm",
+    "quote": "\"Consolidated Net Income\" shall mean, for any Test Period, the aggregate of the net income of Borrower and its Restricted Subsidiaries for such Test Period"
+   }
+  },
+  {
+   "label": "Consolidated Interest Expense",
+   "op": "sum",
+   "children_labels": [
+    "interest expense (GAAP)",
+    "interest portion of Capital Lease payments",
+    "amortization of financing fees and debt issuance costs",
+    "arrangement, commitment or upfront fees, OID, redemption or prepayment premiums",
+    "letter of credit and bankers' acceptance fees",
+    "interest on Discharged and Escrowed Indebtedness",
+    "accretion of discounted liabilities",
+    "mark-to-market interest expense on Swap Contracts",
+    "interest rate Swap Contract payments and breakage costs",
+    "registration-rights liquidated damages and financing fees",
+    "Transactions fees and expenses",
+    "agency fees",
+    "costs and fees of obtaining Swap Contracts"
+   ],
+   "cap": null,
+   "evidence": {
+    "url": "https://www.sec.gov/Archives/edgar/data/1174922/000117492219000115/ex101-wynn2019xcredita.htm",
+    "quote": "\"Consolidated Interest Expense\" shall mean, for any Test Period, the sum of interest expense of Borrower and its Restricted Subsidiaries for such Test Period as determined on a consolidated basis in accordance with GAAP, plus, to the extent deducted in arriving at Consolidated Net Income and without duplication, (a) the interest portion of payments on Capital Leases"
+   },
+   "evidence_more": [
+    {
+     "url": "https://www.sec.gov/Archives/edgar/data/1174922/000117492219000115/ex101-wynn2019xcredita.htm",
+     "quote": "(k) annual or quarterly agency fees paid to Administrative Agent and (l) costs and fees associated with obtaining Swap Contracts and fees payable thereunder."
+    }
+   ]
+  },
+  {
+   "label": "Liquidity",
+   "op": "sum",
+   "children_labels": [
+    "Unrestricted Operating Cash",
+    "excess of Revolving Commitments over Revolving Tranche Exposures"
+   ],
+   "cap": null,
+   "evidence": {
+    "url": "https://www.sec.gov/Archives/edgar/data/1174922/000117492220000085/ex101-wynnxamendmentno.htm",
+    "quote": "\"Liquidity\" means, on any date, the sum of (i) the aggregate amount of Unrestricted Operating Cash of the Borrower and its Restricted Subsidiaries in accordance with GAAP on such date plus (ii) the excess of the aggregate principal amount of Revolving Commitments in effect on such date over the aggregate Revolving Tranche Exposures of all Lenders on such date."
+   }
+  }
+ ],
+ "amendments_considered": [
+  {
+   "accession": "0001174922-20-000085",
+   "url": "https://www.sec.gov/Archives/edgar/data/1174922/000117492220000085/ex101-wynnxamendmentno.htm",
+   "filed": "2020-05-08",
+   "what_changed": "Amendment No. 1 (Apr 10, 2020): Financial Covenant Relief Period (no leverage test) to April 1, 2021, then Financial Covenant Increase Period 4.50/4.25/4.00 then 3.75; new Section 10.13 minimum Liquidity $300M during relief; EBITDA clause (G) cap on Wynn Group Asia dividends ($200.0M) during Increase Period."
+  },
+  {
+   "accession": "0001174922-21-000029",
+   "url": "https://www.sec.gov/Archives/edgar/data/1174922/000117492221000029/ex1014-amendmentno2tocredi.htm",
+   "filed": "2021-02-26",
+   "what_changed": "Amendment No. 2 (Nov 27, 2020): relief period end moved to April 1, 2022; minimum Liquidity raised to $325M."
+  },
+  {
+   "accession": "0001174922-23-000111",
+   "url": "https://www.sec.gov/Archives/edgar/data/1174922/000117492223000111/exhibitatoamendmentno3v2.htm",
+   "filed": "2023-05-17",
+   "what_changed": "Amendment No. 3 (May 17, 2023; conformed copy): Section 10.08/10.13 unchanged; Consolidated Net Income adds cash gaming-lease rent deduction and purchase-accounting exclusion."
+  },
+  {
+   "accession": "0001174922-24-000135",
+   "url": "https://www.sec.gov/Archives/edgar/data/1174922/000117492224000135/ex1011-exatoamendmentno4am.htm",
+   "filed": "2024-09-16",
+   "what_changed": "Amendment No. 4 (Sep 16, 2024; conformed copy): Section 10.08 text unchanged."
+  },
+  {
+   "accession": "0001174922-25-000095",
+   "url": "https://www.sec.gov/Archives/edgar/data/1174922/000117492225000095/wynn-exatoamendmentno5amen.htm",
+   "filed": "2025-06-12",
+   "what_changed": "Amendment No. 5 (Jun 12, 2025; conformed copy): Section 10.08 and 10.13 text unchanged; ratio definition unchanged."
+  }
+ ],
+ "draft_notes": [
+  "Borrower is Wynn Resorts Finance, LLC (subsidiary of Wynn Resorts); this is the WRF credit agreement, not a parent-level facility. Wynn Macau facilities not labeled.",
+  "kind set to max_senior_leverage because the tested ratio is Consolidated FIRST LIEN Net Leverage; verifier may prefer max_leverage.",
+  "numerator_label 'Consolidated Indebtedness' is only the first-lien secured portion, net of Unrestricted Operating Cash (no single defined term for the numerator).",
+  "Original first test: 'first full fiscal quarter ending after the Closing Date' (agreement dated Sept 20, 2019) -> assumed 2019-12-31.",
+  "Increase-period thresholds are DERIVED: relief period ends April 1, 2022 (as extended by Amendment No. 2) unless Borrower elected earlier termination (not checked); first/second/third FQ of the Increase Period mapped to FQs ending 2022-06-30/09-30/12-31 and 3.75x from 2023-03-31. Verify against 10-Q disclosures.",
+  "No leverage test during the relief period (FQs 2020-06-30 through 2022-03-31): no threshold entries for that gap.",
+  "Min liquidity dates: $300M from the A1 'Section 2.1 Effective Date' (earlier of $600M notes closing or 45 days after A1 effectiveness; recorded as A1 date 2020-04-10, NOT verified); $325M from Amendment No. 2 date 2020-11-27 (effective date not verified) through relief-period end 2022-04-01.",
+  "Qualifying Act of Terrorism substitution and Covenant Suspension Period ignored (optional events). Consolidated EBITDA pro forma adjustments (A)-(G) not labeled as children.",
+  "Amendments 3-5 exhibits are conformed copies; definitions quoted from the 2019 original where unchanged."
+ ]
+}

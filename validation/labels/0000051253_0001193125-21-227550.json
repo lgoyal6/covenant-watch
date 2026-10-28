@@ -1,0 +1,267 @@
+{
+ "cik": "0000051253",
+ "agreement_accession": "0001193125-21-227550",
+ "agreement_url": "https://www.sec.gov/Archives/edgar/data/51253/000119312521227550/d206865dex101.htm",
+ "labeled_by": "claude-draft (unverified; Dat must check each field against evidence)",
+ "labeled_at": "2026-10-28",
+ "status": "draft",
+ "covenants": [
+  {
+   "kind": "max_leverage",
+   "direction": "max",
+   "test_period": "ttm",
+   "thresholds": [
+    {
+     "value": 4.75,
+     "effective_from": "2021-09-30",
+     "effective_to": "2021-12-31",
+     "source": "original"
+    },
+    {
+     "value": 4.5,
+     "effective_from": "2022-03-31",
+     "effective_to": "2022-06-30",
+     "source": "original (superseded by Amendment No. 1 from the 2022-09-30 test)"
+    },
+    {
+     "value": 4.5,
+     "effective_from": "2022-09-30",
+     "effective_to": "2022-12-31",
+     "source": "Amendment No. 1 (2022-08-04) (superseded by Amendment No. 2 from the 2023-03-31 test)"
+    },
+    {
+     "value": 5.25,
+     "effective_from": "2023-03-31",
+     "effective_to": "2023-06-30",
+     "source": "Amendment No. 2 (2023-03-23), Covenant Relief Period schedule (superseded by Amendment No. 4 from the 2023-09-30 test)"
+    },
+    {
+     "value": 5.25,
+     "effective_from": "2023-09-30",
+     "effective_to": "2024-03-31",
+     "source": "Amendment No. 4 (2023-09-19), Covenant Relief Period schedule"
+    },
+    {
+     "value": 4.75,
+     "effective_from": "2024-06-30",
+     "effective_to": "2024-06-30",
+     "source": "Amendment No. 4"
+    },
+    {
+     "value": 4.5,
+     "effective_from": "2024-09-30",
+     "effective_to": "2024-09-30",
+     "source": "Amendment No. 4"
+    },
+    {
+     "value": 4.25,
+     "effective_from": "2024-12-31",
+     "effective_to": "2025-03-31",
+     "source": "Amendment No. 4"
+    },
+    {
+     "value": 4.0,
+     "effective_from": "2025-06-30",
+     "effective_to": "2025-09-30",
+     "source": "Amendment No. 4"
+    },
+    {
+     "value": 3.75,
+     "effective_from": "2025-12-31",
+     "effective_to": "2025-12-31",
+     "source": "Amendment No. 4"
+    },
+    {
+     "value": 3.5,
+     "effective_from": "2026-03-31",
+     "effective_to": null,
+     "source": "Amendment No. 4 base level after Covenant Relief Period"
+    }
+   ],
+   "numerator_label": "Net Debt",
+   "denominator_label": "Consolidated EBITDA",
+   "evidence": {
+    "covenant": {
+     "url": "https://www.sec.gov/Archives/edgar/data/51253/000119312521227550/d206865dex101.htm",
+     "quote": "SECTION 5.03. Financial Covenant. So long as any Advance shall remain unpaid, or any Lender shall have any\nCommitment hereunder, the Company shall maintain a Leverage Ratio as of the end of any Relevant Period of not more than:"
+    },
+    "thresholds": [
+     {
+      "url": "https://www.sec.gov/Archives/edgar/data/51253/000119312521227550/d206865dex101.htm",
+      "quote": "(i) 4.75 to 1.00 until and including the end of the fiscal quarter ending on December 31, 2021"
+     },
+     {
+      "url": "https://www.sec.gov/Archives/edgar/data/51253/000119312521227550/d206865dex101.htm",
+      "quote": "(ii) then 4.50 to 1.00\nuntil and including the end of the fiscal quarter ending on September 30, 2022"
+     },
+     {
+      "url": "https://www.sec.gov/Archives/edgar/data/51253/000005125322000022/iff063022exhibit102.htm",
+      "quote": "(i) 4.50 to 1.00 until and including the end of the fiscal quarter ending on June 30, 2023"
+     },
+     {
+      "url": "https://www.sec.gov/Archives/edgar/data/51253/000119312523079779/d489877dex103.htm",
+      "quote": "(i) 5.25 to 1.00 until and including the end of the fiscal quarter ending on\nJune 30, 2023"
+     },
+     {
+      "url": "https://www.sec.gov/Archives/edgar/data/51253/000005125323000036/iff093023exhibit102.htm",
+      "quote": "(i) 5.25 to 1.00 until and including the end of the fiscal quarter ending on March 31, 2024"
+     },
+     {
+      "url": "https://www.sec.gov/Archives/edgar/data/51253/000005125323000036/iff093023exhibit102.htm",
+      "quote": "(ii) 4.75 to 1.00 until and including the end of the fiscal quarter ending on June 30, 2024"
+     },
+     {
+      "url": "https://www.sec.gov/Archives/edgar/data/51253/000005125323000036/iff093023exhibit102.htm",
+      "quote": "(iii) 4.50 to 1.00 until and including the end of the fiscal quarter ending on September 30, 2024"
+     },
+     {
+      "url": "https://www.sec.gov/Archives/edgar/data/51253/000005125323000036/iff093023exhibit102.htm",
+      "quote": "(iv) 4.25 to 1.00 until and including the end of the fiscal quarter ending on March 31, 2025"
+     },
+     {
+      "url": "https://www.sec.gov/Archives/edgar/data/51253/000005125323000036/iff093023exhibit102.htm",
+      "quote": "(v) 4.00 to 1.00 until and including the end of the fiscal quarter ending on September 30, 2025"
+     },
+     {
+      "url": "https://www.sec.gov/Archives/edgar/data/51253/000005125323000036/iff093023exhibit102.htm",
+      "quote": "(vi) 3.75 to 1.00 until and including the end of the fiscal quarter ending on December 31, 2025"
+     },
+     {
+      "url": "https://www.sec.gov/Archives/edgar/data/51253/000005125323000036/iff093023exhibit102.htm",
+      "quote": "the Company shall maintain a Leverage Ratio as of the end of any Relevant Period of not more than 3.50 to 1.00; provided, however"
+     }
+    ],
+    "ratio_definition": {
+     "url": "https://www.sec.gov/Archives/edgar/data/51253/000119312521227550/d206865dex101.htm",
+     "quote": "\"Leverage Ratio\" means the ratio of Net Debt as of the end of any Relevant Period to Consolidated EBITDA in respect of such Relevant Period."
+    },
+    "relevant_period": {
+     "url": "https://www.sec.gov/Archives/edgar/data/51253/000119312521227550/d206865dex101.htm",
+     "quote": "\"Relevant Period\" means, as of any date, the four fiscal quarter period of the Company most recently ended on or as of such date."
+    }
+   }
+  }
+ ],
+ "terms": [
+  {
+   "label": "Net Debt",
+   "op": "subtract",
+   "children_labels": [
+    "Debt for Borrowed Money",
+    "Cash",
+    "Cash Equivalents"
+   ],
+   "cap": null,
+   "evidence": {
+    "url": "https://www.sec.gov/Archives/edgar/data/51253/000119312521227550/d206865dex101.htm",
+    "quote": "\"Net Debt\" means Debt for Borrowed Money less Cash and Cash Equivalents."
+   }
+  },
+  {
+   "label": "Debt for Borrowed Money",
+   "op": "leaf",
+   "children_labels": [],
+   "cap": null,
+   "evidence": {
+    "url": "https://www.sec.gov/Archives/edgar/data/51253/000119312521227550/d206865dex101.htm",
+    "quote": "\"Debt for Borrowed Money\" of a person means all items that, in accordance with GAAP, would be classified as indebtedness on a Consolidated\nbalance sheet of such person other than any amounts which would be classified as indebtedness, in accordance with GAAP, which arise under any Hedge Agreements."
+   }
+  },
+  {
+   "label": "Cash",
+   "op": "leaf",
+   "children_labels": [],
+   "cap": null,
+   "evidence": {
+    "url": "https://www.sec.gov/Archives/edgar/data/51253/000119312521227550/d206865dex101.htm",
+    "quote": "\"Cash\" means, at any time, cash as defined in the Audit\nand Accounting Guides issued by the American Institute of Certified Public Accountants of the United States of America (as amended from time to time) which includes as at the date of this Agreement currency on hand, demand deposits with financial\ninstitutions and other similar deposit accounts."
+   }
+  },
+  {
+   "label": "Cash Equivalents",
+   "op": "leaf",
+   "children_labels": [],
+   "cap": null,
+   "evidence": {
+    "url": "https://www.sec.gov/Archives/edgar/data/51253/000119312521227550/d206865dex101.htm",
+    "quote": "\"Cash Equivalents\"\nmeans, at any time, cash equivalents as defined in the Audit and Accounting Guides issued by the American Institute of Certified Public Accountants of the United States of America (as amended from time to time) which includes as at the date of this\nAgreement short term instruments having not more than three months to final maturity and highly liquid instruments readily convertible to known amounts of cash."
+   }
+  },
+  {
+   "label": "Consolidated EBITDA",
+   "op": "sum",
+   "children_labels": [
+    "net income",
+    "interest expense",
+    "income tax expense",
+    "depreciation expense",
+    "amortization expense and all other non-cash charges",
+    "extraordinary or unusual losses",
+    "non-recurring non-cash expenses and charges",
+    "non-cash gains or losses from asset sales",
+    "non-cash purchase accounting adjustments",
+    "costs and expenses in connection with the Loan Document transactions",
+    "non-cash stock-based compensation expense",
+    "other non-cash expenses reducing net income",
+    "costs and expenses of the Palate Transactions, Neptune Transactions, acquisitions, investments, equity issuances and debt incurrence"
+   ],
+   "less_labels": [
+    "extraordinary or unusual gains",
+    "non-cash items increasing net income"
+   ],
+   "cap": null,
+   "evidence": {
+    "url": "https://www.sec.gov/Archives/edgar/data/51253/000119312521227550/d206865dex101.htm",
+    "quote": "EBITDA\" of a Person means, for any Relevant Period, net income\n(or net loss) plus the sum of: (a) interest expense; (b) income tax expense; (c) depreciation expense; (d) amortization expense and all other non-cash charges; (e) extraordinary"
+   },
+   "evidence_more": [
+    {
+     "url": "https://www.sec.gov/Archives/edgar/data/51253/000119312521227550/d206865dex101.htm",
+     "quote": "(e) extraordinary\nor unusual losses deducted in calculating net income less extraordinary or unusual gains added in calculating net income, (f) all non-recurring non-cash\nexpenses and charges, (g) any non-cash gains or losses from asset sales, (h) non-cash purchase accounting adjustments, (i) customary costs and expenses"
+    },
+    {
+     "url": "https://www.sec.gov/Archives/edgar/data/51253/000119312521227550/d206865dex101.htm",
+     "quote": "(i) customary costs and expenses\nincurred in connection with the transactions contemplated by the Loan Documents, (j) non-cash stock-based compensation expense for such period, (k) other expenses reducing such net income which do\nnot represent a cash item in such period or any future period less all non-cash items increasing net income which do not represent a cash item in such period or any future period, and (l)"
+    },
+    {
+     "url": "https://www.sec.gov/Archives/edgar/data/51253/000119312521227550/d206865dex101.htm",
+     "quote": "(l) costs and\nexpenses incurred in connection with the Palate Transactions and the Neptune Transactions and customary costs and expenses incurred in connection with acquisitions, investments, issuances of equity and incurrence of indebtedness to the extent any\nsuch transaction is not prohibited by this Agreement, in each case determined in accordance with GAAP for the Relevant Period."
+    }
+   ]
+  }
+ ],
+ "amendments_considered": [
+  {
+   "accession": "0000051253-22-000022",
+   "url": "https://www.sec.gov/Archives/edgar/data/51253/000005125322000022/iff063022exhibit102.htm",
+   "filed": "2022-08-08",
+   "what_changed": "Amendment No. 1 (Aug 4, 2022): delayed leverage step-downs (4.50 through 6/30/2023, 4.25, 4.00, 3.75, then 3.50 after 9/30/2024)."
+  },
+  {
+   "accession": "0001193125-23-079779",
+   "url": "https://www.sec.gov/Archives/edgar/data/51253/000119312523079779/d489877dex103.htm",
+   "filed": "2023-03-27",
+   "what_changed": "Amendment No. 2 (Mar 23, 2023): Covenant Relief Period; 3.50 base, relief schedule 5.25 through 6/30/2023 stepping to 4.00 through 12/31/2024."
+  },
+  {
+   "accession": "0001193125-23-079779",
+   "url": "https://www.sec.gov/Archives/edgar/data/51253/000119312523079779/d489877dex104.htm",
+   "filed": "2023-03-27",
+   "what_changed": "Amendment No. 3 (Mar 23, 2023): conformed-copy changes (Annex A); Section 5.03 and EBITDA definition read the same as Amendment No. 2 / original in the conformed copy."
+  },
+  {
+   "accession": "0000051253-23-000036",
+   "url": "https://www.sec.gov/Archives/edgar/data/51253/000005125323000036/iff093023exhibit102.htm",
+   "filed": "2023-11-08",
+   "what_changed": "Amendment No. 4 (Sep 19, 2023): restated Section 5.03 relief schedule 5.25 through 3/31/2024 stepping to 3.75 through 12/31/2025; Covenant Relief Period Termination Date extended to Mar 31, 2026."
+  }
+ ],
+ "draft_notes": [
+  "Thresholds are the OPERATIVE timeline: each amendment's schedule applies from the first quarter-end test date after its date; earlier schedules are truncated there (see 'source'). Amendment effective dates assumed equal to their dated-as-of dates.",
+  "Original first test date assumed 2021-09-30 (agreement dated July 28, 2021).",
+  "Relief-period schedule treated as the base schedule (it applies unless the Company elects early termination). Qualifying Acquisition 3.75x step-up omitted per guide (optional event).",
+  "The 3.50 base and the 2025 levels may never have been tested under this agreement: a Fourth Amended and Restated Credit Agreement dated June 25, 2025 (accession 0000051253-26-000017, EX-10.1) appears to replace it. Not labeled here.",
+  "Denominator: Section uses 'Consolidated EBITDA'; the defined term is '\"EBITDA\" of a Person' applied to the Company on a consolidated basis. Term labeled 'Consolidated EBITDA'; verifier may prefer 'EBITDA'.",
+  "Consolidated EBITDA children are undefined line items (lowercase), not defined terms; 'less_labels' lists deducted items. No caps on addbacks."
+ ]
+}

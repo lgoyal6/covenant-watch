@@ -188,7 +188,7 @@ def _label_norm(s: str) -> str:
 
 def extraction(labels_dir: Path = LABELS, contracts_dir: Path = CONTRACTS) -> dict:
     counts = defaultdict(lambda: [0, 0, 0])
-    n = verified_drafts = 0
+    n = verified_drafts = mismatched = 0
     for f in sorted(labels_dir.glob("*.json")) if labels_dir.exists() else []:
         gold = json.loads(f.read_text())
         if gold.get("status") != "labeled":
@@ -197,8 +197,11 @@ def extraction(labels_dir: Path = LABELS, contracts_dir: Path = CONTRACTS) -> di
         cf = contracts_dir / f"{norm_cik(gold['cik'])}.json"
         if not cf.exists():
             continue
-        n += 1
         pred = ContractExtraction.model_validate_json(cf.read_text())
+        if gold.get("agreement_accession") not in {a.accession for a in pred.agreements}:
+            mismatched += 1  # the extractor read a different agreement; comparing would be unfair either way
+            continue
+        n += 1
         terms = {t.id: t for t in pred.terms}
         g_kinds = Counter(c["kind"] for c in gold["covenants"])
         p_kinds = Counter(c.kind for c in pred.covenants)
@@ -218,6 +221,7 @@ def extraction(labels_dir: Path = LABELS, contracts_dir: Path = CONTRACTS) -> di
         _add(counts["term_structure"], g_edges, p_edges)
     out = {k: _prf(*v) for k, v in counts.items()}
     out["agreements_labeled"] = n
+    out["agreement_mismatch"] = mismatched  # labeled, but the contract file covers a different agreement
     out["verified_drafts"] = verified_drafts  # labels a person verified from a Claude draft (may share the extractor's blind spots)
     return out
 

@@ -58,3 +58,21 @@ Field rules:
 6. When done, set `status` to `labeled`, fill `labeled_by` and `labeled_at` (YYYY-MM-DD).
 
 Target per `docs/PLAN.md`: 20 agreements, picked from `validation/universe_snapshot.json`.
+
+## Drafts (status `"draft"`)
+
+Some files were drafted by Claude at Dat's request to save reading time. A draft is **not**
+gold: the scorer ignores it. Every drafted field carries an `evidence` quote (exact
+substring of the filing's plain text, `validation.text.doc_text(url)`), and
+`amendments_considered` lists the amendments the drafter applied.
+
+To promote a draft to gold, a person must:
+
+1. Run `uv run python -m validation.labels.check` (re-verifies every quote, lists each field).
+2. Open each agreement and check every field against its quote **and** the surrounding
+   text: correct covenant kind, the full step-down schedule, later amendments not missed,
+   definition tree complete (addbacks, caps). Fix what is wrong; delete what can't be confirmed.
+3. Set `"status": "labeled"`, `"labeled_by": "<your name> (verified Claude draft)"`.
+
+Because the contract reader also uses Claude, drafted-then-verified labels can share its
+blind spots; the eval report counts verified drafts separately (`extraction.verified_drafts`).

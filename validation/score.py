@@ -188,11 +188,12 @@ def _label_norm(s: str) -> str:
 
 def extraction(labels_dir: Path = LABELS, contracts_dir: Path = CONTRACTS) -> dict:
     counts = defaultdict(lambda: [0, 0, 0])
-    n = 0
+    n = verified_drafts = 0
     for f in sorted(labels_dir.glob("*.json")) if labels_dir.exists() else []:
         gold = json.loads(f.read_text())
         if gold.get("status") != "labeled":
             continue
+        verified_drafts += "draft" in (gold.get("labeled_by") or "").lower()
         cf = contracts_dir / f"{norm_cik(gold['cik'])}.json"
         if not cf.exists():
             continue
@@ -217,6 +218,7 @@ def extraction(labels_dir: Path = LABELS, contracts_dir: Path = CONTRACTS) -> di
         _add(counts["term_structure"], g_edges, p_edges)
     out = {k: _prf(*v) for k, v in counts.items()}
     out["agreements_labeled"] = n
+    out["verified_drafts"] = verified_drafts  # labels a person verified from a Claude draft (may share the extractor's blind spots)
     return out
 
 

@@ -72,3 +72,23 @@ def test_amendment_keeps_non_ratio_changes():
     source = document('<p>Amendment: Section 1.01 is replaced with the following definition.</p>', 'amendment')
     plan = plan_context(source)
     assert 'replaced' in '\n'.join(readable(source, part) for part in plan.units)
+
+
+def test_quote_from_hidden_markup_is_not_accepted_as_displayed_evidence():
+    source = document('<style>made-up threshold 9.99</style><p>Real visible clause.</p>')
+    with pytest.raises(EvidenceError):
+        bind_evidence(Quote(text='made-up threshold 9.99'), source, [Segment(0, len(source.text), source.text)])
+
+
+def test_step_down_table_rows_are_not_mistaken_for_section_headers():
+    source = document('<p>Credit Agreement.</p><p>' + 'Unrelated warranty. ' * 500 + '</p>' +
+        '<p>SECTION 7.11 Financial Covenants</p>'
+        '<p>Borrower shall maintain leverage no greater than the following schedule:</p>'
+        '<table><tr><td>4.50 to 1.00</td><td>through June 30, 2024</td></tr>'
+        '<tr><td>3.50 to 1.00</td><td>thereafter</td></tr></table>'
+        '<p>Applies only while revolving loans are outstanding.</p>'
+        '<p>SECTION 8.01 Other Provisions</p>')
+    selected = '\n'.join(readable(source, unit) for unit in plan_context(source).units)
+    assert '3.50 to 1.00' in selected
+    assert 'Applies only while revolving loans' in selected
+    assert '1.00 through' in selected

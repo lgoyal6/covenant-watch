@@ -52,6 +52,9 @@ class Rendered(HTMLParser):
     def handle_starttag(self, tag, attrs):
         if tag in {'script', 'style'}:
             self.hidden += 1
+        if tag in {'td', 'th'}:
+            start = self.raw_position()
+            self.emit(' ', start, start + len(self.get_starttag_text()))
         if tag in {'p', 'div', 'br', 'tr', 'h1', 'h2', 'h3', 'li'}:
             start = self.raw_position()
             self.emit('\n', start, start + len(self.get_starttag_text()))
@@ -106,11 +109,6 @@ def bind_evidence(quote: Quote, source: SourceDocument, ranges: list[Segment]):
     view = render(source.text)
     candidates = {}
     for part in ranges:
-        # Existing raw quotes and offset hints remain valid, including plain-text fixtures.
-        pos = source.text.find(quote.text, part.start, part.end)
-        while pos >= 0:
-            candidates[(pos, pos + len(quote.text))] = None
-            pos = source.text.find(quote.text, pos + 1, part.end)
         lo, hi = view.bounds(part.start, part.end)
         pos = view.text.find(quote.text, lo, hi)
         while pos >= 0:
@@ -132,7 +130,10 @@ def bind_evidence(quote: Quote, source: SourceDocument, ranges: list[Segment]):
 
 
 DEFINITION = re.compile(r'["“]([^"”\n]{2,140})["”]\s*(?:(?:shall\s+)?mean(?:s)?\b|has the meaning\b|:)', re.I)
-HEADER = re.compile(r'(?im)^\s*((?:SECTION\s+)?\d+\.\d+(?:\([a-z0-9]+\))?[^\n]{0,180}|ARTICLE\s+[IVXLCDM]+[^\n]{0,100})')
+HEADER = re.compile(
+    r'(?im)^[ \t]*(SECTION\s+\d+\.\d+(?:\([a-z0-9]+\))?[^\n]{0,180}'
+    r'|\d+\.\d+(?:\([a-z0-9]+\))?[ \t]+(?-i:[A-Z])[^\n]{0,179}'
+    r'|ARTICLE\s+[IVXLCDM]+[^\n]{0,100})')
 FINANCIAL = re.compile(r'financial\s+covenants?|leverage(?:\s+ratio)?|interest\s+coverage|fixed.charge\s+coverage|minimum\s+liquidity', re.I)
 OPERATIVE = re.compile(r'permit|maintain|shall|must|not\s+(?:exceed|less)|at\s+least|maximum|minimum|greater\s+than|less\s+than', re.I)
 
@@ -190,15 +191,14 @@ def plan_context(source: SourceDocument, *, pilot=False) -> ContextPlan:
         if FINANCIAL.search(body[:240]) and OPERATIVE.search(body[header.end() - header.start():]):
             roots.append((header.start(), end))
     # Unnumbered text: complete paragraphs only, never an arbitrary character window.
-    for match in FINANCIAL.finditer(text):
-        if any(a <= match.start() < b for a, b in roots):
-            continue
-        if any(a <= match.start() < b for ranges in catalog.values() for a, b in ranges):
-            continue
-        a, b = text.rfind('\n', 0, match.start()) + 1, text.find('\n', match.end())
-        b = len(text) if b < 0 else b
-        if OPERATIVE.search(text[a:b]):
-            roots.append((a, b))
+    if not roots:
+        for match in FINANCIAL.finditer(text):
+            if any(a <= match.start() < b for a, b in roots):
+                continue
+            a, b = text.rfind('\n', 0, match.start()) + 1, text.find('\n', match.end())
+            b = len(text) if b < 0 else b
+            if not DEFINITION.search(text[a:b]) and OPERATIVE.search(text[a:b]):
+                roots.append((a, b))
     roots = sorted(set(roots))
     if pilot:
         roots = roots[:1]

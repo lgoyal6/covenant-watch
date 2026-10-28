@@ -92,7 +92,7 @@ function Stats({ obj }: { obj: Obj }) {
   );
 }
 
-function ObjTable({ rows, rowKeyLabel = "Field" }: { rows: [string, Obj][]; rowKeyLabel?: string }) {
+function ObjTable({ rows, rowKeyLabel = "Group" }: { rows: [string, Obj][]; rowKeyLabel?: string }) {
   const cols = [...new Set(rows.flatMap(([, o]) => Object.keys(o)))];
   return (
     <div className="table-wrap">
@@ -221,12 +221,12 @@ function Nested({ obj }: { obj: Obj }) {
   );
 }
 
-function Generic({ value }: { value: Json }) {
+function Generic({ value, rowKeyLabel }: { value: Json; rowKeyLabel?: string }) {
   if (Array.isArray(value)) return value.length ? <ListTable items={value} /> : <div className="card-pad small muted">None.</div>;
   if (isObj(value)) {
     const entries = Object.entries(value);
     if (!entries.length) return <div className="card-pad small muted">No data yet.</div>;
-    if (entries.every(([, v]) => isObj(v))) return <ObjTable rows={entries as [string, Obj][]} />;
+    if (entries.every(([, v]) => isObj(v))) return <ObjTable rows={entries as [string, Obj][]} rowKeyLabel={rowKeyLabel} />;
     return (
       <>
         <Stats obj={value} />
@@ -248,7 +248,7 @@ function Section({ k, value }: { k: string; value: Json }) {
         <HitVsPeers obj={value} />
       </>
     );
-  else body = <Generic value={value} />;
+  else body = <Generic value={value} rowKeyLabel={k === "extraction" ? "Field" : undefined} />;
   return (
     <section className="card" style={{ overflow: "hidden" }}>
       <div className="card-head">
@@ -257,7 +257,7 @@ function Section({ k, value }: { k: string; value: Json }) {
           {meta.blurb && <span className="small muted">{meta.blurb}</span>}
         </div>
       </div>
-      {value === null || value === undefined ? <div className="card-pad small muted">Not in this report.</div> : body}
+      {value === null || value === undefined ? <div className="card-pad small muted">Not in this report yet.</div> : body}
     </section>
   );
 }
@@ -269,7 +269,7 @@ export default async function EvalPage() {
   const res = await settle(api.eval());
   const report = (res.data?.report ?? null) as Obj | null;
   const keys = report
-    ? [...ORDER.filter((k) => k in report), ...Object.keys(report).filter((k) => !ORDER.includes(k) && !SKIP.has(k))]
+    ? [...ORDER, ...Object.keys(report).filter((k) => !ORDER.includes(k) && !SKIP.has(k))]
     : [];
 
   return (

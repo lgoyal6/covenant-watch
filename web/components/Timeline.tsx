@@ -366,11 +366,11 @@ export default function Timeline({ data, selected, onSelect, height = 360, empha
           const lbl = eventLabels[i];
           return (
             <g key={`e${i}`}>
-              <line x1={x} x2={x} y1={yTop - 4 - lbl.row * 14} y2={yBot} stroke="var(--event)" strokeWidth={emphasizeEvents ? 2.4 : 1.6} strokeDasharray="5 4" />
+              <line x1={x} x2={x} y1={yTop - 20 - lbl.row * 14} y2={yBot} stroke="var(--event)" strokeWidth={emphasizeEvents ? 2.4 : 1.6} strokeDasharray="5 4" />
               <text
-                x={x}
+                x={x > M.left + pw * 0.55 ? x - 5 : x + 5}
                 y={yTop - 9 - lbl.row * 14}
-                textAnchor={x > M.left + pw - 120 ? "end" : x < M.left + 120 ? "start" : "middle"}
+                textAnchor={x > M.left + pw * 0.55 ? "end" : "start"}
                 fontSize="11"
                 fontWeight="650"
                 fill="var(--event)"

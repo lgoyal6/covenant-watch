@@ -237,7 +237,7 @@ function QuarterTable({ tl, selected, onSelect }: { tl: TimelineResponse; select
                 tabIndex={0}
                 onKeyDown={(e) => e.key === "Enter" && onSelect(q.period_end)}
               >
-                <td className="num">
+                <td className="num nowrap">
                   <strong>{fmtQuarter(q.period_end)}</strong> <span className="muted tiny">{fmtDate(q.period_end)}</span>
                 </td>
                 <td>

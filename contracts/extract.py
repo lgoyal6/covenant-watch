@@ -1,6 +1,7 @@
 """Structured Claude extraction, exact quotation binding, and independent verification."""
 
 import json
+import hashlib
 import re
 import sys
 from pathlib import Path
@@ -10,8 +11,10 @@ from pydantic import ValidationError
 
 from shared.schema import Model, Refusal, Span
 from contracts.models import DocumentResult, Reading, SourceDocument
-from contracts.segment import Segment, chunks
-from contracts.verify import EvidenceError, VerificationStats, bind_quote, disagreements, semantic, verify_number, verify_node_number
+from contracts.segment import Segment
+from contracts.context import ContextError, bind_evidence, plan_context, readable, render
+from contracts.runtime import BudgetError
+from contracts.verify import EvidenceError, VerificationStats, disagreements, semantic, verify_number, verify_node_number
 
 SONNET = 'claude-sonnet-5-5'
 OPUS = 'claude-opus-5-5'
@@ -29,13 +32,16 @@ class Identity(Model):
     effective_date_source: Span
 
 
-def _items(reading: Reading, source: SourceDocument, chunk: Segment | None) -> dict:
+def _items(reading: Reading, source: SourceDocument, chunk) -> dict:
+    ranges = chunk if isinstance(chunk, list) else [chunk or Segment(0, len(source.text), source.text)]
+    def bind(quote):
+        return bind_evidence(quote, source, ranges)
     items = {}
     for term in reading.terms:
         # model_validate against shared types after replacing wire quotes.
         from shared.schema import TermNode
         data = term.model_dump()
-        data['span'] = bind_quote(term.span, source, chunk)
+        data['span'] = bind(term.span)
         bound = TermNode.model_validate(data)
         verify_node_number(bound)
         items['term:' + term.id] = bound
@@ -44,21 +50,21 @@ def _items(reading: Reading, source: SourceDocument, chunk: Segment | None) -> d
         if covenant.agreement_accession != source.agreement.accession:
             raise EvidenceError('model supplied a foreign agreement accession')
         data = covenant.model_dump()
-        data['span'] = bind_quote(covenant.span, source, chunk)
+        data['span'] = bind(covenant.span)
         for threshold, raw in zip(data['thresholds'], covenant.thresholds):
-            threshold['source'] = bind_quote(raw.source, source, chunk)
+            threshold['source'] = bind(raw.source)
             verify_number(threshold['value'], threshold['source'].text)
         items['covenant:' + covenant.id] = Covenant.model_validate(data)
     for removal in reading.removed_covenants:
-        items['remove:' + removal.covenant_id] = bind_quote(removal.source, source, chunk)
+        items['remove:' + removal.covenant_id] = bind(removal.source)
     metadata = (reading.facility_id, reading.facility_source, reading.effective_date, reading.effective_date_source)
     if all(value is not None for value in metadata):
         if not re.fullmatch(r'[a-z0-9][a-z0-9_\-]*', reading.facility_id):
             raise EvidenceError('invalid facility identity slug')
         items['identity'] = Identity(facility_id=reading.facility_id,
-            facility_source=bind_quote(reading.facility_source, source, chunk),
+            facility_source=bind(reading.facility_source),
             effective_date=reading.effective_date.isoformat(),
-            effective_date_source=bind_quote(reading.effective_date_source, source, chunk))
+            effective_date_source=bind(reading.effective_date_source))
     if any(r.scope == 'quarter' for r in reading.refusals):
         raise EvidenceError('contract extraction cannot issue quarter-level refusals')
     if len(items) != len(reading.terms) + len(reading.covenants) + len(reading.removed_covenants) + ('identity' in items):
@@ -67,7 +73,7 @@ def _items(reading: Reading, source: SourceDocument, chunk: Segment | None) -> d
 
 
 def _hard(reading: Reading) -> bool:
-    if reading.refusals or any(n.op in {'cap', 'floor'} for n in reading.terms):
+    if any(r.reason in {'ambiguous_definition', 'unmapped_term'} for r in reading.refusals):
         return True
     nodes = {n.id: n for n in reading.terms}
 
@@ -81,8 +87,11 @@ def _hard(reading: Reading) -> bool:
 
 
 class Extractor:
-    def __init__(self, client=None):
-        self.client = client if client is not None else anthropic.Anthropic(max_retries=2, timeout=120)
+    def __init__(self, client=None, *, runtime=None, pilot=False):
+        self.client = client if client is not None else anthropic.Anthropic(
+            max_retries=0, timeout=120, base_url='https://api.anthropic.com')
+        self.runtime = runtime
+        self.pilot = pilot
         self.stats = VerificationStats()
 
     def preflight(self):
@@ -101,30 +110,46 @@ class Extractor:
                               'instrument_kind': source.agreement.kind, 'filed': str(source.agreement.filed)})
         content += '\n' + task
         for chunk in ranges:
-            content += f'\nSOURCE RANGE [{chunk.start}, {chunk.end})\n{chunk.text}\nEND SOURCE RANGE\n'
-        response = self.client.messages.create(model=model, max_tokens=12000, system=prompt,
+            content += (f'\nSOURCE UNIT raw offsets [{chunk.start}, {chunk.end})\n'
+                        + readable(source, chunk) + '\nEND SOURCE UNIT\n')
+        if self.runtime is None:
+            raise BudgetError('No budget/checkpoint runtime configured; paid inference disabled')
+        payload = dict(model=model, max_tokens=6000, system=prompt,
             messages=[{'role': 'user', 'content': content}],
             tools=[{'name': 'record_extraction', 'description': 'Record only source-supported covenant evidence.',
-                    'input_schema': Reading.model_json_schema()}],
-            tool_choice={'type': 'auto'})
-        records = [block for block in response.content if block.type == 'tool_use' and block.name == 'record_extraction']
-        if response.stop_reason != 'tool_use' or len(records) != 1:
-            raise EvidenceError('missing, multiple or truncated structured tool response')
-        return Reading.model_validate(records[0].input)
+                    'input_schema': Reading.model_json_schema()}], tool_choice={'type': 'auto'},
+            service_tier='standard_only', extra_body={'inference_geo': 'global'})
+        key, response = self.runtime.perform(self.client, payload,
+                                             hashlib.sha256(source.text.encode('utf-8')).hexdigest())
+        if response['stop_reason'] == 'max_tokens':
+            self.runtime.mark(key, 'invalid')
+            raise ExtractionError('Structured response truncated; saved checkpoint, no automatic paid retry')
+        records = [block for block in response['content'] if block['type'] == 'tool_use'
+                   and block['name'] == 'record_extraction']
+        try:
+            if response['stop_reason'] != 'tool_use' or len(records) != 1:
+                raise EvidenceError('missing or multiple structured tool response')
+            reading = Reading.model_validate(records[0]['input'])
+            _items(reading, source, ranges)
+        except (EvidenceError, ValidationError):
+            self.runtime.mark(key, 'invalid')
+            raise
+        self.runtime.mark(key, 'verified')
+        return reading
 
-    def _read_chunk(self, source, chunk, notes, ranges=None):
+    def _read_chunk(self, source, chunk, notes, ranges=None, scope=""):
         failures = []
         # An invalid quote is discarded, never silently relocated or rewritten.
         for attempt, model in enumerate((SONNET, SONNET, OPUS)):
             try:
                 reading = self._request(source, ranges or [chunk], model=model,
-                    task='Retry rejected evidence: ' + '; '.join(failures) if failures else '')
-                items = _items(reading, source, chunk)
+                    task=scope + ('\nRetry rejected evidence: ' + '; '.join(failures) if failures else ''))
+                items = _items(reading, source, ranges or [chunk])
                 if model != OPUS and _hard(reading):
                     reading = self._request(source, ranges or [chunk], model=OPUS,
                         task='Hard definition review: reconstruct caps, deep dependencies and unsupported conditions.\n'
                              + reading.model_dump_json())
-                    items = _items(reading, source, chunk)
+                    items = _items(reading, source, ranges or [chunk])
                     notes.append(f'Escalated hard definitions in source range {chunk.start}:{chunk.end} to {OPUS}.')
                 return items, reading.refusals, reading.extraction_notes
             except (EvidenceError, ValidationError) as error:
@@ -133,22 +158,25 @@ class Extractor:
         return {}, [Refusal(scope='agreement', ref=source.key, reason='ambiguous_definition',
                     detail=f'Invalid evidence after extraction retries at {chunk.start}:{chunk.end}: {failures[-1]}')], []
 
-    def _pass(self, source, alternate, notes):
-        candidates = {}
-        refusals = []
-        layout = chunks(source.text, alternate=alternate)
-        for index, chunk in enumerate(layout):
-            if index % 10 == 0 or index == len(layout) - 1:
-                print(f'{source.agreement.accession}: layout {2 if alternate else 1}, '
-                      f'chunk {index + 1}/{len(layout)}', file=sys.stderr, flush=True)
-            ranges = None
-            if alternate and len(layout) == 1 and len(source.text) > 1:
-                # Small agreements still receive a second layout: two separately
-                # delimited contiguous ranges in one independent extraction call.
-                mid = len(source.text) // 2
-                ranges = [Segment(0, mid, source.text[:mid]),
-                          Segment(mid, len(source.text), source.text[mid:])]
-            items, rejected, extracted_notes = self._read_chunk(source, chunk, notes, ranges)
+    def _pass(self, source, alternate, notes, plan):
+        candidates, refusals = {}, []
+        layout = plan.layout(alternate)
+        scope = ('Retrieved definition labels, including legal scope context: ' + ', '.join(plan.definitions)
+                 + '. Entities and legal roles are context, never numeric leaves. Extract only financial '
+                   'operands and clauses supported by the supplied units. References to definitions in other units may use their stable IDs.')
+        for index, ranges in enumerate(layout):
+            print(f'{source.agreement.accession}: layout {2 if alternate else 1}, '
+                  f'group {index + 1}/{len(layout)}', file=sys.stderr, flush=True)
+            if alternate and len(layout) == 1 and len(ranges) == 1:
+                # Distinct delimiters for small plain-text agreements, with complete coverage.
+                part = ranges[0]
+                view = render(source.text)
+                a, b = view.bounds(part.start, part.end)
+                mid = view.text.find('\n', (a + b) // 2, b)
+                if mid > a:
+                    ranges = [view.raw_segment(a, mid), view.raw_segment(mid, b)]
+            bounds = Segment(min(p.start for p in ranges), max(p.end for p in ranges), '')
+            items, rejected, extracted_notes = self._read_chunk(source, bounds, notes, ranges, scope)
             refusals.extend(rejected)
             notes.extend(extracted_notes)
             for key, item in items.items():
@@ -164,16 +192,19 @@ class Extractor:
                 spans += [candidate.facility_source, candidate.effective_date_source]
             else:
                 spans.append(candidate if isinstance(candidate, Span) else candidate.span)
-        lo = max(0, min(s.char_start for s in spans) - 12000)
-        hi = min(len(source.text), max(s.char_end for s in spans) + 12000)
-        if hi - lo > 120000:
-            return None
-        context = Segment(lo, hi, source.text[lo:hi])
-        task = f'Disputed key: {key}\nCandidates:\n' + json.dumps([c.model_dump(mode='json') for c in candidates])
+        view = render(source.text)
+        ranges = []
+        for span in spans:
+            a, b = view.bounds(span.char_start, span.char_end)
+            a = max(0, view.text.rfind('\n', 0, max(0, a - 1500)))
+            b = view.text.find('\n', min(len(view.text), b + 1500))
+            b = len(view.text) if b < 0 else b
+            ranges.append(view.raw_segment(a, b))
+        task = f'Disputed key: {key}\nCandidates:\n' + json.dumps([semantic(c) for c in candidates])
         self.stats.verifier_calls += 1
         try:
-            reading = self._request(source, [context], model=OPUS, task=task, verifier=True)
-            items = _items(reading, source, context)
+            reading = self._request(source, ranges, model=OPUS, task=task, verifier=True)
+            items = _items(reading, source, ranges)
             item = items.get(key)
             if reading.refusals or item is None or not any(semantic(item) == semantic(c) for c in candidates):
                 return None
@@ -183,8 +214,15 @@ class Extractor:
 
     def read(self, source: SourceDocument) -> DocumentResult:
         notes = []
-        first, refusals = self._pass(source, False, notes)
-        second, more_refusals = self._pass(source, True, notes)
+        try:
+            plan = plan_context(source, pilot=self.pilot)
+            notes.append('contracts.context=' + json.dumps(plan.report(), sort_keys=True))
+        except ContextError as error:
+            return DocumentResult(source, None, None, None, None, [], [], {},
+                [Refusal(scope='agreement', ref=source.key, reason='ambiguous_definition', detail=str(error))],
+                ['Local context selection refused: ' + str(error)])
+        first, refusals = self._pass(source, False, notes, plan)
+        second, more_refusals = self._pass(source, True, notes, plan)
         refusals.extend(more_refusals)
         left = {key: values[0] for key, values in first.items()}
         right = {key: values[0] for key, values in second.items()}

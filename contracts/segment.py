@@ -68,5 +68,11 @@ def defined_terms(text: str) -> dict[str, str]:
     visible = visible_text(text)
     pattern = r'["“]([^"”\n]{2,140})["”]\s*(?:means|shall mean|has the meaning|:|=)'
     matches = list(re.finditer(pattern, visible, re.I))
-    return {m[1].casefold(): visible[m.end():matches[i + 1].start() if i + 1 < len(matches)
-            else min(len(visible), m.end() + 12000)] for i, m in enumerate(matches)}
+    bodies = {}
+    for i, match in enumerate(matches):
+        end = matches[i + 1].start() if i + 1 < len(matches) else min(len(visible), match.end() + 12000)
+        body = visible[match.end():end]
+        # A distinct plain-text paragraph is not part of the preceding definition.
+        # Full cited operative text is independently checked by normalization.
+        bodies[match[1].casefold()] = re.split(r'\n[ \t]*\n', body, maxsplit=1)[0]
+    return bodies

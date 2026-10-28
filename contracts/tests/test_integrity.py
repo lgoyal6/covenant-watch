@@ -136,3 +136,9 @@ def test_missing_base_or_uncited_lineage_blocks_publication(source):
     bad = result(amendment, facility_id=None)
     terms, covenants, refusals, _ = apply_amendments([result(source), bad])
     assert not covenants and refusals
+
+
+def test_definition_index_stops_at_separate_paragraph(source):
+    from contracts.segment import defined_terms
+    text = '"Interest Expense" means total interest expense\n\nUnrelated cap based on Consolidated EBITDA.\n\n"Consolidated EBITDA" means net income.'
+    assert 'Consolidated EBITDA' not in defined_terms(text)['interest expense']

@@ -58,7 +58,11 @@ def verify_contract(contract: ContractExtraction, sources: dict[str, SourceDocum
         count += 1
     if len({c.id for c in contract.covenants}) != len(contract.covenants):
         raise EvidenceError('duplicate covenant ids')
+    for node in contract.terms:
+        verify_node_number(node)
     for covenant in contract.covenants:
+        for threshold in covenant.thresholds:
+            verify_number(threshold.value, threshold.source.text)
         if covenant.agreement_accession not in {a.accession for a in contract.agreements}:
             raise EvidenceError('covenant references an undeclared agreement')
     return count
@@ -113,3 +117,35 @@ def summarize(contracts: list[ContractExtraction]) -> dict:
                 **totals,
                 verifier_disagreement_rate=totals['disagreed'] / totals['compared']
                 if totals['compared'] else None)
+
+
+def verify_number(value: float, text: str, *, percentage: bool = False) -> None:
+    """Require a matching literal, including stated scaling, in the cited clause."""
+    import math
+    import re
+    from contracts.segment import visible_text
+
+    if isinstance(value, bool) or not isinstance(value, (int, float)) or not math.isfinite(value):
+        raise EvidenceError('numeric claim must be a finite number')
+    visible = visible_text(text)
+    pattern = r'(?<![\w.])(-?\d+(?:,\d{3})*(?:\.\d+)?)\s*(billion|million|thousand|bn|mm)?\s*(%|percent\b)?'
+    scales = {None: 1, 'billion': 1e9, 'bn': 1e9, 'million': 1e6, 'mm': 1e6, 'thousand': 1e3}
+    for match in re.finditer(pattern, visible, re.I):
+        if percentage and not match[3]:
+            continue
+        amount = float(match[1].replace(',', '')) * scales[match[2].lower() if match[2] else None]
+        if match[3]:
+            amount /= 100
+        if math.isfinite(value) and math.isclose(value, amount, rel_tol=1e-10, abs_tol=1e-12):
+            return
+    if value == 0 and re.search(r'\bzero\b', visible, re.I) and not percentage:
+        return
+    raise EvidenceError(f'numeric claim {value} has no matching literal in its cited clause')
+
+
+def verify_node_number(node) -> None:
+    if node.cap:
+        if node.cap.get('kind') == 'pct_of':
+            verify_number(node.cap.get('pct', float('nan')), node.span.text, percentage=True)
+        elif node.cap.get('kind') == 'abs':
+            verify_number(node.cap.get('usd', float('nan')), node.span.text)

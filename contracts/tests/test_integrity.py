@@ -142,3 +142,14 @@ def test_definition_index_stops_at_separate_paragraph(source):
     from contracts.segment import defined_terms
     text = '"Interest Expense" means total interest expense\n\nUnrelated cap based on Consolidated EBITDA.\n\n"Consolidated EBITDA" means net income.'
     assert 'Consolidated EBITDA' not in defined_terms(text)['interest expense']
+
+
+def test_number_claims_must_match_cited_values_and_scaling():
+    from contracts.verify import verify_number
+    verify_number(25_000_000, 'not more than $25 million')
+    verify_number(0.10, 'capped at 10% of EBITDA', percentage=True)
+    verify_number(4.5, 'maximum 4.50 to 1.00')
+    with pytest.raises(EvidenceError):
+        verify_number(5.25, 'maximum 4.50 to 1.00')
+    with pytest.raises(EvidenceError):
+        verify_number(0.10, 'a fee of $0.10', percentage=True)

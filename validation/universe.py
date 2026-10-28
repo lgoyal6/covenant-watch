@@ -16,6 +16,7 @@ from __future__ import annotations
 import argparse
 import json
 import sys
+from pathlib import Path
 
 from shared import edgar
 from shared.paths import GROUNDTRUTH, UNIVERSE
@@ -24,6 +25,8 @@ from shared.schema import UniverseEntry
 from validation import disclosed, events
 
 PEERS = GROUNDTRUTH / "peers.json"
+# committed copy of data/universe.json (data/ is gitignored; Laksh works on another machine)
+SNAPSHOT = Path(__file__).resolve().parent / "universe_snapshot.json"
 
 
 def is_xbrl_filer(cik: str) -> bool:
@@ -69,9 +72,11 @@ def build(check_xbrl: bool = True) -> list[UniverseEntry]:
 
 def save(entries: list[UniverseEntry]) -> None:
     UNIVERSE.parent.mkdir(parents=True, exist_ok=True)
-    tmp = UNIVERSE.with_suffix(".tmp")
-    tmp.write_text(json.dumps([e.model_dump(mode="json") for e in entries], indent=1))
-    tmp.replace(UNIVERSE)
+    body = json.dumps([e.model_dump(mode="json") for e in entries], indent=1)
+    for path in (UNIVERSE, SNAPSHOT):
+        tmp = path.with_suffix(".tmp")
+        tmp.write_text(body)
+        tmp.replace(path)
 
 
 def load() -> list[UniverseEntry]:

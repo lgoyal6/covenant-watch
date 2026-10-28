@@ -37,7 +37,8 @@ class Hit:
 
 def search(query: str, *, forms: str | None = None, start: str | None = None, end: str | None = None,
            ciks: str | None = None, page_from: int = 0, cache: bool = False) -> tuple[int, list[Hit]]:
-    params = {"q": f'"{query}"', "from": str(page_from)}
+    # a query already containing quotes is passed raw (allows '"a" OR "b"')
+    params = {"q": query if '"' in query else f'"{query}"', "from": str(page_from)}
     if forms:
         params["forms"] = forms
     if start and end:

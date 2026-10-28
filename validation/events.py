@@ -88,16 +88,40 @@ ACCEL = re.compile(
 )
 
 
-def classify_sentence(sentence: str) -> str | None:
+DEFINITIONAL = re.compile(r"\b(the term|means|shall mean|is defined as|as used herein|for purposes hereof)\b", re.I)
+NEGATED_WAIVER = re.compile(r"without waiving|not waive|no waiver|not to waive|did not waive|reservation of rights|reserv\w* (?:all|its|their) rights", re.I)
+MONTHS = "January|February|March|April|May|June|July|August|September|October|November|December"
+MONTH_YEAR = re.compile(rf"\b({MONTHS})(?:\s+\d{{1,2}},)?\s+((?:19|20)\d\d)\b")
+_MNUM = {m: i + 1 for i, m in enumerate(MONTHS.split("|"))}
+
+
+def is_stale(sentence: str, filed: date, max_days: int = 180) -> bool:
+    """True if every month/year mentioned is > max_days before the filing (a historical recap).
+
+    Sentences with no dates are not stale. Future dates (relief periods ending later) don't count as stale.
+    """
+    mentions = [date(int(y), _MNUM[m], 1) for m, y in MONTH_YEAR.findall(sentence)]
+    if not mentions:
+        return False
+    return all((filed - d).days > max_days for d in mentions)
+
+
+def classify_sentence(sentence: str, filed: date | None = None) -> str | None:
     """Deterministic event classification of one sentence; None when not a clear event."""
-    if len(sentence) > 1200 or not COVENANT_CTX.search(sentence):
+    if len(sentence) > 1200 or len(sentence) < 60 or not COVENANT_CTX.search(sentence):
+        return None
+    if not re.match(r"[\"(A-Z0-9\u2012-\u2015-]", sentence):
+        return None  # fragment (sentence split mid-clause)
+    if DEFINITIONAL.search(sentence):
+        return None
+    if filed and is_stale(sentence, filed):
         return None
     hypo = HYPOTHETICAL.search(sentence)
     if ACCEL.search(sentence) and not hypo:
         return "acceleration"
     if DEFAULT.search(sentence) and not hypo and not re.search(r"\b(waiv|forbear)", sentence, re.I):
         return "default"
-    if WAIVER.search(sentence) and re.search(r"covenant|default|ratio|compliance", sentence, re.I):
+    if WAIVER.search(sentence) and not NEGATED_WAIVER.search(sentence) and re.search(r"covenant|default|ratio|compliance", sentence, re.I):
         # "would otherwise" is fine in waiver language; reject only clear hypotheticals
         if not re.search(r"\b(may|might|could|if we|no assurance|seek|intend|expect)\b", sentence, re.I):
             return "waiver"
@@ -143,7 +167,10 @@ def extract_doc(hit: Hit, use_llm: bool) -> list[CovenantEvent]:
                 continue
             seen.add((s, e))
             sent = text[s:e]
-            kind = llm.classify_event(sent) if use_llm else classify_sentence(sent)
+            if use_llm:
+                kind = None if (DEFINITIONAL.search(sent) or is_stale(sent, filed)) else llm.classify_event(sent)
+            else:
+                kind = classify_sentence(sent, filed)
             if not kind:
                 continue
             ev = CovenantEvent(

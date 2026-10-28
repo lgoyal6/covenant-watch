@@ -4,8 +4,8 @@ Requests for Laksh. Only Dat edits this file.
 
 ## Universe for Laksh
 
-- `data/universe.json` exists (list of `UniverseEntry`, CIKs 10-digit zero-padded, built by `uv run python -m validation.universe`).
-- Status: PARTIAL (first cut, 15:15 PT): 20 entries, all role `disclosed` (companies whose 10-K/10-Q reports an actual covenant ratio). Event companies and their peers are still being extracted and will be added; this section will be updated when final.
+- `data/universe.json` (list of `UniverseEntry`, CIKs 10-digit zero-padded) is built by `uv run python -m validation.universe`. Because `data/` is gitignored, every build also writes an identical committed copy: **`validation/universe_snapshot.json`**. Read that one.
+- Status: PARTIAL (second cut, ~15:30 PT): 66 entries, 42 role `event` (8-K covenant waiver/relief/default/acceleration disclosures), 24 role `disclosed` (10-K/10-Q reports an actual covenant ratio). Peers not yet added. Extraction is still running; this section will be updated when final.
 - Order in the file is the suggested processing order (events, then peers, then disclosed).
 
 ## Engine expectations for data/contracts (from Dat, 2026-10-28)

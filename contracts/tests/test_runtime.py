@@ -98,3 +98,92 @@ def test_official_pricing_parser_rejects_batch_only_rows(monkeypatch):
     response.text = '<tr><td>Claude Sonnet 5.5</td><td>$1</td><td>$5</td></tr>'
     with pytest.raises(BudgetError, match='both'):
         current_prices()
+
+
+def test_incomplete_usage_keeps_worst_case_reservation(tmp_path):
+    client = Client()
+    original = client.create
+    def create(**kwargs):
+        response = original(**kwargs)
+        response.usage = SimpleNamespace()
+        return response
+    client.create = create
+    runtime = Runtime(tmp_path, '1', prices=PRICES)
+    key, _ = runtime.perform(client, PAYLOAD, 'source')
+    assert runtime.charged == Decimal(runtime.calls[0]['reserved_usd'])
+    assert runtime.cached(key)['request'] == PAYLOAD
+    assert runtime.cached(key)['source_sha256'] == 'source'
+
+
+def test_usage_exceeding_reservation_halts_run_and_preserves_response(tmp_path):
+    client = Client()
+    original = client.create
+    def create(**kwargs):
+        response = original(**kwargs)
+        response.usage.input_tokens = 1_000_000
+        return response
+    client.create = create
+    runtime = Runtime(tmp_path, '10', prices=PRICES)
+    with pytest.raises(BudgetError, match='exceeded'):
+        runtime.perform(client, PAYLOAD, 'source')
+    assert runtime.halted
+    with pytest.raises(BudgetError, match='halted'):
+        runtime.perform(client, PAYLOAD | {'system': 'Another call'}, 'source')
+    assert client.paid == 1
+
+
+def test_repeated_reservations_cannot_exceed_budget(tmp_path):
+    client = Client()
+    original = client.create
+    def create(**kwargs):
+        response = original(**kwargs)
+        del response.usage
+        return response
+    client.create = create
+    runtime = Runtime(tmp_path, '.04', prices=PRICES)
+    with pytest.raises(BudgetError, match='remaining budget'):
+        for index in range(100):
+            runtime.perform(client, PAYLOAD | {'system': str(index)}, 'source')
+    assert 0 < runtime.charged <= runtime.cap
+    assert client.paid < 100
+
+
+def test_concurrent_claim_cannot_overwrite_existing_pending_request(tmp_path):
+    import threading
+    client = Client()
+    entered, release = threading.Event(), threading.Event()
+    original = client.create
+    def create(**kwargs):
+        entered.set()
+        assert release.wait(3)
+        return original(**kwargs)
+    client.create = create
+    first = Runtime(tmp_path, '1', prices=PRICES)
+    errors = []
+    def work():
+        try:
+            first.perform(client, PAYLOAD, 'source')
+        except BaseException as error:
+            errors.append(error)
+    thread = threading.Thread(target=work)
+    thread.start()
+    try:
+        assert entered.wait(3)
+        with pytest.raises(UncertainRequest):
+            Runtime(tmp_path, '1', prices=PRICES).perform(client, PAYLOAD, 'source')
+    finally:
+        release.set()
+        thread.join(3)
+    assert not thread.is_alive() and not errors and client.paid == 1
+
+
+def test_malformed_budget_and_unreadable_checkpoint_block_inference(tmp_path):
+    with pytest.raises(BudgetError):
+        Runtime(tmp_path, 'garbage', prices=PRICES)
+    client = Client()
+    runtime = Runtime(tmp_path, '1', prices=PRICES)
+    key, _ = runtime.perform(client, PAYLOAD, 'source')
+    runtime.checkpoint_path(key).write_text('{')
+    with pytest.raises(BudgetError, match='Unreadable'):
+        runtime.perform(client, PAYLOAD, 'source')
+    assert client.paid == 1

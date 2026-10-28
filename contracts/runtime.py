@@ -7,7 +7,7 @@ import tempfile
 import uuid
 from dataclasses import dataclass
 from datetime import datetime, timezone
-from decimal import Decimal, ROUND_CEILING
+from decimal import Decimal, InvalidOperation, ROUND_CEILING
 from html.parser import HTMLParser
 from pathlib import Path
 
@@ -108,12 +108,16 @@ def current_prices():
 class Runtime:
     def __init__(self, directory: Path, max_usd=None, *, prices=None, pricing_proof=None):
         self.directory = Path(directory)
-        self.cap = Decimal(str(max_usd)) if max_usd is not None else None
+        try:
+            self.cap = Decimal(str(max_usd)) if max_usd is not None else None
+        except InvalidOperation as error:
+            raise BudgetError('Budget must be a finite positive dollar amount') from error
         if self.cap is not None and (not self.cap.is_finite() or self.cap <= 0):
             raise BudgetError('Budget must be a finite positive dollar amount')
         self.prices, self.proof = prices, pricing_proof
         self.run_id = uuid.uuid4().hex
         self.calls = []
+        self.halted = False
 
     @property
     def ledger_path(self):
@@ -125,7 +129,7 @@ class Runtime:
 
     def persist(self):
         atomic_json(self.ledger_path, dict(run_id=self.run_id, max_usd=str(self.cap),
-                    charged_or_reserved_usd=str(self.charged), pricing=self.proof, calls=self.calls))
+                    charged_or_reserved_usd=str(self.charged), halted=self.halted, pricing=self.proof, calls=self.calls))
 
     def checkpoint_path(self, key):
         return self.directory / '_checkpoints' / (key + '.json')
@@ -137,7 +141,10 @@ class Runtime:
         path = self.checkpoint_path(key)
         if not path.exists():
             return None
-        record = json.loads(path.read_text())
+        try:
+            record = json.loads(path.read_text())
+        except (ValueError, OSError) as error:
+            raise BudgetError(f'Unreadable checkpoint; no automatic replay: {path}') from error
         if record.get('checksum') != fingerprint(record.get('data')):
             raise BudgetError(f'Checkpoint integrity failed: {path}')
         data = record['data']
@@ -146,6 +153,16 @@ class Runtime:
         if data['status'] == 'pending':
             raise UncertainRequest(f'Request may already have been billed. No automatic replay: {path}')
         return data
+
+    def claim(self, key, data):
+        path = self.checkpoint_path(key)
+        path.parent.mkdir(parents=True, exist_ok=True)
+        # Exclusive creation prevents concurrent runs from billing the same request.
+        descriptor = os.open(path, os.O_WRONLY | os.O_CREAT | os.O_EXCL, 0o600)
+        with os.fdopen(descriptor, 'w', encoding='utf-8') as handle:
+            json.dump(dict(data=data, checksum=fingerprint(data)), handle, allow_nan=False)
+            handle.flush()
+            os.fsync(handle.fileno())
 
     def mark(self, key, status):
         data = self.cached(key)
@@ -158,6 +175,8 @@ class Runtime:
         cached = self.cached(key)
         if cached is not None:
             return key, cached['response']
+        if self.halted:
+            raise BudgetError('Run is halted for billing review')
         if self.cap is None:
             raise BudgetError('Paid extraction requires an explicit --max-cost-usd budget')
         if self.prices is None:
@@ -184,9 +203,17 @@ class Runtime:
         call = dict(request_hash=key, model=model, input_estimate=counted, input_upper_bound=upper,
                     max_output_tokens=payload['max_tokens'], reserved_usd=str(reserve),
                     charged_usd=str(reserve), status='pending')
+        pending = dict(request_hash=key, status='pending', run_id=self.run_id,
+                       source_sha256=source_hash, request=payload)
+        try:
+            self.claim(key, pending)
+        except FileExistsError:
+            completed = self.cached(key)
+            if completed is None:
+                raise BudgetError('Concurrent checkpoint disappeared; no replay')
+            return key, completed['response']
         self.calls.append(call)
-        self.persist()  # Reserve before touching inference; unknown outcomes retain this charge.
-        self.store(key, dict(request_hash=key, status='pending', run_id=self.run_id))
+        self.persist()  # Reserve before inference; unknown outcomes retain this charge.
         guarded_client = client.with_options(max_retries=0) if isinstance(client, anthropic.Anthropic) else client
         response = guarded_client.messages.create(**payload)
         blocks = []
@@ -199,13 +226,15 @@ class Runtime:
         values = {name: getattr(usage, name, 0) or 0 for name in
                   ('input_tokens', 'output_tokens', 'cache_creation_input_tokens', 'cache_read_input_tokens')}
         data = dict(stop_reason=response.stop_reason, content=blocks, usage=values)
-        self.store(key, dict(request_hash=key, status='received', run_id=self.run_id, response=data))
-        if usage is not None and all(isinstance(v, int) and not isinstance(v, bool) and v >= 0 for v in values.values()):
+        self.store(key, dict(request_hash=key, status='received', run_id=self.run_id,
+                             source_sha256=source_hash, request=payload, response=data))
+        if usage is not None and all(hasattr(usage, name) for name in ('input_tokens', 'output_tokens')) and all(isinstance(v, int) and not isinstance(v, bool) and v >= 0 for v in values.values()):
             actual = price.cost(values['input_tokens'], values['output_tokens'],
                                 values['cache_creation_input_tokens'], values['cache_read_input_tokens'])
             call.update(charged_usd=str(actual), usage=values, status='received')
+            self.halted = actual > reserve
             self.persist()
-            if actual > reserve:
+            if self.halted:
                 # Do not permit another call if provider-reported usage exceeds our bound.
                 raise BudgetError('Provider usage exceeded its reservation; run stopped for billing review')
         return key, data

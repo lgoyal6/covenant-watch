@@ -92,7 +92,11 @@ def apply_amendments(results: list[DocumentResult]) -> tuple[list[TermNode], lis
             for covenant in result.covenants:
                 schedule = validate_schedule(covenant.thresholds)
                 if covenant.id in patched and agreement.kind == 'amendment':
-                    schedule = overlay(patched[covenant.id].thresholds, schedule, result.effective_date)
+                    previous = patched[covenant.id]
+                    schedule = overlay(previous.thresholds, schedule, result.effective_date)
+                    fields = ('kind', 'direction', 'numerator_term', 'denominator_term', 'test_period')
+                    if all(getattr(previous, key) == getattr(covenant, key) for key in fields):
+                        covenant = previous
                 patched[covenant.id] = covenant.model_copy(update={'thresholds': schedule})
             for key in result.removed_covenants:
                 if key not in patched:

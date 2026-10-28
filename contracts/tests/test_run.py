@@ -1,4 +1,6 @@
 import json
+import os
+import pytest
 from datetime import date
 
 from contracts.discover import Discovery
@@ -8,6 +10,12 @@ from contracts.run import build_contract, main, process_company, universe_ciks
 from contracts.tests.test_extract import FakeExtractor, reading
 from contracts.tests.test_integrity import source
 from shared.schema import Company, Refusal
+
+
+@pytest.fixture(autouse=True)
+def fake_credential_lookup(monkeypatch):
+    import contracts.run as run
+    monkeypatch.setattr(run, 'load_api_key', lambda: os.environ.get('ANTHROPIC_API_KEY'))
 
 
 def discovery(source):

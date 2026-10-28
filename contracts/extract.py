@@ -105,7 +105,7 @@ class Extractor:
             messages=[{'role': 'user', 'content': content}],
             tools=[{'name': 'record_extraction', 'description': 'Record only source-supported covenant evidence.',
                     'input_schema': Reading.model_json_schema()}],
-            tool_choice={'type': 'tool', 'name': 'record_extraction'})
+            tool_choice={'type': 'auto'})
         records = [block for block in response.content if block.type == 'tool_use' and block.name == 'record_extraction']
         if response.stop_reason != 'tool_use' or len(records) != 1:
             raise EvidenceError('missing, multiple or truncated structured tool response')

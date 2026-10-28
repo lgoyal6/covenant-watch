@@ -91,5 +91,5 @@ def test_structured_api_transport_uses_required_model_and_tool(source):
     result = extractor.read(source)
     assert not result.refusals
     assert all(r['model'] == SONNET for r in requests)
-    assert requests[0]['tool_choice'] == {'type': 'tool', 'name': 'record_extraction'}
+    assert requests[0]['tool_choice'] == {'type': 'auto'}
     assert 'EXACT, contiguous substring' in requests[0]['system']

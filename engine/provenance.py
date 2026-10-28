@@ -7,13 +7,13 @@ from engine.xbrl import Value
 from shared.schema import Input
 
 
-def input_for(m: Mapping, v: Value | None, period_end: date) -> Input:
+def input_for(m: Mapping, v: Value | None, period_end: date, why: str | None = None) -> Input:
     if m.concept is None:
         return Input(term_node=m.term_node, period_end=period_end, mapping_confidence=0.0, validated=False,
                      validation_note=m.note or "unmapped")
     if v is None:
         return Input(term_node=m.term_node, xbrl_concept=m.concept, period_end=period_end, mapping_confidence=m.confidence,
-                     validated=False, validation_note=f"{m.concept} not reported for this period")
+                     validated=False, validation_note=why or f"{m.concept} not reported for this period")
     alt = f"fallback concept (primary {m.concept} not reported this period)" if v.concept != m.concept else None
     notes = [n for n in (m.note, alt, v.note(), f"proposer: {m.proposer}") if n]
     return Input(

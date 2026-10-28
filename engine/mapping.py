@@ -36,13 +36,14 @@ class Mapping:
     note: str | None = None
     proposer: str = "table"
     alternates: list[str] = field(default_factory=list)  # validated fallbacks for periods the primary concept lacks
+    nonneg: bool = False  # a negative value means the line is not measuring this term that period (e.g. net interest income)
 
 
 # (pattern on label, candidates in preference order, instant?, partial?, sign)
 # Candidates are tried in order; the first one that validates for this company wins.
 TABLE: list[tuple[str, list[str], bool, bool, int]] = [
     (r"\bnet income\b|net earnings|\bnet (income )?\(?loss\)?", ["us-gaap:NetIncomeLoss", "us-gaap:ProfitLoss", "us-gaap:NetIncomeLossAvailableToCommonStockholdersBasic"], False, False, 1),
-    (r"interest expense|interest charges|\binterest\b(?!.*income)", ["us-gaap:InterestExpense", "us-gaap:InterestAndDebtExpense", "us-gaap:InterestExpenseNonoperating", "us-gaap:InterestExpenseDebt", "us-gaap:InterestPaidNet", "us-gaap:InterestExpenseNet"], False, False, 1),
+    (r"interest expense|interest charges|\binterest\b(?!.*income)", ["us-gaap:InterestExpense", "us-gaap:InterestAndDebtExpense", "us-gaap:InterestExpenseNonoperating", "us-gaap:InterestExpenseDebt", "us-gaap:InterestExpenseOperating", "us-gaap:InterestExpenseNet", "-us-gaap:InterestIncomeExpenseNonoperatingNet", "-us-gaap:InterestIncomeExpenseNet", "us-gaap:InterestPaidNet"], False, False, 1),
     (r"interest income", ["us-gaap:InvestmentIncomeInterest", "us-gaap:InterestIncomeOther", "us-gaap:InterestAndOtherIncome"], False, False, 1),
     (r"(provision for|income) tax|taxes (based on|on|measured by) income|\btaxes\b", ["us-gaap:IncomeTaxExpenseBenefit", "us-gaap:IncomeTaxesPaidNet"], False, False, 1),
     (r"depreciation and amortization|depreciation, depletion|d&a", ["us-gaap:DepreciationDepletionAndAmortization", "us-gaap:DepreciationAmortizationAndAccretionNet", "us-gaap:DepreciationAndAmortization",
@@ -58,7 +59,10 @@ TABLE: list[tuple[str, list[str], bool, bool, int]] = [
     (r"capital expenditures?|capex", ["us-gaap:PaymentsToAcquirePropertyPlantAndEquipment"], False, False, 1),
     (r"dividends?|restricted payments", ["us-gaap:PaymentsOfDividends", "us-gaap:PaymentsOfDividendsCommonStock"], False, False, 1),
     (r"principal payments|scheduled (principal )?(payments|repayments)", ["us-gaap:RepaymentsOfLongTermDebt"], False, False, 1),
-    (r"(total |funded |consolidated )?(indebtedness|debt)\b|borrowed money", ["us-gaap:LongTermDebt", "us-gaap:DebtLongtermAndShorttermCombinedAmount", "us-gaap:LongTermDebtAndCapitalLeaseObligations", "us-gaap:DebtInstrumentCarryingAmount", "us-gaap:LongTermDebtNoncurrent"], True, False, 1),
+    (r"(total |funded |consolidated )?(indebtedness|debt)\b|borrowed money", ["us-gaap:LongTermDebt", "us-gaap:DebtLongtermAndShorttermCombinedAmount", "us-gaap:DebtAndCapitalLeaseObligations",
+        "us-gaap:LongTermDebtNoncurrent+us-gaap:LongTermDebtCurrent", "us-gaap:LongTermDebtNoncurrent+us-gaap:DebtCurrent",
+        "us-gaap:LongTermDebtAndCapitalLeaseObligations+us-gaap:LongTermDebtAndCapitalLeaseObligationsCurrent", "us-gaap:LongTermDebtAndCapitalLeaseObligations",
+        "us-gaap:DebtInstrumentCarryingAmount", "us-gaap:LongTermNotesPayable", "us-gaap:LongTermLineOfCredit", "us-gaap:LineOfCredit", "us-gaap:LongTermDebtNoncurrent"], True, False, 1),
     (r"unrestricted cash|cash and cash equivalents|\bcash\b", ["us-gaap:CashAndCashEquivalentsAtCarryingValue", "us-gaap:CashCashEquivalentsRestrictedCashAndRestrictedCashEquivalents"], True, False, 1),
     (r"(total )?revenues?|net sales", ["us-gaap:Revenues", "us-gaap:RevenueFromContractWithCustomerExcludingAssessedTax", "us-gaap:SalesRevenueNet"], False, False, 1),
     (r"operating income", ["us-gaap:OperatingIncomeLoss"], False, False, 1),
@@ -74,8 +78,18 @@ def is_instant_label(label: str) -> bool:
     return bool(re.search(r"indebtedness|debt|borrow|cash|liquidity|availability|net worth|equity|assets|liabilit", label, re.I))
 
 
-def validate(cf: CompanyFacts, concept: str, kind: str) -> tuple[bool, str | None]:
-    """Deterministic checks. Returns (ok, reason)."""
+NET_NOTE = {"-us-gaap:InterestIncomeExpenseNonoperatingNet": "net of interest income (contract definitions often net it; otherwise understates expense)",
+            "-us-gaap:InterestIncomeExpenseNet": "net of interest income (contract definitions often net it; otherwise understates expense)",
+            "us-gaap:InterestPaidNet": "cash interest paid, a proxy for interest expense"}
+
+
+def split_sign(concept: str) -> tuple[str, int]:
+    return (concept[1:], -1) if concept.startswith("-") else (concept, 1)
+
+
+def validate(cf: CompanyFacts, concept: str, kind: str, min_periods: int = MIN_QUARTERS) -> tuple[bool, str | None]:
+    """Deterministic checks. Returns (ok, reason). A leading "-" means the reported sign is flipped."""
+    concept, sign = split_sign(concept)
     if not cf.has(concept):
         return False, f"{concept} not reported in USD by this company"
     inst = cf.is_instant(concept)
@@ -84,9 +98,9 @@ def validate(cf: CompanyFacts, concept: str, kind: str) -> tuple[bool, str | Non
     if kind != "instant" and inst:
         return False, f"{concept} is an instant concept but the term is a flow"
     s = cf.series(concept, kind)
-    if len(s) < MIN_QUARTERS:
+    if len(s) < min_periods:
         return False, f"{concept} has only {len(s)} usable {kind} periods"
-    vals = [v.value for v in s.values()]
+    vals = [v.value * sign for v in s.values()]
     neg = sum(v < 0 for v in vals) / len(vals)
     signed_ok = re.search(r"NetIncome|ProfitLoss|IncomeTax|OperatingIncome|GainsLosses|InterestExpenseNet|StockholdersEquity", concept)
     if neg > 0.5 and not signed_ok:
@@ -103,16 +117,24 @@ def table_map(cf: CompanyFacts, term_node: str, label: str, kind: str) -> Mappin
         k = "instant" if instant else kind
         reasons, good = [], []
         for i, c in enumerate(cands):
-            ok, why = validate(cf, c, k)
+            ok, why = validate(cf, c, k, min_periods=1)
             if ok:
                 good.append((i, c))
             else:
                 reasons.append(why)
-        if good:
+        # availability is judged on the merged series: filers switch tags over time
+        covered: set = set()
+        for _, c in good:
+            covered |= set(cf.series(split_sign(c)[0], k))
+        if good and len(covered) >= MIN_QUARTERS:
             i, c = good[0]
-            conf = (0.6 if partial else 0.9) - 0.1 * i
-            note = "partial proxy: reported line is a floor for this term" if partial else None
-            return Mapping(term_node, c, k, round(conf, 2), True, partial, sign, note, alternates=[g for _, g in good[1:]])
+            conc, sgn = split_sign(c)
+            conf = (0.6 if partial else 0.9) - 0.05 * i - (0.2 if c in NET_NOTE else 0)
+            note = "partial proxy: reported line is a floor for this term" if partial else NET_NOTE.get(c)
+            return Mapping(term_node, conc, k, round(max(conf, 0.3), 2), True, partial, sign * sgn, note,
+                           alternates=[g for _, g in good[1:] if split_sign(g)[1] == sgn], nonneg=c in NET_NOTE)
+        if good:
+            reasons.append(f"only {len(covered)} usable {k} periods across {', '.join(c for _, c in good)}")
         return Mapping(term_node, None, k, 0.0, False, note="; ".join(r for r in reasons if r))
     return Mapping(term_node, None, kind, 0.0, False, note="no XBRL concept pattern for this label")
 

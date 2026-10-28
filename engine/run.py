@@ -87,6 +87,10 @@ def build(contract: ContractExtraction, cf: CompanyFacts | None, today: date | N
                 s = series[leaf]
                 key = qe if qe in s else align(list(s), qe)
                 v = s.get(key) if key else None
+                if v is not None and m.nonneg and v.value * m.sign < 0:
+                    inputs.append(input_for(m, None, qe, f"{v.concept} is net interest income this period, not an expense; left unsourced"))
+                    vals[leaf] = LeafValue(None)
+                    continue
                 inputs.append(input_for(m, v, qe))
                 vals[leaf] = LeafValue(None if v is None else v.value * m.sign, partial=m.partial and v is not None)
             if all(v.value is None for leaf, v in vals.items() if maps[leaf].concept):

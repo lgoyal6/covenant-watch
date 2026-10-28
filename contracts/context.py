@@ -135,6 +135,7 @@ HEADER = re.compile(
     r'|\d+\.\d+(?:\([a-z0-9]+\))?[ \t]+(?-i:[A-Z])[^\n]{0,179}'
     r'|ARTICLE\s+[IVXLCDM]+[^\n]{0,100})')
 FINANCIAL = re.compile(r'financial\s+covenants?|leverage(?:\s+ratio)?|interest\s+coverage|fixed.charge\s+coverage|minimum\s+liquidity', re.I)
+QUANTITATIVE = re.compile(r'\b(?:sum|aggregate|amount|principal|income|interest|expense|charges|cash|net|debt|indebtedness|ebitda|ratio|rate|value|balance|plus|minus|less|quarter|period|months?|fiscal|exclud\w*)\b', re.I)
 OPERATIVE = re.compile(r'permit|maintain|shall|must|not\s+(?:exceed|less)|at\s+least|maximum|minimum|greater\s+than|less\s+than', re.I)
 
 
@@ -209,12 +210,13 @@ def plan_context(source: SourceDocument, *, pilot=False) -> ContextPlan:
         chosen = [(0, len(text))]
     elif not roots:
         raise ContextError('No locally identifiable operative financial covenant; no whole-document model fallback')
-    # Header supplies parties and operative date; finish its paragraph rather than cutting it.
+    seeds = list(chosen)
+    # Header supplies parties and operative date, but is not a financial dependency root.
     end = len(text) if len(text) <= 3000 else text.rfind('\n', 0, 3000)
     if end <= 0:
         raise ContextError('Cannot isolate a bounded agreement header')
     chosen.append((0, end))
-    names, queued = set(), list(chosen)
+    names, queued = set(), seeds
     while queued:
         a, b = queued.pop()
         body = text[a:b]
@@ -222,7 +224,10 @@ def plan_context(source: SourceDocument, *, pilot=False) -> ContextPlan:
             if name not in names and re.search(r'(?<!\w)' + re.escape(name) + r'(?!\w)', body, re.I):
                 names.add(name)
                 chosen.extend(ranges)  # Ambiguous duplicate definitions must all be visible.
-                queued.extend(ranges)
+                if name not in {'agreement', 'person', 'administrative agent', 'lenders', 'borrower',
+                                'holdings', 'arrangers', 'co-syndication agents'} and any(
+                        QUANTITATIVE.search(text[a:b]) for a, b in ranges):
+                    queued.extend(ranges)
     merged = []
     for a, b in sorted(set(chosen)):
         if merged and a < merged[-1][1]:

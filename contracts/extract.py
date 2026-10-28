@@ -114,7 +114,7 @@ class Extractor:
                         + readable(source, chunk) + '\nEND SOURCE UNIT\n')
         if self.runtime is None:
             raise BudgetError('No budget/checkpoint runtime configured; paid inference disabled')
-        payload = dict(model=model, max_tokens=6000, system=prompt,
+        payload = dict(model=model, max_tokens=12000, system=prompt,
             messages=[{'role': 'user', 'content': content}],
             tools=[{'name': 'record_extraction', 'description': 'Record only source-supported covenant evidence.',
                     'input_schema': Reading.model_json_schema()}], tool_choice={'type': 'auto'},
@@ -164,6 +164,10 @@ class Extractor:
         scope = ('Retrieved definition labels, including legal scope context: ' + ', '.join(plan.definitions)
                  + '. Entities and legal roles are context, never numeric leaves. Extract only financial '
                    'operands and clauses supported by the supplied units. References to definitions in other units may use their stable IDs.')
+        if self.pilot:
+            scope += (' PILOT: Extract only the max_leverage covenant and its operands. Other tests are '
+                      'context only. If its full formula cannot be represented exactly, return a specific '
+                      'refusal without speculative partial trees.')
         for index, ranges in enumerate(layout):
             print(f'{source.agreement.accession}: layout {2 if alternate else 1}, '
                   f'group {index + 1}/{len(layout)}', file=sys.stderr, flush=True)

@@ -21,7 +21,7 @@ from dataclasses import dataclass, field
 from engine.xbrl import CompanyFacts
 
 MODEL = "claude-sonnet-5-5"
-MIN_QUARTERS = 4
+MIN_QUARTERS = 2  # usable periods required across the primary concept and its alternates
 
 
 @dataclass
@@ -203,7 +203,9 @@ def llm_map(cf: CompanyFacts, term_node: str, label: str, clause: str, kind: str
         return Mapping(term_node, None, kind, 0.0, False, note=f"LLM: no concept fits ({out.get('reason', '')})", proposer="llm")
     if c not in concepts:
         return Mapping(term_node, None, kind, 0.0, False, note=f"LLM proposed {c}, not among this company's concepts", proposer="llm")
-    ok, why = validate(cf, c, kind)
+    ok, why = validate(cf, c, kind, min_periods=1)
+    if ok and len(cf.series(c, kind)) < MIN_QUARTERS:
+        ok, why = False, f"only {len(cf.series(c, kind))} usable {kind} periods"
     if not ok:
         return Mapping(term_node, None, kind, 0.0, False, note=f"LLM proposed {c}; validator rejected: {why}", proposer="llm")
     partial = bool(out.get("partial"))

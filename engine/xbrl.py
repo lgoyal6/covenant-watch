@@ -98,7 +98,7 @@ class CompanyFacts:
         return sorted(self.facts)
 
     def is_instant(self, concept: str) -> bool | None:
-        fs = self.facts.get(concept)
+        fs = self.facts.get(concept.split("+")[0])
         if not fs:
             return None
         return sum(f.start is None for f in fs) > len(fs) / 2
@@ -168,7 +168,29 @@ class CompanyFacts:
             if derived:
                 note += " (" + "; ".join(derived) + ")"
             out[ends[i]] = Value(concept, sum(v.value for v in chain), chain[0].start, ends[i], latest.accession, srcs, note)
-        return out
+        # Items reported only year-to-date (common in the cash flow statement) or only annually:
+        #   TTM = FY when the period is a fiscal year end, else YTD + prior FY - prior-year YTD.
+        by_period = self._latest([f for f in self.facts.get(concept, []) if f.start])
+        fys = [f for f in by_period.values() if _in(_days(f), YEAR_DAYS)]
+        for f in fys:
+            if f.end not in out:
+                out[f.end] = Value(concept, f.value, f.start, f.end, f.accession, [f], "TTM = fiscal year")
+        for ytd in by_period.values():
+            n = _days(ytd)
+            if ytd.end in out or not (_in(n, HALF_DAYS) or _in(n, NINE_DAYS) or _in(n, QUARTER_DAYS)):
+                continue
+            prev_fy = next((f for f in fys if _close(f.end + timedelta(days=1), ytd.start)), None)
+            if not prev_fy:
+                continue
+            prev_ytd = next((f for f in by_period.values() if f.start and _close(f.start, prev_fy.start)
+                             and abs(_days(f) - n) <= 7 and f.end < prev_fy.end), None)
+            if not prev_ytd:
+                continue
+            srcs = [ytd, prev_fy, prev_ytd]
+            latest = max(srcs, key=lambda f: f.filed)
+            out[ytd.end] = Value(concept, ytd.value + prev_fy.value - prev_ytd.value, prev_ytd.end + timedelta(days=1), ytd.end,
+                                 latest.accession, srcs, f"TTM = YTD to {ytd.end} + FY to {prev_fy.end} - YTD to {prev_ytd.end}")
+        return dict(sorted(out.items()))
 
     # ---- balances ----
 
@@ -180,8 +202,20 @@ class CompanyFacts:
                 out[f.end] = Value(concept, f.value, None, f.end, f.accession, [f])
         return dict(sorted(out.items()))
 
+    def has(self, concept: str) -> bool:
+        return all(c in self.facts for c in concept.split("+"))
+
     def series(self, concept: str, kind: str) -> dict[date, Value]:
-        """kind: "ttm" | "quarter" | "instant"."""
+        """kind: "ttm" | "quarter" | "instant". A composite "A+B" sums parts on dates where all are reported."""
+        if "+" in concept:
+            parts = [self.series(c, kind) for c in concept.split("+")]
+            out = {}
+            for d in sorted(set.intersection(*(set(p) for p in parts))):
+                vs = [p[d] for p in parts]
+                latest = max((f for v in vs for f in v.sources), key=lambda f: f.filed)
+                out[d] = Value(concept, sum(v.value for v in vs), vs[0].start, d, latest.accession,
+                               [f for v in vs for f in v.sources], "sum of " + " + ".join(c.split(":")[1] for c in concept.split("+")))
+            return out
         if kind == "instant":
             return self.instants(concept)
         if kind == "quarter":

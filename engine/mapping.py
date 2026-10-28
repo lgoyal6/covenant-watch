@@ -16,7 +16,7 @@ so the engine uses it for the low case only.
 import json
 import os
 import re
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 
 from engine.xbrl import CompanyFacts
 
@@ -35,16 +35,18 @@ class Mapping:
     sign: int = 1  # multiply reported values by this (e.g. a reported benefit stored negative)
     note: str | None = None
     proposer: str = "table"
+    alternates: list[str] = field(default_factory=list)  # validated fallbacks for periods the primary concept lacks
 
 
 # (pattern on label, candidates in preference order, instant?, partial?, sign)
 # Candidates are tried in order; the first one that validates for this company wins.
 TABLE: list[tuple[str, list[str], bool, bool, int]] = [
     (r"\bnet income\b|net earnings|\bnet (income )?\(?loss\)?", ["us-gaap:NetIncomeLoss", "us-gaap:ProfitLoss", "us-gaap:NetIncomeLossAvailableToCommonStockholdersBasic"], False, False, 1),
-    (r"interest expense|interest charges|\binterest\b(?!.*income)", ["us-gaap:InterestExpense", "us-gaap:InterestExpenseNonoperating", "us-gaap:InterestExpenseDebt", "us-gaap:InterestPaidNet", "us-gaap:InterestExpenseNet"], False, False, 1),
+    (r"interest expense|interest charges|\binterest\b(?!.*income)", ["us-gaap:InterestExpense", "us-gaap:InterestAndDebtExpense", "us-gaap:InterestExpenseNonoperating", "us-gaap:InterestExpenseDebt", "us-gaap:InterestPaidNet", "us-gaap:InterestExpenseNet"], False, False, 1),
     (r"interest income", ["us-gaap:InvestmentIncomeInterest", "us-gaap:InterestIncomeOther", "us-gaap:InterestAndOtherIncome"], False, False, 1),
     (r"(provision for|income) tax|taxes (based on|on|measured by) income|\btaxes\b", ["us-gaap:IncomeTaxExpenseBenefit", "us-gaap:IncomeTaxesPaidNet"], False, False, 1),
-    (r"depreciation and amortization|depreciation, depletion|d&a", ["us-gaap:DepreciationDepletionAndAmortization", "us-gaap:DepreciationAmortizationAndAccretionNet", "us-gaap:DepreciationAndAmortization"], False, False, 1),
+    (r"depreciation and amortization|depreciation, depletion|d&a", ["us-gaap:DepreciationDepletionAndAmortization", "us-gaap:DepreciationAmortizationAndAccretionNet", "us-gaap:DepreciationAndAmortization",
+        "us-gaap:Depreciation+us-gaap:OtherDepreciationAndAmortization", "us-gaap:Depreciation+us-gaap:AmortizationOfIntangibleAssets", "us-gaap:DepreciationDepletionAndAmortization+us-gaap:AmortizationOfIntangibleAssets"], False, False, 1),
     (r"^depreciation$|depreciation expense", ["us-gaap:Depreciation", "us-gaap:DepreciationNonproduction"], False, False, 1),
     (r"amortization( expense)?( of intangible)?", ["us-gaap:AmortizationOfIntangibleAssets"], False, False, 1),
     (r"stock[- ]based compensation|share[- ]based compensation|equity[- ]based compensation", ["us-gaap:ShareBasedCompensation", "us-gaap:AllocatedShareBasedCompensationExpense"], False, False, 1),
@@ -68,12 +70,13 @@ UNSOURCEABLE = re.compile(r"synerg|cost savings|run[- ]rate|pro forma|extraordin
 
 
 def is_instant_label(label: str) -> bool:
+    label = re.sub(r"non-?cash", "", label, flags=re.I)
     return bool(re.search(r"indebtedness|debt|borrow|cash|liquidity|availability|net worth|equity|assets|liabilit", label, re.I))
 
 
 def validate(cf: CompanyFacts, concept: str, kind: str) -> tuple[bool, str | None]:
     """Deterministic checks. Returns (ok, reason)."""
-    if concept not in cf.facts:
+    if not cf.has(concept):
         return False, f"{concept} not reported in USD by this company"
     inst = cf.is_instant(concept)
     if kind == "instant" and not inst:
@@ -98,14 +101,18 @@ def table_map(cf: CompanyFacts, term_node: str, label: str, kind: str) -> Mappin
         if not re.search(pattern, label, re.I):
             continue
         k = "instant" if instant else kind
-        reasons = []
+        reasons, good = [], []
         for i, c in enumerate(cands):
             ok, why = validate(cf, c, k)
             if ok:
-                conf = (0.6 if partial else 0.9) - 0.1 * i
-                note = "partial proxy: reported line is a floor for this term" if partial else None
-                return Mapping(term_node, c, k, round(conf, 2), True, partial, sign, note)
-            reasons.append(why)
+                good.append((i, c))
+            else:
+                reasons.append(why)
+        if good:
+            i, c = good[0]
+            conf = (0.6 if partial else 0.9) - 0.1 * i
+            note = "partial proxy: reported line is a floor for this term" if partial else None
+            return Mapping(term_node, c, k, round(conf, 2), True, partial, sign, note, alternates=[g for _, g in good[1:]])
         return Mapping(term_node, None, k, 0.0, False, note="; ".join(r for r in reasons if r))
     return Mapping(term_node, None, kind, 0.0, False, note="no XBRL concept pattern for this label")
 
@@ -191,6 +198,8 @@ def map_leaf(cf: CompanyFacts, term_node: str, label: str, clause: str, flow_kin
     llm = llm_map(cf, term_node, label, clause, kind, client)
     if llm and llm.validated:
         # agreement between proposers raises confidence; disagreement is noted
+        llm.alternates = [c for c in ([table.concept] if table.validated else []) + table.alternates if c and c != llm.concept]
+        llm.sign = table.sign if table.concept == llm.concept else llm.sign
         if table.validated and table.concept == llm.concept:
             llm.confidence = max(llm.confidence, table.confidence)
             llm.note = (llm.note or "") + " [table agrees]"

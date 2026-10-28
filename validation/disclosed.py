@@ -167,6 +167,8 @@ def parse_sentence(sentence: str, fallback_period: date | None = None) -> list[P
         name = nm.group("name") or nm.group("name2")
         if re.match(r"(maximum|minimum|required)\b", name, re.I):
             continue  # "maximum leverage ratio of 4.50" is a threshold
+        if re.search(r"\b(maximum|minimum|required|permitted|allowable|covenant level|level of the|limit)\b[^.;]{0,40}$", sentence[max(0, nm.start() - 50):nm.start()], re.I):
+            continue  # "Maximum permitted level of the senior secured leverage ratio was 3.75" is a threshold
         region_end = names[i + 1].start() if i + 1 < len(names) else len(sentence)
         region = sentence[nm.end():region_end]
         m = ACTUAL_VALUE_RE.match(region)

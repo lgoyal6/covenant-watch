@@ -75,6 +75,7 @@ def test_no_date_falls_back_to_filing_period():
     "On a pro forma basis, our leverage ratio was 3.0 to 1.00.",
     "The leverage ratio shall not exceed 4.50 to 1.00 as of the last day of any fiscal quarter.",
     "Available Liquidity includes the trigger level that constrains borrowing until a fixed charge coverage ratio of 1.05 to 1.00 is achieved.",
+    "Maximum permitted level of the senior secured leverage ratio was 3.75 to 1.0 at March 31, 2021 under Amendment No. 4.",
     "Our leverage ratio was 3.1 to 1.00 and 3.4 to 1.00 as of June 30, 2024 and December 31, 2023, respectively.",
 ])
 def test_rejects_thresholds_conditionals_proforma_ambiguous(s):
@@ -125,8 +126,9 @@ def test_is_stale():
     assert not is_stale("No dates here.", F)
 
 
-def _ev(cik, d, kind, start=0):
-    return CovenantEvent(cik=cik, date=d, kind=kind, span=Span(accession="a", url="u", char_start=start, char_end=start + 1, text="x"))
+def _ev(cik, d, kind, text=None):
+    text = text or f"{kind} on {d:%B} {'abcdefghijklmnopqrstuvwxyzab'[d.day]}"
+    return CovenantEvent(cik=cik, date=d, kind=kind, span=Span(accession="a", url="u", char_start=0, char_end=len(text), text=text))
 
 
 def test_dedupe_same_kind_within_60_days_keeps_earliest():
@@ -144,6 +146,12 @@ def test_dedupe_same_kind_within_60_days_keeps_earliest():
         ("1", date(2020, 8, 1), "waiver"),
         ("2", date(2020, 4, 2), "waiver"),
     ]
+
+
+def test_dedupe_same_sentence_repeated_in_later_filings():
+    t = "We amended our credit facility in the second quarter of 2020 to increase the maximum leverage ratio."
+    out = dedupe([_ev("1", date(2020, 7, 22), "amendment_loosening", t), _ev("1", date(2020, 10, 21), "amendment_loosening", t)])
+    assert [e.date for e in out] == [date(2020, 7, 22)]
 
 
 # ---------------- saved outputs ----------------

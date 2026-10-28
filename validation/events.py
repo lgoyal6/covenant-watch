@@ -55,10 +55,11 @@ QUERIES = [
 HYPOTHETICAL = re.compile(
     r"\b(may|might|could|if|unless|in the event|any failure|no assurance|potential(?:ly)?|risks?|"
     r"would (?:be|constitute|result|permit|allow|cause)|upon the occurrence|subject to|whether|"
-    r"there can be|could result|in order to avoid|to avoid|could cause|will be required)\b",
+    r"there can be|could result|in order to avoid|to avoid|could cause|will be required|as long as|so long as|"
+    r"at any time|provided that|believe|can elect|may elect)\b",
     re.I,
 )
-COVENANT_CTX = re.compile(r"covenant|ratio|event of default|credit agreement|credit facility|loan agreement|indenture|lenders?\b", re.I)
+COVENANT_CTX = re.compile(r"covenant|\bratios?\b|event of default|credit agreement|credit facility|loan agreement|indenture|lenders?\b", re.I)
 WAIVER = re.compile(
     r"\b(agreed to waive|waived|waives|waiving|grant(?:ed|s)? (?:a |the )?waiver|provides? for (?:a |the )?waiver|"
     r"(?:entered into|executed|obtained|received)[^.]{0,120}\bwaiver)\b",
@@ -95,6 +96,17 @@ MONTH_YEAR = re.compile(rf"\b({MONTHS})(?:\s+\d{{1,2}},)?\s+((?:19|20)\d\d)\b")
 _MNUM = {m: i + 1 for i, m in enumerate(MONTHS.split("|"))}
 
 
+NOT_CREDIT = re.compile(r"employment|compensation|restrictive covenant agreement|non-?compet|board of directors|director|officer|executive|asset sale offer|change of control offer|consent solicitation|listing (?:rule|standard)|nasdaq|nyse", re.I)
+LENDER_CTX = re.compile(r"lenders?|agent|bank|credit agreement|credit facility|loan agreement|noteholders|holders", re.I)
+WAIVER_SUBJECT = re.compile(r"financial covenant|\bratios?\b|events? of default|defaults?\b|non-?compliance|covenant waiver|compliance with (?:certain|the) (?:financial )?covenants", re.I)
+RELIEF_VERB = re.compile(r"\b(provides?|provided|providing|implement\w*|establish\w*|obtain\w*|extend\w*|grant\w*|receiv\w*|suspend\w*|increas\w*|reduc\w*|decreas\w*|rais\w*|lower\w*|amend\w*)\b", re.I)
+RELIEF_TWEAK = re.compile(r"carve-?out|excludes? from|investment limitation|terminat\w* the covenant relief|end of the covenant relief|exit\w* the covenant relief", re.I)
+
+
+# covenant step-ups granted for an acquisition are strategic, not distress; exclude them from loosening
+ACQUISITION = re.compile(r"acqui\w*|merger|in connection with the [A-Z]\w* (?:and [A-Z]\w* )?transaction", re.I)
+
+
 def is_stale(sentence: str, filed: date, max_days: int = 180) -> bool:
     """True if every month/year mentioned is > max_days before the filing (a historical recap).
 
@@ -112,8 +124,10 @@ def classify_sentence(sentence: str, filed: date | None = None) -> str | None:
         return None
     if not re.match(r"[\"(A-Z0-9\u2012-\u2015-]", sentence):
         return None  # fragment (sentence split mid-clause)
-    if DEFINITIONAL.search(sentence):
+    if DEFINITIONAL.search(sentence) or NOT_CREDIT.search(sentence):
         return None
+    if sentence.rstrip()[-1] not in '.:;)"':
+        return None  # cut off by a line break: too little context to classify
     if filed and is_stale(sentence, filed):
         return None
     hypo = HYPOTHETICAL.search(sentence)
@@ -121,13 +135,15 @@ def classify_sentence(sentence: str, filed: date | None = None) -> str | None:
         return "acceleration"
     if DEFAULT.search(sentence) and not hypo and not re.search(r"\b(waiv|forbear)", sentence, re.I):
         return "default"
-    if WAIVER.search(sentence) and not NEGATED_WAIVER.search(sentence) and re.search(r"covenant|default|ratio|compliance", sentence, re.I):
+    if WAIVER.search(sentence) and not NEGATED_WAIVER.search(sentence) and WAIVER_SUBJECT.search(sentence) and LENDER_CTX.search(sentence):
         # "would otherwise" is fine in waiver language; reject only clear hypotheticals
         if not re.search(r"\b(may|might|could|if we|no assurance|seek|intend|expect)\b", sentence, re.I):
             return "waiver"
     if re.search(r"\bforbear\w*\b", sentence, re.I) and re.search(r"\b(entered into|executed|agreed)\b", sentence, re.I) and not hypo:
         return "default"  # forbearance presupposes an existing default
-    if LOOSEN.search(sentence) and AMEND.search(sentence) and not re.search(r"\b(may|might|could|if we|no assurance|seek)\b", sentence, re.I):
+    if (LOOSEN.search(sentence) and AMEND.search(sentence) and RELIEF_VERB.search(sentence)
+            and not RELIEF_TWEAK.search(sentence) and not ACQUISITION.search(sentence)
+            and not re.search(r"\b(may|might|could|if|no assurance|seek|in the event|can elect|may elect|believe|would)\b", sentence, re.I)):
         return "amendment_loosening"
     return None
 
@@ -193,11 +209,15 @@ def dedupe(events: list[CovenantEvent], window_days: int = 60) -> list[CovenantE
     """Per company and kind, events within `window_days` of the kept one collapse into it (earliest kept)."""
     out: list[CovenantEvent] = []
     last: dict[tuple[str, str], date] = {}
+    seen_text: set[tuple[str, str]] = set()
     for ev in sorted(events, key=lambda e: (e.cik, e.kind, e.date, e.span.accession, e.span.char_start)):
         k = (ev.cik, ev.kind)
-        if k in last and (ev.date - last[k]).days <= window_days:
+        # the same sentence repeated in later filings (e.g. quarterly earnings releases) is one event
+        norm = (ev.cik, re.sub(r"[^a-z]", "", ev.span.text.lower())[-160:])
+        if (k in last and (ev.date - last[k]).days <= window_days) or norm in seen_text:
             continue
         last[k] = ev.date
+        seen_text.add(norm)
         out.append(ev)
     return sorted(out, key=lambda e: (e.cik, e.date, KIND_RANK[e.kind]))
 

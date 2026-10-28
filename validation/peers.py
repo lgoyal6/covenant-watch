@@ -7,7 +7,7 @@ For each event company (first event date D):
   - Candidates: companies with the same SIC (EDGAR company browse by SIC) that
     appear in the same assets frame with assets within [0.5x, 2x], closest first.
   - Excluded: any company in events.json, and any company whose 8-Ks within
-    +/- 2 years of D match covenant-trouble phrases in EDGAR full-text search
+    +/- 2 years of D (8-K body or EX-99 press release; agreement exhibits are boilerplate) match covenant-trouble phrases in EDGAR full-text search
     (a failed search also excludes the candidate: no evidence, no peer).
 Up to 3 peers per event company. Output: data/groundtruth/peers.json (list of
 UniverseEntry with role="peer", peer_of=event CIK).
@@ -116,12 +116,18 @@ def has_trouble(cik: str, d: date) -> bool:
     params = {"q": TROUBLE_Q, "forms": "8-K", "dateRange": "custom", "startdt": start, "enddt": end, "ciks": cik}
     try:
         data = edgar.get_json(str(httpx.URL(EFTS, params=params)), use_cache=False)
-        return data["hits"]["total"]["value"] > 0
     except Exception:
         return True
+    hits = data.get("hits", {}).get("hits", [])
+    if data.get("hits", {}).get("total", {}).get("value", 0) > len(hits):
+        return True  # more hits than one page: assume trouble
+    # only the 8-K body and press releases count; exhibits (credit agreements, underwriting
+    # agreements) define defaults/waivers as boilerplate
+    return any((h["_source"].get("file_type") or "").upper().startswith(("8-K", "EX-99")) for h in hits)
 
 
-def peers_for(cik: str, d: date, event_ciks: set[str], k: int = 3, max_checks: int = 8) -> list[str]:
+def peers_for(cik: str, d: date, event_ciks: set[str], k: int = 3, max_checks: int = 15) -> list[str]:
+    """Same-SIC peers with assets within 0.5x-2x (widened to 1/3x-3x only if fewer than 2 found), no trouble hits."""
     sic = sic_of(cik)
     if not sic:
         return []
@@ -129,30 +135,49 @@ def peers_for(cik: str, d: date, event_ciks: set[str], k: int = 3, max_checks: i
     a0 = frame.get(cik) or assets_from_facts(cik, d)
     if not a0 or a0 <= 0:
         return []
-    cands = []
-    for c in companies_in_sic(sic):
-        if c == cik or c in event_ciks:
-            continue
-        a = frame.get(c)
-        if a and 0.5 * a0 <= a <= 2 * a0:
-            cands.append((abs(math.log(a / a0)), c))
-    cands.sort()
+    members = [c for c in companies_in_sic(sic) if c != cik and c not in event_ciks and frame.get(c)]
     chosen: list[str] = []
-    for _, c in cands[:max_checks]:
-        if has_trouble(c, d):
-            continue
-        chosen.append(c)
-        if len(chosen) >= k:
+    checked: set[str] = set()
+    for lo, hi in ((0.5, 2.0), (1 / 3, 3.0)):
+        if len(chosen) >= 2:
             break
+        cands = sorted((abs(math.log(frame[c] / a0)), c) for c in members if lo * a0 <= frame[c] <= hi * a0)
+        for _, c in cands:
+            if c in checked:
+                continue
+            if len(checked) >= max_checks or len(chosen) >= k:
+                break
+            checked.add(c)
+            if not has_trouble(c, d):
+                chosen.append(c)
     return chosen
 
 
-def run(k: int = 3) -> list[UniverseEntry]:
+def first_event_dates() -> dict[str, date]:
+    first: dict[str, date] = {}
+    for e in events.load():
+        first[e.cik] = min(first.get(e.cik, e.date), e.date)
+    return first
+
+
+def select_event_companies(n: int = 40, min_assets: float = 250e6) -> list[str]:
+    """Event companies worth running end to end: XBRL total assets reported in the frame just before the
+    first event (so the engine has history) and at least `min_assets` (larger borrowers usually file their
+    credit agreement as an exhibit and test maintenance covenants). Largest first, capped at n."""
+    scored = []
+    for cik, d in first_event_dates().items():
+        a = assets_frame(frame_for(d)).get(cik)
+        if a and a >= min_assets:
+            scored.append((-a, cik))
+    return [c for _, c in sorted(scored)[:n]]
+
+
+def run(k: int = 3, ciks: list[str] | None = None) -> list[UniverseEntry]:
     evs = events.load()
     event_ciks = {e.cik for e in evs}
-    first: dict[str, date] = {}
-    for e in evs:
-        first[e.cik] = min(first.get(e.cik, e.date), e.date)
+    first = first_event_dates()
+    if ciks is not None:
+        first = {c: first[c] for c in ciks if c in first}
     out: list[UniverseEntry] = []
     used: set[str] = set()
     for i, (cik, d) in enumerate(sorted(first.items())):
@@ -179,5 +204,10 @@ def load() -> list[UniverseEntry]:
 
 
 if __name__ == "__main__":
-    ps = run()
+    import argparse
+
+    ap = argparse.ArgumentParser()
+    ap.add_argument("--max-events", type=int, default=40, help="peers only for the selected event companies")
+    a = ap.parse_args()
+    ps = run(ciks=select_event_companies(a.max_events))
     print(f"{len(ps)} peers for {len({p.peer_of for p in ps})} event companies")

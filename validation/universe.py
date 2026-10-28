@@ -1,5 +1,8 @@
 """Build data/universe.json from ground truth: event companies, their peers, disclosed-ratio companies.
 
+Event companies: the subset chosen by peers.select_event_companies (XBRL assets
+before the event, >= $250M, largest first, default 40); events.json keeps all.
+
 One entry per CIK (10-digit, zero-padded). Role priority: event > peer > disclosed
 (the scorer reads disclosed.json / events.json directly, so the role here only
 says why a company is in the run set). Order in the file is the suggested
@@ -22,7 +25,7 @@ from shared import edgar
 from shared.paths import GROUNDTRUTH, UNIVERSE
 from shared.schema import UniverseEntry
 
-from validation import disclosed, events
+from validation import disclosed, events, peers
 
 PEERS = GROUNDTRUTH / "peers.json"
 # committed copy of data/universe.json (data/ is gitignored; Laksh works on another machine)
@@ -44,7 +47,7 @@ def load_peers() -> list[UniverseEntry]:
     return [UniverseEntry.model_validate(x) for x in json.loads(PEERS.read_text())]
 
 
-def build(check_xbrl: bool = True) -> list[UniverseEntry]:
+def build(check_xbrl: bool = True, max_events: int = 40) -> list[UniverseEntry]:
     entries: list[UniverseEntry] = []
     seen: set[str] = set()
 
@@ -59,12 +62,14 @@ def build(check_xbrl: bool = True) -> list[UniverseEntry]:
         entries.append(UniverseEntry(cik=cik, role=role, peer_of=peer_of))
 
     evs = events.load()
-    for cik in dict.fromkeys(e.cik for e in evs):
-        add(cik, "event")
     event_ciks = {e.cik for e in evs}
-    for p in load_peers():
-        if p.cik not in event_ciks and p.peer_of in seen:
-            add(p.cik, "peer", p.peer_of)
+    peer_rows = load_peers()
+    # events first (selected subset: see peers.select_event_companies), each followed by its peers
+    for cik in peers.select_event_companies(max_events):
+        add(cik, "event")
+        for p in peer_rows:
+            if p.peer_of == cik and p.cik not in event_ciks:
+                add(p.cik, "peer", cik)
     for cik in dict.fromkeys(r.cik for r in disclosed.load()):
         add(cik, "disclosed")
     return entries
@@ -88,8 +93,9 @@ def load() -> list[UniverseEntry]:
 if __name__ == "__main__":
     ap = argparse.ArgumentParser()
     ap.add_argument("--no-xbrl-check", action="store_true")
+    ap.add_argument("--max-events", type=int, default=40)
     a = ap.parse_args()
-    es = build(check_xbrl=not a.no_xbrl_check)
+    es = build(check_xbrl=not a.no_xbrl_check, max_events=a.max_events)
     save(es)
     roles: dict[str, int] = {}
     for e in es:

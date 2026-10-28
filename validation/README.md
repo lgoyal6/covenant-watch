@@ -66,6 +66,6 @@ assert text[span.char_start:span.char_end] == span.text
   dates ignored); with no date in the sentence it falls back to the filing's period of report.
 - Ratios reported only in tables are not captured (sentence-based).
 - Event date is the 8-K filing date, not the agreement's effective date.
-- Peers: same 4-digit SIC, total assets 0.5x-2x at the last calendar-quarter frame before the first event,
-  and zero 8-K full-text hits for covenant-trouble phrases within ±2 years. Absence of hits is not proof of no
+- Peers: same 4-digit SIC, total assets 0.5x-2x (widened to 1/3x-3x only when fewer than 2 match) at the last calendar-quarter frame before the first event,
+  and zero 8-K body / EX-99 full-text hits for covenant-trouble phrases within ±2 years. Peers are only built for the event companies selected into the universe (`peers.select_event_companies`: XBRL assets >= $250M just before the first event, largest 40). Absence of hits is not proof of no
   covenant stress.

@@ -1,0 +1,289 @@
+{
+  "schema_version": "1.0",
+  "generated_at": "2026-10-28T12:00:00Z",
+  "company": {
+    "cik": "0000000001",
+    "name": "Example Holdings, Inc. (FIXTURE)",
+    "ticker": "EXMP",
+    "sic": "3711"
+  },
+  "agreements": [
+    {
+      "accession": "0000000001-22-000010",
+      "url": "https://www.sec.gov/Archives/edgar/data/1/0000000001-22-000010/fixture.htm",
+      "filed": "2022-03-15",
+      "kind": "original",
+      "redacted": false
+    },
+    {
+      "accession": "0000000001-23-000020",
+      "url": "https://www.sec.gov/Archives/edgar/data/1/0000000001-23-000020/fixture.htm",
+      "filed": "2023-08-01",
+      "kind": "amendment",
+      "redacted": false
+    }
+  ],
+  "terms": [
+    {
+      "id": "ebitda",
+      "label": "Consolidated EBITDA",
+      "op": "sum",
+      "children": [
+        "ebitda_base",
+        "noncash",
+        "restructuring_capped"
+      ],
+      "cap": null,
+      "span": {
+        "accession": "0000000001-22-000010",
+        "url": "https://www.sec.gov/Archives/edgar/data/1/0000000001-22-000010/fixture.htm",
+        "section": "1.01",
+        "char_start": 1000,
+        "char_end": 1441,
+        "text": "\"Consolidated EBITDA\" means, for any period, Consolidated Net Income for such period plus, without duplication and to the extent deducted in determining Consolidated Net Income, (a) Consolidated Interest Expense, (b) provision for taxes, (c) depreciation and amortization, (d) non-cash charges and (e) restructuring charges in an aggregate amount not to exceed 10% of Consolidated EBITDA (calculated before giving effect to this clause (e))."
+      }
+    },
+    {
+      "id": "ebitda_base",
+      "label": "EBITDA before addbacks",
+      "op": "sum",
+      "children": [
+        "net_income",
+        "interest_expense",
+        "taxes",
+        "d_and_a"
+      ],
+      "cap": null,
+      "span": {
+        "accession": "0000000001-22-000010",
+        "url": "https://www.sec.gov/Archives/edgar/data/1/0000000001-22-000010/fixture.htm",
+        "section": "1.01",
+        "char_start": 1641,
+        "char_end": 1867,
+        "text": "Consolidated Net Income for such period plus, without duplication and to the extent deducted in determining Consolidated Net Income, (a) Consolidated Interest Expense, (b) provision for taxes, (c) depreciation and amortization"
+      }
+    },
+    {
+      "id": "net_income",
+      "label": "Consolidated Net Income",
+      "op": "leaf",
+      "children": [],
+      "cap": null,
+      "span": {
+        "accession": "0000000001-22-000010",
+        "url": "https://www.sec.gov/Archives/edgar/data/1/0000000001-22-000010/fixture.htm",
+        "section": "1.01",
+        "char_start": 2067,
+        "char_end": 2201,
+        "text": "\"Consolidated Net Income\" means, for any period, the net income (or loss) of the Borrower and its Subsidiaries on a consolidated basis"
+      }
+    },
+    {
+      "id": "interest_expense",
+      "label": "Consolidated Interest Expense",
+      "op": "leaf",
+      "children": [],
+      "cap": null,
+      "span": {
+        "accession": "0000000001-22-000010",
+        "url": "https://www.sec.gov/Archives/edgar/data/1/0000000001-22-000010/fixture.htm",
+        "section": "1.01",
+        "char_start": 2401,
+        "char_end": 2519,
+        "text": "\"Consolidated Interest Expense\" means, for any period, the total interest expense of the Borrower and its Subsidiaries"
+      }
+    },
+    {
+      "id": "taxes",
+      "label": "provision for taxes",
+      "op": "leaf",
+      "children": [],
+      "cap": null,
+      "span": {
+        "accession": "0000000001-22-000010",
+        "url": "https://www.sec.gov/Archives/edgar/data/1/0000000001-22-000010/fixture.htm",
+        "section": "1.01",
+        "char_start": 2719,
+        "char_end": 2742,
+        "text": "(b) provision for taxes"
+      }
+    },
+    {
+      "id": "d_and_a",
+      "label": "depreciation and amortization",
+      "op": "leaf",
+      "children": [],
+      "cap": null,
+      "span": {
+        "accession": "0000000001-22-000010",
+        "url": "https://www.sec.gov/Archives/edgar/data/1/0000000001-22-000010/fixture.htm",
+        "section": "1.01",
+        "char_start": 2942,
+        "char_end": 2975,
+        "text": "(c) depreciation and amortization"
+      }
+    },
+    {
+      "id": "noncash",
+      "label": "non-cash charges",
+      "op": "leaf",
+      "children": [],
+      "cap": null,
+      "span": {
+        "accession": "0000000001-22-000010",
+        "url": "https://www.sec.gov/Archives/edgar/data/1/0000000001-22-000010/fixture.htm",
+        "section": "1.01",
+        "char_start": 3175,
+        "char_end": 3195,
+        "text": "(d) non-cash charges"
+      }
+    },
+    {
+      "id": "restructuring_capped",
+      "label": "restructuring charges (capped)",
+      "op": "cap",
+      "children": [
+        "restructuring"
+      ],
+      "cap": {
+        "kind": "pct_of",
+        "of": "ebitda_base",
+        "pct": 0.1
+      },
+      "span": {
+        "accession": "0000000001-22-000010",
+        "url": "https://www.sec.gov/Archives/edgar/data/1/0000000001-22-000010/fixture.htm",
+        "section": "1.01",
+        "char_start": 3395,
+        "char_end": 3537,
+        "text": "(e) restructuring charges in an aggregate amount not to exceed 10% of Consolidated EBITDA (calculated before giving effect to this clause (e))"
+      }
+    },
+    {
+      "id": "restructuring",
+      "label": "restructuring charges",
+      "op": "leaf",
+      "children": [],
+      "cap": null,
+      "span": {
+        "accession": "0000000001-22-000010",
+        "url": "https://www.sec.gov/Archives/edgar/data/1/0000000001-22-000010/fixture.htm",
+        "section": "1.01",
+        "char_start": 3737,
+        "char_end": 3762,
+        "text": "(e) restructuring charges"
+      }
+    },
+    {
+      "id": "total_debt",
+      "label": "Consolidated Total Debt",
+      "op": "leaf",
+      "children": [],
+      "cap": null,
+      "span": {
+        "accession": "0000000001-22-000010",
+        "url": "https://www.sec.gov/Archives/edgar/data/1/0000000001-22-000010/fixture.htm",
+        "section": "1.01",
+        "char_start": 3962,
+        "char_end": 4115,
+        "text": "\"Consolidated Total Debt\" means, as of any date of determination, the aggregate principal amount of all Indebtedness of the Borrower and its Subsidiaries"
+      }
+    }
+  ],
+  "covenants": [
+    {
+      "id": "lev",
+      "kind": "max_leverage",
+      "direction": "max",
+      "numerator_term": "total_debt",
+      "denominator_term": "ebitda",
+      "test_period": "ttm",
+      "thresholds": [
+        {
+          "effective_from": "2022-03-15",
+          "effective_to": "2023-07-31",
+          "value": 4.5,
+          "source": {
+            "accession": "0000000001-22-000010",
+            "url": "https://www.sec.gov/Archives/edgar/data/1/0000000001-22-000010/fixture.htm",
+            "section": "7.11(a)",
+            "char_start": 4315,
+            "char_end": 4426,
+            "text": "permit the Consolidated Leverage Ratio as of the last day of any fiscal quarter to be greater than 4.50 to 1.00"
+          }
+        },
+        {
+          "effective_from": "2023-08-01",
+          "effective_to": "2024-06-30",
+          "value": 5.25,
+          "source": {
+            "accession": "0000000001-23-000020",
+            "url": "https://www.sec.gov/Archives/edgar/data/1/0000000001-23-000020/fixture.htm",
+            "section": "2.03",
+            "char_start": 4626,
+            "char_end": 4763,
+            "text": "Section 7.11(a) is hereby amended by replacing 4.50 to 1.00 with 5.25 to 1.00 for each fiscal quarter ending on or prior to June 30, 2024"
+          }
+        },
+        {
+          "effective_from": "2024-07-01",
+          "effective_to": null,
+          "value": 4.75,
+          "source": {
+            "accession": "0000000001-23-000020",
+            "url": "https://www.sec.gov/Archives/edgar/data/1/0000000001-23-000020/fixture.htm",
+            "section": "2.03",
+            "char_start": 4963,
+            "char_end": 5021,
+            "text": "and 4.75 to 1.00 for each fiscal quarter ending thereafter"
+          }
+        }
+      ],
+      "agreement_accession": "0000000001-22-000010",
+      "span": {
+        "accession": "0000000001-22-000010",
+        "url": "https://www.sec.gov/Archives/edgar/data/1/0000000001-22-000010/fixture.htm",
+        "section": "7.11(a)",
+        "char_start": 5221,
+        "char_end": 5362,
+        "text": "Consolidated Leverage Ratio. Permit the Consolidated Leverage Ratio as of the last day of any fiscal quarter to be greater than 4.50 to 1.00."
+      }
+    },
+    {
+      "id": "icr",
+      "kind": "min_interest_coverage",
+      "direction": "min",
+      "numerator_term": "ebitda",
+      "denominator_term": "interest_expense",
+      "test_period": "ttm",
+      "thresholds": [
+        {
+          "effective_from": "2022-03-15",
+          "effective_to": null,
+          "value": 3.0,
+          "source": {
+            "accession": "0000000001-22-000010",
+            "url": "https://www.sec.gov/Archives/edgar/data/1/0000000001-22-000010/fixture.htm",
+            "section": "7.11(b)",
+            "char_start": 5562,
+            "char_end": 5689,
+            "text": "permit the Consolidated Interest Coverage Ratio for any period of four consecutive fiscal quarters to be less than 3.00 to 1.00"
+          }
+        }
+      ],
+      "agreement_accession": "0000000001-22-000010",
+      "span": {
+        "accession": "0000000001-22-000010",
+        "url": "https://www.sec.gov/Archives/edgar/data/1/0000000001-22-000010/fixture.htm",
+        "section": "7.11(b)",
+        "char_start": 5889,
+        "char_end": 6055,
+        "text": "Consolidated Interest Coverage Ratio. Permit the Consolidated Interest Coverage Ratio for any period of four consecutive fiscal quarters to be less than 3.00 to 1.00."
+      }
+    }
+  ],
+  "refusals": [],
+  "extraction_notes": [
+    "FIXTURE: synthetic company for development only."
+  ]
+}

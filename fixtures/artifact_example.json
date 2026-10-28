@@ -1,0 +1,1514 @@
+{
+  "schema_version": "1.0",
+  "generated_at": "2026-10-28T12:00:00Z",
+  "contract": {
+    "schema_version": "1.0",
+    "generated_at": "2026-10-28T12:00:00Z",
+    "company": {
+      "cik": "0000000001",
+      "name": "Example Holdings, Inc. (FIXTURE)",
+      "ticker": "EXMP",
+      "sic": "3711"
+    },
+    "agreements": [
+      {
+        "accession": "0000000001-22-000010",
+        "url": "https://www.sec.gov/Archives/edgar/data/1/0000000001-22-000010/fixture.htm",
+        "filed": "2022-03-15",
+        "kind": "original",
+        "redacted": false
+      },
+      {
+        "accession": "0000000001-23-000020",
+        "url": "https://www.sec.gov/Archives/edgar/data/1/0000000001-23-000020/fixture.htm",
+        "filed": "2023-08-01",
+        "kind": "amendment",
+        "redacted": false
+      }
+    ],
+    "terms": [
+      {
+        "id": "ebitda",
+        "label": "Consolidated EBITDA",
+        "op": "sum",
+        "children": [
+          "ebitda_base",
+          "noncash",
+          "restructuring_capped"
+        ],
+        "cap": null,
+        "span": {
+          "accession": "0000000001-22-000010",
+          "url": "https://www.sec.gov/Archives/edgar/data/1/0000000001-22-000010/fixture.htm",
+          "section": "1.01",
+          "char_start": 1000,
+          "char_end": 1441,
+          "text": "\"Consolidated EBITDA\" means, for any period, Consolidated Net Income for such period plus, without duplication and to the extent deducted in determining Consolidated Net Income, (a) Consolidated Interest Expense, (b) provision for taxes, (c) depreciation and amortization, (d) non-cash charges and (e) restructuring charges in an aggregate amount not to exceed 10% of Consolidated EBITDA (calculated before giving effect to this clause (e))."
+        }
+      },
+      {
+        "id": "ebitda_base",
+        "label": "EBITDA before addbacks",
+        "op": "sum",
+        "children": [
+          "net_income",
+          "interest_expense",
+          "taxes",
+          "d_and_a"
+        ],
+        "cap": null,
+        "span": {
+          "accession": "0000000001-22-000010",
+          "url": "https://www.sec.gov/Archives/edgar/data/1/0000000001-22-000010/fixture.htm",
+          "section": "1.01",
+          "char_start": 1641,
+          "char_end": 1867,
+          "text": "Consolidated Net Income for such period plus, without duplication and to the extent deducted in determining Consolidated Net Income, (a) Consolidated Interest Expense, (b) provision for taxes, (c) depreciation and amortization"
+        }
+      },
+      {
+        "id": "net_income",
+        "label": "Consolidated Net Income",
+        "op": "leaf",
+        "children": [],
+        "cap": null,
+        "span": {
+          "accession": "0000000001-22-000010",
+          "url": "https://www.sec.gov/Archives/edgar/data/1/0000000001-22-000010/fixture.htm",
+          "section": "1.01",
+          "char_start": 2067,
+          "char_end": 2201,
+          "text": "\"Consolidated Net Income\" means, for any period, the net income (or loss) of the Borrower and its Subsidiaries on a consolidated basis"
+        }
+      },
+      {
+        "id": "interest_expense",
+        "label": "Consolidated Interest Expense",
+        "op": "leaf",
+        "children": [],
+        "cap": null,
+        "span": {
+          "accession": "0000000001-22-000010",
+          "url": "https://www.sec.gov/Archives/edgar/data/1/0000000001-22-000010/fixture.htm",
+          "section": "1.01",
+          "char_start": 2401,
+          "char_end": 2519,
+          "text": "\"Consolidated Interest Expense\" means, for any period, the total interest expense of the Borrower and its Subsidiaries"
+        }
+      },
+      {
+        "id": "taxes",
+        "label": "provision for taxes",
+        "op": "leaf",
+        "children": [],
+        "cap": null,
+        "span": {
+          "accession": "0000000001-22-000010",
+          "url": "https://www.sec.gov/Archives/edgar/data/1/0000000001-22-000010/fixture.htm",
+          "section": "1.01",
+          "char_start": 2719,
+          "char_end": 2742,
+          "text": "(b) provision for taxes"
+        }
+      },
+      {
+        "id": "d_and_a",
+        "label": "depreciation and amortization",
+        "op": "leaf",
+        "children": [],
+        "cap": null,
+        "span": {
+          "accession": "0000000001-22-000010",
+          "url": "https://www.sec.gov/Archives/edgar/data/1/0000000001-22-000010/fixture.htm",
+          "section": "1.01",
+          "char_start": 2942,
+          "char_end": 2975,
+          "text": "(c) depreciation and amortization"
+        }
+      },
+      {
+        "id": "noncash",
+        "label": "non-cash charges",
+        "op": "leaf",
+        "children": [],
+        "cap": null,
+        "span": {
+          "accession": "0000000001-22-000010",
+          "url": "https://www.sec.gov/Archives/edgar/data/1/0000000001-22-000010/fixture.htm",
+          "section": "1.01",
+          "char_start": 3175,
+          "char_end": 3195,
+          "text": "(d) non-cash charges"
+        }
+      },
+      {
+        "id": "restructuring_capped",
+        "label": "restructuring charges (capped)",
+        "op": "cap",
+        "children": [
+          "restructuring"
+        ],
+        "cap": {
+          "kind": "pct_of",
+          "of": "ebitda_base",
+          "pct": 0.1
+        },
+        "span": {
+          "accession": "0000000001-22-000010",
+          "url": "https://www.sec.gov/Archives/edgar/data/1/0000000001-22-000010/fixture.htm",
+          "section": "1.01",
+          "char_start": 3395,
+          "char_end": 3537,
+          "text": "(e) restructuring charges in an aggregate amount not to exceed 10% of Consolidated EBITDA (calculated before giving effect to this clause (e))"
+        }
+      },
+      {
+        "id": "restructuring",
+        "label": "restructuring charges",
+        "op": "leaf",
+        "children": [],
+        "cap": null,
+        "span": {
+          "accession": "0000000001-22-000010",
+          "url": "https://www.sec.gov/Archives/edgar/data/1/0000000001-22-000010/fixture.htm",
+          "section": "1.01",
+          "char_start": 3737,
+          "char_end": 3762,
+          "text": "(e) restructuring charges"
+        }
+      },
+      {
+        "id": "total_debt",
+        "label": "Consolidated Total Debt",
+        "op": "leaf",
+        "children": [],
+        "cap": null,
+        "span": {
+          "accession": "0000000001-22-000010",
+          "url": "https://www.sec.gov/Archives/edgar/data/1/0000000001-22-000010/fixture.htm",
+          "section": "1.01",
+          "char_start": 3962,
+          "char_end": 4115,
+          "text": "\"Consolidated Total Debt\" means, as of any date of determination, the aggregate principal amount of all Indebtedness of the Borrower and its Subsidiaries"
+        }
+      }
+    ],
+    "covenants": [
+      {
+        "id": "lev",
+        "kind": "max_leverage",
+        "direction": "max",
+        "numerator_term": "total_debt",
+        "denominator_term": "ebitda",
+        "test_period": "ttm",
+        "thresholds": [
+          {
+            "effective_from": "2022-03-15",
+            "effective_to": "2023-07-31",
+            "value": 4.5,
+            "source": {
+              "accession": "0000000001-22-000010",
+              "url": "https://www.sec.gov/Archives/edgar/data/1/0000000001-22-000010/fixture.htm",
+              "section": "7.11(a)",
+              "char_start": 4315,
+              "char_end": 4426,
+              "text": "permit the Consolidated Leverage Ratio as of the last day of any fiscal quarter to be greater than 4.50 to 1.00"
+            }
+          },
+          {
+            "effective_from": "2023-08-01",
+            "effective_to": "2024-06-30",
+            "value": 5.25,
+            "source": {
+              "accession": "0000000001-23-000020",
+              "url": "https://www.sec.gov/Archives/edgar/data/1/0000000001-23-000020/fixture.htm",
+              "section": "2.03",
+              "char_start": 4626,
+              "char_end": 4763,
+              "text": "Section 7.11(a) is hereby amended by replacing 4.50 to 1.00 with 5.25 to 1.00 for each fiscal quarter ending on or prior to June 30, 2024"
+            }
+          },
+          {
+            "effective_from": "2024-07-01",
+            "effective_to": null,
+            "value": 4.75,
+            "source": {
+              "accession": "0000000001-23-000020",
+              "url": "https://www.sec.gov/Archives/edgar/data/1/0000000001-23-000020/fixture.htm",
+              "section": "2.03",
+              "char_start": 4963,
+              "char_end": 5021,
+              "text": "and 4.75 to 1.00 for each fiscal quarter ending thereafter"
+            }
+          }
+        ],
+        "agreement_accession": "0000000001-22-000010",
+        "span": {
+          "accession": "0000000001-22-000010",
+          "url": "https://www.sec.gov/Archives/edgar/data/1/0000000001-22-000010/fixture.htm",
+          "section": "7.11(a)",
+          "char_start": 5221,
+          "char_end": 5362,
+          "text": "Consolidated Leverage Ratio. Permit the Consolidated Leverage Ratio as of the last day of any fiscal quarter to be greater than 4.50 to 1.00."
+        }
+      },
+      {
+        "id": "icr",
+        "kind": "min_interest_coverage",
+        "direction": "min",
+        "numerator_term": "ebitda",
+        "denominator_term": "interest_expense",
+        "test_period": "ttm",
+        "thresholds": [
+          {
+            "effective_from": "2022-03-15",
+            "effective_to": null,
+            "value": 3.0,
+            "source": {
+              "accession": "0000000001-22-000010",
+              "url": "https://www.sec.gov/Archives/edgar/data/1/0000000001-22-000010/fixture.htm",
+              "section": "7.11(b)",
+              "char_start": 5562,
+              "char_end": 5689,
+              "text": "permit the Consolidated Interest Coverage Ratio for any period of four consecutive fiscal quarters to be less than 3.00 to 1.00"
+            }
+          }
+        ],
+        "agreement_accession": "0000000001-22-000010",
+        "span": {
+          "accession": "0000000001-22-000010",
+          "url": "https://www.sec.gov/Archives/edgar/data/1/0000000001-22-000010/fixture.htm",
+          "section": "7.11(b)",
+          "char_start": 5889,
+          "char_end": 6055,
+          "text": "Consolidated Interest Coverage Ratio. Permit the Consolidated Interest Coverage Ratio for any period of four consecutive fiscal quarters to be less than 3.00 to 1.00."
+        }
+      }
+    ],
+    "refusals": [],
+    "extraction_notes": [
+      "FIXTURE: synthetic company for development only."
+    ]
+  },
+  "quarters": [
+    {
+      "covenant_id": "lev",
+      "period_end": "2023-03-31",
+      "ratio_low": 3.6923,
+      "ratio_high": 3.6923,
+      "threshold": 4.5,
+      "headroom_low": 0.8077,
+      "headroom_high": 0.8077,
+      "status": "ok",
+      "inputs": [
+        {
+          "term_node": "total_debt",
+          "value": 1200000000.0,
+          "xbrl_concept": "us-gaap:LongTermDebt",
+          "fact_accession": "0000000001-24-000030",
+          "period_start": null,
+          "period_end": "2023-03-31",
+          "mapping_confidence": 0.95,
+          "validated": true,
+          "validation_note": null
+        },
+        {
+          "term_node": "net_income",
+          "value": 120000000.0,
+          "xbrl_concept": "us-gaap:NetIncomeLoss",
+          "fact_accession": "0000000001-24-000030",
+          "period_start": "2022-03-01",
+          "period_end": "2023-03-31",
+          "mapping_confidence": 0.95,
+          "validated": true,
+          "validation_note": null
+        },
+        {
+          "term_node": "interest_expense",
+          "value": 60000000.0,
+          "xbrl_concept": "us-gaap:InterestExpense",
+          "fact_accession": "0000000001-24-000030",
+          "period_start": "2022-03-01",
+          "period_end": "2023-03-31",
+          "mapping_confidence": 0.95,
+          "validated": true,
+          "validation_note": null
+        },
+        {
+          "term_node": "taxes",
+          "value": 40000000.0,
+          "xbrl_concept": "us-gaap:IncomeTaxExpenseBenefit",
+          "fact_accession": "0000000001-24-000030",
+          "period_start": "2022-03-01",
+          "period_end": "2023-03-31",
+          "mapping_confidence": 0.95,
+          "validated": true,
+          "validation_note": null
+        },
+        {
+          "term_node": "d_and_a",
+          "value": 80000000.0,
+          "xbrl_concept": "us-gaap:DepreciationDepletionAndAmortization",
+          "fact_accession": "0000000001-24-000030",
+          "period_start": "2022-03-01",
+          "period_end": "2023-03-31",
+          "mapping_confidence": 0.95,
+          "validated": true,
+          "validation_note": null
+        },
+        {
+          "term_node": "noncash",
+          "value": 15000000.0,
+          "xbrl_concept": "us-gaap:ShareBasedCompensation",
+          "fact_accession": "0000000001-24-000030",
+          "period_start": "2022-03-01",
+          "period_end": "2023-03-31",
+          "mapping_confidence": 0.95,
+          "validated": true,
+          "validation_note": null
+        },
+        {
+          "term_node": "restructuring",
+          "value": 10000000.0,
+          "xbrl_concept": "us-gaap:RestructuringCharges",
+          "fact_accession": "0000000001-24-000030",
+          "period_start": "2022-03-01",
+          "period_end": "2023-03-31",
+          "mapping_confidence": 0.95,
+          "validated": true,
+          "validation_note": null
+        }
+      ],
+      "missing": []
+    },
+    {
+      "covenant_id": "icr",
+      "period_end": "2023-03-31",
+      "ratio_low": 5.4167,
+      "ratio_high": 5.4167,
+      "threshold": 3.0,
+      "headroom_low": 2.4167,
+      "headroom_high": 2.4167,
+      "status": "ok",
+      "inputs": [
+        {
+          "term_node": "net_income",
+          "value": 120000000.0,
+          "xbrl_concept": "us-gaap:NetIncomeLoss",
+          "fact_accession": "0000000001-24-000030",
+          "period_start": "2022-03-01",
+          "period_end": "2023-03-31",
+          "mapping_confidence": 0.95,
+          "validated": true,
+          "validation_note": null
+        },
+        {
+          "term_node": "interest_expense",
+          "value": 60000000.0,
+          "xbrl_concept": "us-gaap:InterestExpense",
+          "fact_accession": "0000000001-24-000030",
+          "period_start": "2022-03-01",
+          "period_end": "2023-03-31",
+          "mapping_confidence": 0.95,
+          "validated": true,
+          "validation_note": null
+        },
+        {
+          "term_node": "taxes",
+          "value": 40000000.0,
+          "xbrl_concept": "us-gaap:IncomeTaxExpenseBenefit",
+          "fact_accession": "0000000001-24-000030",
+          "period_start": "2022-03-01",
+          "period_end": "2023-03-31",
+          "mapping_confidence": 0.95,
+          "validated": true,
+          "validation_note": null
+        },
+        {
+          "term_node": "d_and_a",
+          "value": 80000000.0,
+          "xbrl_concept": "us-gaap:DepreciationDepletionAndAmortization",
+          "fact_accession": "0000000001-24-000030",
+          "period_start": "2022-03-01",
+          "period_end": "2023-03-31",
+          "mapping_confidence": 0.95,
+          "validated": true,
+          "validation_note": null
+        },
+        {
+          "term_node": "noncash",
+          "value": 15000000.0,
+          "xbrl_concept": "us-gaap:ShareBasedCompensation",
+          "fact_accession": "0000000001-24-000030",
+          "period_start": "2022-03-01",
+          "period_end": "2023-03-31",
+          "mapping_confidence": 0.95,
+          "validated": true,
+          "validation_note": null
+        },
+        {
+          "term_node": "restructuring",
+          "value": 10000000.0,
+          "xbrl_concept": "us-gaap:RestructuringCharges",
+          "fact_accession": "0000000001-24-000030",
+          "period_start": "2022-03-01",
+          "period_end": "2023-03-31",
+          "mapping_confidence": 0.95,
+          "validated": true,
+          "validation_note": null
+        }
+      ],
+      "missing": []
+    },
+    {
+      "covenant_id": "lev",
+      "period_end": "2023-06-30",
+      "ratio_low": 4.0127,
+      "ratio_high": 4.0127,
+      "threshold": 4.5,
+      "headroom_low": 0.4873,
+      "headroom_high": 0.4873,
+      "status": "ok",
+      "inputs": [
+        {
+          "term_node": "total_debt",
+          "value": 1260000000.0,
+          "xbrl_concept": "us-gaap:LongTermDebt",
+          "fact_accession": "0000000001-24-000030",
+          "period_start": null,
+          "period_end": "2023-06-30",
+          "mapping_confidence": 0.95,
+          "validated": true,
+          "validation_note": null
+        },
+        {
+          "term_node": "net_income",
+          "value": 105000000.0,
+          "xbrl_concept": "us-gaap:NetIncomeLoss",
+          "fact_accession": "0000000001-24-000030",
+          "period_start": "2022-06-01",
+          "period_end": "2023-06-30",
+          "mapping_confidence": 0.95,
+          "validated": true,
+          "validation_note": null
+        },
+        {
+          "term_node": "interest_expense",
+          "value": 64000000.0,
+          "xbrl_concept": "us-gaap:InterestExpense",
+          "fact_accession": "0000000001-24-000030",
+          "period_start": "2022-06-01",
+          "period_end": "2023-06-30",
+          "mapping_confidence": 0.95,
+          "validated": true,
+          "validation_note": null
+        },
+        {
+          "term_node": "taxes",
+          "value": 35000000.0,
+          "xbrl_concept": "us-gaap:IncomeTaxExpenseBenefit",
+          "fact_accession": "0000000001-24-000030",
+          "period_start": "2022-06-01",
+          "period_end": "2023-06-30",
+          "mapping_confidence": 0.95,
+          "validated": true,
+          "validation_note": null
+        },
+        {
+          "term_node": "d_and_a",
+          "value": 82000000.0,
+          "xbrl_concept": "us-gaap:DepreciationDepletionAndAmortization",
+          "fact_accession": "0000000001-24-000030",
+          "period_start": "2022-06-01",
+          "period_end": "2023-06-30",
+          "mapping_confidence": 0.95,
+          "validated": true,
+          "validation_note": null
+        },
+        {
+          "term_node": "noncash",
+          "value": 16000000.0,
+          "xbrl_concept": "us-gaap:ShareBasedCompensation",
+          "fact_accession": "0000000001-24-000030",
+          "period_start": "2022-06-01",
+          "period_end": "2023-06-30",
+          "mapping_confidence": 0.95,
+          "validated": true,
+          "validation_note": null
+        },
+        {
+          "term_node": "restructuring",
+          "value": 12000000.0,
+          "xbrl_concept": "us-gaap:RestructuringCharges",
+          "fact_accession": "0000000001-24-000030",
+          "period_start": "2022-06-01",
+          "period_end": "2023-06-30",
+          "mapping_confidence": 0.95,
+          "validated": true,
+          "validation_note": null
+        }
+      ],
+      "missing": []
+    },
+    {
+      "covenant_id": "icr",
+      "period_end": "2023-06-30",
+      "ratio_low": 4.9062,
+      "ratio_high": 4.9062,
+      "threshold": 3.0,
+      "headroom_low": 1.9062,
+      "headroom_high": 1.9062,
+      "status": "ok",
+      "inputs": [
+        {
+          "term_node": "net_income",
+          "value": 105000000.0,
+          "xbrl_concept": "us-gaap:NetIncomeLoss",
+          "fact_accession": "0000000001-24-000030",
+          "period_start": "2022-06-01",
+          "period_end": "2023-06-30",
+          "mapping_confidence": 0.95,
+          "validated": true,
+          "validation_note": null
+        },
+        {
+          "term_node": "interest_expense",
+          "value": 64000000.0,
+          "xbrl_concept": "us-gaap:InterestExpense",
+          "fact_accession": "0000000001-24-000030",
+          "period_start": "2022-06-01",
+          "period_end": "2023-06-30",
+          "mapping_confidence": 0.95,
+          "validated": true,
+          "validation_note": null
+        },
+        {
+          "term_node": "taxes",
+          "value": 35000000.0,
+          "xbrl_concept": "us-gaap:IncomeTaxExpenseBenefit",
+          "fact_accession": "0000000001-24-000030",
+          "period_start": "2022-06-01",
+          "period_end": "2023-06-30",
+          "mapping_confidence": 0.95,
+          "validated": true,
+          "validation_note": null
+        },
+        {
+          "term_node": "d_and_a",
+          "value": 82000000.0,
+          "xbrl_concept": "us-gaap:DepreciationDepletionAndAmortization",
+          "fact_accession": "0000000001-24-000030",
+          "period_start": "2022-06-01",
+          "period_end": "2023-06-30",
+          "mapping_confidence": 0.95,
+          "validated": true,
+          "validation_note": null
+        },
+        {
+          "term_node": "noncash",
+          "value": 16000000.0,
+          "xbrl_concept": "us-gaap:ShareBasedCompensation",
+          "fact_accession": "0000000001-24-000030",
+          "period_start": "2022-06-01",
+          "period_end": "2023-06-30",
+          "mapping_confidence": 0.95,
+          "validated": true,
+          "validation_note": null
+        },
+        {
+          "term_node": "restructuring",
+          "value": 12000000.0,
+          "xbrl_concept": "us-gaap:RestructuringCharges",
+          "fact_accession": "0000000001-24-000030",
+          "period_start": "2022-06-01",
+          "period_end": "2023-06-30",
+          "mapping_confidence": 0.95,
+          "validated": true,
+          "validation_note": null
+        }
+      ],
+      "missing": []
+    },
+    {
+      "covenant_id": "lev",
+      "period_end": "2023-09-30",
+      "ratio_low": 4.2581,
+      "ratio_high": 4.2581,
+      "threshold": 5.25,
+      "headroom_low": 0.9919,
+      "headroom_high": 0.9919,
+      "status": "ok",
+      "inputs": [
+        {
+          "term_node": "total_debt",
+          "value": 1320000000.0,
+          "xbrl_concept": "us-gaap:LongTermDebt",
+          "fact_accession": "0000000001-24-000030",
+          "period_start": null,
+          "period_end": "2023-09-30",
+          "mapping_confidence": 0.95,
+          "validated": true,
+          "validation_note": null
+        },
+        {
+          "term_node": "net_income",
+          "value": 90000000.0,
+          "xbrl_concept": "us-gaap:NetIncomeLoss",
+          "fact_accession": "0000000001-24-000030",
+          "period_start": "2022-09-01",
+          "period_end": "2023-09-30",
+          "mapping_confidence": 0.95,
+          "validated": true,
+          "validation_note": null
+        },
+        {
+          "term_node": "interest_expense",
+          "value": 68000000.0,
+          "xbrl_concept": "us-gaap:InterestExpense",
+          "fact_accession": "0000000001-24-000030",
+          "period_start": "2022-09-01",
+          "period_end": "2023-09-30",
+          "mapping_confidence": 0.95,
+          "validated": true,
+          "validation_note": null
+        },
+        {
+          "term_node": "taxes",
+          "value": 30000000.0,
+          "xbrl_concept": "us-gaap:IncomeTaxExpenseBenefit",
+          "fact_accession": "0000000001-24-000030",
+          "period_start": "2022-09-01",
+          "period_end": "2023-09-30",
+          "mapping_confidence": 0.95,
+          "validated": true,
+          "validation_note": null
+        },
+        {
+          "term_node": "d_and_a",
+          "value": 84000000.0,
+          "xbrl_concept": "us-gaap:DepreciationDepletionAndAmortization",
+          "fact_accession": "0000000001-24-000030",
+          "period_start": "2022-09-01",
+          "period_end": "2023-09-30",
+          "mapping_confidence": 0.95,
+          "validated": true,
+          "validation_note": null
+        },
+        {
+          "term_node": "noncash",
+          "value": 18000000.0,
+          "xbrl_concept": "us-gaap:ShareBasedCompensation",
+          "fact_accession": "0000000001-24-000030",
+          "period_start": "2022-09-01",
+          "period_end": "2023-09-30",
+          "mapping_confidence": 0.95,
+          "validated": true,
+          "validation_note": null
+        },
+        {
+          "term_node": "restructuring",
+          "value": 20000000.0,
+          "xbrl_concept": "us-gaap:RestructuringCharges",
+          "fact_accession": "0000000001-24-000030",
+          "period_start": "2022-09-01",
+          "period_end": "2023-09-30",
+          "mapping_confidence": 0.95,
+          "validated": true,
+          "validation_note": null
+        }
+      ],
+      "missing": []
+    },
+    {
+      "covenant_id": "icr",
+      "period_end": "2023-09-30",
+      "ratio_low": 4.5588,
+      "ratio_high": 4.5588,
+      "threshold": 3.0,
+      "headroom_low": 1.5588,
+      "headroom_high": 1.5588,
+      "status": "ok",
+      "inputs": [
+        {
+          "term_node": "net_income",
+          "value": 90000000.0,
+          "xbrl_concept": "us-gaap:NetIncomeLoss",
+          "fact_accession": "0000000001-24-000030",
+          "period_start": "2022-09-01",
+          "period_end": "2023-09-30",
+          "mapping_confidence": 0.95,
+          "validated": true,
+          "validation_note": null
+        },
+        {
+          "term_node": "interest_expense",
+          "value": 68000000.0,
+          "xbrl_concept": "us-gaap:InterestExpense",
+          "fact_accession": "0000000001-24-000030",
+          "period_start": "2022-09-01",
+          "period_end": "2023-09-30",
+          "mapping_confidence": 0.95,
+          "validated": true,
+          "validation_note": null
+        },
+        {
+          "term_node": "taxes",
+          "value": 30000000.0,
+          "xbrl_concept": "us-gaap:IncomeTaxExpenseBenefit",
+          "fact_accession": "0000000001-24-000030",
+          "period_start": "2022-09-01",
+          "period_end": "2023-09-30",
+          "mapping_confidence": 0.95,
+          "validated": true,
+          "validation_note": null
+        },
+        {
+          "term_node": "d_and_a",
+          "value": 84000000.0,
+          "xbrl_concept": "us-gaap:DepreciationDepletionAndAmortization",
+          "fact_accession": "0000000001-24-000030",
+          "period_start": "2022-09-01",
+          "period_end": "2023-09-30",
+          "mapping_confidence": 0.95,
+          "validated": true,
+          "validation_note": null
+        },
+        {
+          "term_node": "noncash",
+          "value": 18000000.0,
+          "xbrl_concept": "us-gaap:ShareBasedCompensation",
+          "fact_accession": "0000000001-24-000030",
+          "period_start": "2022-09-01",
+          "period_end": "2023-09-30",
+          "mapping_confidence": 0.95,
+          "validated": true,
+          "validation_note": null
+        },
+        {
+          "term_node": "restructuring",
+          "value": 20000000.0,
+          "xbrl_concept": "us-gaap:RestructuringCharges",
+          "fact_accession": "0000000001-24-000030",
+          "period_start": "2022-09-01",
+          "period_end": "2023-09-30",
+          "mapping_confidence": 0.95,
+          "validated": true,
+          "validation_note": null
+        }
+      ],
+      "missing": []
+    },
+    {
+      "covenant_id": "lev",
+      "period_end": "2023-12-31",
+      "ratio_low": 4.5098,
+      "ratio_high": 4.5098,
+      "threshold": 5.25,
+      "headroom_low": 0.7402,
+      "headroom_high": 0.7402,
+      "status": "ok",
+      "inputs": [
+        {
+          "term_node": "total_debt",
+          "value": 1380000000.0,
+          "xbrl_concept": "us-gaap:LongTermDebt",
+          "fact_accession": "0000000001-24-000030",
+          "period_start": null,
+          "period_end": "2023-12-31",
+          "mapping_confidence": 0.95,
+          "validated": true,
+          "validation_note": null
+        },
+        {
+          "term_node": "net_income",
+          "value": 80000000.0,
+          "xbrl_concept": "us-gaap:NetIncomeLoss",
+          "fact_accession": "0000000001-24-000030",
+          "period_start": "2022-12-01",
+          "period_end": "2023-12-31",
+          "mapping_confidence": 0.95,
+          "validated": true,
+          "validation_note": null
+        },
+        {
+          "term_node": "interest_expense",
+          "value": 72000000.0,
+          "xbrl_concept": "us-gaap:InterestExpense",
+          "fact_accession": "0000000001-24-000030",
+          "period_start": "2022-12-01",
+          "period_end": "2023-12-31",
+          "mapping_confidence": 0.95,
+          "validated": true,
+          "validation_note": null
+        },
+        {
+          "term_node": "taxes",
+          "value": 26000000.0,
+          "xbrl_concept": "us-gaap:IncomeTaxExpenseBenefit",
+          "fact_accession": "0000000001-24-000030",
+          "period_start": "2022-12-01",
+          "period_end": "2023-12-31",
+          "mapping_confidence": 0.95,
+          "validated": true,
+          "validation_note": null
+        },
+        {
+          "term_node": "d_and_a",
+          "value": 85000000.0,
+          "xbrl_concept": "us-gaap:DepreciationDepletionAndAmortization",
+          "fact_accession": "0000000001-24-000030",
+          "period_start": "2022-12-01",
+          "period_end": "2023-12-31",
+          "mapping_confidence": 0.95,
+          "validated": true,
+          "validation_note": null
+        },
+        {
+          "term_node": "noncash",
+          "value": 18000000.0,
+          "xbrl_concept": "us-gaap:ShareBasedCompensation",
+          "fact_accession": "0000000001-24-000030",
+          "period_start": "2022-12-01",
+          "period_end": "2023-12-31",
+          "mapping_confidence": 0.95,
+          "validated": true,
+          "validation_note": null
+        },
+        {
+          "term_node": "restructuring",
+          "value": 25000000.0,
+          "xbrl_concept": "us-gaap:RestructuringCharges",
+          "fact_accession": "0000000001-24-000030",
+          "period_start": "2022-12-01",
+          "period_end": "2023-12-31",
+          "mapping_confidence": 0.95,
+          "validated": true,
+          "validation_note": null
+        }
+      ],
+      "missing": []
+    },
+    {
+      "covenant_id": "icr",
+      "period_end": "2023-12-31",
+      "ratio_low": 4.25,
+      "ratio_high": 4.25,
+      "threshold": 3.0,
+      "headroom_low": 1.25,
+      "headroom_high": 1.25,
+      "status": "ok",
+      "inputs": [
+        {
+          "term_node": "net_income",
+          "value": 80000000.0,
+          "xbrl_concept": "us-gaap:NetIncomeLoss",
+          "fact_accession": "0000000001-24-000030",
+          "period_start": "2022-12-01",
+          "period_end": "2023-12-31",
+          "mapping_confidence": 0.95,
+          "validated": true,
+          "validation_note": null
+        },
+        {
+          "term_node": "interest_expense",
+          "value": 72000000.0,
+          "xbrl_concept": "us-gaap:InterestExpense",
+          "fact_accession": "0000000001-24-000030",
+          "period_start": "2022-12-01",
+          "period_end": "2023-12-31",
+          "mapping_confidence": 0.95,
+          "validated": true,
+          "validation_note": null
+        },
+        {
+          "term_node": "taxes",
+          "value": 26000000.0,
+          "xbrl_concept": "us-gaap:IncomeTaxExpenseBenefit",
+          "fact_accession": "0000000001-24-000030",
+          "period_start": "2022-12-01",
+          "period_end": "2023-12-31",
+          "mapping_confidence": 0.95,
+          "validated": true,
+          "validation_note": null
+        },
+        {
+          "term_node": "d_and_a",
+          "value": 85000000.0,
+          "xbrl_concept": "us-gaap:DepreciationDepletionAndAmortization",
+          "fact_accession": "0000000001-24-000030",
+          "period_start": "2022-12-01",
+          "period_end": "2023-12-31",
+          "mapping_confidence": 0.95,
+          "validated": true,
+          "validation_note": null
+        },
+        {
+          "term_node": "noncash",
+          "value": 18000000.0,
+          "xbrl_concept": "us-gaap:ShareBasedCompensation",
+          "fact_accession": "0000000001-24-000030",
+          "period_start": "2022-12-01",
+          "period_end": "2023-12-31",
+          "mapping_confidence": 0.95,
+          "validated": true,
+          "validation_note": null
+        },
+        {
+          "term_node": "restructuring",
+          "value": 25000000.0,
+          "xbrl_concept": "us-gaap:RestructuringCharges",
+          "fact_accession": "0000000001-24-000030",
+          "period_start": "2022-12-01",
+          "period_end": "2023-12-31",
+          "mapping_confidence": 0.95,
+          "validated": true,
+          "validation_note": null
+        }
+      ],
+      "missing": []
+    },
+    {
+      "covenant_id": "lev",
+      "period_end": "2024-03-31",
+      "ratio_low": 4.6933,
+      "ratio_high": 4.6933,
+      "threshold": 5.25,
+      "headroom_low": 0.5567,
+      "headroom_high": 0.5567,
+      "status": "ok",
+      "inputs": [
+        {
+          "term_node": "total_debt",
+          "value": 1400000000.0,
+          "xbrl_concept": "us-gaap:LongTermDebt",
+          "fact_accession": "0000000001-24-000030",
+          "period_start": null,
+          "period_end": "2024-03-31",
+          "mapping_confidence": 0.95,
+          "validated": true,
+          "validation_note": null
+        },
+        {
+          "term_node": "net_income",
+          "value": 70000000.0,
+          "xbrl_concept": "us-gaap:NetIncomeLoss",
+          "fact_accession": "0000000001-24-000030",
+          "period_start": "2023-03-01",
+          "period_end": "2024-03-31",
+          "mapping_confidence": 0.95,
+          "validated": true,
+          "validation_note": null
+        },
+        {
+          "term_node": "interest_expense",
+          "value": 75000000.0,
+          "xbrl_concept": "us-gaap:InterestExpense",
+          "fact_accession": "0000000001-24-000030",
+          "period_start": "2023-03-01",
+          "period_end": "2024-03-31",
+          "mapping_confidence": 0.95,
+          "validated": true,
+          "validation_note": null
+        },
+        {
+          "term_node": "taxes",
+          "value": 22000000.0,
+          "xbrl_concept": "us-gaap:IncomeTaxExpenseBenefit",
+          "fact_accession": "0000000001-24-000030",
+          "period_start": "2023-03-01",
+          "period_end": "2024-03-31",
+          "mapping_confidence": 0.95,
+          "validated": true,
+          "validation_note": null
+        },
+        {
+          "term_node": "d_and_a",
+          "value": 86000000.0,
+          "xbrl_concept": "us-gaap:DepreciationDepletionAndAmortization",
+          "fact_accession": "0000000001-24-000030",
+          "period_start": "2023-03-01",
+          "period_end": "2024-03-31",
+          "mapping_confidence": 0.95,
+          "validated": true,
+          "validation_note": null
+        },
+        {
+          "term_node": "noncash",
+          "value": 20000000.0,
+          "xbrl_concept": "us-gaap:ShareBasedCompensation",
+          "fact_accession": "0000000001-24-000030",
+          "period_start": "2023-03-01",
+          "period_end": "2024-03-31",
+          "mapping_confidence": 0.95,
+          "validated": true,
+          "validation_note": null
+        },
+        {
+          "term_node": "restructuring",
+          "value": 28000000.0,
+          "xbrl_concept": "us-gaap:RestructuringCharges",
+          "fact_accession": "0000000001-24-000030",
+          "period_start": "2023-03-01",
+          "period_end": "2024-03-31",
+          "mapping_confidence": 0.95,
+          "validated": true,
+          "validation_note": null
+        }
+      ],
+      "missing": []
+    },
+    {
+      "covenant_id": "icr",
+      "period_end": "2024-03-31",
+      "ratio_low": 3.9773,
+      "ratio_high": 3.9773,
+      "threshold": 3.0,
+      "headroom_low": 0.9773,
+      "headroom_high": 0.9773,
+      "status": "ok",
+      "inputs": [
+        {
+          "term_node": "net_income",
+          "value": 70000000.0,
+          "xbrl_concept": "us-gaap:NetIncomeLoss",
+          "fact_accession": "0000000001-24-000030",
+          "period_start": "2023-03-01",
+          "period_end": "2024-03-31",
+          "mapping_confidence": 0.95,
+          "validated": true,
+          "validation_note": null
+        },
+        {
+          "term_node": "interest_expense",
+          "value": 75000000.0,
+          "xbrl_concept": "us-gaap:InterestExpense",
+          "fact_accession": "0000000001-24-000030",
+          "period_start": "2023-03-01",
+          "period_end": "2024-03-31",
+          "mapping_confidence": 0.95,
+          "validated": true,
+          "validation_note": null
+        },
+        {
+          "term_node": "taxes",
+          "value": 22000000.0,
+          "xbrl_concept": "us-gaap:IncomeTaxExpenseBenefit",
+          "fact_accession": "0000000001-24-000030",
+          "period_start": "2023-03-01",
+          "period_end": "2024-03-31",
+          "mapping_confidence": 0.95,
+          "validated": true,
+          "validation_note": null
+        },
+        {
+          "term_node": "d_and_a",
+          "value": 86000000.0,
+          "xbrl_concept": "us-gaap:DepreciationDepletionAndAmortization",
+          "fact_accession": "0000000001-24-000030",
+          "period_start": "2023-03-01",
+          "period_end": "2024-03-31",
+          "mapping_confidence": 0.95,
+          "validated": true,
+          "validation_note": null
+        },
+        {
+          "term_node": "noncash",
+          "value": 20000000.0,
+          "xbrl_concept": "us-gaap:ShareBasedCompensation",
+          "fact_accession": "0000000001-24-000030",
+          "period_start": "2023-03-01",
+          "period_end": "2024-03-31",
+          "mapping_confidence": 0.95,
+          "validated": true,
+          "validation_note": null
+        },
+        {
+          "term_node": "restructuring",
+          "value": 28000000.0,
+          "xbrl_concept": "us-gaap:RestructuringCharges",
+          "fact_accession": "0000000001-24-000030",
+          "period_start": "2023-03-01",
+          "period_end": "2024-03-31",
+          "mapping_confidence": 0.95,
+          "validated": true,
+          "validation_note": null
+        }
+      ],
+      "missing": []
+    },
+    {
+      "covenant_id": "lev",
+      "period_end": "2024-06-30",
+      "ratio_low": 4.868,
+      "ratio_high": 4.868,
+      "threshold": 5.25,
+      "headroom_low": 0.382,
+      "headroom_high": 0.382,
+      "status": "warning",
+      "inputs": [
+        {
+          "term_node": "total_debt",
+          "value": 1420000000.0,
+          "xbrl_concept": "us-gaap:LongTermDebt",
+          "fact_accession": "0000000001-24-000030",
+          "period_start": null,
+          "period_end": "2024-06-30",
+          "mapping_confidence": 0.95,
+          "validated": true,
+          "validation_note": null
+        },
+        {
+          "term_node": "net_income",
+          "value": 62000000.0,
+          "xbrl_concept": "us-gaap:NetIncomeLoss",
+          "fact_accession": "0000000001-24-000030",
+          "period_start": "2023-06-01",
+          "period_end": "2024-06-30",
+          "mapping_confidence": 0.95,
+          "validated": true,
+          "validation_note": null
+        },
+        {
+          "term_node": "interest_expense",
+          "value": 78000000.0,
+          "xbrl_concept": "us-gaap:InterestExpense",
+          "fact_accession": "0000000001-24-000030",
+          "period_start": "2023-06-01",
+          "period_end": "2024-06-30",
+          "mapping_confidence": 0.95,
+          "validated": true,
+          "validation_note": null
+        },
+        {
+          "term_node": "taxes",
+          "value": 20000000.0,
+          "xbrl_concept": "us-gaap:IncomeTaxExpenseBenefit",
+          "fact_accession": "0000000001-24-000030",
+          "period_start": "2023-06-01",
+          "period_end": "2024-06-30",
+          "mapping_confidence": 0.95,
+          "validated": true,
+          "validation_note": null
+        },
+        {
+          "term_node": "d_and_a",
+          "value": 87000000.0,
+          "xbrl_concept": "us-gaap:DepreciationDepletionAndAmortization",
+          "fact_accession": "0000000001-24-000030",
+          "period_start": "2023-06-01",
+          "period_end": "2024-06-30",
+          "mapping_confidence": 0.95,
+          "validated": true,
+          "validation_note": null
+        },
+        {
+          "term_node": "noncash",
+          "value": 20000000.0,
+          "xbrl_concept": "us-gaap:ShareBasedCompensation",
+          "fact_accession": "0000000001-24-000030",
+          "period_start": "2023-06-01",
+          "period_end": "2024-06-30",
+          "mapping_confidence": 0.95,
+          "validated": true,
+          "validation_note": null
+        },
+        {
+          "term_node": "restructuring",
+          "value": 30000000.0,
+          "xbrl_concept": "us-gaap:RestructuringCharges",
+          "fact_accession": "0000000001-24-000030",
+          "period_start": "2023-06-01",
+          "period_end": "2024-06-30",
+          "mapping_confidence": 0.95,
+          "validated": true,
+          "validation_note": null
+        }
+      ],
+      "missing": []
+    },
+    {
+      "covenant_id": "icr",
+      "period_end": "2024-06-30",
+      "ratio_low": 3.7397,
+      "ratio_high": 3.7397,
+      "threshold": 3.0,
+      "headroom_low": 0.7397,
+      "headroom_high": 0.7397,
+      "status": "ok",
+      "inputs": [
+        {
+          "term_node": "net_income",
+          "value": 62000000.0,
+          "xbrl_concept": "us-gaap:NetIncomeLoss",
+          "fact_accession": "0000000001-24-000030",
+          "period_start": "2023-06-01",
+          "period_end": "2024-06-30",
+          "mapping_confidence": 0.95,
+          "validated": true,
+          "validation_note": null
+        },
+        {
+          "term_node": "interest_expense",
+          "value": 78000000.0,
+          "xbrl_concept": "us-gaap:InterestExpense",
+          "fact_accession": "0000000001-24-000030",
+          "period_start": "2023-06-01",
+          "period_end": "2024-06-30",
+          "mapping_confidence": 0.95,
+          "validated": true,
+          "validation_note": null
+        },
+        {
+          "term_node": "taxes",
+          "value": 20000000.0,
+          "xbrl_concept": "us-gaap:IncomeTaxExpenseBenefit",
+          "fact_accession": "0000000001-24-000030",
+          "period_start": "2023-06-01",
+          "period_end": "2024-06-30",
+          "mapping_confidence": 0.95,
+          "validated": true,
+          "validation_note": null
+        },
+        {
+          "term_node": "d_and_a",
+          "value": 87000000.0,
+          "xbrl_concept": "us-gaap:DepreciationDepletionAndAmortization",
+          "fact_accession": "0000000001-24-000030",
+          "period_start": "2023-06-01",
+          "period_end": "2024-06-30",
+          "mapping_confidence": 0.95,
+          "validated": true,
+          "validation_note": null
+        },
+        {
+          "term_node": "noncash",
+          "value": 20000000.0,
+          "xbrl_concept": "us-gaap:ShareBasedCompensation",
+          "fact_accession": "0000000001-24-000030",
+          "period_start": "2023-06-01",
+          "period_end": "2024-06-30",
+          "mapping_confidence": 0.95,
+          "validated": true,
+          "validation_note": null
+        },
+        {
+          "term_node": "restructuring",
+          "value": 30000000.0,
+          "xbrl_concept": "us-gaap:RestructuringCharges",
+          "fact_accession": "0000000001-24-000030",
+          "period_start": "2023-06-01",
+          "period_end": "2024-06-30",
+          "mapping_confidence": 0.95,
+          "validated": true,
+          "validation_note": null
+        }
+      ],
+      "missing": []
+    },
+    {
+      "covenant_id": "lev",
+      "period_end": "2024-09-30",
+      "ratio_low": 4.6325,
+      "ratio_high": 5.057,
+      "threshold": 4.75,
+      "headroom_low": -0.307,
+      "headroom_high": 0.1175,
+      "status": "indeterminate",
+      "inputs": [
+        {
+          "term_node": "total_debt",
+          "value": 1330000000.0,
+          "xbrl_concept": "us-gaap:LongTermDebt",
+          "fact_accession": "0000000001-24-000030",
+          "period_start": null,
+          "period_end": "2024-09-30",
+          "mapping_confidence": 0.95,
+          "validated": true,
+          "validation_note": null
+        },
+        {
+          "term_node": "net_income",
+          "value": 55000000.0,
+          "xbrl_concept": "us-gaap:NetIncomeLoss",
+          "fact_accession": "0000000001-24-000030",
+          "period_start": "2023-09-01",
+          "period_end": "2024-09-30",
+          "mapping_confidence": 0.95,
+          "validated": true,
+          "validation_note": null
+        },
+        {
+          "term_node": "interest_expense",
+          "value": 80000000.0,
+          "xbrl_concept": "us-gaap:InterestExpense",
+          "fact_accession": "0000000001-24-000030",
+          "period_start": "2023-09-01",
+          "period_end": "2024-09-30",
+          "mapping_confidence": 0.95,
+          "validated": true,
+          "validation_note": null
+        },
+        {
+          "term_node": "taxes",
+          "value": 18000000.0,
+          "xbrl_concept": "us-gaap:IncomeTaxExpenseBenefit",
+          "fact_accession": "0000000001-24-000030",
+          "period_start": "2023-09-01",
+          "period_end": "2024-09-30",
+          "mapping_confidence": 0.95,
+          "validated": true,
+          "validation_note": null
+        },
+        {
+          "term_node": "d_and_a",
+          "value": 88000000.0,
+          "xbrl_concept": "us-gaap:DepreciationDepletionAndAmortization",
+          "fact_accession": "0000000001-24-000030",
+          "period_start": "2023-09-01",
+          "period_end": "2024-09-30",
+          "mapping_confidence": 0.95,
+          "validated": true,
+          "validation_note": null
+        },
+        {
+          "term_node": "noncash",
+          "value": 22000000.0,
+          "xbrl_concept": "us-gaap:ShareBasedCompensation",
+          "fact_accession": "0000000001-24-000030",
+          "period_start": "2023-09-01",
+          "period_end": "2024-09-30",
+          "mapping_confidence": 0.95,
+          "validated": true,
+          "validation_note": null
+        },
+        {
+          "term_node": "restructuring",
+          "value": null,
+          "xbrl_concept": null,
+          "fact_accession": null,
+          "period_start": "2023-09-01",
+          "period_end": "2024-09-30",
+          "mapping_confidence": 0.0,
+          "validated": false,
+          "validation_note": "no reported restructuring line this quarter"
+        }
+      ],
+      "missing": [
+        "restructuring"
+      ]
+    },
+    {
+      "covenant_id": "icr",
+      "period_end": "2024-09-30",
+      "ratio_low": 3.2875,
+      "ratio_high": 3.5888,
+      "threshold": 3.0,
+      "headroom_low": 0.2875,
+      "headroom_high": 0.5888,
+      "status": "warning",
+      "inputs": [
+        {
+          "term_node": "net_income",
+          "value": 55000000.0,
+          "xbrl_concept": "us-gaap:NetIncomeLoss",
+          "fact_accession": "0000000001-24-000030",
+          "period_start": "2023-09-01",
+          "period_end": "2024-09-30",
+          "mapping_confidence": 0.95,
+          "validated": true,
+          "validation_note": null
+        },
+        {
+          "term_node": "interest_expense",
+          "value": 80000000.0,
+          "xbrl_concept": "us-gaap:InterestExpense",
+          "fact_accession": "0000000001-24-000030",
+          "period_start": "2023-09-01",
+          "period_end": "2024-09-30",
+          "mapping_confidence": 0.95,
+          "validated": true,
+          "validation_note": null
+        },
+        {
+          "term_node": "taxes",
+          "value": 18000000.0,
+          "xbrl_concept": "us-gaap:IncomeTaxExpenseBenefit",
+          "fact_accession": "0000000001-24-000030",
+          "period_start": "2023-09-01",
+          "period_end": "2024-09-30",
+          "mapping_confidence": 0.95,
+          "validated": true,
+          "validation_note": null
+        },
+        {
+          "term_node": "d_and_a",
+          "value": 88000000.0,
+          "xbrl_concept": "us-gaap:DepreciationDepletionAndAmortization",
+          "fact_accession": "0000000001-24-000030",
+          "period_start": "2023-09-01",
+          "period_end": "2024-09-30",
+          "mapping_confidence": 0.95,
+          "validated": true,
+          "validation_note": null
+        },
+        {
+          "term_node": "noncash",
+          "value": 22000000.0,
+          "xbrl_concept": "us-gaap:ShareBasedCompensation",
+          "fact_accession": "0000000001-24-000030",
+          "period_start": "2023-09-01",
+          "period_end": "2024-09-30",
+          "mapping_confidence": 0.95,
+          "validated": true,
+          "validation_note": null
+        },
+        {
+          "term_node": "restructuring",
+          "value": null,
+          "xbrl_concept": null,
+          "fact_accession": null,
+          "period_start": "2023-09-01",
+          "period_end": "2024-09-30",
+          "mapping_confidence": 0.0,
+          "validated": false,
+          "validation_note": "no reported restructuring line this quarter"
+        }
+      ],
+      "missing": [
+        "restructuring"
+      ]
+    },
+    {
+      "covenant_id": "lev",
+      "period_end": "2024-12-31",
+      "ratio_low": null,
+      "ratio_high": null,
+      "threshold": 4.75,
+      "headroom_low": null,
+      "headroom_high": null,
+      "status": "refused",
+      "inputs": [],
+      "missing": []
+    },
+    {
+      "covenant_id": "icr",
+      "period_end": "2024-12-31",
+      "ratio_low": null,
+      "ratio_high": null,
+      "threshold": 3.0,
+      "headroom_low": null,
+      "headroom_high": null,
+      "status": "refused",
+      "inputs": [],
+      "missing": []
+    }
+  ],
+  "refusals": [
+    {
+      "scope": "quarter",
+      "ref": "2024-12-31",
+      "reason": "missing_filing",
+      "detail": "FY2024 10-K not yet filed; no XBRL facts for the quarter."
+    }
+  ]
+}

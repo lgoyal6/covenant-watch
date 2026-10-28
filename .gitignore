@@ -1,0 +1,10 @@
+data/
+.venv/
+__pycache__/
+*.pyc
+.pytest_cache/
+node_modules/
+.next/
+.env
+.env.local
+.agent-work/

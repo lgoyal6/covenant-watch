@@ -1,0 +1,46 @@
+{
+  "disclosed": [
+    {
+      "cik": "0000000001",
+      "period_end": "2024-06-30",
+      "covenant_kind": "max_leverage",
+      "reported_value": 4.87,
+      "reported_threshold": 5.25,
+      "span": {
+        "accession": "0000000001-24-000030",
+        "url": "https://www.sec.gov/Archives/edgar/data/1/0000000001-24-000030/fixture.htm",
+        "section": null,
+        "char_start": 6255,
+        "char_end": 6364,
+        "text": "As of June 30, 2024, our Consolidated Leverage Ratio was 4.87 to 1.00, compared to a maximum of 5.25 to 1.00."
+      }
+    }
+  ],
+  "events": [
+    {
+      "cik": "0000000001",
+      "date": "2024-11-12",
+      "kind": "waiver",
+      "span": {
+        "accession": "0000000001-24-000040",
+        "url": "https://www.sec.gov/Archives/edgar/data/1/0000000001-24-000040/fixture.htm",
+        "section": "Item 1.01",
+        "char_start": 6564,
+        "char_end": 6728,
+        "text": "the Lenders agreed to waive any Event of Default arising from the Borrower's failure to comply with Section 7.11(a) for the fiscal quarter ending September 30, 2024"
+      }
+    }
+  ],
+  "universe": [
+    {
+      "cik": "0000000001",
+      "role": "event",
+      "peer_of": null
+    },
+    {
+      "cik": "0000000002",
+      "role": "peer",
+      "peer_of": "0000000001"
+    }
+  ]
+}

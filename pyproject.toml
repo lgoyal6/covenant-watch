@@ -1,0 +1,22 @@
+[project]
+name = "covenant-watch"
+version = "0.1.0"
+description = "Covenant headroom for public companies, rebuilt from SEC filings with full provenance"
+requires-python = ">=3.11"
+dependencies = [
+    "anthropic",
+    "fastapi",
+    "httpx",
+    "pydantic>=2",
+    "uvicorn",
+]
+
+[dependency-groups]
+dev = ["pytest"]
+
+[tool.uv]
+package = false
+
+[tool.pytest.ini_options]
+pythonpath = ["."]
+testpaths =["contracts/tests", "engine/tests", "validation/tests", "api/tests", "shared"]

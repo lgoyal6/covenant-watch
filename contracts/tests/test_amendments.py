@@ -28,3 +28,11 @@ def test_restatement_replaces_facility_and_explicit_deletion_removes_covenant(so
     deletion = result(amended, terms=[], covenants=[], removed_covenants={'lev': covenant(amended).span})
     _, covenants, refusals, _ = apply_amendments([result(source), deletion])
     assert not refusals and not covenants
+
+
+def test_empty_amendment_cannot_silently_assert_no_financial_change(source):
+    amended = SourceDocument(source.agreement.model_copy(update={'accession': 'b', 'url': 'https://www.sec.gov/b',
+                    'kind': 'amendment', 'filed': date(2023, 8, 1)}), source.text)
+    _, covenants, refusals, _ = apply_amendments([result(source), result(amended, terms=[], covenants=[])])
+    assert not covenants
+    assert any(r.reason == 'ambiguous_definition' for r in refusals)

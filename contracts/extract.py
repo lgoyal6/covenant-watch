@@ -2,6 +2,7 @@
 
 import json
 import re
+import sys
 from pathlib import Path
 
 import anthropic
@@ -136,7 +137,10 @@ class Extractor:
         candidates = {}
         refusals = []
         layout = chunks(source.text, alternate=alternate)
-        for chunk in layout:
+        for index, chunk in enumerate(layout):
+            if index % 10 == 0 or index == len(layout) - 1:
+                print(f'{source.agreement.accession}: layout {2 if alternate else 1}, '
+                      f'chunk {index + 1}/{len(layout)}', file=sys.stderr, flush=True)
             ranges = None
             if alternate and len(layout) == 1 and len(source.text) > 1:
                 # Small agreements still receive a second layout: two separately

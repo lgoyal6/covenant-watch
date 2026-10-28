@@ -75,21 +75,78 @@ def test_hard_definitions_escalate_to_opus(source):
         output = reading(s)
         output.terms.append(QuotedTerm(id='capped', label='capped debt', op='cap', children=['debt'],
             cap={'kind': 'abs', 'usd': 100}, span=Quote(text='Restructuring charges capped at $100.')))
+        output.terms.extend([
+            QuotedTerm(id='deep1', label='deep1', op='sum', children=['deep2'], span=Quote(text='total borrowings')),
+            QuotedTerm(id='deep2', label='deep2', op='sum', children=['capped'], span=Quote(text='total borrowings'))])
         return output
     extractor = FakeExtractor(respond)
     extractor.read(source)
     assert [c['model'] for c in extractor.calls] == [SONNET, OPUS, SONNET, OPUS]
 
 
-def test_structured_api_transport_uses_required_model_and_tool(source):
+def test_structured_api_transport_uses_required_model_and_tool(source, tmp_path):
     requests = []
     def create(**kwargs):
         requests.append(kwargs)
         return SimpleNamespace(stop_reason='tool_use', content=[SimpleNamespace(
             type='tool_use', name='record_extraction', input=reading(source).model_dump(mode='json'))])
-    extractor = Extractor(SimpleNamespace(messages=SimpleNamespace(create=create)))
+    from contracts.runtime import Runtime
+    from contracts.tests.test_runtime import PRICES
+    messages = SimpleNamespace(create=create, count_tokens=lambda **k: SimpleNamespace(input_tokens=100))
+    extractor = Extractor(SimpleNamespace(messages=messages),
+                          runtime=Runtime(tmp_path, '2', prices=PRICES))
     result = extractor.read(source)
     assert not result.refusals
     assert all(r['model'] == SONNET for r in requests)
     assert requests[0]['tool_choice'] == {'type': 'auto'}
     assert 'EXACT, contiguous substring' in requests[0]['system']
+
+
+def test_request_without_runtime_cannot_touch_inference(source):
+    import pytest
+    from contracts.runtime import BudgetError
+    def reject(**kwargs):
+        raise AssertionError('Inference must not be called')
+    extractor = Extractor(SimpleNamespace(messages=SimpleNamespace(create=reject)))
+    with pytest.raises(BudgetError, match='disabled'):
+        extractor.read(source)
+
+
+def test_completed_pass_survives_interruption_and_is_not_billed_again(source, tmp_path):
+    import pytest
+    from contracts.runtime import Runtime, UncertainRequest
+    from contracts.tests.test_runtime import PRICES
+    calls = []
+    def create(**kwargs):
+        calls.append(kwargs)
+        if len(calls) == 2:
+            raise KeyboardInterrupt()
+        return SimpleNamespace(stop_reason='tool_use', content=[SimpleNamespace(
+            type='tool_use', name='record_extraction', input=reading(source).model_dump(mode='json'))],
+            usage=SimpleNamespace(input_tokens=100, output_tokens=100))
+    messages = SimpleNamespace(create=create, count_tokens=lambda **k: SimpleNamespace(input_tokens=100))
+    with pytest.raises(KeyboardInterrupt):
+        Extractor(SimpleNamespace(messages=messages), runtime=Runtime(tmp_path, '2', prices=PRICES)).read(source)
+    assert len(calls) == 2
+    with pytest.raises(UncertainRequest):
+        Extractor(SimpleNamespace(messages=messages), runtime=Runtime(tmp_path, '2', prices=PRICES)).read(source)
+    assert len(calls) == 2
+    import json
+    statuses = [json.loads(p.read_text())['data']['status'] for p in (tmp_path / '_checkpoints').glob('*.json')]
+    assert sorted(statuses) == ['pending', 'verified']
+
+
+def test_truncated_output_is_saved_without_paid_retry(source, tmp_path):
+    import pytest
+    from contracts.extract import ExtractionError
+    from contracts.runtime import Runtime
+    from contracts.tests.test_runtime import PRICES
+    calls = []
+    def create(**kwargs):
+        calls.append(kwargs)
+        return SimpleNamespace(stop_reason='max_tokens', content=[],
+                               usage=SimpleNamespace(input_tokens=100, output_tokens=6000))
+    messages = SimpleNamespace(create=create, count_tokens=lambda **k: SimpleNamespace(input_tokens=100))
+    with pytest.raises(ExtractionError, match='no automatic paid retry'):
+        Extractor(SimpleNamespace(messages=messages), runtime=Runtime(tmp_path, '2', prices=PRICES)).read(source)
+    assert len(calls) == 1

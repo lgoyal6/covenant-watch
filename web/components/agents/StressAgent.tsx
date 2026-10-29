@@ -52,7 +52,7 @@ export default function StressAgent({ cik, company }: { cik: string; company: st
             <Markdown text={r.answer} />
             <div>
               <div className="upper" style={{ marginBottom: 8 }}>Engine runs</div>
-              <Steps steps={r.steps} />
+              <Steps steps={r.steps} saved={r.saved} />
             </div>
           </div>
         )}

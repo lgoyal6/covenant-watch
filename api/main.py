@@ -314,7 +314,30 @@ def _overview(arts: dict, source: str, gt: dict) -> dict:
 
 
 # ---- analyst agent ----
+import hashlib  # noqa: E402
+
 from pydantic import BaseModel as _BM  # noqa: E402
+
+from shared.paths import DATA  # noqa: E402
+
+AGENT_CACHE = DATA / "agent_cache"
+
+
+def _agent_call(kind: str, key: dict, fn):
+    """Run an agent live; save every success; if the live call fails, replay the last real answer to the same request."""
+    import anthropic
+
+    k = hashlib.sha256(json.dumps({"kind": kind, "dataset": DATASET, **key}, sort_keys=True).encode()).hexdigest()[:24]
+    path = AGENT_CACHE / f"{kind}-{k}.json"
+    try:
+        out = fn()
+        AGENT_CACHE.mkdir(parents=True, exist_ok=True)
+        path.write_text(json.dumps(out))
+        return out | {"saved": False}
+    except (RuntimeError, anthropic.APIError) as e:
+        if path.exists():
+            return json.loads(path.read_text()) | {"saved": True}
+        raise HTTPException(503, str(e) if isinstance(e, RuntimeError) else f"Agent unavailable: {type(e).__name__}")
 
 
 class AskBody(_BM):
@@ -330,10 +353,9 @@ def agent_ask(body: AskBody):
 
     if not body.question.strip():
         raise HTTPException(400, "empty question")
-    try:
-        return ask(body.question.strip()[:2000], body.cik, body.history)
-    except RuntimeError as e:
-        raise HTTPException(503, str(e))
+    q = body.question.strip()[:2000]
+    return _agent_call("ask", {"q": " ".join(q.lower().split()), "cik": body.cik, "turns": len(body.history)},
+                       lambda: ask(q, body.cik, body.history))
 
 
 class BriefBody(_BM):
@@ -345,10 +367,7 @@ def agent_brief(body: BriefBody):
     """Risk briefing agent: picks the most at-risk covenants, investigates each, returns a memo and its steps."""
     from api.agent import brief
 
-    try:
-        return brief(body.top)
-    except RuntimeError as e:
-        raise HTTPException(503, str(e))
+    return _agent_call("brief", {"top": body.top}, lambda: brief(body.top))
 
 
 
@@ -377,7 +396,5 @@ def agent_stress(body: StressBody):
     from api.agent import stress_agent
 
     _artifact(body.cik)  # 404 early for unknown companies
-    try:
-        return stress_agent(body.cik, body.scenario)
-    except RuntimeError as e:
-        raise HTTPException(503, str(e))
+    sc = " ".join((body.scenario or "").lower().split())
+    return _agent_call("stress", {"cik": body.cik.lstrip("0"), "scenario": sc}, lambda: stress_agent(body.cik, body.scenario))

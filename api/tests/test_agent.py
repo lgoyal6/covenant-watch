@@ -112,3 +112,24 @@ def test_stress_agent(tmp_path, monkeypatch):
     fixture_paths(tmp_path, monkeypatch)
     r = stress_agent("1", "earnings -30%", client=Stresser())
     assert r["steps"][0]["tool"] == "covenant_breakeven" and r["answer"].startswith("## Stress test")
+
+
+def test_saved_answer_replays_when_live_call_fails(tmp_path, monkeypatch):
+    from fastapi.testclient import TestClient
+
+    import api.agent
+
+    fixture_paths(tmp_path, monkeypatch)
+    monkeypatch.setattr(m, "AGENT_CACHE", tmp_path / "cache")
+    monkeypatch.setattr(api.agent, "ask", lambda q, cik, history: {"answer": "live answer", "steps": [], "model": "claude-opus-5-5"})
+    c = TestClient(m.app)
+    r = c.post("/agent/ask", json={"question": "Which covenants are closest?"}).json()
+    assert r["answer"] == "live answer" and r["saved"] is False
+
+    def boom(*a):
+        raise RuntimeError("network down")
+
+    monkeypatch.setattr(api.agent, "ask", boom)
+    r = c.post("/agent/ask", json={"question": "which  covenants are CLOSEST?"}).json()
+    assert r["answer"] == "live answer" and r["saved"] is True
+    assert c.post("/agent/ask", json={"question": "never asked"}).status_code == 503

@@ -4,7 +4,7 @@ import { usePathname } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 import { callAgent, Markdown, Steps, type Step } from "./shared";
 
-type Msg = { role: "user" | "assistant"; content: string; steps?: Step[]; error?: boolean };
+type Msg = { role: "user" | "assistant"; content: string; steps?: Step[]; error?: boolean; saved?: boolean };
 
 const SUGGEST_COMPANY = ["How close is this company to breaking a covenant?", "What drives the leverage ratio this quarter?", "Why is any quarter shown as a range?"];
 const SUGGEST_PORTFOLIO = ["Which covenants are closest to breach?", "Which companies had a waiver or default?", "What could we not compute, and why?"];
@@ -28,7 +28,7 @@ export default function AnalystPanel() {
     setBusy(true);
     try {
       const r = await callAgent("/agent/ask", { question, cik, history });
-      setMsgs((m) => [...m, { role: "assistant", content: r.answer, steps: r.steps }]);
+      setMsgs((m) => [...m, { role: "assistant", content: r.answer, steps: r.steps, saved: r.saved }]);
     } catch (e) {
       setMsgs((m) => [...m, { role: "assistant", content: (e as Error).message, error: true }]);
     } finally {
@@ -60,7 +60,7 @@ export default function AnalystPanel() {
             )}
             {msgs.map((m, i) => (
               <div key={i} className={`ag-msg ${m.role}${m.error ? " err" : ""}`}>
-                {m.role === "assistant" && m.steps && <Steps steps={m.steps} />}
+                {m.role === "assistant" && m.steps && <Steps steps={m.steps} saved={m.saved} />}
                 {m.role === "assistant" && !m.error ? <Markdown text={m.content} /> : <p>{m.content}</p>}
               </div>
             ))}

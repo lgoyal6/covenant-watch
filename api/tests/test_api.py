@@ -67,3 +67,14 @@ def test_cal_quarter():
     assert _cal_quarter(date(2024, 12, 31)) == "2024-Q4"
     assert _cal_quarter(date(2025, 3, 29)) == "2025-Q1"
     assert _cal_quarter(date(2024, 7, 1)) == "2024-Q2"
+
+
+def test_company_overview_fixture(tmp_path, monkeypatch):
+    c = client(tmp_path, monkeypatch)
+    o = c.get("/companies/1/overview").json()
+    assert o["companies"] == 1 and o["covenants"] == 2
+    # scored live for this company: 4.87 reported vs computed 4.868 at 2024-06-30
+    assert o["ratio_accuracy"]["n"] == 1 and o["ratio_accuracy"]["pct_within_0_05"] == 1.0
+    assert o["early_warning"]["events_scored"] == 1 and o["early_warning"]["hit_rate"] == 1.0
+    assert o["events"][0]["kind"] == "waiver"
+    assert c.get("/companies/999/overview").status_code == 404

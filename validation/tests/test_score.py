@@ -15,8 +15,8 @@ def test_ratio_accuracy_on_fixture(tmp_path):
     arts, gt = fixture_inputs()
     report, detail = build_report(arts, gt.disclosed, gt.events, gt.universe, labels_dir=tmp_path, contracts_dir=tmp_path)
     ra = report.ratio_accuracy
-    # reported 4.87 vs computed 4.868 for 2024-06-30 (a point: low == high)
-    assert ra["n"] == 1 and ra["pct_inside_range"] == 0.0
+    # reported 4.87 vs computed 4.868 for 2024-06-30: inside once the report's 2-decimal rounding is allowed
+    assert ra["n"] == 1 and ra["pct_inside_range"] == 1.0
     assert abs(ra["median_abs_error"] - 0.002) < 1e-9
     assert ra["pct_within_0_05"] == 1.0
     assert ra["threshold_agreement"] == 1.0  # reported max 5.25 == extracted threshold in force

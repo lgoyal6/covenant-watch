@@ -1,5 +1,7 @@
 "use client";
 
+import type { ReactNode } from "react";
+
 import { useCallback, useMemo, useState } from "react";
 import { refusalsForQuarter, summarize } from "@/lib/derive";
 import {
@@ -25,6 +27,8 @@ interface Props {
   timelineErrors: Record<string, string>;
   initialCov?: string | null;
   initialQuarter?: string | null;
+  /** Company-level overview (the bento), rendered under the header. */
+  overview?: ReactNode;
 }
 
 function setUrl(cov: string | null, q: string | null) {
@@ -38,7 +42,7 @@ function setUrl(cov: string | null, q: string | null) {
   } catch {}
 }
 
-export default function CompanyView({ source, artifact, timelines, timelineErrors, initialCov, initialQuarter }: Props) {
+export default function CompanyView({ source, artifact, timelines, timelineErrors, initialCov, initialQuarter, overview }: Props) {
   const c = artifact.contract.company;
   const covenants = artifact.contract.covenants;
   const summaries = useMemo(() => summarize(artifact), [artifact]);
@@ -86,6 +90,8 @@ export default function CompanyView({ source, artifact, timelines, timelineError
         <Agreements artifact={artifact} />
       </div>
 
+      {overview}
+
       {/* covenant cards */}
       {covenants.length === 0 ? (
         <div className="callout callout-muted">
@@ -101,7 +107,7 @@ export default function CompanyView({ source, artifact, timelines, timelineError
 
       {/* timeline */}
       {covObj && (
-        <section className="card">
+        <section className="card" id="timeline">
           <div className="card-head">
             <div className="stack" style={{ gap: 2 }}>
               <h2>Headroom timeline: {kindLabel(covObj.kind)}</h2>

@@ -1,7 +1,4 @@
 import type { Metadata, Viewport } from "next";
-import Link from "next/link";
-import { Nav } from "@/components/Chrome";
-import SiteFooter from "@/components/SiteFooter";
 import "./globals.css";
 
 export const metadata: Metadata = {
@@ -22,18 +19,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       <head>
         <script dangerouslySetInnerHTML={{ __html: THEME_BOOT }} />
       </head>
-      <body>
-        <header className="topbar">
-          <div className="topbar-inner">
-            <Link href="/" className="brand">
-              <span className="brand-text">Covenant Watch</span>
-            </Link>
-            <Nav />
-          </div>
-        </header>
-        <main>{children}</main>
-        <SiteFooter />
-      </body>
+      <body>{children}</body>
     </html>
   );
 }

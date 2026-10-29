@@ -6,7 +6,7 @@ export default function NotFound() {
       <div className="card empty">
         <h3>Page not found</h3>
         <p>
-          <Link href="/">Back to companies</Link>
+          <Link href="/companies">Back to companies</Link>
         </p>
       </div>
     </div>

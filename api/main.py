@@ -12,7 +12,7 @@ from fastapi import FastAPI, HTTPException, Query
 from fastapi.middleware.cors import CORSMiddleware
 
 from shared import edgar
-from shared.paths import ARTIFACTS, EVAL, FIXTURES, GROUNDTRUTH
+from shared.paths import ARTIFACTS, EVAL, FIXTURES, GROUNDTRUTH, UNIVERSE
 from shared.schema import CovenantArtifact
 
 app = FastAPI(title="Covenant Watch API", version="1.0")
@@ -228,10 +228,42 @@ def _rel(headroom: float | None, threshold: float | None) -> float | None:
 @app.get("/overview")
 def overview():
     """Portfolio view across every artifact: status mix over time, closest to breach, events, refusals, eval headlines."""
+    arts, source = load_artifacts()
+    rep = eval_report()
+    return _overview(arts, source, load_groundtruth(source)) | {
+        "eval_source": rep["source"],
+        "ratio_accuracy": rep["report"].get("ratio_accuracy", {}),
+        "early_warning": rep["report"].get("early_warning", {}),
+    }
+
+
+@app.get("/companies/{cik}/overview")
+def company_overview(cik: str):
+    """The same view for one company. Accuracy and early warning are scored for this company alone
+    with validation.score against its own disclosed ratios and events (and its matched peers)."""
+    from validation.score import early_warning, ratio_accuracy
+    from shared.schema import CovenantEvent, DisclosedRatio, UniverseEntry
+
+    a, source = _artifact(cik)
+    arts, _ = load_artifacts()
+    gt = load_groundtruth(source)
+    co = a.contract.company.cik
+    disclosed = [DisclosedRatio.model_validate(d) for d in gt["disclosed"] if _same_cik(d["cik"], co)]
+    events = [CovenantEvent.model_validate(e) for e in gt["events"] if _same_cik(e["cik"], co)]
+    if source == "fixture":
+        universe = [UniverseEntry.model_validate(u) for u in (_read(FIXTURES / "groundtruth_example.json") or {}).get("universe", [])]
+    else:
+        universe = [UniverseEntry.model_validate(u) for u in (_read(UNIVERSE) or [])]
+    universe = [u for u in universe if u.peer_of and _same_cik(u.peer_of, co)]
+    norm = {f"{int(k):010d}": v for k, v in arts.items()}
+    ra, _ = ratio_accuracy(disclosed, norm)
+    ew, _ = early_warning(events, universe, norm)
+    return _overview({co: a}, source, gt) | {"eval_source": source, "ratio_accuracy": ra, "early_warning": ew}
+
+
+def _overview(arts: dict, source: str, gt: dict) -> dict:
     from collections import Counter, defaultdict
 
-    arts, source = load_artifacts()
-    gt = load_groundtruth(source)
     statuses = ("ok", "warning", "breach", "indeterminate", "refused")
     by_q: dict[str, Counter] = defaultdict(Counter)
     latest = Counter()
@@ -259,7 +291,6 @@ def overview():
     )
     computed = [c for c in covenants if c["status"] != "refused"]
     closest = sorted((c for c in computed if c["headroom_pct"] is not None), key=lambda c: c["headroom_pct"])
-    rep = eval_report()
     return {
         "source": source,
         "companies": len(arts),
@@ -271,7 +302,4 @@ def overview():
         "events": events[:8],
         "events_total": len(events),
         "refusals": dict(refusals.most_common()),
-        "eval_source": rep["source"],
-        "ratio_accuracy": rep["report"].get("ratio_accuracy", {}),
-        "early_warning": rep["report"].get("early_warning", {}),
     }

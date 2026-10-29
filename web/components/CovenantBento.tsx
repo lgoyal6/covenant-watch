@@ -134,7 +134,9 @@ function Ticks({ frac, n = 36 }: { frac: number; n?: number }) {
   );
 }
 
-export default function CovenantBento({ o }: { o: OverviewResponse }) {
+/** variant "portfolio" spans every company (dashboard); "company" is one company's page. */
+export default function CovenantBento({ o, variant = "portfolio" }: { o: OverviewResponse; variant?: "portfolio" | "company" }) {
+  const one = variant === "company";
   const ra = o.ratio_accuracy || {};
   const ew = o.early_warning || {};
   const attention = o.status_latest.warning + o.status_latest.breach + o.status_latest.indeterminate;
@@ -164,7 +166,7 @@ export default function CovenantBento({ o }: { o: OverviewResponse }) {
                 <span className="big">{attention}<span className="of"> of {o.covenants - o.status_latest.refused}</span></span>
                 <div style={{ paddingBottom: 6 }}>
                   <div className="delta">need attention now</div>
-                  <div className="muted" style={{ marginTop: 3 }}>{o.companies === 1 ? "1 company" : `${o.companies} companies`} · {o.covenants} covenants · {o.quarters} quarters computed</div>
+                  <div className="muted" style={{ marginTop: 3 }}>{one ? "" : `${o.companies === 1 ? "1 company" : `${o.companies} companies`} · `}{o.covenants} covenants · {o.quarters} covenant-quarters computed</div>
                 </div>
               </div>
               <div className="stream-wrap">
@@ -206,7 +208,7 @@ export default function CovenantBento({ o }: { o: OverviewResponse }) {
           </section>
           <section className="card glass h2 kpi" aria-label="Early warning" style={{ animationDelay: "180ms" }}>
             <div className="in-c">
-              <div className="row between"><div className="cap">Early-warning hit rate</div><span className="muted">{num(ew.events_scored)} events</span></div>
+              <div className="row between"><div className="cap">{one ? "Flagged before its event" : "Early-warning hit rate"}</div><span className="muted">{num(ew.events_scored)} events</span></div>
               <div className="row between" style={{ marginTop: 14, alignItems: "baseline" }}>
                 <span className="big sm">{pct(hit)}</span>
                 <span className="mono lead">{num(ew.median_lead_quarters)}<span className="muted"> qtr lead</span></span>
@@ -216,7 +218,7 @@ export default function CovenantBento({ o }: { o: OverviewResponse }) {
           </section>
           <section className="card glass h2 kpi" aria-label="Peer false alarms" style={{ animationDelay: "240ms" }}>
             <div className="in-c">
-              <div className="row between"><div className="cap">Peer false alarm rate</div><span className="muted">{num(ew.peers_scored)} peers</span></div>
+              <div className="row between"><div className="cap">{one ? "Its peers flagged" : "Peer false alarm rate"}</div><span className="muted">{num(ew.peers_scored)} peers</span></div>
               <div className="big sm" style={{ marginTop: 14 }}>{pct(ew.peer_false_alarm_rate)}</div>
               <div className="foot">matched peers that never had a covenant event</div>
             </div>
@@ -233,11 +235,11 @@ export default function CovenantBento({ o }: { o: OverviewResponse }) {
           <section className="card h3" id="cw-closest" aria-label="Closest to breach" style={{ animationDelay: "360ms" }}>
             <Bg g={GR.red} />
             <div className="in-c">
-              <div className="row between"><div><div className="ttl">Closest to breach</div><div className="muted" style={{ marginTop: 4 }}>worst-case headroom, % of the limit</div></div></div>
+              <div className="row between"><div><div className="ttl">{one ? "Covenants" : "Closest to breach"}</div><div className="muted" style={{ marginTop: 4 }}>{one ? "closest to the limit first; " : ""}worst-case headroom, % of the limit</div></div></div>
               <div className="rows">
                 {o.closest.length === 0 ? <div className="empty">No computed covenants yet.</div> : o.closest.slice(0, 5).map((c, i) => (
-                  <Link key={c.cik + c.covenant_id} href={`/company/${c.cik}?cov=${encodeURIComponent(c.covenant_id)}`} className="row crow" style={i ? { borderTop: "1px solid rgba(255,255,255,.12)" } : undefined}>
-                    <div className="cname"><div className="nm">{c.name}</div><div className="mono muted sub">{kindLabel(c.kind)} · {fmtRatio(c.threshold)} limit</div></div>
+                  <Link key={c.cik + c.covenant_id} href={`/company/${c.cik}?cov=${encodeURIComponent(c.covenant_id)}#timeline`} className="row crow" style={i ? { borderTop: "1px solid rgba(255,255,255,.12)" } : undefined}>
+                    <div className="cname"><div className="nm">{one ? kindLabel(c.kind) : c.name}</div><div className="mono muted sub">{one ? `${fmtRatio(c.threshold)} limit · ${c.quarters} quarters` : `${kindLabel(c.kind)} · ${fmtRatio(c.threshold)} limit`}</div></div>
                     <Spark c={c} />
                     <div className="cval"><div className="mono">{pct(c.headroom_pct, 1)}</div><div className="mono sub" style={{ color: COLOR[c.status] }}>{LABEL[c.status]}</div></div>
                   </Link>
@@ -255,7 +257,7 @@ export default function CovenantBento({ o }: { o: OverviewResponse }) {
               <div className="rows">
                 {o.events.length === 0 ? <div className="empty">No events for companies on screen.</div> : o.events.slice(0, 5).map((e, i) => (
                   <Link key={e.cik + e.date + i} href={`/company/${e.cik}`} className="row crow" style={i ? { borderTop: "1px solid rgba(255,255,255,.12)" } : undefined}>
-                    <div className="cname"><div className="nm">{e.name}</div><div className="mono muted sub">{fmtDate(e.date)}</div></div>
+                    <div className="cname"><div className="nm">{one ? fmtDate(e.date) : e.name}</div><div className="mono muted sub">{one ? (e.span?.text || "").slice(0, 60) + "…" : fmtDate(e.date)}</div></div>
                     <span className="chip">{eventLabel(e.kind)}</span>
                   </Link>
                 ))}

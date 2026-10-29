@@ -54,6 +54,7 @@ export const api = {
     get<ProvenanceResponse>(`/provenance/${enc(cik)}/${enc(covId)}/${enc(periodEnd)}`),
   eval: () => get<EvalResponse>(`/eval`),
   overview: () => get<OverviewResponse>(`/overview`),
+  companyOverview: (cik: string) => get<OverviewResponse>(`/companies/${enc(cik)}/overview`),
 };
 
 /** Settle a promise into {data} | {error} so pages can render partial failures. */

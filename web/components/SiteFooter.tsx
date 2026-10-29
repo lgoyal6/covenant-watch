@@ -43,7 +43,7 @@ export default function SiteFooter() {
       logo={<></>}
       tagline="Loan covenant headroom rebuilt from SEC filings. Ranges reflect unmapped addbacks; refusals are shown rather than guessed."
       columns={[
-        { title: "Product", links: [{ label: "Companies", href: "/" }, { label: "Evaluation", href: "/eval" }] },
+        { title: "Product", links: [{ label: "Companies", href: "/companies" }, { label: "Evaluation", href: "/eval" }] },
         {
           title: "Data",
           links: [

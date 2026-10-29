@@ -2,7 +2,7 @@
 
 ## Contract reader, October 28, 2026
 
-Implementation is on `laksh/contracts`. No shared schema, dependency, fixture, or Dat-owned file changed. No push or merge has been performed.
+Implementation is on `laksh/contracts`. No shared schema, dependency, fixture, or Dat-owned file changed. Shipping status is tracked in the GitHub pull request and release.
 
 Run with the contact header in the environment. Planning does not construct a model client or require an Anthropic key:
 
@@ -40,7 +40,7 @@ Historical incident: the original full Paycom scan used raw-HTML windows without
 
 ### Verification and outstanding work
 
-- `uv run pytest`: 62 passed, including mocked structured transport, two-layout agreement/disagreement handling, evidence retries, Opus escalation, amendment replacement/deletion/restatement, definition integrity, atomic publication, source-change/tamper invalidation, and unchanged-file idempotency.
+- `uv run pytest` on the branch rebased onto current main: 110 passed, 3 skipped, including mocked structured transport, two-layout agreement/disagreement handling, evidence retries, Opus escalation, amendment replacement/deletion/restatement, definition integrity, atomic publication, source-change/tamper invalidation, and unchanged-file idempotency.
 - The offline golden integration test reproduces the frozen fixture's 2 covenants, 10 terms, capped addback, and amendment schedule. All 16 output spans match reconstructed synthetic source bodies. Claude responses in this test are mocked; this is not evidence of live model accuracy.
 - Live SEC dev discovery returned Cumulus Media (0001058623), Boston Scientific (0000885725), Terex (0000097216), SPX Technologies (0000088205), and Take-Two (0000946581). These are candidates, not completed company extractions.
 - Live source smoke check: Paycom exhibit `https://www.sec.gov/Archives/edgar/data/1590955/000119312526173704/payc-ex10_1.htm`, 1,662,289 decoded characters, 312 source segments, 72 primary chunks and 65 alternate chunks. A source-bound quote passed the exact-substring check. These are historical full-scan counts; the new reader uses targeted readable units.
@@ -69,4 +69,10 @@ Read-only inspection confirms Dat's API already serves the frozen example artifa
 
 The live Paycom pilot completed as a refusal artifact at `data/contracts/_pilots/0001590955.json`: 0 computable covenants, 0 terms and 22 refusals (15 ambiguous_definition, 2 pro_forma_adjustment, 2 unmapped_term, 2 other, 1 missing_filing). All 35 compared item IDs disagreed, and 35 verifier calls ran. This is not extraction accuracy; intermediate node alignment and unsupported definitions remain unresolved. The real SEC table observations above were independently checked against the same source body. No verified real financial ratios were produced.
 
-The collaborator invitation for aaronmarasco was created and verified by the requested subagent: invitation 340262027, standard write access, pending acceptance when checked. No branch push or merge has been performed.
+The collaborator invitation for aaronmarasco was created and verified by the requested subagent: invitation 340262027, standard write access, pending acceptance when checked. The user has authorized committing, pushing and rebase-merging all completed work; keep the logical commits and do not squash.
+
+### Integrated shipping verification
+
+Dat's PR #1 is already merged in main. This branch was rebased onto main without conflicts. The combined test suite reports 110 passed and 3 skipped; the skipped checks require data/groundtruth/disclosed.json, data/groundtruth/events.json and data/universe.json, which are not built in this checkout. No Dat-owned files, frozen schema, dependencies, or shared fixtures were changed by this branch.
+
+The generated demo ZIP remains excluded from Git. The shipping handoff uses a private repository release asset under tag demo-data-2026-10-28, so collaborators can download the data without committing cache files, credentials, checkpoints or billing logs. Publication status and asset checksum should be checked on that release.

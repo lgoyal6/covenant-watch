@@ -40,3 +40,30 @@ def test_eval_fallback(tmp_path, monkeypatch):
     c = client(tmp_path, monkeypatch)
     r = c.get("/eval").json()
     assert r["source"] == "fixture" and "ratio_accuracy" in r["report"]
+
+
+def test_overview_fixture(tmp_path, monkeypatch):
+    c = client(tmp_path, monkeypatch)
+    o = c.get("/overview").json()
+    assert o["source"] == "fixture" and o["companies"] == 1 and o["covenants"] == 2
+    assert o["status_latest"] == {"ok": 0, "warning": 1, "breach": 0, "indeterminate": 1, "refused": 0}
+    assert [q["quarter"] for q in o["status_by_quarter"]][:2] == ["2023-Q1", "2023-Q2"]
+    assert sum(q["refused"] for q in o["status_by_quarter"]) == 2
+    # leverage worst case is -0.31x against 4.75x: closest to breach first
+    assert o["closest"][0]["covenant_id"] == "lev" and o["closest"][0]["headroom_pct"] < 0
+    assert o["events"][0]["kind"] == "waiver" and o["events"][0]["name"].endswith("(FIXTURE)")
+    assert o["refusals"] == {"missing_filing": 1}
+    assert o["ratio_accuracy"]["n"] == 1
+
+
+def test_cal_quarter():
+    from datetime import date
+
+    from api.main import _cal_quarter
+
+    assert _cal_quarter(date(2024, 9, 28)) == "2024-Q3"
+    assert _cal_quarter(date(2024, 9, 30)) == "2024-Q3"
+    assert _cal_quarter(date(2024, 12, 28)) == "2024-Q4"
+    assert _cal_quarter(date(2024, 12, 31)) == "2024-Q4"
+    assert _cal_quarter(date(2025, 3, 29)) == "2025-Q1"
+    assert _cal_quarter(date(2024, 7, 1)) == "2024-Q2"

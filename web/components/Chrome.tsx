@@ -63,6 +63,7 @@ export function ThemeToggle() {
 }
 
 const LINKS = [
+  { href: "/dashboard", label: "Dashboard" },
   { href: "/", label: "Companies" },
   { href: "/eval", label: "Evaluation" },
   { href: "/demo", label: "Demo" },

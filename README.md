@@ -162,7 +162,7 @@ sequenceDiagram
 uv sync
 export SEC_USER_AGENT="Covenant Watch you@example.com"
 export ANTHROPIC_API_KEY=...
-uv run pytest                                        # 126 tests
+uv run pytest                                        # 125 tests
 
 uv run uvicorn api.main:app --port 8000              # API
 cd web && npm install && npm run build && npm start  # http://localhost:3000

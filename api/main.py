@@ -12,8 +12,16 @@ from fastapi import FastAPI, HTTPException, Query
 from fastapi.middleware.cors import CORSMiddleware
 
 from shared import edgar
-from shared.paths import ARTIFACTS, EVAL, FIXTURES, GROUNDTRUTH
+from shared.paths import ARTIFACTS, EVAL, FIXTURES, GROUNDTRUTH, UNIVERSE
 from shared.schema import CovenantArtifact
+
+# CW_DATASET=synthetic serves data/synthetic/ (validation/synthetic.py) instead of the real pipeline output.
+DATASET = os.environ.get("CW_DATASET", "data")
+if DATASET == "synthetic":
+    from shared.paths import DATA
+
+    ARTIFACTS, EVAL, GROUNDTRUTH, UNIVERSE = (DATA / "synthetic" / "artifacts", DATA / "synthetic" / "eval",
+                                              DATA / "synthetic" / "groundtruth", DATA / "synthetic" / "universe.json")
 
 app = FastAPI(title="Covenant Watch API", version="1.0")
 app.add_middleware(CORSMiddleware, allow_origins=["*"], allow_methods=["GET"], allow_headers=["*"])
@@ -33,7 +41,7 @@ def load_artifacts() -> tuple[dict[str, CovenantArtifact], str]:
         for f in files:
             a = CovenantArtifact.model_validate_json(f.read_text())
             out[a.contract.company.cik] = a
-        return out, "data"
+        return out, ("synthetic" if DATASET == "synthetic" else "data")
     a = CovenantArtifact.model_validate_json((FIXTURES / "artifact_example.json").read_text())
     return {a.contract.company.cik: a}, "fixture"
 
@@ -205,6 +213,101 @@ def provenance(cik: str, cov_id: str, period_end: date):
 @app.get("/eval")
 def eval_report():
     rep = _read(EVAL / "report.json")
-    if rep is not None:
-        return {"source": "data", "report": rep}
+    _, source = load_artifacts()
+    if rep is not None and source != "fixture":  # never pair a real eval with fixture companies
+        return {"source": source, "report": rep}
     return {"source": "fixture", "report": _read(FIXTURES / "eval_example.json")}
+
+
+def _cal_quarter(d: date) -> str:
+    """A fiscal period end (e.g. 2024-09-28) labelled by the nearest calendar quarter end."""
+    ends = [date(y, m, dd) for y in (d.year - 1, d.year, d.year + 1) for m, dd in ((3, 31), (6, 30), (9, 30), (12, 31))]
+    e = min(ends, key=lambda x: abs((x - d).days))
+    return f"{e.year}-Q{(e.month - 1) // 3 + 1}"
+
+
+def _rel(headroom: float | None, threshold: float | None) -> float | None:
+    """Worst-case headroom as a fraction of the threshold (positive = room left)."""
+    if headroom is None or not threshold:
+        return None
+    return round(headroom / abs(threshold), 4)
+
+
+@app.get("/overview")
+def overview():
+    """Portfolio view across every artifact: status mix over time, closest to breach, events, refusals, eval headlines."""
+    arts, source = load_artifacts()
+    rep = eval_report()
+    return _overview(arts, source, load_groundtruth(source)) | {
+        "eval_source": rep["source"],
+        "ratio_accuracy": rep["report"].get("ratio_accuracy", {}),
+        "early_warning": rep["report"].get("early_warning", {}),
+    }
+
+
+@app.get("/companies/{cik}/overview")
+def company_overview(cik: str):
+    """The same view for one company. Accuracy and early warning are scored for this company alone
+    with validation.score against its own disclosed ratios and events (and its matched peers)."""
+    from validation.score import early_warning, ratio_accuracy
+    from shared.schema import CovenantEvent, DisclosedRatio, UniverseEntry
+
+    a, source = _artifact(cik)
+    arts, _ = load_artifacts()
+    gt = load_groundtruth(source)
+    co = a.contract.company.cik
+    disclosed = [DisclosedRatio.model_validate(d) for d in gt["disclosed"] if _same_cik(d["cik"], co)]
+    events = [CovenantEvent.model_validate(e) for e in gt["events"] if _same_cik(e["cik"], co)]
+    if source == "fixture":
+        universe = [UniverseEntry.model_validate(u) for u in (_read(FIXTURES / "groundtruth_example.json") or {}).get("universe", [])]
+    else:
+        universe = [UniverseEntry.model_validate(u) for u in (_read(UNIVERSE) or [])]
+    universe = [u for u in universe if u.peer_of and _same_cik(u.peer_of, co)]
+    norm = {f"{int(k):010d}": v for k, v in arts.items()}
+    ra, _ = ratio_accuracy(disclosed, norm)
+    ew, _ = early_warning(events, universe, norm)
+    return _overview({co: a}, source, gt) | {"eval_source": source, "ratio_accuracy": ra, "early_warning": ew}
+
+
+def _overview(arts: dict, source: str, gt: dict) -> dict:
+    from collections import Counter, defaultdict
+
+    statuses = ("ok", "warning", "breach", "indeterminate", "refused")
+    by_q: dict[str, Counter] = defaultdict(Counter)
+    latest = Counter()
+    covenants = []
+    refusals = Counter()
+    for cik, a in arts.items():
+        for r in a.refusals:
+            refusals[r.reason] += 1
+        for q in a.quarters:
+            by_q[_cal_quarter(q.period_end)][q.status] += 1
+        for cv in a.contract.covenants:
+            qs = [q for q in a.quarters if q.covenant_id == cv.id]
+            s = covenant_summary(a, cv.id)
+            latest[s["status"]] += 1
+            covenants.append({
+                "cik": a.contract.company.cik, "name": a.contract.company.name, "ticker": a.contract.company.ticker,
+                "covenant_id": cv.id, "kind": cv.kind, "direction": cv.direction, **s,
+                "headroom_pct": _rel(s["headroom_low"], s["threshold"]),
+                "history": [{"period_end": q.period_end, "status": q.status, "headroom_pct": _rel(q.headroom_low, q.threshold)} for q in qs],
+            })
+    names = {k.lstrip("0"): a.contract.company.name for k, a in arts.items()}
+    events = sorted(
+        ({**e, "name": names[e["cik"].lstrip("0")]} for e in gt["events"] if e["cik"].lstrip("0") in names),
+        key=lambda e: str(e["date"]), reverse=True,
+    )
+    computed = [c for c in covenants if c["status"] != "refused"]
+    closest = sorted((c for c in computed if c["headroom_pct"] is not None), key=lambda c: c["headroom_pct"])
+    return {
+        "source": source,
+        "companies": len(arts),
+        "covenants": len(covenants),
+        "quarters": sum(len(a.quarters) for a in arts.values()),
+        "status_latest": {s: latest.get(s, 0) for s in statuses},
+        "status_by_quarter": [{"quarter": k, **{s: by_q[k].get(s, 0) for s in statuses}} for k in sorted(by_q)],
+        "closest": closest[:8],
+        "events": events[:8],
+        "events_total": len(events),
+        "refusals": dict(refusals.most_common()),
+    }

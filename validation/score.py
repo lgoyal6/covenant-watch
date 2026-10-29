@@ -30,6 +30,7 @@ ALIGN_DAYS = 10
 WINDOW_DAYS = 380  # "the four quarters before the event"
 FLAGGED = {"warning", "breach"}
 THRESHOLD_TOL = 0.005
+REPORT_ROUNDING = 0.005 + 1e-9
 
 
 def norm_cik(c: str) -> str:
@@ -79,7 +80,8 @@ def ratio_accuracy(disclosed: list[DisclosedRatio], arts: dict[str, CovenantArti
         lo = q.ratio_low if q.ratio_low is not None else float("-inf")
         hi = q.ratio_high if q.ratio_high is not None else float("inf")
         row.update(computed_low=q.ratio_low, computed_high=q.ratio_high, threshold=q.threshold)
-        row["inside"] = lo - 1e-9 <= d.reported_value <= hi + 1e-9
+        # companies report ratios rounded to 2 decimals, so allow half a unit of that precision
+        row["inside"] = lo - REPORT_ROUNDING <= d.reported_value <= hi + REPORT_ROUNDING
         row["distance"] = 0.0 if row["inside"] else min(abs(d.reported_value - lo), abs(d.reported_value - hi))
         if q.ratio_low is not None and q.ratio_high is not None:
             row["midpoint_abs_error"] = abs((q.ratio_low + q.ratio_high) / 2 - d.reported_value)

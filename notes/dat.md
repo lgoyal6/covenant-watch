@@ -53,3 +53,11 @@ The extraction score only compares a label with a contract file that lists the s
 | 0001749723 | 0001140361-21-013692 | https://www.sec.gov/Archives/edgar/data/1749723/000114036121013692/brhc10023371_ex10-2.htm |
 | 0001766368 | 0001558370-23-011571 | https://www.sec.gov/Archives/edgar/data/1766368/000155837023011571/tmb-20230628xex10.htm |
 | 0001806347 | 0001558370-22-014048 | https://www.sec.gov/Archives/edgar/data/1806347/000155837022014048/west-20220630xex10d3.htm |
+
+## README edited (Dat, Oct 28 evening)
+
+README.md is yours per AGENTS.md. Dat asked me to update it before merging: added the why, pipeline and app run commands, the three data sources the API can serve (real, example fixture, `CW_DATASET=synthetic`), and the page list. Setup and layout sections are unchanged apart from fuller descriptions of Dat's folders. Change anything you disagree with.
+
+## Synthetic dataset
+
+`uv run python -m validation.synthetic` writes 100 fictional companies to `data/synthetic/` (not `data/artifacts/`), computed through the real engine and scored by the real scorer, for testing the UI at volume. The API only serves them when started with `CW_DATASET=synthetic`, and the UI labels them "Synthetic data". Your fixture company is now labeled "Example data" as you asked.

@@ -3,7 +3,7 @@ import Link from "next/link";
 import { api, settle } from "@/lib/api";
 import type { TimelineResponse } from "@/lib/types";
 import CompanyView from "@/components/CompanyView";
-import { ErrorState, SourceBanner } from "@/components/ui";
+import { ErrorState } from "@/components/ui";
 
 export const dynamic = "force-dynamic";
 
@@ -24,7 +24,7 @@ export default async function CompanyPage({ params, searchParams }: { params: Pa
   if (res.error || !res.data) {
     return (
       <div className="page stack">
-        <Link href="/" className="small">&lsaquo; All companies</Link>
+        <Link href="/companies" className="small">&lsaquo; All companies</Link>
         <ErrorState error={res.error!} title={res.error?.kind === "not_found" ? `No artifact for CIK ${cik}` : undefined} />
       </div>
     );
@@ -42,9 +42,8 @@ export default async function CompanyPage({ params, searchParams }: { params: Pa
 
   return (
     <>
-      <SourceBanner source={source} />
       <div className="page stack" style={{ gap: 14 }}>
-        <Link href="/" className="small">&lsaquo; All companies</Link>
+        <Link href="/companies" className="small">&lsaquo; All companies</Link>
         <CompanyView
           source={source}
           artifact={artifact}

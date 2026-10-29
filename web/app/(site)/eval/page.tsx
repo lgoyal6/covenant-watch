@@ -3,7 +3,7 @@ import Link from "next/link";
 import type { ReactNode } from "react";
 import { api, settle } from "@/lib/api";
 import { fmtDate, humanize, reasonLabel, REASON_LABEL } from "@/lib/format";
-import { EmptyState, ErrorState, FixtureBadge, SourceBanner } from "@/components/ui";
+import { EmptyState, ErrorState, FixtureBadge } from "@/components/ui";
 
 export const dynamic = "force-dynamic";
 export const metadata: Metadata = { title: "Evaluation" };
@@ -274,7 +274,6 @@ export default async function EvalPage() {
 
   return (
     <>
-      <SourceBanner source={res.data?.source} />
       <div className="page stack" style={{ gap: 18 }}>
         <div className="between">
           <div className="stack" style={{ gap: 4 }}>

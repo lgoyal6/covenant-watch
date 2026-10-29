@@ -1,7 +1,7 @@
 // Mirrors shared/schema.py (SCHEMA_VERSION 1.0) and the shapes returned by api/main.py.
 // Fields are typed loosely where the API may add keys later; the UI never assumes extras.
 
-export type Source = "fixture" | "data";
+export type Source = "fixture" | "data" | "synthetic";
 export type Status = "ok" | "warning" | "breach" | "indeterminate" | "refused";
 export type Direction = "max" | "min";
 
@@ -207,4 +207,40 @@ export interface ProvenanceResponse {
 export interface EvalResponse {
   source: Source;
   report: Record<string, unknown> | null;
+}
+
+export interface OverviewCovenant {
+  cik: string;
+  name: string;
+  ticker: string | null;
+  covenant_id: string;
+  kind: string;
+  direction: Direction;
+  status: Status;
+  latest_period_end: string | null;
+  ratio_low: number | null;
+  ratio_high: number | null;
+  threshold: number | null;
+  headroom_low: number | null;
+  headroom_high: number | null;
+  quarters: number;
+  /** Worst-case headroom as a fraction of the threshold; negative = past the limit. */
+  headroom_pct: number | null;
+  history: { period_end: string; status: Status; headroom_pct: number | null }[];
+}
+
+export interface OverviewResponse {
+  source: Source;
+  companies: number;
+  covenants: number;
+  quarters: number;
+  status_latest: Record<Status, number>;
+  status_by_quarter: ({ quarter: string } & Record<Status, number>)[];
+  closest: OverviewCovenant[];
+  events: { cik: string; name: string; date: string; kind: string; span: { url: string; text: string } }[];
+  events_total: number;
+  refusals: Record<string, number>;
+  eval_source: Source;
+  ratio_accuracy: Record<string, number | string | null>;
+  early_warning: Record<string, number | string | null>;
 }

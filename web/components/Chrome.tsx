@@ -63,9 +63,9 @@ export function ThemeToggle() {
 }
 
 const LINKS = [
-  { href: "/", label: "Companies" },
+  { href: "/dashboard", label: "Dashboard" },
+  { href: "/companies", label: "Companies" },
   { href: "/eval", label: "Evaluation" },
-  { href: "/demo", label: "Demo" },
 ];
 
 export function Nav() {
@@ -73,7 +73,7 @@ export function Nav() {
   return (
     <nav className="nav" aria-label="Main">
       {LINKS.map((l) => {
-        const active = l.href === "/" ? path === "/" || path.startsWith("/company") : path.startsWith(l.href);
+        const active = l.href === "/companies" ? path.startsWith("/compan") : path.startsWith(l.href);
         return (
           <Link key={l.href} href={l.href} aria-current={active ? "page" : undefined}>
             {l.label}

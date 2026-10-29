@@ -14,7 +14,7 @@ export function StatusChip({ status, title }: { status: Status; title?: string }
 
 /** Small origin label next to titles. Real pipeline data carries no label. */
 export function FixtureBadge({ source }: { source: Source | undefined | null }) {
-  if (source !== "fixture" && source !== "demo") return null;
+  if (source !== "fixture") return null;
   return (
     <span className="chip chip-fixture" title={source === "fixture" ? "Example data from fixtures/, not a real company" : "Fictional demo companies (validation/demo_data.py), not real filings"}>
       {source === "fixture" ? "Example data" : "Demo data"}

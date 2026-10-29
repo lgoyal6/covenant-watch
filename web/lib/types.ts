@@ -1,7 +1,7 @@
 // Mirrors shared/schema.py (SCHEMA_VERSION 1.0) and the shapes returned by api/main.py.
 // Fields are typed loosely where the API may add keys later; the UI never assumes extras.
 
-export type Source = "fixture" | "data" | "synthetic";
+export type Source = "fixture" | "data" | "demo";
 export type Status = "ok" | "warning" | "breach" | "indeterminate" | "refused";
 export type Direction = "max" | "min";
 

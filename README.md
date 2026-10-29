@@ -44,17 +44,17 @@ Pages: `/` landing, `/dashboard` portfolio overview, `/companies` list and searc
 |---|---|---|
 | Real pipeline output | `data/artifacts/` has files | none |
 | Example company | `data/artifacts/` empty, serves `fixtures/` | "Example data" |
-| Synthetic test set | `uv run python -m validation.synthetic`, then start the API with `CW_DATASET=synthetic` | "Synthetic data" |
+| Demo set | `uv run python -m validation.demo_data`, then start the API with `CW_DATASET=demo` | "Demo data" |
 
-The synthetic set is 100 fictional companies (names end in "(Synthetic)", CIKs 99xxxxxxxx, URLs on example.invalid) for exercising the product at volume. Their numbers run through the real engine and scorer, but they are not real companies and their scores are not results.
+The demo set is 100 fictional companies (CIKs 99xxxxxxxx, tickers with a digit, URLs on example.invalid) for exercising the product at volume. Their numbers run through the real engine and scorer, but they are not real companies and their scores are not results.
 
 ## Layout
 
 - `shared/` the data contract and EDGAR client (frozen)
-- `fixtures/` synthetic example data in contract shape (frozen)
+- `fixtures/` example data in contract shape (frozen)
 - `contracts/` reads loan agreements into covenants and definitions (Laksh)
 - `engine/` XBRL series, concept mapping, definition compiler, interval headroom (Dat)
-- `validation/` ground truth, gold labels, scoring, synthetic data (Dat)
+- `validation/` ground truth, gold labels, scoring, demo data (Dat)
 - `api/` FastAPI, read-only over `data/` (Dat)
 - `web/` Next.js app (Dat)
 

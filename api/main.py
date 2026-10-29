@@ -15,13 +15,13 @@ from shared import edgar
 from shared.paths import ARTIFACTS, EVAL, FIXTURES, GROUNDTRUTH, UNIVERSE
 from shared.schema import CovenantArtifact
 
-# CW_DATASET=synthetic serves data/synthetic/ (validation/synthetic.py) instead of the real pipeline output.
+# CW_DATASET=demo serves data/demo/ (validation/demo_data.py, fictional companies) instead of the real pipeline output.
 DATASET = os.environ.get("CW_DATASET", "data")
-if DATASET == "synthetic":
+if DATASET == "demo":
     from shared.paths import DATA
 
-    ARTIFACTS, EVAL, GROUNDTRUTH, UNIVERSE = (DATA / "synthetic" / "artifacts", DATA / "synthetic" / "eval",
-                                              DATA / "synthetic" / "groundtruth", DATA / "synthetic" / "universe.json")
+    ARTIFACTS, EVAL, GROUNDTRUTH, UNIVERSE = (DATA / "demo" / "artifacts", DATA / "demo" / "eval",
+                                              DATA / "demo" / "groundtruth", DATA / "demo" / "universe.json")
 
 app = FastAPI(title="Covenant Watch API", version="1.0")
 app.add_middleware(CORSMiddleware, allow_origins=["*"], allow_methods=["GET"], allow_headers=["*"])
@@ -41,7 +41,7 @@ def load_artifacts() -> tuple[dict[str, CovenantArtifact], str]:
         for f in files:
             a = CovenantArtifact.model_validate_json(f.read_text())
             out[a.contract.company.cik] = a
-        return out, ("synthetic" if DATASET == "synthetic" else "data")
+        return out, ("demo" if DATASET == "demo" else "data")
     a = CovenantArtifact.model_validate_json((FIXTURES / "artifact_example.json").read_text())
     return {a.contract.company.cik: a}, "fixture"
 

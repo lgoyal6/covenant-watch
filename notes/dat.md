@@ -56,8 +56,8 @@ The extraction score only compares a label with a contract file that lists the s
 
 ## README edited (Dat, Oct 28 evening)
 
-README.md is yours per AGENTS.md. Dat asked me to update it before merging: added the why, pipeline and app run commands, the three data sources the API can serve (real, example fixture, `CW_DATASET=synthetic`), and the page list. Setup and layout sections are unchanged apart from fuller descriptions of Dat's folders. Change anything you disagree with.
+README.md is yours per AGENTS.md. Dat asked me to update it before merging: added the why, pipeline and app run commands, the three data sources the API can serve (real, example fixture, `CW_DATASET=demo`), and the page list. Setup and layout sections are unchanged apart from fuller descriptions of Dat's folders. Change anything you disagree with.
 
-## Synthetic dataset
+## Demo dataset
 
-`uv run python -m validation.synthetic` writes 100 fictional companies to `data/synthetic/` (not `data/artifacts/`), computed through the real engine and scored by the real scorer, for testing the UI at volume. The API only serves them when started with `CW_DATASET=synthetic`, and the UI labels them "Synthetic data". Your fixture company is now labeled "Example data" as you asked.
+`uv run python -m validation.demo_data` writes 100 fictional companies to `data/demo/` (not `data/artifacts/`), computed through the real engine and scored by the real scorer, for testing the UI at volume. The API only serves them when started with `CW_DATASET=demo`, and the UI labels them "Demo data". Your fixture company is now labeled "Example data" as you asked.

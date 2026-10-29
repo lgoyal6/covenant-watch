@@ -193,10 +193,10 @@ uv run python -m validation.score           # data/eval/report.json
 shared/       frozen data contract, SEC client
 fixtures/     example data in contract shape
 contracts/    agreement reader (Laksh)
-engine/       XBRL series, mapping, compiler, interval headroom (Dat)
-validation/   ground truth, gold labels, scoring, demo portfolio (Dat)
-api/          FastAPI and the agents (Dat)
-web/          Next.js app (Dat)
+engine/       XBRL series, mapping, compiler, interval headroom
+validation/   ground truth, gold labels, scoring, demo portfolio
+api/          FastAPI and the agents
+web/          Next.js app
 notes/        handoffs between the two halves
 ```
 

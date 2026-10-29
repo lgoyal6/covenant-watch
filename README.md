@@ -18,6 +18,16 @@ uv run pytest                       # whole suite
 cd web && npm install && cd ..
 ```
 
+On Windows (PowerShell), set the environment variables with `$env:` instead of `export`:
+
+```powershell
+uv sync
+$env:SEC_USER_AGENT = "Covenant Watch your-email@ucsd.edu"
+$env:ANTHROPIC_API_KEY = "..."
+uv run pytest
+cd web; npm install; cd ..
+```
+
 ## Run the pipeline
 
 ```bash

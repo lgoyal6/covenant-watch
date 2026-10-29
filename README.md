@@ -49,15 +49,16 @@ The definitions are the product.
 ## Architecture
 
 ```mermaid
-flowchart LR
+flowchart TB
     subgraph SRC["SEC EDGAR"]
+        direction LR
         AGR["Credit agreements<br/>EX-10 + amendments"]
         XBRL["XBRL company facts<br/>quarterly · YTD · annual"]
         FIL["8-K · 10-Q · 10-K<br/>full-text search"]
     end
 
     subgraph PIPE["Pipeline"]
-        direction TB
+        direction LR
         C["<b>contracts/</b><br/>discover → segment → extract ×2<br/>Claude Sonnet 5.5 · Opus 5.5 verifier<br/>exact-quote check → amendments"]
         E["<b>engine/</b><br/>XBRL series · Q4 = FY − 9M · TTM<br/>concept mapping: Claude + validator<br/>definition compiler → interval headroom"]
         V["<b>validation/</b><br/>reported ratios · covenant events<br/>matched peers · gold labels · scorer"]
@@ -65,7 +66,7 @@ flowchart LR
     end
 
     subgraph OUT["Serve"]
-        direction TB
+        direction LR
         API["<b>api/</b> FastAPI, read-only<br/>/overview · /companies · /timeline<br/>/provenance · /eval"]
         AG["<b>Agents</b> · Claude Opus 5.5<br/>Analyst · Risk briefing<br/>5 read-only tools"]
         WEB["<b>web/</b> Next.js<br/>dashboard · company pages<br/>provenance drawer · eval"]

@@ -205,6 +205,7 @@ def provenance(cik: str, cov_id: str, period_end: date):
 @app.get("/eval")
 def eval_report():
     rep = _read(EVAL / "report.json")
-    if rep is not None:
+    _, source = load_artifacts()
+    if rep is not None and source == "data":  # never pair a real eval with fixture companies
         return {"source": "data", "report": rep}
     return {"source": "fixture", "report": _read(FIXTURES / "eval_example.json")}

@@ -1,7 +1,5 @@
 "use client";
 
-import type { ReactNode } from "react";
-
 import { useCallback, useMemo, useState } from "react";
 import { refusalsForQuarter, summarize } from "@/lib/derive";
 import {
@@ -13,6 +11,7 @@ import {
   kindLabel,
   reasonLabel,
   refusalScopeLabel,
+  eventLabel,
 } from "@/lib/format";
 import type { CovenantArtifact, Refusal, Source, TimelineResponse } from "@/lib/types";
 import { CovenantCard, type CardSummary } from "./CovenantCard";
@@ -27,8 +26,6 @@ interface Props {
   timelineErrors: Record<string, string>;
   initialCov?: string | null;
   initialQuarter?: string | null;
-  /** Company-level overview (the bento), rendered under the header. */
-  overview?: ReactNode;
 }
 
 function setUrl(cov: string | null, q: string | null) {
@@ -42,7 +39,7 @@ function setUrl(cov: string | null, q: string | null) {
   } catch {}
 }
 
-export default function CompanyView({ source, artifact, timelines, timelineErrors, initialCov, initialQuarter, overview }: Props) {
+export default function CompanyView({ source, artifact, timelines, timelineErrors, initialCov, initialQuarter }: Props) {
   const c = artifact.contract.company;
   const covenants = artifact.contract.covenants;
   const summaries = useMemo(() => summarize(artifact), [artifact]);
@@ -65,32 +62,19 @@ export default function CompanyView({ source, artifact, timelines, timelineError
     setUrl(cov, null);
   }, [cov]);
 
+  const events = useMemo(() => {
+    const seen = new Set<string>();
+    return Object.values(timelines)
+      .flatMap((t) => t?.events ?? [])
+      .filter((e) => (seen.has(e.date + e.kind) ? false : (seen.add(e.date + e.kind), true)))
+      .sort((x, y) => (x.date < y.date ? 1 : -1));
+  }, [timelines]);
   const tl = cov ? timelines[cov] : null;
   const covObj = covenants.find((x) => x.id === cov) ?? null;
 
   return (
     <div className="stack" style={{ gap: 22 }}>
-      {/* header */}
-      <div className="between" style={{ alignItems: "flex-start" }}>
-        <div className="stack" style={{ gap: 6 }}>
-          <div className="row">
-            <h1>{c.name}</h1>
-            {c.ticker && <span className="chip chip-neutral mono">{c.ticker}</span>}
-            <FixtureBadge source={source} />
-          </div>
-          <div className="row small muted num" style={{ gap: 14 }}>
-            <span>CIK {c.cik}</span>
-            {c.sic && <span>SIC {c.sic}</span>}
-            <span>
-              {covenants.length} covenant{covenants.length === 1 ? "" : "s"}
-            </span>
-            <span>Artifact generated {fmtDate(artifact.generated_at)}</span>
-          </div>
-        </div>
-        <Agreements artifact={artifact} />
-      </div>
-
-      {overview}
+      <CompanyHero source={source} artifact={artifact} summaries={summaries} events={events} />
 
       {/* covenant cards */}
       {covenants.length === 0 ? (
@@ -104,6 +88,11 @@ export default function CompanyView({ source, artifact, timelines, timelineError
           ))}
         </div>
       )}
+
+      <div className="co-pair">
+        <Agreements artifact={artifact} />
+        <EventsCard events={events} />
+      </div>
 
       {/* timeline */}
       {covObj && (
@@ -169,8 +158,8 @@ function Agreements({ artifact }: { artifact: CovenantArtifact }) {
   const ags = artifact.contract.agreements;
   if (!ags.length) return null;
   return (
-    <div className="card agreements-card" style={{ minWidth: 300 }}>
-      <div className="upper" style={{ padding: "10px 14px 4px" }}>Credit agreements</div>
+    <div className="card agreements-card">
+      <div className="card-head"><h2>Credit agreements</h2><span className="small muted">{ags.length} filed</span></div>
       <div className="table-wrap">
       <table className="t">
         <tbody>
@@ -340,5 +329,91 @@ export function RefusalsPanel({ artifact, title = "Refusals" }: { artifact: Cove
         </table>
       )}
     </section>
+  );
+}
+
+
+type Ev = { cik: string; date: string; kind: string; span: { url: string; text: string } };
+
+const pct = (v: number) => `${v >= 0 ? "+" : "−"}${Math.abs(v * 100).toFixed(1)}%`;
+
+/** Company header: identity on the left, the tightest covenant on the right, a hairline stat strip below. */
+function CompanyHero({ source, artifact, summaries, events }: { source: Source; artifact: CovenantArtifact; summaries: CardSummary[]; events: Ev[] }) {
+  const c = artifact.contract.company;
+  const rels = summaries
+    .map((s) => ({ s, rel: s.history?.filter((h) => h.rel !== null).at(-1)?.rel ?? null }))
+    .filter((x) => x.rel !== null && x.s.status !== "refused") as { s: CardSummary; rel: number }[];
+  const tight = rels.sort((a, b) => a.rel - b.rel)[0] ?? null;
+  const computed = artifact.quarters.filter((q) => q.status !== "refused").length;
+  const counts = summaries.reduce<Record<string, number>>((m, s) => ((m[s.status] = (m[s.status] ?? 0) + 1), m), {});
+  return (
+    <section className="co-hero">
+      <div className="co-hero-main">
+        <div className="row" style={{ gap: 8 }}>
+          {c.ticker && <span className="chip chip-neutral">{c.ticker}</span>}
+          {c.sic && <span className="chip chip-neutral">SIC {c.sic}</span>}
+          <FixtureBadge source={source} />
+        </div>
+        <h1 className="ch-name">{c.name}</h1>
+        <div className="ch-meta num">
+          CIK {c.cik} · {artifact.contract.agreements.length} agreement{artifact.contract.agreements.length === 1 ? "" : "s"} · updated {fmtDate(artifact.generated_at)}
+        </div>
+      </div>
+      <div className="co-hero-side">
+        <div className="upper">Tightest covenant now</div>
+        {tight ? (
+          <>
+            <div className="co-tight num" style={{ color: `var(--${tight.s.status})` }}>{pct(tight.rel)}</div>
+            <div className="small text-2">
+              worst-case headroom on <strong>{kindLabel(tight.s.kind)}</strong> vs a {tight.s.direction === "max" ? "≤" : "≥"} {fmtRatio(tight.s.threshold)} limit
+            </div>
+            <div className="row" style={{ gap: 8, marginTop: 4 }}>
+              <StatusChip status={tight.s.status} />
+              {tight.s.latest_period_end && <span className="tiny muted">{fmtQuarter(tight.s.latest_period_end)}</span>}
+            </div>
+          </>
+        ) : (
+          <div className="small muted" style={{ marginTop: 8 }}>No computable covenant yet. See the refusals below.</div>
+        )}
+      </div>
+      <div className="co-strip">
+        <div><div className="upper">Covenants</div><div className="v num">{summaries.length}</div></div>
+        <div><div className="upper">Quarters computed</div><div className="v num">{computed}</div></div>
+        <div>
+          <div className="upper">Status now</div>
+          <div className="row" style={{ gap: 6, marginTop: 8 }}>
+            {(["ok", "warning", "indeterminate", "breach", "refused"] as const).filter((k) => counts[k]).map((k) => <StatusChip key={k} status={k} title={`${counts[k]} covenant(s)`} />)}
+          </div>
+        </div>
+        <div><div className="upper">Disclosed events</div><div className="v num">{events.length}</div></div>
+        <div><div className="upper">Refusals</div><div className="v num">{artifact.refusals.length}</div></div>
+      </div>
+    </section>
+  );
+}
+
+function EventsCard({ events }: { events: Ev[] }) {
+  return (
+    <div className="card">
+      <div className="card-head"><h2>Disclosed covenant events</h2><span className="small muted">from 8-K filings</span></div>
+      {events.length === 0 ? (
+        <div className="card-pad small muted">No waiver, default or loosening amendment disclosed for this company.</div>
+      ) : (
+        <ul className="ev-list">
+          {events.map((e, i) => (
+            <li key={i}>
+              <span className="ev-dot" aria-hidden />
+              <div className="stack" style={{ gap: 3 }}>
+                <div className="row" style={{ gap: 8 }}>
+                  <strong className="num">{fmtDate(e.date)}</strong>
+                  <span className="chip chip-breach">{eventLabel(e.kind)}</span>
+                </div>
+                <span className="small text-2 ev-quote">&ldquo;{e.span.text}&rdquo;</span>
+              </div>
+            </li>
+          ))}
+        </ul>
+      )}
+    </div>
   );
 }

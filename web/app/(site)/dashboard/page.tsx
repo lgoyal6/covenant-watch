@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { api, settle } from "@/lib/api";
 import CovenantBento from "@/components/CovenantBento";
-import { ErrorState, FixtureBadge, SourceBanner } from "@/components/ui";
+import { ErrorState, FixtureBadge } from "@/components/ui";
 
 export const dynamic = "force-dynamic";
 export const metadata: Metadata = { title: "Dashboard" };
@@ -12,7 +12,6 @@ export default async function DashboardPage() {
   const o = r.data;
   return (
     <>
-      <SourceBanner source={o.source} />
       <div className="page">
         <div style={{ display: "flex", alignItems: "baseline", gap: 12, flexWrap: "wrap", marginBottom: 16 }}>
           <h1 style={{ margin: 0, fontSize: 26, letterSpacing: "-0.02em" }}>Covenant overview</h1>

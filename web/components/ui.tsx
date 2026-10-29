@@ -12,28 +12,13 @@ export function StatusChip({ status, title }: { status: Status; title?: string }
   );
 }
 
+/** Small origin label next to titles. Real pipeline data carries no label. */
 export function FixtureBadge({ source }: { source: Source | undefined | null }) {
-  if (source !== "fixture") return null;
+  if (source !== "fixture" && source !== "synthetic") return null;
   return (
-    <span className="chip chip-fixture" title="Synthetic development data, not a real company">
-      FIXTURE DATA
+    <span className="chip chip-fixture" title={source === "fixture" ? "Example data from fixtures/, not a real company" : "Synthetic test data from validation/synthetic.py, fictional companies"}>
+      {source === "fixture" ? "Example data" : "Synthetic data"}
     </span>
-  );
-}
-
-/** Full-width banner shown on every page whose data came from fixtures/. */
-export function SourceBanner({ source }: { source: Source | undefined | null }) {
-  if (source !== "fixture") return null;
-  return (
-    <div className="fixture-banner" role="note">
-      <div>
-        <strong>FIXTURE DATA</strong>
-        <span>
-          The API is serving synthetic example data from fixtures/. Nothing on this page describes a real company.
-          Real artifacts appear automatically once data/artifacts/ is populated.
-        </span>
-      </div>
-    </div>
   );
 }
 

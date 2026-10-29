@@ -15,6 +15,14 @@ from shared import edgar
 from shared.paths import ARTIFACTS, EVAL, FIXTURES, GROUNDTRUTH, UNIVERSE
 from shared.schema import CovenantArtifact
 
+# CW_DATASET=synthetic serves data/synthetic/ (validation/synthetic.py) instead of the real pipeline output.
+DATASET = os.environ.get("CW_DATASET", "data")
+if DATASET == "synthetic":
+    from shared.paths import DATA
+
+    ARTIFACTS, EVAL, GROUNDTRUTH, UNIVERSE = (DATA / "synthetic" / "artifacts", DATA / "synthetic" / "eval",
+                                              DATA / "synthetic" / "groundtruth", DATA / "synthetic" / "universe.json")
+
 app = FastAPI(title="Covenant Watch API", version="1.0")
 app.add_middleware(CORSMiddleware, allow_origins=["*"], allow_methods=["GET"], allow_headers=["*"])
 
@@ -33,7 +41,7 @@ def load_artifacts() -> tuple[dict[str, CovenantArtifact], str]:
         for f in files:
             a = CovenantArtifact.model_validate_json(f.read_text())
             out[a.contract.company.cik] = a
-        return out, "data"
+        return out, ("synthetic" if DATASET == "synthetic" else "data")
     a = CovenantArtifact.model_validate_json((FIXTURES / "artifact_example.json").read_text())
     return {a.contract.company.cik: a}, "fixture"
 
@@ -206,8 +214,8 @@ def provenance(cik: str, cov_id: str, period_end: date):
 def eval_report():
     rep = _read(EVAL / "report.json")
     _, source = load_artifacts()
-    if rep is not None and source == "data":  # never pair a real eval with fixture companies
-        return {"source": "data", "report": rep}
+    if rep is not None and source != "fixture":  # never pair a real eval with fixture companies
+        return {"source": source, "report": rep}
     return {"source": "fixture", "report": _read(FIXTURES / "eval_example.json")}
 
 

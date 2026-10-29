@@ -128,7 +128,7 @@ button { font: inherit; color: inherit; }
 .row { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
 .between > * { min-width: 0; }
 .between { display: flex; align-items: center; justify-content: space-between; gap: 16px; flex-wrap: wrap; }
-.grid-2 { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(340px, 100%), 1fr)); gap: 16px; }
+.grid-2 { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(340px, 100%), 1fr)); gap: 16px; }
 .footer { max-width: 1240px; margin: 0 auto; padding: 24px; color: var(--muted); font-size: 12px; border-top: 1px solid var(--border); }
 
 /* ---- surfaces ---- */
@@ -397,3 +397,48 @@ h2 { font-size: 18px; font-weight: 600; letter-spacing: -0.02em; }
 .bar-track, .pbar, .conf-bar { border-radius: 99px; }
 .bar-fill { border-radius: 99px; background: var(--text); }
 
+
+/* ---- company page: editorial hero, hairline stat strip, covenant cards with headroom history ---- */
+.co-hero {
+  position: relative; display: grid; grid-template-columns: minmax(0, 1fr) minmax(260px, 340px); gap: 28px 40px;
+  padding: 34px 34px 0; border-radius: 28px; border: 1px solid var(--border); overflow: hidden;
+  background:
+    radial-gradient(90% 120% at 100% 0%, rgba(169, 178, 255, 0.16), transparent 60%),
+    radial-gradient(60% 90% at 0% 100%, rgba(142, 230, 184, 0.06), transparent 60%),
+    var(--surface);
+  box-shadow: var(--rim);
+}
+.co-hero-main { display: flex; flex-direction: column; gap: 14px; min-width: 0; }
+.ch-name { font-size: clamp(32px, 4.2vw, 52px); font-weight: 700; letter-spacing: -0.045em; line-height: 1.02; }
+.ch-meta { font-size: 13px; color: var(--muted); }
+.co-hero-side { display: flex; flex-direction: column; gap: 6px; padding-left: 28px; border-left: 1px solid var(--border); justify-content: center; }
+.co-tight { font-size: 56px; font-weight: 200; letter-spacing: -0.05em; line-height: 1; margin-top: 4px; }
+.co-strip { grid-column: 1 / -1; display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); border-top: 1px solid var(--border); margin: 0 -34px; }
+.co-strip > div { padding: 18px 34px 22px; border-right: 1px solid var(--border); }
+.co-strip > div:last-child { border-right: none; }
+.co-strip .v { font-size: 30px; font-weight: 200; letter-spacing: -0.04em; margin-top: 6px; }
+.co-pair { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.3fr); gap: 16px; align-items: start; }
+.agreements-card { min-width: 0; }
+
+.cov-card-v2 { gap: 16px; padding: 22px 24px; }
+.cov-card-v2 h3 { font-size: 16px; letter-spacing: -0.02em; }
+.cov-figure { display: flex; align-items: baseline; gap: 12px; flex-wrap: wrap; width: 100%; }
+.cov-ratio { font-size: 32px; font-weight: 200; letter-spacing: -0.04em; line-height: 1; }
+.cov-limit { font-size: 13px; color: var(--muted); }
+.cov-spark-head { display: flex; justify-content: space-between; align-items: baseline; width: 100%; font-size: 13px; }
+.spark { display: block; width: 100%; height: 64px; border-radius: 10px; }
+.spark-empty { height: 64px; display: flex; align-items: center; }
+
+.ev-list { list-style: none; margin: 0; padding: 6px 22px 18px; display: flex; flex-direction: column; }
+.ev-list li { position: relative; display: grid; grid-template-columns: 18px 1fr; gap: 10px; padding: 12px 0; border-bottom: 1px solid var(--border); }
+.ev-list li:last-child { border-bottom: none; }
+.ev-dot { width: 9px; height: 9px; border-radius: 50%; background: var(--breach); margin-top: 5px; box-shadow: 0 0 0 4px var(--breach-soft); }
+.ev-quote { font-family: var(--serif); font-size: 13.5px; line-height: 1.5; }
+
+@media (max-width: 900px) {
+  .co-hero { grid-template-columns: 1fr; padding: 24px 20px 0; }
+  .co-hero-side { padding-left: 0; border-left: none; border-top: 1px solid var(--border); padding-top: 18px; }
+  .co-strip { grid-template-columns: repeat(2, minmax(0, 1fr)); margin: 0 -20px; }
+  .co-strip > div { padding: 14px 20px; border-bottom: 1px solid var(--border); }
+  .co-pair { grid-template-columns: 1fr; }
+}

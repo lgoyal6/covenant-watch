@@ -3,7 +3,7 @@ import { api, settle } from "@/lib/api";
 import { fmtHeadroomRange, fmtRatio, fmtRatioRange, kindLabel, STATUS_LABEL } from "@/lib/format";
 import { severity } from "@/lib/derive";
 import type { CompanyListItem, Status } from "@/lib/types";
-import { EmptyState, ErrorState, FixtureBadge, SourceBanner, StatusChip } from "@/components/ui";
+import { EmptyState, ErrorState, FixtureBadge, StatusChip } from "@/components/ui";
 
 export const dynamic = "force-dynamic";
 
@@ -18,7 +18,6 @@ export default async function Home({ searchParams }: { searchParams: Promise<{ q
 
   return (
     <>
-      <SourceBanner source={res.data?.source} />
       <div className="page stack" style={{ gap: 20 }}>
         <div className="stack" style={{ gap: 6, maxWidth: 760 }}>
           <h1>Covenant headroom, rebuilt from SEC filings</h1>

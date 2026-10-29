@@ -61,6 +61,12 @@ export function summarize(a: CovenantArtifact): CardSummary[] {
       headroom_high: l?.headroom_high,
       quarters: qs.length,
       refused: qs.filter((q) => q.status === "refused").length,
+      history: qs.map((q) => ({
+        period_end: q.period_end,
+        status: q.status,
+        // worst-case headroom as a share of the limit (negative = past it)
+        rel: q.headroom_low != null && q.threshold ? q.headroom_low / Math.abs(q.threshold) : null,
+      })),
     };
   });
 }

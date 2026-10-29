@@ -1,0 +1,435 @@
+{
+ "cik": "0000037785",
+ "agreement_accession": "0000037785-22-000047",
+ "agreement_url": "https://www.sec.gov/Archives/edgar/data/37785/000003778522000047/fmc-2022rcfxfiftharrevol.htm",
+ "labeled_by": "claude-draft (unverified; Dat must check each field against evidence)",
+ "labeled_at": "2026-10-28",
+ "status": "draft",
+ "agreement_title": "Fifth Amended and Restated Credit Agreement dated as of June 17, 2022 (FMC Corporation; Citibank, N.A., Administrative Agent), as amended by Amendments No. 1-8",
+ "covenants": [
+  {
+   "kind": "max_leverage",
+   "direction": "max",
+   "test_period": "ttm",
+   "thresholds": [
+    {
+     "value": 3.5,
+     "effective_from": "2022-06-30",
+     "effective_to": "2023-03-31",
+     "source": "original agreement"
+    },
+    {
+     "value": 4.0,
+     "effective_from": "2023-06-30",
+     "effective_to": "2023-09-30",
+     "source": "Amendment No. 1 (also restated in Amendment No. 2)"
+    },
+    {
+     "value": 6.5,
+     "effective_from": "2023-12-31",
+     "effective_to": "2024-06-30",
+     "source": "Amendment No. 2"
+    },
+    {
+     "value": 6.0,
+     "effective_from": "2024-09-30",
+     "effective_to": "2024-09-30",
+     "source": "Amendment No. 2"
+    },
+    {
+     "value": 5.0,
+     "effective_from": "2024-12-31",
+     "effective_to": "2024-12-31",
+     "source": "Amendment No. 2 (restated in No. 3)"
+    },
+    {
+     "value": 5.25,
+     "effective_from": "2025-03-31",
+     "effective_to": "2025-09-30",
+     "source": "Amendment No. 3"
+    },
+    {
+     "value": 6.0,
+     "effective_from": "2025-12-31",
+     "effective_to": "2025-12-31",
+     "source": "Amendment No. 5 (Mar/Jun/Sep 2026 also 6.00 but not tested per Amendment No. 6)"
+    },
+    {
+     "value": 6.75,
+     "effective_from": "2026-12-31",
+     "effective_to": "2027-12-31",
+     "source": "Amendment No. 6 REDLINE-DECODED"
+    },
+    {
+     "value": 6.0,
+     "effective_from": "2028-03-31",
+     "effective_to": "2028-03-31",
+     "source": "Amendment No. 6 REDLINE-DECODED"
+    },
+    {
+     "value": 5.5,
+     "effective_from": "2028-06-30",
+     "effective_to": "2028-06-30",
+     "source": "Amendment No. 6 REDLINE-DECODED"
+    },
+    {
+     "value": 5.25,
+     "effective_from": "2028-09-30",
+     "effective_to": "2028-09-30",
+     "source": "Amendment No. 6 REDLINE-DECODED"
+    },
+    {
+     "value": 4.5,
+     "effective_from": "2028-12-31",
+     "effective_to": "2028-12-31",
+     "source": "Amendment No. 6 REDLINE-DECODED"
+    },
+    {
+     "value": 3.75,
+     "effective_from": "2029-03-31",
+     "effective_to": null,
+     "source": "base level after Covenant Relief Period (ends no later than Dec 31, 2028 per Amendment No. 5)"
+    }
+   ],
+   "numerator_label": "Financial Covenant Debt",
+   "denominator_label": "EBITDA",
+   "ratio_label": "Leverage Ratio",
+   "evidence": {
+    "covenant": {
+     "url": "https://www.sec.gov/Archives/edgar/data/37785/000003778522000047/fmc-2022rcfxfiftharrevol.htm",
+     "quote": "(a) Maximum Leverage Ratio. The U.S. Borrower shall maintain as of the last day of each Fiscal Quarter a Leverage Ratio of not more than 3.50:1.00."
+    },
+    "thresholds": [
+     {
+      "url": "https://www.sec.gov/Archives/edgar/data/37785/000003778522000047/fmc-2022rcfxfiftharrevol.htm",
+      "quote": "a Leverage Ratio of not more than 3.50:1.00"
+     },
+     {
+      "url": "https://www.sec.gov/Archives/edgar/data/37785/000119312523183826/d508948dex101.htm",
+      "quote": "June 30, 2023\n4.00 to 1.00\nSeptember 30, 2023\n4.00 to 1.00\nDecember 31, 2023\n4.00 to 1.00"
+     },
+     {
+      "url": "https://www.sec.gov/Archives/edgar/data/37785/000119312523272483/d499849dex101.htm",
+      "quote": "December 31, 2023\n6.50 to 1.00\nMarch 31, 2024\n6.50 to 1.00\nJune 30, 2024\n6.50 to 1.00"
+     },
+     {
+      "url": "https://www.sec.gov/Archives/edgar/data/37785/000119312523272483/d499849dex101.htm",
+      "quote": "September 30, 2024\n6.00 to 1.00"
+     },
+     {
+      "url": "https://www.sec.gov/Archives/edgar/data/37785/000003778525000013/amendmentno3tofifthamended.htm",
+      "quote": "December 31, 2024 5.00 to 1.00\nMarch 31, 2025 5.25 to 1.00"
+     },
+     {
+      "url": "https://www.sec.gov/Archives/edgar/data/37785/000003778525000013/amendmentno3tofifthamended.htm",
+      "quote": "March 31, 2025 5.25 to 1.00\nJune 30, 2025 5.25 to 1.00\nSeptember 30, 2025 5.25 to 1.00"
+     },
+     {
+      "url": "https://www.sec.gov/Archives/edgar/data/37785/000119312525311499/d873544dex101.htm",
+      "quote": "December 31, 2025\n6:00 to 1:00\nMarch 31, 2026\n6:00 to 1:00"
+     },
+     {
+      "url": "https://www.sec.gov/Archives/edgar/data/37785/000119312526163937/d81650dex101.htm",
+      "quote": "December 31, 2026\n5.506.75 to 1.00\nMarch 31, 2027\n56.75 to 1.00\nJune 30, 2027\n5.506.75 to 1.00\nSeptember 30, 2027\n5.256.75 to 1.00\nDecember 31, 2027\n46.75 to 1.00"
+     },
+     {
+      "url": "https://www.sec.gov/Archives/edgar/data/37785/000119312526163937/d81650dex101.htm",
+      "quote": "March 31, 2028\n4.756.00 to 1.00"
+     },
+     {
+      "url": "https://www.sec.gov/Archives/edgar/data/37785/000119312526163937/d81650dex101.htm",
+      "quote": "June 30, 2028\n45.50 to 1.00"
+     },
+     {
+      "url": "https://www.sec.gov/Archives/edgar/data/37785/000119312526163937/d81650dex101.htm",
+      "quote": "September 30, 2028\n45.25 to 1.00"
+     },
+     {
+      "url": "https://www.sec.gov/Archives/edgar/data/37785/000119312526163937/d81650dex101.htm",
+      "quote": "December 31, 2028\n3.754.50 to 1.00"
+     },
+     {
+      "url": "https://www.sec.gov/Archives/edgar/data/37785/000119312525311499/d873544dex101.htm",
+      "quote": "a Leverage Ratio of not more than 3.75:1.00; provided, however, that notwithstanding the foregoing, during the Covenant Relief Period"
+     }
+    ],
+    "not_tested_2026_q1_q3": {
+     "url": "https://www.sec.gov/Archives/edgar/data/37785/000119312526163937/d81650dex101.htm",
+     "quote": "provided, further that the Leverage Ratio shall not be tested for the\nFiscal Quarters ending March 31, 2026, June 30, 2026 and September 30, 2026"
+    },
+    "relief_period_end": {
+     "url": "https://www.sec.gov/Archives/edgar/data/37785/000119312525311499/d873544dex101.htm",
+     "quote": "\"Covenant Relief Period Termination Date\" means the\nearlier of (a) December 31, 2028"
+    },
+    "test_period": {
+     "url": "https://www.sec.gov/Archives/edgar/data/37785/000003778522000047/fmc-2022rcfxfiftharrevol.htm",
+     "quote": "to (b) EBITDA for the last four Fiscal Quarters ending on or before such date."
+    }
+   }
+  },
+  {
+   "kind": "min_interest_coverage",
+   "direction": "min",
+   "test_period": "ttm",
+   "thresholds": [
+    {
+     "value": 3.5,
+     "effective_from": "2022-06-30",
+     "effective_to": "2023-09-30",
+     "source": "original agreement"
+    },
+    {
+     "value": 2.5,
+     "effective_from": "2023-12-31",
+     "effective_to": "2024-09-30",
+     "source": "Amendment No. 2"
+    },
+    {
+     "value": 3.0,
+     "effective_from": "2024-12-31",
+     "effective_to": "2025-09-30",
+     "source": "Amendment No. 2 / No. 3"
+    },
+    {
+     "value": 2.0,
+     "effective_from": "2025-12-31",
+     "effective_to": "2027-06-30",
+     "source": "Amendment No. 5"
+    },
+    {
+     "value": 2.25,
+     "effective_from": "2027-09-30",
+     "effective_to": "2027-12-31",
+     "source": "Amendment No. 6 REDLINE-DECODED"
+    },
+    {
+     "value": 2.5,
+     "effective_from": "2028-03-31",
+     "effective_to": "2028-12-31",
+     "source": "Amendment No. 6 REDLINE-DECODED"
+    },
+    {
+     "value": 3.5,
+     "effective_from": "2029-03-31",
+     "effective_to": null,
+     "source": "base level after Covenant Relief Period"
+    }
+   ],
+   "numerator_label": "EBITDA",
+   "denominator_label": "Net Consolidated Interest Expense",
+   "ratio_label": "Interest Coverage Ratio",
+   "evidence": {
+    "covenant": {
+     "url": "https://www.sec.gov/Archives/edgar/data/37785/000003778522000047/fmc-2022rcfxfiftharrevol.htm",
+     "quote": "(b) Minimum Interest Coverage Ratio. The U.S. Borrower shall maintain an Interest Coverage Ratio, as determined as of the last day of each Fiscal Quarter, for the four consecutive Fiscal Quarters ending on such day, of not less than 3.50 to 1.00."
+    },
+    "thresholds": [
+     {
+      "url": "https://www.sec.gov/Archives/edgar/data/37785/000003778522000047/fmc-2022rcfxfiftharrevol.htm",
+      "quote": "for the four consecutive Fiscal Quarters ending on such day, of not less than 3.50 to 1.00. SECTION 6.02."
+     },
+     {
+      "url": "https://www.sec.gov/Archives/edgar/data/37785/000119312523272483/d499849dex101.htm",
+      "quote": "December 31, 2023\n2.50 to 1.00\nMarch 31, 2024\n2.50 to 1.00\nJune 30, 2024\n2.50 to 1.00\nSeptember 30, 2024\n2.50 to 1.00\nDecember 31, 2024\n3.00 to 1.00"
+     },
+     {
+      "url": "https://www.sec.gov/Archives/edgar/data/37785/000003778525000013/amendmentno3tofifthamended.htm",
+      "quote": "June 30, 2025 3.00 to 1.00\n2\nSeptember 30, 2025 3.00 to 1.00"
+     },
+     {
+      "url": "https://www.sec.gov/Archives/edgar/data/37785/000119312525311499/d873544dex101.htm",
+      "quote": "December 31, 2025\n2:00 to 1:00\nMarch 31, 2026\n2:00 to 1:00"
+     },
+     {
+      "url": "https://www.sec.gov/Archives/edgar/data/37785/000119312526163937/d81650dex101.htm",
+      "quote": "September 30,\n2027\n2.25 to 1.00\nDecember 31,\n2027\n2.25 to 1.00"
+     },
+     {
+      "url": "https://www.sec.gov/Archives/edgar/data/37785/000119312526163937/d81650dex101.htm",
+      "quote": "30March 31,\n20278 through December 31, 2028\n2.50 2.50 to 1.00"
+     },
+     {
+      "url": "https://www.sec.gov/Archives/edgar/data/37785/000119312525311499/d873544dex101.htm",
+      "quote": "of not less than 3.50 to 1.00; provided, however, notwithstanding the foregoing, during the Covenant Relief Period"
+     }
+    ],
+    "amendment5_schedule_through_2027_06_30": {
+     "url": "https://www.sec.gov/Archives/edgar/data/37785/000119312525311499/d873544dex101.htm",
+     "quote": "June 30, 2027\n2:00 to 1:00\nSeptember 30, 2027 through December 31, 2028\n2:50 to 1:00"
+    }
+   }
+  }
+ ],
+ "terms": [
+  {
+   "label": "Leverage Ratio",
+   "op": "ratio",
+   "children_labels": [
+    "Financial Covenant Debt",
+    "EBITDA"
+   ],
+   "cap": null,
+   "evidence": {
+    "url": "https://www.sec.gov/Archives/edgar/data/37785/000003778522000047/fmc-2022rcfxfiftharrevol.htm",
+    "quote": "\"Leverage Ratio\" means, with respect to the U.S. Borrower and its Subsidiaries on a Consolidated basis as of any date, the ratio of (a) Financial Covenant Debt as of such date minus the aggregate amount of unrestricted cash and cash equivalents (as each such term is defined in accordance with GAAP) of the U.S. Borrower and its Subsidiaries as of such date in excess of $150,000,000"
+   },
+   "note": "numerator is Financial Covenant Debt net of unrestricted cash above $150,000,000"
+  },
+  {
+   "label": "Interest Coverage Ratio",
+   "op": "ratio",
+   "children_labels": [
+    "EBITDA",
+    "Net Consolidated Interest Expense"
+   ],
+   "cap": null,
+   "evidence": {
+    "url": "https://www.sec.gov/Archives/edgar/data/37785/000003778522000047/fmc-2022rcfxfiftharrevol.htm",
+    "quote": "\"Interest Coverage Ratio\" means, with respect to the U.S. Borrower and its Subsidiaries on a Consolidated basis for any period, the ratio of EBITDA for such period to Net Consolidated Interest Expense for such period."
+   }
+  },
+  {
+   "label": "Financial Covenant Debt",
+   "op": "sum",
+   "children_labels": [
+    "Indebtedness"
+   ],
+   "cap": null,
+   "evidence": {
+    "url": "https://www.sec.gov/Archives/edgar/data/37785/000003778522000047/fmc-2022rcfxfiftharrevol.htm",
+    "quote": "\"Financial Covenant Debt\" of any Person means Indebtedness of the type specified in clauses (a), (b), (c), (d), (e), (f), (g) and (h) of the definition of \"Indebtedness\""
+   },
+   "note": "only clauses (a)-(h) of Indebtedness; clause (c) letter-of-credit items only to the extent of unreimbursed drawings"
+  },
+  {
+   "label": "EBITDA",
+   "op": "sum",
+   "children_labels": [
+    "net income",
+    "interest expense",
+    "income and franchise tax expense",
+    "depreciation and amortization",
+    "other non-cash charges and non-cash losses",
+    "Non-Recurring Items",
+    "fees, expenses and charges incurred in connection with acquisitions, investments, asset sales or divestitures",
+    "non-recurring cash restructuring charges",
+    "non-recurring non-cash gains",
+    "cash used during such period to the extent charged against net income in a different period",
+    "cash used during such period relating to any Non-Recurring Items"
+   ],
+   "cap": null,
+   "evidence": {
+    "url": "https://www.sec.gov/Archives/edgar/data/37785/000119312523272483/d499849dex101.htm",
+    "quote": "\"EBITDA\" means, for any period, net income for such\nperiod, plus, (a) without duplication and to the extent deducted from revenues in determining net income for such period, the sum of (i) the aggregate amount of interest expense for such period"
+   },
+   "note": "as amended and restated by Amendment No. 2; last three children are subtracted (clause (b))"
+  },
+  {
+   "label": "non-recurring cash restructuring charges",
+   "op": "cap",
+   "children_labels": [],
+   "cap": {
+    "kind": "abs",
+    "usd": 100000000
+   },
+   "evidence": {
+    "url": "https://www.sec.gov/Archives/edgar/data/37785/000119312523272483/d499849dex101.htm",
+    "quote": "(vii) during the Covenant Relief Period, non-recurring cash restructuring charges in an amount not to exceed\n$100,000,000"
+   }
+  },
+  {
+   "label": "Non-Recurring Items",
+   "op": "leaf",
+   "children_labels": [],
+   "cap": null,
+   "evidence": {
+    "url": "https://www.sec.gov/Archives/edgar/data/37785/000003778522000047/fmc-2022rcfxfiftharrevol.htm",
+    "quote": "\"Non-Recurring Items\" means, to the extent reflected in the determination of net income for any period, provisions for restructuring, discontinued operations, special reserves or other similar charges"
+   }
+  },
+  {
+   "label": "Net Consolidated Interest Expense",
+   "op": "subtract",
+   "children_labels": [
+    "Consolidated interest expense",
+    "amortization of debt discount and premium",
+    "Interest Income"
+   ],
+   "cap": null,
+   "evidence": {
+    "url": "https://www.sec.gov/Archives/edgar/data/37785/000003778522000047/fmc-2022rcfxfiftharrevol.htm",
+    "quote": "\"Net Consolidated Interest Expense\" means, for any period, Consolidated interest expense for such period less the sum of (x) amortization of debt discount and premium for such period and (y) Interest Income for such period."
+   }
+  },
+  {
+   "label": "Interest Income",
+   "op": "leaf",
+   "children_labels": [],
+   "cap": null,
+   "evidence": {
+    "url": "https://www.sec.gov/Archives/edgar/data/37785/000003778522000047/fmc-2022rcfxfiftharrevol.htm",
+    "quote": "\"Interest Income\" means, for the U.S. Borrower and its Subsidiaries on a Consolidated basis for any period, total interest income for such period on a Consolidated basis in conformity with GAAP."
+   }
+  }
+ ],
+ "amendments_considered": [
+  {
+   "accession": "0001193125-23-183826",
+   "url": "https://www.sec.gov/Archives/edgar/data/37785/000119312523183826/d508948dex101.htm",
+   "filed": "2023-07-07",
+   "what_changed": "Amendment No. 1 (Jun 30, 2023): Section 6.01(a) leverage max 4.00x for Jun 30, 2023 - Mar 31, 2024, 3.75x from Jun 30, 2024 (Mar 2024 and later superseded by No. 2)."
+  },
+  {
+   "accession": "0001193125-23-272483",
+   "url": "https://www.sec.gov/Archives/edgar/data/37785/000119312523272483/d499849dex101.htm",
+   "filed": "2023-11-07",
+   "what_changed": "Amendment No. 2 (Nov 7, 2023): Covenant Relief Period (to Sep 30, 2025); leverage schedule up to 6.50x; ICR floor down to 2.50x; EBITDA adds capped $100M restructuring add-back during relief; base leverage 3.75x."
+  },
+  {
+   "accession": "0000037785-25-000013",
+   "url": "https://www.sec.gov/Archives/edgar/data/37785/000003778525000013/amendmentno3tofifthamended.htm",
+   "filed": "2025-02-04",
+   "what_changed": "Amendment No. 3 (Feb 3, 2025): relief period extended to Dec 31, 2027; leverage 5.25x Mar-Sep 2025 (later quarters superseded); ICR 3.00x through Dec 2025 (Dec 2025+ superseded)."
+  },
+  {
+   "accession": "0000037785-25-000015",
+   "url": "https://www.sec.gov/Archives/edgar/data/37785/000003778525000015/amendmentno4tofifthamended.htm",
+   "filed": "2025-02-11",
+   "what_changed": "Amendment No. 4 (Feb 11, 2025): maturity extension only; no covenant change."
+  },
+  {
+   "accession": "0001193125-25-311499",
+   "url": "https://www.sec.gov/Archives/edgar/data/37785/000119312525311499/d873544dex101.htm",
+   "filed": "2025-12-09",
+   "what_changed": "Amendment No. 5 (Dec 8, 2025): relief period to Dec 31, 2028; leverage 6.00x Dec 2025-Sep 2026 then step-downs (Dec 2026+ superseded by No. 6); ICR 2.00x Dec 2025-Jun 2027; adds Minimum IP collateral-value covenant ($1.0B Qualifying IP Collateral, not labeled)."
+  },
+  {
+   "accession": "0001193125-26-163937",
+   "url": "https://www.sec.gov/Archives/edgar/data/37785/000119312526163937/d81650dex101.htm",
+   "filed": "2026-04-20",
+   "what_changed": "Amendment No. 6 (Apr 16, 2026): waiver of Q1 2026 leverage covenant; leverage not tested Mar/Jun/Sep 2026; new leverage schedule 6.75x Dec 2026-Dec 2027 stepping to 4.50x Dec 2028; ICR 2.25x Sep/Dec 2027, 2.50x Mar-Dec 2028; adds 6.01(c) Maximum Secured Leverage Ratio 3.50x; collateral/guarantees added. Delivered as a marked (redline) copy; doc_text merges stricken and inserted text."
+  },
+  {
+   "accession": "0001193125-26-279416",
+   "url": "https://www.sec.gov/Archives/edgar/data/37785/000119312526279416/d123428dex101.htm",
+   "filed": "2026-06-23",
+   "what_changed": "Amendment No. 7 (Jun 16, 2026): lien basket for Rimi IP; no financial covenant change found."
+  },
+  {
+   "accession": "0001193125-26-427896",
+   "url": "https://www.sec.gov/Archives/edgar/data/37785/000119312526427896/d201698dex101.htm",
+   "filed": "2026-10-21",
+   "what_changed": "Amendment No. 8: FMC India disposition proceeds and waivers; no financial covenant level change found."
+  }
+ ],
+ "draft_notes": [
+  "Amendment No. 6 (2026) is a marked copy: in doc_text stricken and inserted characters are concatenated (e.g. '5.506.75 to 1.00' = old 5.50, new 6.75). Thresholds tagged 'REDLINE-DECODED' are my reading of new-over-old; verify against the EDGAR HTML (strike/underline formatting) before accepting, or drop them.",
+  "Leverage Ratio not tested for fiscal quarters ending Mar 31, Jun 30, Sep 30, 2026 (Amendment No. 6), so the 6.00x level is recorded only for Dec 31, 2025; Q1 2026 was also expressly waived.",
+  "The base levels (3.75x leverage, 3.50x ICR) after the Covenant Relief Period are recorded from 2029-03-31 as the first quarter after the Dec 31, 2028 relief termination date; relief can end earlier on Company notice.",
+  "Not labeled: 6.01(c) Maximum Secured Leverage Ratio 3.50x added by Amendment No. 6 (redline-only evidence, first test date unclear); Section 6.03(m) Minimum IP collateral value covenant ($1,000,000,000) added by Amendment No. 5 (collateral test, not a financial ratio).",
+  "Amendment No. 5 writes ratios with colons ('6:00 to 1:00'); read as 6.00.",
+  "Amendment No. 5 schedule had a step-up at Mar 31, 2027 (5:75 after 5:50) but that segment is superseded by Amendment No. 6.",
+  "EBITDA definition taken as amended by Amendment No. 2 (adds clause (a)(vii) capped restructuring add-back); Amendment No. 6 conformed text shows the same definition.",
+  "effective_to convention: last test date the level applies to."
+ ]
+}

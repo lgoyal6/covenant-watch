@@ -1,0 +1,289 @@
+{
+ "cik": "0000033185",
+ "agreement_accession": "0001193125-21-262096",
+ "agreement_url": "https://www.sec.gov/Archives/edgar/data/33185/000119312521262096/d220137dex101.htm",
+ "labeled_by": "claude-draft (unverified; Dat must check each field against evidence)",
+ "labeled_at": "2026-10-28",
+ "status": "draft",
+ "agreement_title": "Credit Agreement dated as of August 25, 2021 (Equifax Inc.; JPMorgan Chase Bank, N.A., Administrative Agent), as amended",
+ "definitions_source_url": "https://www.sec.gov/Archives/edgar/data/33185/000003318525000054/exhibit101-20250630.htm",
+ "covenants": [
+  {
+   "kind": "max_leverage",
+   "direction": "max",
+   "test_period": "ttm",
+   "thresholds": [
+    {
+     "value": 3.75,
+     "effective_from": "2021-09-30",
+     "effective_to": "2021-09-30",
+     "source": "original agreement"
+    },
+    {
+     "value": 4.25,
+     "effective_from": "2021-12-31",
+     "effective_to": "2022-09-30",
+     "source": "original agreement (Appriss Closing Date Oct 1, 2021)"
+    },
+    {
+     "value": 4.25,
+     "effective_from": "2022-12-31",
+     "effective_to": "2023-12-31",
+     "source": "First Amendment (Mar 21, 2023)"
+    },
+    {
+     "value": 3.75,
+     "effective_from": "2024-03-31",
+     "effective_to": null,
+     "source": "First Amendment (Mar 21, 2023)"
+    }
+   ],
+   "numerator_label": "Consolidated Funded Debt",
+   "denominator_label": "Consolidated EBITDA",
+   "ratio_label": "Leverage Ratio",
+   "numerator_net_of": "Cash Netting Amount",
+   "evidence": {
+    "covenant": {
+     "url": "https://www.sec.gov/Archives/edgar/data/33185/000003318525000054/exhibit101-20250630.htm",
+     "quote": "8.01 Maximum Leverage Ratio. As of the end of each fiscal quarter, (i) commencing with and including the end of the fiscal quarter ended on or around December 31, 2022"
+    },
+    "test_period": {
+     "url": "https://www.sec.gov/Archives/edgar/data/33185/000003318525000054/exhibit101-20250630.htm",
+     "quote": "\"Leverage Ratio\" means, as of the last day of any fiscal quarter, the ratio of (a) (x) Consolidated Funded Debt on such day minus (y) the Cash Netting Amount to (b) Consolidated EBITDA for the period of four consecutive fiscal quarters ending as of such day."
+    },
+    "thresholds": [
+     {
+      "url": "https://www.sec.gov/Archives/edgar/data/33185/000119312521262096/d220137dex101.htm",
+      "quote": "the end of the first fiscal quarter ending after the Closing Date through but\n124\nexcluding the end of the first fiscal quarter ending after the Appriss Closing Date, the Company will not permit the Leverage Ratio to be greater than 3.75:1.00"
+     },
+     {
+      "url": "https://www.sec.gov/Archives/edgar/data/33185/000119312521262096/d220137dex101.htm",
+      "quote": "The first fiscal quarter ending after the Appriss Closing Date through and including the fourth fiscal quarter ending after the Appriss Closing Date\n4.25 to 1.00"
+     },
+     {
+      "url": "https://www.sec.gov/Archives/edgar/data/33185/000003318525000054/exhibit101-20250630.htm",
+      "quote": "(i) commencing with and including the end of the fiscal quarter ended on or around December 31, 2022 and through and including the end of the fiscal quarter ending on or around December 31, 2023, the Company will not permit the Leverage Ratio to be greater than 4.25:1.00"
+     },
+     {
+      "url": "https://www.sec.gov/Archives/edgar/data/33185/000003318524000049/exhibit101-20240630.htm",
+      "quote": "commencing with the end of the first fiscal quarter ending on or around March 31, 2024 and for the end of each fiscal quarter ending thereafter, the Company will not permit the Leverage Ratio to be greater than 3.75:1.00"
+     }
+    ],
+    "appriss_closing_date": {
+     "url": "https://www.sec.gov/Archives/edgar/data/33185/000003318522000014/efx-20211231.htm",
+     "quote": "the consummation of the Company's acquisition of Appriss Insights on October 1, 2021 (the \"Appriss Closing Date\")"
+    }
+   }
+  }
+ ],
+ "terms": [
+  {
+   "label": "Leverage Ratio",
+   "op": "ratio",
+   "children_labels": [
+    "Consolidated Funded Debt",
+    "Cash Netting Amount",
+    "Consolidated EBITDA"
+   ],
+   "cap": null,
+   "evidence": {
+    "url": "https://www.sec.gov/Archives/edgar/data/33185/000003318525000054/exhibit101-20250630.htm",
+    "quote": "\"Leverage Ratio\" means, as of the last day of any fiscal quarter, the ratio of (a) (x) Consolidated Funded Debt on such day minus (y) the Cash Netting Amount to (b) Consolidated EBITDA"
+   }
+  },
+  {
+   "label": "Consolidated Funded Debt",
+   "op": "sum",
+   "children_labels": [
+    "obligations for borrowed money",
+    "obligations evidenced by bonds, debentures, notes or similar instruments",
+    "Debt of others secured by Liens",
+    "Support Obligations",
+    "principal portion of obligations under Capital Leases",
+    "net obligations in respect of Hedging Agreements",
+    "standby letters of credit (drawn and unreimbursed only)",
+    "outstanding attributed principal amount under any asset securitization program"
+   ],
+   "cap": null,
+   "evidence": {
+    "url": "https://www.sec.gov/Archives/edgar/data/33185/000003318525000054/exhibit101-20250630.htm",
+    "quote": "\"Consolidated Funded Debt\" means, as of any date, without duplication, all Debt of the Company and its Consolidated Subsidiaries of the type referred to in clauses (a), (b), (f), (g) (but only with respect to obligations otherwise included in this definition of Consolidated Funded Debt), (h), (i) (but only to the extent then due and owing), (j)"
+   },
+   "evidence_children": [
+    {
+     "url": "https://www.sec.gov/Archives/edgar/data/33185/000003318525000054/exhibit101-20250630.htm",
+     "quote": "(a) all obligations of such Person for borrowed money;"
+    },
+    {
+     "url": "https://www.sec.gov/Archives/edgar/data/33185/000003318525000054/exhibit101-20250630.htm",
+     "quote": "(b) all obligations of such Person evidenced by bonds, debentures, notes or similar instruments;"
+    },
+    {
+     "url": "https://www.sec.gov/Archives/edgar/data/33185/000003318525000054/exhibit101-20250630.htm",
+     "quote": "(f) all Debt of others secured by"
+    },
+    {
+     "url": "https://www.sec.gov/Archives/edgar/data/33185/000003318525000054/exhibit101-20250630.htm",
+     "quote": "(g) all Support Obligations of such Person with respect to a Debt of another Person;"
+    },
+    {
+     "url": "https://www.sec.gov/Archives/edgar/data/33185/000003318525000054/exhibit101-20250630.htm",
+     "quote": "(h) the principal portion of all obligations of such Person under Capital Leases;"
+    },
+    {
+     "url": "https://www.sec.gov/Archives/edgar/data/33185/000003318525000054/exhibit101-20250630.htm",
+     "quote": "(i) all net obligations of such Person in respect of Hedging Agreements;"
+    },
+    {
+     "url": "https://www.sec.gov/Archives/edgar/data/33185/000003318525000054/exhibit101-20250630.htm",
+     "quote": "(j) (but in the case of clause (j), only to the extent of any drawn and unreimbursed amount of such letters of credit) and (l) (but excluding any Permitted Receivables Financing Debt)"
+    },
+    {
+     "url": "https://www.sec.gov/Archives/edgar/data/33185/000003318525000054/exhibit101-20250630.htm",
+     "quote": "(l) the outstanding attributed principal amount under any asset securitization program of such Person"
+    }
+   ]
+  },
+  {
+   "label": "Cash Netting Amount",
+   "op": "cap",
+   "children_labels": [
+    "unrestricted cash and cash equivalents in excess of $175,000,000"
+   ],
+   "cap": {
+    "kind": "pct_of",
+    "of": "Consolidated EBITDA",
+    "pct": 0.375
+   },
+   "evidence": {
+    "url": "https://www.sec.gov/Archives/edgar/data/33185/000003318525000054/exhibit101-20250630.htm",
+    "quote": "\"Cash Netting Amount\" means, as of the last day of any fiscal quarter, the amount of unrestricted cash and cash equivalents of the Company and its Consolidated Subsidiaries in excess of $175,000,000; provided that the Cash Netting Amount shall not exceed 37.5% of Consolidated EBITDA"
+   }
+  },
+  {
+   "label": "Consolidated EBITDA",
+   "op": "sum",
+   "children_labels": [
+    "Consolidated Net Income",
+    "Consolidated Interest Expense",
+    "federal and state income tax expense",
+    "depreciation and amortization expense",
+    "other non-cash charges",
+    "September 2017 Cybersecurity Incident out-of-pocket expenses (periods ending on or prior to December 31, 2021)",
+    "September 2017 Cybersecurity Incident fines, penalties and settlements paid in cash",
+    "extraordinary, unusual, non-recurring or one-time cash expenses, losses and charges",
+    "fees and expenses in respect of acquisitions, dispositions, investments and debt or equity issuances",
+    "pension and postretirement mark-to-market gains or losses",
+    "unrealized foreign currency translation gains and losses",
+    "acquisition integration costs"
+   ],
+   "cap": null,
+   "evidence": {
+    "url": "https://www.sec.gov/Archives/edgar/data/33185/000003318525000054/exhibit101-20250630.htm",
+    "quote": "\"Consolidated EBITDA\" means, for any period, as applied to the Company and its Consolidated Subsidiaries without duplication, the sum of the amounts for such period of: (a) Consolidated Net Income, plus (b) an amount which, in the determination of Consolidated Net Income has been deducted for (i) Consolidated Interest Expense, (ii) all federal and state income tax expense, (iii) depreciation and amortization expense, (iv) all other non-cash charges"
+   }
+  },
+  {
+   "label": "September 2017 Cybersecurity Incident out-of-pocket expenses (periods ending on or prior to December 31, 2021)",
+   "op": "cap",
+   "children_labels": [],
+   "cap": {
+    "kind": "abs",
+    "usd": 250000000
+   },
+   "evidence": {
+    "url": "https://www.sec.gov/Archives/edgar/data/33185/000003318525000054/exhibit101-20250630.htm",
+    "quote": "in an amount not to exceed, for any period of four consecutive fiscal quarters, $250,000,000"
+   }
+  },
+  {
+   "label": "acquisition integration costs",
+   "op": "cap",
+   "children_labels": [],
+   "cap": {
+    "kind": "abs",
+    "usd": 100000000
+   },
+   "evidence": {
+    "url": "https://www.sec.gov/Archives/edgar/data/33185/000003318525000054/exhibit101-20250630.htm",
+    "quote": "provided that the aggregate amount added to or included in Consolidated EBITDA pursuant to this clause (xi) shall not, for any period of four consecutive fiscal quarters, exceed $100,000,000"
+   }
+  },
+  {
+   "label": "Consolidated Net Income",
+   "op": "leaf",
+   "children_labels": [],
+   "cap": null,
+   "evidence": {
+    "url": "https://www.sec.gov/Archives/edgar/data/33185/000003318525000054/exhibit101-20250630.htm",
+    "quote": "\"Consolidated Net Income\" means, for any period, the net income, after taxes, of the Company and its Consolidated Subsidiaries for such period as determined and computed on a Consolidated basis in accordance with GAAP."
+   }
+  },
+  {
+   "label": "Consolidated Interest Expense",
+   "op": "sum",
+   "children_labels": [
+    "total interest expense",
+    "net amount payable under Hedging Agreements",
+    "amortization of debt discount and debt issuance fees",
+    "fees in connection with any amendment or waiver of any debt issuance",
+    "administration fees payable to the Administrative Agent"
+   ],
+   "cap": null,
+   "evidence": {
+    "url": "https://www.sec.gov/Archives/edgar/data/33185/000003318525000054/exhibit101-20250630.htm",
+    "quote": "the sum of (a) total interest expense, including without limitation the interest component of any payments in respect of capital leases"
+   }
+  }
+ ],
+ "amendments_considered": [
+  {
+   "accession": "0000033185-23-000023",
+   "url": "https://www.sec.gov/Archives/edgar/data/33185/000003318523000023/exhibit101-20230331.htm",
+   "filed": "2023-04-20",
+   "what_changed": "First Amendment (Mar 21, 2023): replaced the Appriss-relative step-down with 4.25x for quarters ending ~Dec 31, 2022 through ~Dec 31, 2023 and 3.75x from ~Mar 31, 2024; Material Acquisition 0.50x step-up disregarded through Dec 31, 2023; added EBITDA clause (xi) integration costs capped at $100,000,000; Consolidated Funded Debt now excludes Permitted Receivables Financing Debt.",
+   "evidence": {
+    "url": "https://www.sec.gov/Archives/edgar/data/33185/000003318523000023/exhibit101-20230331.htm",
+    "quote": "FIRST AMENDMENT TO CREDIT AGREEMENT"
+   }
+  },
+  {
+   "accession": "0000033185-24-000049",
+   "url": "https://www.sec.gov/Archives/edgar/data/33185/000003318524000049/exhibit101-20240630.htm",
+   "filed": "2024-07-22",
+   "what_changed": "Second Amendment (May 24, 2024): conformed copy shows Section 8.01 levels unchanged (4.25x through ~Dec 31, 2023; 3.75x thereafter). Purpose not determined; no covenant level change found.",
+   "evidence": {
+    "url": "https://www.sec.gov/Archives/edgar/data/33185/000003318524000049/exhibit101-20240630.htm",
+    "quote": "SECOND AMENDMENT TO CREDIT AGREEMENT"
+   }
+  },
+  {
+   "accession": "0000033185-25-000054",
+   "url": "https://www.sec.gov/Archives/edgar/data/33185/000003318525000054/exhibit101-20250630.htm",
+   "filed": "2025-07-22",
+   "what_changed": "Third Amendment (May 27, 2025): conformed copy shows Section 8.01 and Leverage Ratio/Consolidated Funded Debt/Consolidated EBITDA definitions unchanged vs Second Amendment conformed copy (whitespace-normalized compare). Used as definitions source.",
+   "evidence": {
+    "url": "https://www.sec.gov/Archives/edgar/data/33185/000003318525000054/exhibit101-20250630.htm",
+    "quote": "THIRD AMENDMENT TO CREDIT AGREEMENT"
+   }
+  },
+  {
+   "accession": "0001193125-26-177620",
+   "url": "https://www.sec.gov/Archives/edgar/data/33185/000119312526177620/d50537dex101.htm",
+   "filed": "2026-04-24",
+   "what_changed": "Fourth Amendment (Apr 23, 2026): adds 2026 incremental and 2029 revolving lenders; Section 8.01 text in conformed copy still 4.25x/3.75x. Not fully diffed for definition changes.",
+   "evidence": {
+    "url": "https://www.sec.gov/Archives/edgar/data/33185/000119312526177620/d50537dex101.htm",
+    "quote": "FOURTH AMENDMENT TO CREDIT AGREEMENT"
+   }
+  }
+ ],
+ "draft_notes": [
+  "Original-agreement thresholds are Appriss-relative; Appriss Closing Date taken as Oct 1, 2021 from the FY2021 10-K (evidence.appriss_closing_date), not from the agreement. Verify the quarter mapping: 3.75x only for Q3 2021, 4.25x Q4 2021-Q3 2022.",
+  "Original schedule's 4.00x (5th-6th FQ after Appriss close = Dec 31, 2022 and Mar 31, 2023) and 3.75x (7th FQ onward) were superseded by the First Amendment before/at those test dates and are omitted; verifier may prefer to include them.",
+  "Optional 0.50x Material Acquisition step-up (max 4.75x) omitted per README (base schedule only).",
+  "Numerator is Consolidated Funded Debt minus Cash Netting Amount (cash over $175,000,000, capped at 37.5% of Consolidated EBITDA); recorded via numerator_net_of and the Cash Netting Amount term.",
+  "Consolidated Funded Debt children are clause descriptions of the Debt definition (clauses (a),(b),(f),(g),(h),(i),(j),(l)); (i) counted only to the extent then due and owing, (j) only drawn and unreimbursed.",
+  "Definitions quoted from the Third Amendment conformed copy (in force for 2025); the original 2021 agreement lacked EBITDA clause (xi) and had a different Consolidated Funded Debt clause list."
+ ]
+}

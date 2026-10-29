@@ -1,0 +1,242 @@
+{
+ "cik": "0001468174",
+ "agreement_accession": "0001193125-22-158508",
+ "agreement_url": "https://www.sec.gov/Archives/edgar/data/1468174/000119312522158508/d336237dex101.htm",
+ "labeled_by": "claude-draft (unverified; Dat must check each field against evidence)",
+ "labeled_at": "2026-10-28",
+ "status": "draft",
+ "agreement_title": "Credit Agreement dated as of May 18, 2022 (Hyatt Hotels Corporation; Bank of America, N.A., Administrative Agent)",
+ "covenants": [
+  {
+   "kind": "max_leverage",
+   "direction": "max",
+   "test_period": "ttm",
+   "thresholds": [
+    {
+     "value": 7.5,
+     "effective_from": "2022-06-30",
+     "effective_to": "2022-06-30"
+    },
+    {
+     "value": 7.0,
+     "effective_from": "2022-09-30",
+     "effective_to": "2022-09-30"
+    },
+    {
+     "value": 5.5,
+     "effective_from": "2022-12-31",
+     "effective_to": "2022-12-31"
+    },
+    {
+     "value": 5.0,
+     "effective_from": "2023-03-31",
+     "effective_to": "2023-03-31"
+    },
+    {
+     "value": 4.5,
+     "effective_from": "2023-06-30",
+     "effective_to": null
+    }
+   ],
+   "numerator_label": "Consolidated Adjusted Funded Debt",
+   "denominator_label": "Consolidated EBITDA",
+   "ratio_label": "Leverage Ratio",
+   "evidence": {
+    "covenant": {
+     "url": "https://www.sec.gov/Archives/edgar/data/1468174/000119312522158508/d336237dex101.htm",
+     "quote": "5.9 Leverage Ratio.\nOn a consolidated basis, maintain a Leverage Ratio as of each Measurement Date of not more than the applicable ratio set forth below for the\napplicable Measurement Date"
+    },
+    "thresholds": [
+     {
+      "url": "https://www.sec.gov/Archives/edgar/data/1468174/000119312522158508/d336237dex101.htm",
+      "quote": "June 30, 2022\n7.50 to 1.00"
+     },
+     {
+      "url": "https://www.sec.gov/Archives/edgar/data/1468174/000119312522158508/d336237dex101.htm",
+      "quote": "September 30, 2022\n7.00 to 1.00"
+     },
+     {
+      "url": "https://www.sec.gov/Archives/edgar/data/1468174/000119312522158508/d336237dex101.htm",
+      "quote": "December 31, 2022\n5.50 to 1.00"
+     },
+     {
+      "url": "https://www.sec.gov/Archives/edgar/data/1468174/000119312522158508/d336237dex101.htm",
+      "quote": "March 31, 2023\n5.00 to 1.00"
+     },
+     {
+      "url": "https://www.sec.gov/Archives/edgar/data/1468174/000119312522158508/d336237dex101.htm",
+      "quote": "June 30, 2023 and each fiscal quarter thereafter\n4.50 to 1.00"
+     }
+    ],
+    "acquisition_holiday_not_in_schedule": {
+     "url": "https://www.sec.gov/Archives/edgar/data/1468174/000119312522158508/d336237dex101.htm",
+     "quote": "from and after June 30, 2023, Hyatt may maintain a Leverage Ratio of not more than 5.50 to 1.0 for any Measurement Date occurring during a period commencing on the date of the consummation of\na Qualified Acquisition"
+    },
+    "test_period": {
+     "url": "https://www.sec.gov/Archives/edgar/data/1468174/000119312522158508/d336237dex101.htm",
+     "quote": "Consolidated EBITDA for the twelve month period ending on the last day of such fiscal quarter"
+    }
+   }
+  }
+ ],
+ "terms": [
+  {
+   "label": "Leverage Ratio",
+   "op": "ratio",
+   "children_labels": [
+    "Consolidated Adjusted Funded Debt",
+    "Consolidated EBITDA"
+   ],
+   "cap": null,
+   "evidence": {
+    "url": "https://www.sec.gov/Archives/edgar/data/1468174/000119312522158508/d336237dex101.htm",
+    "quote": "\"Leverage Ratio\"\nmeans, as of any date of determination, with respect to Hyatt and its Subsidiaries on a consolidated basis, the ratio of (a) Consolidated Adjusted Funded Debt as of the last day of the twelve month period ending on the last day of the fiscal\nquarter most recently ended on or prior to such date to (b) Consolidated EBITDA for the twelve month period ending on the last day of such fiscal quarter."
+   }
+  },
+  {
+   "label": "Consolidated Adjusted Funded Debt",
+   "op": "subtract",
+   "children_labels": [
+    "Funded Debt",
+    "Guaranty Obligations",
+    "contingent reimbursement obligations with respect to the undrawn stated amount of letters of credit",
+    "unrestricted cash and Cash Equivalents in excess of $100,000,000"
+   ],
+   "cap": null,
+   "evidence": {
+    "url": "https://www.sec.gov/Archives/edgar/data/1468174/000119312522158508/d336237dex101.htm",
+    "quote": "\"Consolidated Adjusted Funded Debt\" means, as of any date of determination,\nwithout duplication, (a) the aggregate principal amount of all Funded Debt of Hyatt and its Subsidiaries on a consolidated basis minus (b) the lesser of (i) $300,000,000 and (ii) the aggregate outstanding principal amount of\nall Guaranty Obligations"
+   }
+  },
+  {
+   "label": "Guaranty Obligations",
+   "op": "cap",
+   "children_labels": [],
+   "cap": {
+    "kind": "abs",
+    "usd": 300000000
+   },
+   "evidence": {
+    "url": "https://www.sec.gov/Archives/edgar/data/1468174/000119312522158508/d336237dex101.htm",
+    "quote": "minus (b) the lesser of (i) $300,000,000 and (ii) the aggregate outstanding principal amount of\nall Guaranty Obligations of Hyatt or any of its Subsidiaries of Funded Debt of all other Persons"
+   },
+   "note": "cap applies to the deduction (b) inside Consolidated Adjusted Funded Debt, not to the Guaranty Obligations definition itself"
+  },
+  {
+   "label": "contingent reimbursement obligations with respect to the undrawn stated amount of letters of credit",
+   "op": "cap",
+   "children_labels": [],
+   "cap": {
+    "kind": "abs",
+    "usd": 300000000
+   },
+   "evidence": {
+    "url": "https://www.sec.gov/Archives/edgar/data/1468174/000119312522158508/d336237dex101.htm",
+    "quote": "minus (c) the lesser of (i) $300,000,000 and (ii) contingent reimbursement obligations of Hyatt or any of its Subsidiaries with respect\nto the undrawn stated amount of letters of credit"
+   }
+  },
+  {
+   "label": "unrestricted cash and Cash Equivalents in excess of $100,000,000",
+   "op": "cap",
+   "children_labels": [],
+   "cap": null,
+   "evidence": {
+    "url": "https://www.sec.gov/Archives/edgar/data/1468174/000119312522158508/d336237dex101.htm",
+    "quote": "minus (d) the lesser of (i) all unrestricted cash and Cash\nEquivalents of Hyatt and its Subsidiaries in excess of $100,000,000 and (ii) the amount of Funded Debt that matures on or before the date that is 12 months from such date of determination."
+   },
+   "note": "capped at Funded Debt maturing within 12 months (not expressible in cap schema); only cash above $100,000,000 counts"
+  },
+  {
+   "label": "Funded Debt",
+   "op": "sum",
+   "children_labels": [
+    "obligations for borrowed money",
+    "obligations evidenced by bonds, debentures, notes or similar instruments",
+    "conditional sale or other title retention agreements",
+    "deferred purchase price of Property or services",
+    "Guaranty Obligations",
+    "Capital Leases",
+    "standby letters of credit and bankers' acceptances",
+    "preferred Capital Stock subject to mandatory redemption",
+    "synthetic lease, tax retention operating lease, off-balance sheet loan",
+    "Indebtedness of any partnership or unincorporated joint venture"
+   ],
+   "cap": null,
+   "evidence": {
+    "url": "https://www.sec.gov/Archives/edgar/data/1468174/000119312522158508/d336237dex101.htm",
+    "quote": "\"Funded Debt\" means, with respect to any Person, without duplication, (a) all obligations of such Person for borrowed\nmoney, (b) all obligations of such Person evidenced by bonds, debentures, notes or similar instruments"
+   }
+  },
+  {
+   "label": "Consolidated EBITDA",
+   "op": "sum",
+   "children_labels": [
+    "Consolidated Net Income",
+    "cash distributions received by Hyatt from unconsolidated joint ventures",
+    "Consolidated Interest Expense",
+    "provision for Federal, state, local, foreign income, value added and similar taxes",
+    "depreciation and amortization expense",
+    "amortization of management and franchise agreement intangibles constituting key money and other contra revenue",
+    "non-cash Capital Stock compensation costs",
+    "other non-recurring non-cash charges",
+    "non-cash income due to foreign currency gains"
+   ],
+   "cap": null,
+   "evidence": {
+    "url": "https://www.sec.gov/Archives/edgar/data/1468174/000119312522158508/d336237dex101.htm",
+    "quote": "\"Consolidated\nEBITDA\" means, for any period, (a) Consolidated Net Income for such period (excluding from the determination of Consolidated Net Income any income or losses attributable to unconsolidated joint ventures of Hyatt and its Subsidiaries)\nplus cash distributions received by Hyatt from unconsolidated joint ventures"
+   },
+   "note": "last child (foreign currency gains) is subtracted: 'minus (c) to the extent included in calculating Consolidated Net Income, non-cash income due to foreign currency gains'"
+  },
+  {
+   "label": "Consolidated Interest Expense",
+   "op": "leaf",
+   "children_labels": [],
+   "cap": null,
+   "evidence": {
+    "url": "https://www.sec.gov/Archives/edgar/data/1468174/000119312522158508/d336237dex101.htm",
+    "quote": "\"Consolidated Interest Expense\" means, for any period, all interest expense with\nrespect to Funded Debt for such period of Hyatt and its Subsidiaries on a consolidated basis"
+   },
+   "evidence_minus": {
+    "url": "https://www.sec.gov/Archives/edgar/data/1468174/000119312522158508/d336237dex101.htm",
+    "quote": "minus (c) to the extent included in calculating Consolidated Net Income, non-cash income due to foreign currency gains"
+   }
+  },
+  {
+   "label": "Consolidated Net Income",
+   "op": "leaf",
+   "children_labels": [],
+   "cap": null,
+   "evidence": {
+    "url": "https://www.sec.gov/Archives/edgar/data/1468174/000119312522158508/d336237dex101.htm",
+    "quote": "\"Consolidated Net Income\" means, for any period, net income after taxes of\nHyatt and its Subsidiaries on a consolidated basis, as determined in accordance with GAAP"
+   }
+  }
+ ],
+ "amendments_considered": [
+  {
+   "accession": "0001104659-25-104477",
+   "url": "https://www.sec.gov/Archives/edgar/data/1468174/000110465925104477/tm2529845d1_ex10-1.htm",
+   "filed": "2025-10-30",
+   "what_changed": "Not an amendment: new Credit Agreement dated October 30, 2025 that replaces the 2022 agreement. Same 4.50x Leverage Ratio covenant, tested commencing with the fiscal quarter ending December 31, 2025. Not merged into this label's schedule.",
+   "evidence": {
+    "url": "https://www.sec.gov/Archives/edgar/data/1468174/000110465925104477/tm2529845d1_ex10-1.htm",
+    "quote": "maintain\na Leverage Ratio as of each Measurement Date (commencing with the fiscal quarter ending December 31, 2025) of not more than 4.50\nto 1.0"
+   }
+  },
+  {
+   "accession": "0001104659-25-034703",
+   "url": "https://www.sec.gov/Archives/edgar/data/1468174/000110465925034703/tm2512211d1_ex10-1.htm",
+   "filed": "2025-04-14",
+   "what_changed": "Separate delayed-draw term loan Credit Agreement dated April 11, 2025 (not an amendment of the revolver); not labeled here."
+  }
+ ],
+ "draft_notes": [
+  "No amendments to the May 18, 2022 Credit Agreement were found in EDGAR full-text search (8-K/10-Q/10-K); it was replaced by the October 30, 2025 Credit Agreement.",
+  "Leverage Ratio uses Consolidated EBITDA annualized for the June 30, 2022 (x2) and September 30, 2022 (x4/3) Measurement Dates; test_period labeled ttm.",
+  "Qualified Acquisition step-up to 5.50x (from and after June 30, 2023, up to four Measurement Dates) excluded from schedule per README rule 3.",
+  "Consolidated Adjusted Funded Debt deductions (b) and (c) are each capped at $300,000,000; modeled as separate 'cap' terms. Deduction (d) is the lesser of excess cash over $100,000,000 and Funded Debt maturing within 12 months, not representable in the cap schema.",
+  "Funded Debt children are paraphrased short labels for clauses (a)-(j); verify wording preference.",
+  "effective_to convention: last test date the level applies to."
+ ]
+}

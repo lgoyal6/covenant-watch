@@ -1,0 +1,393 @@
+{
+ "cik": "0000712034",
+ "agreement_accession": "0000712034-17-000012",
+ "agreement_url": "https://www.sec.gov/Archives/edgar/data/712034/000071203417000012/acco-20161231xex1011.htm",
+ "labeled_by": "claude-draft (unverified; Dat must check each field against evidence)",
+ "labeled_at": "2026-10-28",
+ "status": "draft",
+ "agreement_title": "Third Amended and Restated Credit Agreement dated as of January 27, 2017 (ACCO Brands Corporation; Bank of America, N.A., Administrative Agent), as amended through the Eighth Amendment",
+ "definitions_source_url": "https://www.sec.gov/Archives/edgar/data/712034/000095017025100909/acco-ex10_1.htm",
+ "measurement_period_evidence": {
+  "url": "https://www.sec.gov/Archives/edgar/data/712034/000095017025100909/acco-ex10_1.htm",
+  "quote": "\"Measurement Period\" means, at any date of determination, the most recently completed four fiscal quarters of Holdings."
+ },
+ "covenants": [
+  {
+   "kind": "max_leverage",
+   "direction": "max",
+   "test_period": "ttm",
+   "thresholds": [
+    {
+     "value": 4.5,
+     "effective_from": "2022-12-31",
+     "effective_to": "2022-12-31",
+     "source": "Sixth Amendment"
+    },
+    {
+     "value": 5.0,
+     "effective_from": "2023-03-31",
+     "effective_to": "2023-06-30",
+     "source": "Sixth Amendment"
+    },
+    {
+     "value": 4.75,
+     "effective_from": "2023-09-30",
+     "effective_to": "2023-09-30",
+     "source": "Sixth Amendment"
+    },
+    {
+     "value": 4.25,
+     "effective_from": "2023-12-31",
+     "effective_to": "2023-12-31",
+     "source": "Sixth Amendment"
+    },
+    {
+     "value": 4.5,
+     "effective_from": "2024-03-31",
+     "effective_to": "2024-06-30",
+     "source": "Sixth Amendment"
+    },
+    {
+     "value": 4.0,
+     "effective_from": "2024-09-30",
+     "effective_to": "2024-12-31",
+     "source": "Sixth Amendment"
+    },
+    {
+     "value": 4.5,
+     "effective_from": "2025-03-31",
+     "effective_to": "2025-06-30",
+     "source": "Sixth Amendment (each first and second fiscal quarter thereafter)"
+    },
+    {
+     "value": 4.5,
+     "effective_from": "2025-09-30",
+     "effective_to": "2025-12-31",
+     "source": "Eighth Amendment (Covenant Relief Period)"
+    },
+    {
+     "value": 4.75,
+     "effective_from": "2026-03-31",
+     "effective_to": "2026-06-30",
+     "source": "Eighth Amendment (Covenant Relief Period)"
+    },
+    {
+     "value": 4.25,
+     "effective_from": "2026-09-30",
+     "effective_to": "2026-12-31",
+     "source": "Eighth Amendment (Covenant Relief Period)"
+    },
+    {
+     "value": 4.5,
+     "effective_from": "2027-03-31",
+     "effective_to": "2027-06-30",
+     "source": "recurring: each first and second fiscal quarter after the Covenant Relief Period"
+    },
+    {
+     "value": 4.0,
+     "effective_from": "2027-09-30",
+     "effective_to": "2027-12-31",
+     "source": "recurring: each third and fourth fiscal quarter after the Covenant Relief Period"
+    }
+   ],
+   "numerator_label": "Consolidated Funded Indebtedness",
+   "denominator_label": "Consolidated EBITDA",
+   "ratio_label": "Consolidated Leverage Ratio",
+   "numerator_net_of": "Unrestricted Cash",
+   "evidence": {
+    "covenant": {
+     "url": "https://www.sec.gov/Archives/edgar/data/712034/000095017025100909/acco-ex10_1.htm",
+     "quote": "Consolidated Leverage Ratio. Permit the Consolidated Leverage Ratio as of the end of any fiscal quarter of Holdings"
+    },
+    "thresholds": [
+     {
+      "url": "https://www.sec.gov/Archives/edgar/data/712034/000095017024119565/acco-ex10_1.htm",
+      "quote": "(vi) for the fiscal quarter ending December 31, 2022, to be greater than 4.50:1.00"
+     },
+     {
+      "url": "https://www.sec.gov/Archives/edgar/data/712034/000095017024119565/acco-ex10_1.htm",
+      "quote": "(vii) for the fiscal quarters ending March 31, 2023 and June 30, 2023, to be greater than 5.00:1.00"
+     },
+     {
+      "url": "https://www.sec.gov/Archives/edgar/data/712034/000095017024119565/acco-ex10_1.htm",
+      "quote": "(viii) for the fiscal quarter ending September 30, 2023, to be greater than 4.75:1.00"
+     },
+     {
+      "url": "https://www.sec.gov/Archives/edgar/data/712034/000095017024119565/acco-ex10_1.htm",
+      "quote": "(ix) for the fiscal quarter ending December 31, 2023, to be greater than 4.25:1.00"
+     },
+     {
+      "url": "https://www.sec.gov/Archives/edgar/data/712034/000095017024119565/acco-ex10_1.htm",
+      "quote": "(x) for the fiscal quarters ending March 31, 2024 and June 30, 2024, and the last day of each first and second fiscal quarter thereafter to be greater than 4.50:1.00"
+     },
+     {
+      "url": "https://www.sec.gov/Archives/edgar/data/712034/000095017024119565/acco-ex10_1.htm",
+      "quote": "(xi) for the fiscal quarters ending September 30, 2024 and December 31, 2024, and the last day of each third and fourth fiscal quarter thereafter, to be greater than 4.00:1.00"
+     },
+     {
+      "url": "https://www.sec.gov/Archives/edgar/data/712034/000095017024119565/acco-ex10_1.htm",
+      "quote": "(x) for the fiscal quarters ending March 31, 2024 and June 30, 2024, and the last day of each first and second fiscal quarter thereafter to be greater than 4.50:1.00"
+     },
+     {
+      "url": "https://www.sec.gov/Archives/edgar/data/712034/000095017025100909/acco-ex10_1.htm",
+      "quote": "(iii) for the fiscal quarters ending September 30, 2025 and December 31, 2025, to be greater than 4.50:1.00"
+     },
+     {
+      "url": "https://www.sec.gov/Archives/edgar/data/712034/000095017025100909/acco-ex10_1.htm",
+      "quote": "(iv) for the fiscal quarters ending March 31, 2026 and June 30, 2026, to be greater than 4.75:1.00"
+     },
+     {
+      "url": "https://www.sec.gov/Archives/edgar/data/712034/000095017025100909/acco-ex10_1.htm",
+      "quote": "(v) for the fiscal quarters ending September 30, 2026 and December 31, 2026, to be greater than 4.25:1.00"
+     },
+     {
+      "url": "https://www.sec.gov/Archives/edgar/data/712034/000095017025100909/acco-ex10_1.htm",
+      "quote": "(other than a fiscal quarter ending during the Covenant Relief Period) the last day of each first and second fiscal quarter thereafter to be greater than 4.50:1.00"
+     },
+     {
+      "url": "https://www.sec.gov/Archives/edgar/data/712034/000095017025100909/acco-ex10_1.htm",
+      "quote": "(other than a fiscal quarter ending during the Covenant Relief Period) the last day of each third and fourth fiscal quarter thereafter, to be greater than 4.00:1.00"
+     }
+    ],
+    "covenant_relief_period": {
+     "url": "https://www.sec.gov/Archives/edgar/data/712034/000095017025100909/acco-ex10_1.htm",
+     "quote": "Covenant Relief Period\" means the period from and including the Eighth Amendment Closing Date through and including December 31, 2026."
+    }
+   }
+  },
+  {
+   "kind": "min_interest_coverage",
+   "direction": "min",
+   "test_period": "ttm",
+   "thresholds": [
+    {
+     "value": 3.0,
+     "effective_from": "2022-12-31",
+     "effective_to": null
+    }
+   ],
+   "numerator_label": "Consolidated EBITDA",
+   "denominator_label": "Consolidated Cash Interest Expense",
+   "ratio_label": "Consolidated Interest Coverage Ratio",
+   "evidence": {
+    "covenant": {
+     "url": "https://www.sec.gov/Archives/edgar/data/712034/000095017025100909/acco-ex10_1.htm",
+     "quote": "Permit the Consolidated Interest Coverage Ratio as of the end of any fiscal quarter of Holdings to be less than 3.00 to 1.00."
+    },
+    "thresholds": [
+     {
+      "url": "https://www.sec.gov/Archives/edgar/data/712034/000095017025100909/acco-ex10_1.htm",
+      "quote": "Permit the Consolidated Interest Coverage Ratio as of the end of any fiscal quarter of Holdings to be less than 3.00 to 1.00."
+     }
+    ],
+    "earlier_versions": [
+     {
+      "url": "https://www.sec.gov/Archives/edgar/data/712034/000095017022022635/acco-ex10_1.htm",
+      "quote": "Permit the Consolidated Interest Coverage Ratio as of the end of any fiscal quarter of Holdings to be less than 3.00 to 1.00."
+     }
+    ]
+   }
+  }
+ ],
+ "terms": [
+  {
+   "label": "Consolidated Leverage Ratio",
+   "op": "ratio",
+   "children_labels": [
+    "Consolidated Funded Indebtedness",
+    "Unrestricted Cash",
+    "Consolidated EBITDA"
+   ],
+   "cap": null,
+   "evidence": {
+    "url": "https://www.sec.gov/Archives/edgar/data/712034/000095017025100909/acco-ex10_1.htm",
+    "quote": "the ratio of (a) Consolidated Funded Indebtedness (net of (i) Unrestricted Cash of Holdings and its Subsidiaries (other than any Subsidiary organized under the laws of Brazil) not exceeding $100,000,000 plus (ii) the Unrestricted Cash of a Subsidiary organized under the laws of Brazil) to (b) Consolidated EBITDA for the most recently completed Measurement Period."
+   }
+  },
+  {
+   "label": "Unrestricted Cash",
+   "op": "cap",
+   "children_labels": [],
+   "cap": {
+    "kind": "abs",
+    "usd": 100000000
+   },
+   "evidence": {
+    "url": "https://www.sec.gov/Archives/edgar/data/712034/000095017025100909/acco-ex10_1.htm",
+    "quote": "Unrestricted Cash of Holdings and its Subsidiaries (other than any Subsidiary organized under the laws of Brazil) not exceeding $100,000,000"
+   },
+   "cap_note": "$100,000,000 cap applies to non-Brazil Unrestricted Cash only; Brazil Unrestricted Cash netted without cap",
+   "definition_evidence": {
+    "url": "https://www.sec.gov/Archives/edgar/data/712034/000095017025100909/acco-ex10_1.htm",
+    "quote": "\"Unrestricted Cash\" means, as of any date of determination, the aggregate amount of cash and Cash Equivalents properly classified as \"unrestricted cash\" for purposes of GAAP as at such date"
+   }
+  },
+  {
+   "label": "Consolidated Funded Indebtedness",
+   "op": "sum",
+   "children_labels": [
+    "obligations for borrowed money and obligations evidenced by bonds, debentures, notes, loan agreements or similar instruments",
+    "purchase money Indebtedness",
+    "direct non-contingent obligations under letters of credit, bankers' acceptances, bank guaranties, surety bonds",
+    "deferred purchase price of property or services",
+    "Attributable Indebtedness in respect of Capital Leases and Synthetic Lease Obligations",
+    "Guarantees of such Indebtedness of other Persons",
+    "such Indebtedness of partnerships or joint ventures"
+   ],
+   "cap": null,
+   "evidence": {
+    "url": "https://www.sec.gov/Archives/edgar/data/712034/000095017025100909/acco-ex10_1.htm",
+    "quote": "\"Consolidated Funded Indebtedness\" means, as of any date of determination, for Holdings and its Subsidiaries on a consolidated basis, the sum of (a) the outstanding principal amount of all obligations as determined in accordance with GAAP, whether current or long-term, for borrowed money"
+   }
+  },
+  {
+   "label": "Consolidated EBITDA",
+   "op": "sum",
+   "children_labels": [
+    "Consolidated Net Income",
+    "consolidated interest expense",
+    "provision for income and franchise taxes",
+    "depreciation and amortization expenses",
+    "non-recurring non-cash expenses, write-offs, write-downs or impairment charges",
+    "non-cash stock-based compensation",
+    "non-cash charges",
+    "cash severance, restructuring, retention and integration charges",
+    "Third Restatement Date Transactions Costs",
+    "one-time Permitted Acquisition advisory, financing, legal, accounting and consulting expenses",
+    "non-cash fair value accounting losses",
+    "cancellation of debt income",
+    "non-cash gains",
+    "interest income"
+   ],
+   "cap": null,
+   "evidence": {
+    "url": "https://www.sec.gov/Archives/edgar/data/712034/000095017025100909/acco-ex10_1.htm",
+    "quote": "\"Consolidated EBITDA\" means, at any date of determination, an amount equal to Consolidated Net Income of Holdings and its Subsidiaries on a consolidated basis for the most recently completed Measurement Period, plus the following, without duplication, to the extent deducted in calculating such Consolidated Net Income: (a) consolidated interest expense"
+   },
+   "evidence_subtractions": {
+    "url": "https://www.sec.gov/Archives/edgar/data/712034/000095017025100909/acco-ex10_1.htm",
+    "quote": "and minus, without duplication, (x) any amount included in Consolidated EBITDA for such Measurement Period in respect of cancellation of debt income"
+   }
+  },
+  {
+   "label": "cash severance, restructuring, retention and integration charges",
+   "op": "cap",
+   "children_labels": [],
+   "cap": {
+    "kind": "pct_of",
+    "of": "Consolidated EBITDA",
+    "pct": 0.15
+   },
+   "evidence": {
+    "url": "https://www.sec.gov/Archives/edgar/data/712034/000095017025100909/acco-ex10_1.htm",
+    "quote": "in an amount not to exceed, in the case of this clause (i), 15.0% of Consolidated EBITDA for such Measurement Period"
+   }
+  },
+  {
+   "label": "Third Restatement Date Transactions Costs",
+   "op": "cap",
+   "children_labels": [],
+   "cap": {
+    "kind": "abs",
+    "usd": 5000000
+   },
+   "evidence": {
+    "url": "https://www.sec.gov/Archives/edgar/data/712034/000095017025100909/acco-ex10_1.htm",
+    "quote": "exceed in the case of this clause (ii), $5,000,000"
+   }
+  },
+  {
+   "label": "Pro Forma Basis cost savings",
+   "op": "cap",
+   "children_labels": [],
+   "cap": {
+    "kind": "pct_of",
+    "of": "Consolidated EBITDA",
+    "pct": 0.1
+   },
+   "evidence": {
+    "url": "https://www.sec.gov/Archives/edgar/data/712034/000095017025100909/acco-ex10_1.htm",
+    "quote": "the aggregate amount of cost savings additions made pursuant to this clause (C) in any four consecutive fiscal quarter period shall not exceed 10% of Consolidated EBITDA for such period prior to giving effect to this clause (C)"
+   }
+  },
+  {
+   "label": "Consolidated Net Income",
+   "op": "sum",
+   "children_labels": [
+    "net income (or loss)"
+   ],
+   "cap": null,
+   "evidence": {
+    "url": "https://www.sec.gov/Archives/edgar/data/712034/000095017025100909/acco-ex10_1.htm",
+    "quote": "\"Consolidated Net Income\" means, at any date of determination, the net income (or loss) of Holdings and its Subsidiaries on a consolidated basis for the most recently completed Measurement Period"
+   },
+   "note": "Base net income with exclusions (extraordinary items, pension withdrawal charges, restricted subsidiary income, non-subsidiary income, etc.) not itemized"
+  },
+  {
+   "label": "Consolidated Cash Interest Expense",
+   "op": "subtract",
+   "children_labels": [
+    "consolidated interest expense payable in cash",
+    "cash interest income"
+   ],
+   "cap": null,
+   "evidence": {
+    "url": "https://www.sec.gov/Archives/edgar/data/712034/000095017025100909/acco-ex10_1.htm",
+    "quote": "\"Consolidated Cash Interest Expense\" means, for any Measurement Period, consolidated interest expense payable in cash in such period (including that portion attributable to Capital Leases in accordance with GAAP and capitalized interest)"
+   }
+  },
+  {
+   "label": "Consolidated Interest Coverage Ratio",
+   "op": "ratio",
+   "children_labels": [
+    "Consolidated EBITDA",
+    "Consolidated Cash Interest Expense"
+   ],
+   "cap": null,
+   "evidence": {
+    "url": "https://www.sec.gov/Archives/edgar/data/712034/000095017025100909/acco-ex10_1.htm",
+    "quote": "\"Consolidated Interest Coverage Ratio\" means, as of any date of determination, the ratio of (a) Consolidated EBITDA for the most recently completed Measurement Period to (b) Consolidated Cash Interest Expense"
+   }
+  }
+ ],
+ "amendments_considered": [
+  {
+   "accession": "0000950170-22-022635",
+   "url": "https://www.sec.gov/Archives/edgar/data/712034/000095017022022635/acco-ex10_1.htm",
+   "filed": "2022-11-07",
+   "what_changed": "Sixth Amendment (Nov 7, 2022): added leverage levels 4.50x (Q4 2022), 5.00x (Q1-Q2 2023), 4.75x (Q3 2023), 4.25x (Q4 2023), then seasonal 4.50x (each Q1/Q2) and 4.00x (each Q3/Q4) from 2024; ICR unchanged at 3.00x.",
+   "evidence": {
+    "url": "https://www.sec.gov/Archives/edgar/data/712034/000095017022022635/acco-ex10_1.htm",
+    "quote": "SIXTH AMENDMENT\nTO THIRD AMENDED AND RESTATED CREDIT AGREEMENT"
+   }
+  },
+  {
+   "accession": "0000950170-24-119565",
+   "url": "https://www.sec.gov/Archives/edgar/data/712034/000095017024119565/acco-ex10_1.htm",
+   "filed": "2024-10-31",
+   "what_changed": "Seventh Amendment (Oct 30, 2024): conformed Section 7.11 identical to post-Sixth schedule; no covenant level change found (purpose not analyzed).",
+   "evidence": {
+    "url": "https://www.sec.gov/Archives/edgar/data/712034/000095017024119565/acco-ex10_1.htm",
+    "quote": "SEVENTH AMENDMENT\nTO THIRD AMENDED AND RESTATED CREDIT AGREEMENT"
+   }
+  },
+  {
+   "accession": "0000950170-25-100909",
+   "url": "https://www.sec.gov/Archives/edgar/data/712034/000095017025100909/acco-ex10_1.htm",
+   "filed": "2025-07-31",
+   "what_changed": "Eighth Amendment (July 29, 2025): added Covenant Relief Period (Eighth Amendment Closing Date through Dec 31, 2026) with 4.50x (Q3-Q4 2025), 4.75x (Q1-Q2 2026), 4.25x (Q3-Q4 2026); seasonal 4.50x/4.00x resumes after; Material Acquisition step-up unavailable during the relief period. Read from redline formatting (strike/double-underline) in the HTML.",
+   "evidence": {
+    "url": "https://www.sec.gov/Archives/edgar/data/712034/000095017025100909/acco-ex10_1.htm",
+    "quote": "EIGHTH AMENDMENT\nTO THIRD AMENDED AND RESTATED CREDIT AGREEMENT"
+   }
+  }
+ ],
+ "draft_notes": [
+  "The Eighth Amendment conformed copy is a redline: doc_text concatenates struck and inserted text (e.g. 'and, (xiii)'). Thresholds were read by rendering line-through vs double-underline styles from the raw HTML. Verifier should check the clean schedule in the HTML.",
+  "Seasonal recurrence (4.50x every Q1/Q2, 4.00x every Q3/Q4) is open-ended after Dec 31, 2026; only 2027 entries listed, the pattern continues to maturity.",
+  "Schedule starts at Dec 31, 2022 (Sixth Amendment); earlier levels (2020-2022) exist in the agreement but were not labeled. ICR effective_from 2022-12-31 is the start of the labeled window, not the original first test date (3.00x in Sixth-Eighth conformed copies; original 2017 level not checked).",
+  "0.50x Material Acquisition step-up (max 5.00x) omitted per README.",
+  "agreement_accession is the executed 2017 Third A&R agreement filed as 10-K EX-10.11; definitions quoted from the Eighth Amendment conformed copy.",
+  "Consolidated Net Income exclusions not itemized; Consolidated EBITDA children are clause descriptions (a)-(i) then subtractions (x)-(z)."
+ ]
+}

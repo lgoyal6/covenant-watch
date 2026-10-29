@@ -1,0 +1,161 @@
+{
+ "cik": "0000824142",
+ "agreement_accession": "0000824142-21-000155",
+ "agreement_url": "https://www.sec.gov/Archives/edgar/data/824142/000082414221000155/aaonnovember2021amendedloa.htm",
+ "labeled_by": "claude-draft (unverified; Dat must check each field against evidence)",
+ "labeled_at": "2026-10-28",
+ "status": "draft",
+ "agreement_title": "Amended and Restated Loan Agreement dated as of November 24, 2021 (AAON, Inc. and subsidiaries; BOKF, NA dba Bank of Oklahoma, Administrative Agent), as amended",
+ "agreement_exhibit_type": "EX-99.1 (AAON files its loan agreements as EX-99, not EX-10)",
+ "definitions_source_url": "https://www.sec.gov/Archives/edgar/data/824142/000082414224000249/aaon_amendedloanagreexex991.htm",
+ "quarterly_calculation_date_evidence": {
+  "url": "https://www.sec.gov/Archives/edgar/data/824142/000082414224000249/aaon_amendedloanagreexex991.htm",
+  "quote": "\"Quarterly Calculation Date\" means the last day of each calendar quarter during the term of this Agreement"
+ },
+ "covenants": [
+  {
+   "kind": "max_leverage",
+   "direction": "max",
+   "test_period": "ttm",
+   "thresholds": [
+    {
+     "value": 3.0,
+     "effective_from": "2021-12-31",
+     "effective_to": null
+    }
+   ],
+   "numerator_label": "Funded Indebtedness",
+   "denominator_label": "Consolidated EBITDA",
+   "ratio_label": "Consolidated Leverage Ratio",
+   "evidence": {
+    "covenant": {
+     "url": "https://www.sec.gov/Archives/edgar/data/824142/000082414224000249/aaon_amendedloanagreexex991.htm",
+     "quote": "Permit the Consolidated Leverage Ratio, calculated as of each Quarterly Calculation Date beginning December 31, 2021, to be more than 3.00 to one (3.00:1)."
+    },
+    "thresholds": [
+     {
+      "url": "https://www.sec.gov/Archives/edgar/data/824142/000082414221000155/aaonnovember2021amendedloa.htm",
+      "quote": "Permit the Consolidated Leverage Ratio, calculated as of each Quarterly Calculation Date beginning December 31, 2021, to be more than 3.00 to one (3.00:1)."
+     }
+    ],
+    "post_fifth_amendment": {
+     "url": "https://www.sec.gov/Archives/edgar/data/824142/000082414225000170/exhibitaaaon-fifthamendm.htm",
+     "quote": "Permit the Consolidated Leverage Ratio, calculated as of each Quarterly Calculation Date beginning December 31, 2021, to be more than 3.00 to one (3.00:1)."
+    }
+   }
+  }
+ ],
+ "terms": [
+  {
+   "label": "Consolidated Leverage Ratio",
+   "op": "ratio",
+   "children_labels": [
+    "Funded Indebtedness",
+    "Consolidated EBITDA"
+   ],
+   "cap": null,
+   "evidence": {
+    "url": "https://www.sec.gov/Archives/edgar/data/824142/000082414224000249/aaon_amendedloanagreexex991.htm",
+    "quote": "\"Consolidated Leverage Ratio\" means, with respect to each Quarterly Calculation Date, the ratio of (A) total consolidated Funded Indebtedness of the Corporate Guarantor as at such Quarterly Calculation Date, to (B) Consolidated EBITDA for the 12-month period then ended."
+   }
+  },
+  {
+   "label": "Funded Indebtedness",
+   "op": "sum",
+   "children_labels": [
+    "obligations for borrowed money",
+    "obligations evidenced by bonds, debentures, notes, loan agreements or other similar instruments",
+    "principal portion of obligations under conditional sale or other title retention agreements",
+    "deferred purchase price of property or services",
+    "Capitalized Lease Obligations",
+    "Guarantee Obligations with respect to Indebtedness of types (a) and (b) of any other Person"
+   ],
+   "cap": null,
+   "evidence": {
+    "url": "https://www.sec.gov/Archives/edgar/data/824142/000082414224000249/aaon_amendedloanagreexex991.htm",
+    "quote": "\"Funded Indebtedness\" means Indebtedness of the type described in paragraphs (a), (b), (c), (e), (f) and (i) of the definition of Indebtedness."
+   },
+   "evidence_children": [
+    {
+     "url": "https://www.sec.gov/Archives/edgar/data/824142/000082414224000249/aaon_amendedloanagreexex991.htm",
+     "quote": "(a)all obligations for borrowed money, whether current or long-term;"
+    },
+    {
+     "url": "https://www.sec.gov/Archives/edgar/data/824142/000082414224000249/aaon_amendedloanagreexex991.htm",
+     "quote": "(b)all obligations of such Person evidenced by bonds, debentures, notes, loan agreements or other similar instruments;"
+    },
+    {
+     "url": "https://www.sec.gov/Archives/edgar/data/824142/000082414224000249/aaon_amendedloanagreexex991.htm",
+     "quote": "(c)the principal portion of all obligations under conditional sale or other title retention agreements"
+    },
+    {
+     "url": "https://www.sec.gov/Archives/edgar/data/824142/000082414224000249/aaon_amendedloanagreexex991.htm",
+     "quote": "(e)all obligations in respect of the deferred purchase price of property or services;"
+    },
+    {
+     "url": "https://www.sec.gov/Archives/edgar/data/824142/000082414224000249/aaon_amendedloanagreexex991.htm",
+     "quote": "(f)Capitalized Lease Obligations;"
+    },
+    {
+     "url": "https://www.sec.gov/Archives/edgar/data/824142/000082414224000249/aaon_amendedloanagreexex991.htm",
+     "quote": "(i)all Guarantee Obligations with respect to outstanding Indebtedness of the types specified in clauses (a) and (b) above of any other Person; and"
+    }
+   ]
+  },
+  {
+   "label": "Consolidated EBITDA",
+   "op": "sum",
+   "children_labels": [
+    "consolidated net income (or loss)",
+    "interest expense",
+    "expense for state and federal income taxes paid or accrued",
+    "depreciation",
+    "amortization",
+    "extraordinary losses incurred",
+    "extraordinary gains realized"
+   ],
+   "cap": null,
+   "evidence": {
+    "url": "https://www.sec.gov/Archives/edgar/data/824142/000082414224000249/aaon_amendedloanagreexex991.htm",
+    "quote": "\"Consolidated EBITDA\" means, with reference to any period of time, the consolidated net income (or loss) of the Corporate Guarantor for such period, plus, to the extent deducted from revenues in determining consolidated net income, (i) interest expense, (ii) expense for state and federal income taxes paid or accrued, (iii) depreciation, (iv) amortization and (v) extraordinary losses incurred, minus, to the extent included in net income, extraordinary gains realized"
+   }
+  }
+ ],
+ "amendments_considered": [
+  {
+   "accession": "0000824142-24-000249",
+   "url": "https://www.sec.gov/Archives/edgar/data/824142/000082414224000249/aaon_amendedloanagreexex991.htm",
+   "filed": "2024-12-18",
+   "what_changed": "Conformed A&R Loan Agreement (adds BASX, Inc. as Borrower; references a Third Amendment term loan). Section 6.12 unchanged at 3.00x; Funded Indebtedness now also includes clause (i) Guarantee Obligations (2021 version: clauses (a),(b),(c),(e),(f) only). Consolidated Leverage Ratio and Consolidated EBITDA definitions unchanged (whitespace-normalized compare).",
+   "evidence": {
+    "url": "https://www.sec.gov/Archives/edgar/data/824142/000082414224000249/aaon_amendedloanagreexex991.htm",
+    "quote": "\"Funded Indebtedness\" means Indebtedness of the type described in paragraphs (a), (b), (c), (e), (f) and (i) of the definition of Indebtedness."
+   }
+  },
+  {
+   "accession": "0000824142-25-000170",
+   "url": "https://www.sec.gov/Archives/edgar/data/824142/000082414225000170/a991fifthamendmenttoamende.htm",
+   "filed": "2025-05-30",
+   "what_changed": "Fifth Amendment (May 29, 2025): revolving commitment increase/new lenders; conformed Exhibit A still shows Section 6.12 at 3.00x and same definitions.",
+   "evidence": {
+    "url": "https://www.sec.gov/Archives/edgar/data/824142/000082414225000170/a991fifthamendmenttoamende.htm",
+    "quote": "FIFTH AMENDMENT TO AMENDED AND RESTATED LOAN AGREEMENT"
+   }
+  },
+  {
+   "accession": "0000824142-25-000205",
+   "url": "https://www.sec.gov/Archives/edgar/data/824142/000082414225000205/a992sixthamendmenttoamende.htm",
+   "filed": "2025-12-29",
+   "what_changed": "Sixth Amendment (Dec 29, 2025): revolving commitments increased from $500,000,000 to $600,000,000 (accordion); no covenant change found, only a pro forma Section 6.12 compliance condition.",
+   "evidence": {
+    "url": "https://www.sec.gov/Archives/edgar/data/824142/000082414225000205/a992sixthamendmenttoamende.htm",
+    "quote": "the Borrowers have proposed to increase the total Revolving Commitments from $500,000,000.00 to $600,000,000.00"
+   }
+  }
+ ],
+ "draft_notes": [
+  "Agreement exhibits are EX-99.1 (AAON does not file credit agreements as EX-10).",
+  "First, Second, Third and Fourth Amendments were not located as separate exhibits; the Dec 2024 8-K EX-99.1 is a conformed copy reflecting them. When Funded Indebtedness gained clause (i) is not pinned down.",
+  "Covenant is tested quarterly on Funded Indebtedness at the Quarterly Calculation Date vs Consolidated EBITDA for the 12-month period then ended (ttm). Consolidated EBITDA has no defined net income term; children are lowercase clause descriptions."
+ ]
+}

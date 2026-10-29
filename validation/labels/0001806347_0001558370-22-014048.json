@@ -1,0 +1,459 @@
+{
+ "cik": "0001806347",
+ "agreement_accession": "0001558370-22-014048",
+ "agreement_url": "https://www.sec.gov/Archives/edgar/data/1806347/000155837022014048/west-20220630xex10d3.htm",
+ "labeled_by": "claude-draft (unverified; Dat must check each field against evidence)",
+ "labeled_at": "2026-10-28",
+ "status": "draft",
+ "covenants": [
+  {
+   "kind": "max_leverage",
+   "direction": "max",
+   "test_period": "ttm",
+   "thresholds": [
+    {
+     "value": 4.5,
+     "effective_from": "2022-09-30",
+     "effective_to": "2023-03-31"
+    },
+    {
+     "value": 5.0,
+     "effective_from": "2023-06-30",
+     "effective_to": "2023-06-30"
+    },
+    {
+     "value": 5.25,
+     "effective_from": "2023-09-30",
+     "effective_to": "2023-09-30"
+    },
+    {
+     "value": 5.5,
+     "effective_from": "2023-12-31",
+     "effective_to": "2023-12-31"
+    }
+   ],
+   "numerator_label": "Consolidated Total Net Debt",
+   "denominator_label": "Adjusted Consolidated EBITDA",
+   "evidence": {
+    "covenant": {
+     "url": "https://www.sec.gov/Archives/edgar/data/1806347/000155837022014048/west-20220630xex10d3.htm",
+     "quote": "\"Total Net Leverage Ratio\" shall mean, as of any date of determination, the ratio of (a) Consolidated Total Net Debt outstanding as of the last day of the Test Period most recently ended as of such date to (b) Adjusted Consolidated EBITDA for such Test Period, all determined on a consolidated basis in accordance with GAAP."
+    },
+    "thresholds": [
+     {
+      "url": "https://www.sec.gov/Archives/edgar/data/1806347/000155837022014048/west-20220630xex10d3.htm",
+      "quote": "(i) in the case of the Test Periods ending on the last day of the first through sixth full fiscal quarters of the Borrower ending after the Closing Date, 4.50 to 1.00"
+     },
+     {
+      "url": "https://www.sec.gov/Archives/edgar/data/1806347/000110465923077081/tm2320195d1_ex10-2.htm",
+      "quote": "June 30,\n2023\n5.00\nto 1.00"
+     },
+     {
+      "url": "https://www.sec.gov/Archives/edgar/data/1806347/000110465923077081/tm2320195d1_ex10-2.htm",
+      "quote": "September 30,\n2023\n5.25\nto 1.00"
+     },
+     {
+      "url": "https://www.sec.gov/Archives/edgar/data/1806347/000110465923077081/tm2320195d1_ex10-2.htm",
+      "quote": "December 31,\n2023\n5.50\nto 1.00"
+     }
+    ]
+   }
+  },
+  {
+   "kind": "max_senior_leverage",
+   "direction": "max",
+   "test_period": "ttm",
+   "thresholds": [
+    {
+     "value": 6.0,
+     "effective_from": "2024-03-31",
+     "effective_to": "2024-03-31"
+    },
+    {
+     "value": 6.25,
+     "effective_from": "2024-06-30",
+     "effective_to": "2024-09-30"
+    },
+    {
+     "value": 6.0,
+     "effective_from": "2024-12-31",
+     "effective_to": "2025-06-30"
+    },
+    {
+     "value": 5.5,
+     "effective_from": "2025-09-30",
+     "effective_to": "2025-12-31"
+    },
+    {
+     "value": 5.25,
+     "effective_from": "2026-03-31",
+     "effective_to": "2026-03-31"
+    },
+    {
+     "value": 5.0,
+     "effective_from": "2026-06-30",
+     "effective_to": "2026-06-30"
+    },
+    {
+     "value": 4.5,
+     "effective_from": "2026-09-30",
+     "effective_to": "2026-09-30"
+    },
+    {
+     "value": 4.0,
+     "effective_from": "2026-12-31",
+     "effective_to": null
+    }
+   ],
+   "numerator_label": "Consolidated Debt",
+   "denominator_label": "Adjusted Consolidated EBITDA",
+   "evidence": {
+    "covenant": {
+     "url": "https://www.sec.gov/Archives/edgar/data/1806347/000110465926079351/tm2618568d1_ex10-1.htm",
+     "quote": "Ratio\" shall mean, as of any date of determination, the ratio of (A) (i) the sum of, without duplication, (x) the\naggregate principal amount of any Consolidated Debt of the Borrower and its Restricted Subsidiaries secured by assets of the Borrower\nor its Restricted Subsidiaries and (y) the aggregate principal amount of any other Consolidated Debt of the Borrower and its Subsidiaries\noutstanding as of the last day of the Test Period most recently ended as of such date that is then secured by Liens on the Collateral,\nless (ii) the Unrestricted Cash Amount"
+    },
+    "thresholds": [
+     {
+      "url": "https://www.sec.gov/Archives/edgar/data/1806347/000110465926079351/tm2618568d1_ex10-1.htm",
+      "quote": "March 31,\n2024\n6.00\nto 1.00"
+     },
+     {
+      "url": "https://www.sec.gov/Archives/edgar/data/1806347/000110465926079351/tm2618568d1_ex10-1.htm",
+      "quote": "June 30,\n2024\n6.25\nto 1.00\nSeptember 30,\n2024\n6.25\nto 1.00"
+     },
+     {
+      "url": "https://www.sec.gov/Archives/edgar/data/1806347/000110465926079351/tm2618568d1_ex10-1.htm",
+      "quote": "December 31,\n2024\n6.00\nto 1.00\nMarch 31,\n2025\n6.00\nto 1.00\nJune 30,\n2025\n6.00\nto 1.00"
+     },
+     {
+      "url": "https://www.sec.gov/Archives/edgar/data/1806347/000110465926079351/tm2618568d1_ex10-1.htm",
+      "quote": "September 30,\n2025\n5.50\nto 1.00\nDecember 31,\n2025\n5.50\nto 1.00"
+     },
+     {
+      "url": "https://www.sec.gov/Archives/edgar/data/1806347/000110465926079351/tm2618568d1_ex10-1.htm",
+      "quote": "March 31,\n2026\n5.25\nto 1.00"
+     },
+     {
+      "url": "https://www.sec.gov/Archives/edgar/data/1806347/000110465926079351/tm2618568d1_ex10-1.htm",
+      "quote": "June 30,\n2026\n5.00\nto 1.00"
+     },
+     {
+      "url": "https://www.sec.gov/Archives/edgar/data/1806347/000110465926079351/tm2618568d1_ex10-1.htm",
+      "quote": "September 30,\n2026\n4.50\nto 1.00"
+     },
+     {
+      "url": "https://www.sec.gov/Archives/edgar/data/1806347/000110465926079351/tm2618568d1_ex10-1.htm",
+      "quote": "December 31,\n2026\n4.00\nto 1.00"
+     }
+    ]
+   }
+  },
+  {
+   "kind": "min_interest_coverage",
+   "direction": "min",
+   "test_period": "ttm",
+   "thresholds": [
+    {
+     "value": 1.5,
+     "effective_from": "2022-09-30",
+     "effective_to": "2023-03-31"
+    },
+    {
+     "value": 2.0,
+     "effective_from": "2023-06-30",
+     "effective_to": "2023-12-31"
+    },
+    {
+     "value": 1.5,
+     "effective_from": "2024-03-31",
+     "effective_to": "2025-12-31"
+    },
+    {
+     "value": 1.75,
+     "effective_from": "2026-03-31",
+     "effective_to": "2026-09-30"
+    },
+    {
+     "value": 2.0,
+     "effective_from": "2026-12-31",
+     "effective_to": null
+    }
+   ],
+   "numerator_label": "Adjusted Consolidated EBITDA",
+   "denominator_label": "Consolidated Interest Expense",
+   "evidence": {
+    "covenant": {
+     "url": "https://www.sec.gov/Archives/edgar/data/1806347/000155837022014048/west-20220630xex10d3.htm",
+     "quote": "\"Interest Coverage Ratio\" shall mean on any date, the ratio of Adjusted Consolidated EBITDA to Consolidated Interest Expense as of any date of determination."
+    },
+    "thresholds": [
+     {
+      "url": "https://www.sec.gov/Archives/edgar/data/1806347/000155837022014048/west-20220630xex10d3.htm",
+      "quote": "to be less than 1.50 to 1.00 (this sentence, the \"Interest Coverage Ratio Financial Covenant\""
+     },
+     {
+      "url": "https://www.sec.gov/Archives/edgar/data/1806347/000155837023014537/west-20230630x10q.htm",
+      "quote": "During and after the Covenant Relief Period, the minimum interest coverage ratio financial covenant will be 2.00x."
+     },
+     {
+      "url": "https://www.sec.gov/Archives/edgar/data/1806347/000110465926079351/tm2618568d1_ex10-1.htm",
+      "quote": "(x) on and prior to December 31, 2025,\n1.50 to 1.00"
+     },
+     {
+      "url": "https://www.sec.gov/Archives/edgar/data/1806347/000110465926079351/tm2618568d1_ex10-1.htm",
+      "quote": "(y) on January 1, 2026 and on or prior to September 30, 2026, 1.75 to 1.00"
+     },
+     {
+      "url": "https://www.sec.gov/Archives/edgar/data/1806347/000110465926079351/tm2618568d1_ex10-1.htm",
+      "quote": "(z) on October 1,\n2026 and thereafter, 2.00 to 1.00"
+     }
+    ]
+   }
+  },
+  {
+   "kind": "min_liquidity",
+   "direction": "min",
+   "test_period": "point_in_time",
+   "thresholds": [
+    {
+     "value": 15000000,
+     "effective_from": "2024-03-29",
+     "effective_to": "2026-09-30"
+    }
+   ],
+   "numerator_label": "Liquidity",
+   "denominator_label": null,
+   "evidence": {
+    "covenant": {
+     "url": "https://www.sec.gov/Archives/edgar/data/1806347/000110465926079351/tm2618568d1_ex10-1.htm",
+     "quote": "permit Liquidity, measured as of the last Business Day of each calendar month\n(commencing with the last Business Day of the first full calendar month following the Amendment No. 3 Effective Date, such measurement\ndate, the \"Liquidity Test Date\") to be less than $15,000,000 (the \"Minimum Liquidity Covenant\");"
+    },
+    "thresholds": [
+     {
+      "url": "https://www.sec.gov/Archives/edgar/data/1806347/000110465926079351/tm2618568d1_ex10-1.htm",
+      "quote": "Date through the last day of the Covenant Relief Period, permit Liquidity, measured as of the last Business Day of each calendar month\n(commencing with the last Business Day of the first full calendar month following the Amendment No. 3 Effective Date, such measurement\ndate, the \"Liquidity Test Date\") to be less than $15,000,000"
+     }
+    ]
+   }
+  }
+ ],
+ "terms": [
+  {
+   "label": "Adjusted Consolidated EBITDA",
+   "op": "sum",
+   "children_labels": [
+    "Consolidated Net Income",
+    "total interest expense",
+    "provision for Taxes",
+    "depreciation and amortization",
+    "other non-cash charges",
+    "non-controlling interest income",
+    "management, monitoring and director fees",
+    "losses on sales of receivables under Qualified Receivables Facilities",
+    "cash receipts relating to previously deducted non-cash gains",
+    "management equity plan and benefit plan costs",
+    "net pension and post-employment benefit costs",
+    "unusual or non-recurring cost savings implementation expenses",
+    "severance, relocation, integration, start-up and business optimization expenses",
+    "transition, closure and strategic initiative costs",
+    "expenses reimbursed by non-Affiliate third parties",
+    "Public Company Costs",
+    "litigation and investigation expenses",
+    "transaction costs for investments, acquisitions and other non-ordinary course transactions",
+    "foreign exchange losses",
+    "quality of earnings report adjustments",
+    "Projected Savings",
+    "non-cash gains",
+    "non-controlling interest losses",
+    "foreign exchange gains"
+   ],
+   "cap": null,
+   "evidence": {
+    "url": "https://www.sec.gov/Archives/edgar/data/1806347/000155837022014048/west-20220630xex10d3.htm",
+    "quote": "\"Adjusted Consolidated EBITDA\" shall mean, for any period, the Consolidated Net Income for such period, plus:\n(a) without duplication and to the extent already deducted (and not added back) in arriving at such Consolidated Net Income, the sum of the following amounts for such period:\n(i)total interest expense"
+   }
+  },
+  {
+   "label": "Public Company Costs",
+   "op": "cap",
+   "children_labels": [],
+   "cap": {
+    "kind": "abs",
+    "usd": 2500000
+   },
+   "evidence": {
+    "url": "https://www.sec.gov/Archives/edgar/data/1806347/000155837022014048/west-20220630xex10d3.htm",
+    "quote": "(xv)(x) Public Company Costs; provided, that all such amounts pursuant to this clause (x) shall not exceed $2,500,000 for any relevant Test Period"
+   }
+  },
+  {
+   "label": "litigation and investigation expenses",
+   "op": "cap",
+   "children_labels": [],
+   "cap": {
+    "kind": "abs",
+    "usd": 1000000
+   },
+   "evidence": {
+    "url": "https://www.sec.gov/Archives/edgar/data/1806347/000155837022014048/west-20220630xex10d3.htm",
+    "quote": "provided, that all such amounts pursuant to this clause (y) shall not exceed $1,000,000 for any relevant Test Period"
+   }
+  },
+  {
+   "label": "Projected Savings",
+   "op": "cap",
+   "children_labels": [],
+   "cap": {
+    "kind": "pct_of",
+    "of": "Adjusted Consolidated EBITDA",
+    "pct": 0.15
+   },
+   "evidence": {
+    "url": "https://www.sec.gov/Archives/edgar/data/1806347/000155837022014048/west-20220630xex10d3.htm",
+    "quote": "shall not exceed (x) 20% of Adjusted Consolidated EBITDA for any relevant Test Period (calculated after giving effect to such capped adjustments) ending on or prior to the date that is 12 months from the Closing Date and (y) 15% for any relevant Test Period ending thereafter;"
+   },
+   "note": "20% for Test Periods ending within 12 months of the 2022-08-29 Closing Date, 15% thereafter (shared with Pro Forma Adjustments). 0.15 recorded as the steady-state cap."
+  },
+  {
+   "label": "Consolidated Total Net Debt",
+   "op": "subtract",
+   "children_labels": [
+    "Consolidated Debt",
+    "Unrestricted Cash Amount"
+   ],
+   "cap": null,
+   "evidence": {
+    "url": "https://www.sec.gov/Archives/edgar/data/1806347/000155837022014048/west-20220630xex10d3.htm",
+    "quote": "\"Consolidated Total Net Debt\" shall mean, as of any date of determination, (i) Consolidated Debt on such date less (ii) the Unrestricted Cash Amount on such date."
+   }
+  },
+  {
+   "label": "Consolidated Debt",
+   "op": "sum",
+   "children_labels": [
+    "Indebtedness for borrowed money",
+    "guarantees of Indebtedness for borrowed money"
+   ],
+   "cap": null,
+   "evidence": {
+    "url": "https://www.sec.gov/Archives/edgar/data/1806347/000155837022014048/west-20220630xex10d3.htm",
+    "quote": "\"Consolidated Debt\" shall mean, as of any date of determination, the sum of (without duplication) the principal amount of (x) all Indebtedness for borrowed money of the Borrower and the Subsidiaries and (y) guarantees by the Borrower and the Subsidiaries of Indebtedness for borrowed money, in each case determined on a consolidated basis on such date."
+   }
+  },
+  {
+   "label": "Unrestricted Cash Amount",
+   "op": "cap",
+   "children_labels": [
+    "cash",
+    "Permitted Investments"
+   ],
+   "cap": {
+    "kind": "pct_of",
+    "of": "Adjusted Consolidated EBITDA",
+    "pct": 1.0
+   },
+   "evidence": {
+    "url": "https://www.sec.gov/Archives/edgar/data/1806347/000155837022014048/west-20220630xex10d3.htm",
+    "quote": "provided, that the Unrestricted Cash Amount shall not be deemed to be greater than (A) for the first 24 months following the Closing Date, the greater of (i) the excess of the Unrestricted Cash Amount (calculated without regard to this proviso) over $20 million and (ii) 100% of Adjusted Consolidated EBITDA for the most recently ended Test Period as of such time and (B) thereafter, 100% of Adjusted Consolidated EBITDA for the most recently ended Test Period as of such time."
+   },
+   "note": "For the first 24 months after closing the cap was the greater of (cash minus $20M) and 100% of Adjusted Consolidated EBITDA; 100% thereafter. Not checked whether later amendments changed this definition."
+  },
+  {
+   "label": "Consolidated Interest Expense",
+   "op": "sum",
+   "children_labels": [
+    "cash interest expense, net of cash interest income",
+    "amortization of original issue discount",
+    "pay in kind interest expense",
+    "cash dividends in respect of preferred Equity Interests"
+   ],
+   "cap": null,
+   "evidence": {
+    "url": "https://www.sec.gov/Archives/edgar/data/1806347/000155837022014048/west-20220630xex10d3.htm",
+    "quote": "\"Consolidated Interest Expense\" shall mean the sum of (a) cash interest expense (including that attributable to Capitalized Lease Obligations), net of cash interest income, of the Borrower and the Subsidiaries with respect to all outstanding Indebtedness of the Borrower and the Subsidiaries"
+   },
+   "note": "Quote truncated for length; clauses (b) non-cash OID amortization and PIK interest and (c) preferred cash dividends follow in the same definition. A later amendment (present in the Amendment No. 6 conformed copy) inserts 'the amount of any dividends or distributions made to fund interest on any Permitted Convertible Notes' as a new clause (c). Not included here."
+  },
+  {
+   "label": "Liquidity",
+   "op": "sum",
+   "children_labels": [
+    "Unrestricted Cash Amount",
+    "Revolving Facility Availability",
+    "remaining planned Conway, Arkansas capital expenditures",
+    "Select Milk JV Investments"
+   ],
+   "cap": null,
+   "evidence": {
+    "url": "https://www.sec.gov/Archives/edgar/data/1806347/000110465926079351/tm2618568d1_ex10-1.htm",
+    "quote": "\"Liquidity\"\nshall mean, at any time, (x) the sum of (i) the Unrestricted Cash Amount, plus (ii) the Revolving Facility Availability,\nless (y) the sum of (i) the remaining amount of planned capital expenditures related to the Borrower's\nextraction, bottling and canning facility located in Conway, Arkansas plus (ii) the remaining amount of planned Investments"
+   },
+   "note": "(x) Unrestricted Cash Amount + Revolving Facility Availability LESS (y) remaining planned Conway capex + remaining Select Milk JV Investments. op 'sum' with mixed signs; the last two children are subtracted. Definition text is from the Amendment No. 6 conformed copy (added in Amendment No. 3 or later)."
+  },
+  {
+   "label": "Consolidated Net Income",
+   "op": "leaf",
+   "children_labels": [],
+   "cap": null,
+   "evidence": {
+    "url": "https://www.sec.gov/Archives/edgar/data/1806347/000155837022014048/west-20220630xex10d3.htm",
+    "quote": "\"Consolidated Net Income\" shall mean, for any period, the net income (loss) of the Borrower and the Subsidiaries for such period determined on a consolidated basis in accordance with GAAP, excluding, without duplication:"
+   }
+  }
+ ],
+ "amendments_considered": [
+  {
+   "accession": "0001104659-23-021756",
+   "url": "https://www.sec.gov/Archives/edgar/data/1806347/000110465923021756/tm236580d1_ex10-1.htm",
+   "filed": "2023-02-14",
+   "what_changed": "Incremental Assumption Agreement and Amendment No. 1 (2023-02-14): delayed draw term loan. Section 6.09 text unchanged."
+  },
+  {
+   "accession": "0001104659-23-077081",
+   "url": "https://www.sec.gov/Archives/edgar/data/1806347/000110465923077081/tm2320195d1_ex10-2.htm",
+   "filed": "2023-06-30",
+   "what_changed": "Amendment No. 2 (2023-06-30): Covenant Relief Period with Total Net Leverage table 5.00 (6/30/23), 5.25 (9/30/23), 5.50 (12/31/23-9/30/24), 5.00 (12/31/24), 4.50 (3/31/25). ICR minimum changed 1.50 -> 2.00 (struck/inserted in blackline; confirmed by the Q2 2023 10-Q)."
+  },
+  {
+   "accession": "0001104659-24-024575",
+   "url": "https://www.sec.gov/Archives/edgar/data/1806347/000110465924024575/tm246306d1_ex10-1.htm",
+   "filed": "2024-02-15",
+   "what_changed": "Amendment No. 3 (2024-02-15): covenant switched from Total Net Leverage Ratio to Secured Net Leverage Ratio. Relief table raised: 6.00 (3/31/24), 6.25 (6/30/24, 9/30/24), 6.00 (12/31/24, 3/31/25); added rows 5.50 (6/30/25), 5.00 (9/30/25), 4.75 (12/31/25), 4.50 (3/31/26). ICR 1.50 through 9/30/25, 2.00 from 12/31/25. Added $15,000,000 monthly Minimum Liquidity covenant."
+  },
+  {
+   "accession": "0001104659-25-003769",
+   "url": "https://www.sec.gov/Archives/edgar/data/1806347/000110465925003769/tm253163d1_ex10-1.htm",
+   "filed": "2025-01-15",
+   "what_changed": "Incremental Assumption Agreement and Amendment No. 4 (2025-01-15): relief rows changed 6/30/25 5.50->6.00, 9/30/25 5.00->5.50, 12/31/25 4.75->5.25. Minimum Liquidity limited to the Covenant Relief Period. Incremental revolver."
+  },
+  {
+   "accession": "0001104659-25-107736",
+   "url": "https://www.sec.gov/Archives/edgar/data/1806347/000110465925107736/west-20251104xex10d1.htm",
+   "filed": "2025-11-06",
+   "what_changed": "Amendment No. 5 (2025-11-04): relief rows 12/31/25 5.25->5.50, 3/31/26 4.50->5.25, added 6/30/26 5.00, 9/30/26 4.50, 12/31/26 4.00. ICR 1.50 through 12/31/25, 1.75 from 1/1/26 to 9/30/26, 2.00 from 10/1/26. Read from the Amendment No. 6 conformed copy plus A5 plain text; A5 markup did not render as redline."
+  },
+  {
+   "accession": "0001104659-26-079351",
+   "url": "https://www.sec.gov/Archives/edgar/data/1806347/000110465926079351/tm2618568d1_ex10-1.htm",
+   "filed": "2026-06-30",
+   "what_changed": "Amendment No. 6 (2026-06-30): Section 6.09 levels unchanged (only 'latest' maturity-date wording). Used as the clean conformed source for the final table."
+  },
+  {
+   "accession": "0001104659-26-117845",
+   "url": "https://www.sec.gov/Archives/edgar/data/1806347/000110465926117845/tm2627822d1_ex10-1.htm",
+   "filed": "2026-10-21",
+   "what_changed": "Not an amendment: new Credit Agreement dated 2026-10-21 (Rabobank agent), likely refinancing this facility. Not labeled. So the 2026-12-31+ thresholds may never have been tested."
+  }
+ ],
+ "draft_notes": [
+  "Thresholds are the levels in force at each test date, taking each amendment's table as of its signing (A3 Feb-2024, A4 Jan-2025 and A5 Nov-2025 each changed only current or future quarters). Superseded schedules are described in amendments_considered.",
+  "The Total Net Leverage covenant is labeled through 2023-12-31 and the Secured Net Leverage covenant from 2024-03-31 because Amendment No. 3 (2024-02-15) renamed the test. A3's table relabels the 2023 rows as Secured Net Leverage. Dat should decide whether the 12/31/2023 test was under Total or Secured.",
+  "Secured Net Leverage numerator is secured Consolidated Debt less the Unrestricted Cash Amount; numerator_label records 'Consolidated Debt'.",
+  "Covenant Relief Period ends at the earlier of 2026-10-01 or an early termination election. After that the standard Secured Net Leverage covenant is 4.00 (the original first-six-quarters 4.50 has lapsed); the 2026-12-31 table row is also 4.00. An optional Step-Up Election (4.50 for 4 quarters after a Permitted Acquisition) is not listed.",
+  "The 4.50 original level nominally covered the 'first through sixth full fiscal quarters' after the 2022-08-29 closing. effective_to 2023-03-31 reflects the A2 relief table taking over at 2023-06-30.",
+  "ICR 2.00 for 6/30/23-12/31/23 comes from Amendment No. 2's blackline ('1.502.00' in plain text) and the Q2 2023 10-Q sentence quoted as evidence.",
+  "Minimum Liquidity first test date = last Business Day of the first full calendar month after the A3 effective date (2024-02-15) = March 2024. Recorded as 2024-03-29 (Good Friday; verify the Business Day definition). The last test is assumed 2026-09-30 because the Covenant Relief Period ends 2026-10-01.",
+  "Anti-Cash Hoarding (6.09(d), mandatory prepayment if Unrestricted Cash > $20M) is not a maintenance ratio and is not labeled.",
+  "Adjusted Consolidated EBITDA children follow the ORIGINAL 2022 definition. Later amendments add a time-varying cap on clause (xii) (70% -> 20% of Adjusted Consolidated EBITDA for periods ending 2025-04-01 through 2026-10-01+, in the A6 conformed copy). Not modeled."
+ ]
+}

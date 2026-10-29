@@ -1,0 +1,506 @@
+{
+ "cik": "0001749723",
+ "agreement_accession": "0001140361-21-013692",
+ "agreement_url": "https://www.sec.gov/Archives/edgar/data/1749723/000114036121013692/brhc10023371_ex10-2.htm",
+ "labeled_by": "claude-draft (unverified; Dat must check each field against evidence)",
+ "labeled_at": "2026-10-28",
+ "status": "draft",
+ "agreement_title": "Credit Agreement dated as of April 15, 2021 (New Fortress Energy Inc. revolving credit facility; MUFG Bank, Ltd., current Administrative Agent), as amended through the Fourteenth Amendment",
+ "covenants": [
+  {
+   "kind": "max_leverage",
+   "direction": "max",
+   "test_period": "point_in_time",
+   "thresholds": [
+    {
+     "value": 0.7,
+     "effective_from": "2021-06-30",
+     "effective_to": "2024-06-30"
+    }
+   ],
+   "numerator_label": "Consolidated Total Debt",
+   "denominator_label": "total capitalization",
+   "ratio_label": "Debt to Total Capitalization Ratio",
+   "evidence": {
+    "covenant": {
+     "url": "https://www.sec.gov/Archives/edgar/data/1749723/000114036121013692/brhc10023371_ex10-2.htm",
+     "quote": "(a) Debt to Total Capitalization Ratio. The Borrower shall not permit the Debt\nto Total Capitalization Ratio for the Borrower and the Restricted Subsidiaries as of the last day of any Test Period to exceed 0.70 to 1.00."
+    },
+    "thresholds": [
+     {
+      "url": "https://www.sec.gov/Archives/edgar/data/1749723/000114036121013692/brhc10023371_ex10-2.htm",
+      "quote": "as of the last day of any Test Period to exceed 0.70 to 1.00."
+     }
+    ],
+    "conditional_holiday_A8": {
+     "url": "https://www.sec.gov/Archives/edgar/data/1749723/000174972324000116/a01nfe-rcfaramendmentno8.htm",
+     "quote": "(excluding, on and after the Eighth Amendment Effective Date, the Test Period ending September 30, 2024 and, subject to the occurrence of the Covenant Holiday Trigger Event, excluding the Test Periods ending on December 31, 2024, and March 31, 2025)"
+    },
+    "removed_by_C9_section_6_10_starts_with": {
+     "url": "https://www.sec.gov/Archives/edgar/data/1749723/000174972325000029/nfe-conformedcreditagreeme.htm",
+     "quote": "(a)Consolidated First Lien Debt Ratio. If, as of the last Business Day of any Test Period, the Revolving Facility Usage is equal to or greater than 50%"
+    }
+   }
+  },
+  {
+   "kind": "max_senior_leverage",
+   "direction": "max",
+   "test_period": "ttm",
+   "springing": "tested only if Revolving Facility Usage >= 50% on the last Business Day of the Test Period",
+   "thresholds": [
+    {
+     "value": 5.0,
+     "effective_from": "2021-12-31",
+     "effective_to": "2023-09-30",
+     "source": "original"
+    },
+    {
+     "value": 4.0,
+     "effective_from": "2023-12-31",
+     "effective_to": "2024-09-30",
+     "source": "original"
+    },
+    {
+     "value": 8.75,
+     "effective_from": "2025-03-31",
+     "effective_to": "2025-03-31",
+     "source": "conformed through Amendment No. 9"
+    },
+    {
+     "value": 6.5,
+     "effective_from": "2025-12-31",
+     "effective_to": "2025-12-31",
+     "source": "conformed through Amendment No. 14"
+    },
+    {
+     "value": 7.25,
+     "effective_from": "2026-03-31",
+     "effective_to": "2026-09-30",
+     "source": "conformed through Amendment No. 14"
+    },
+    {
+     "value": 6.75,
+     "effective_from": "2026-12-31",
+     "effective_to": null,
+     "source": "conformed through Amendment No. 14"
+    }
+   ],
+   "numerator_label": "Consolidated First Lien Debt",
+   "denominator_label": "Consolidated EBITDA",
+   "ratio_label": "Consolidated First Lien Debt Ratio",
+   "evidence": {
+    "covenant": {
+     "url": "https://www.sec.gov/Archives/edgar/data/1749723/000174972326000032/a09anfe-rcfconformedcredit.htm",
+     "quote": "(a)Consolidated First Lien Debt Ratio. If, as of the last Business Day of any Test Period, the Revolving Facility Usage is equal to or greater than 50%, the Borrower shall not permit the Consolidated First Lien Debt Ratio as of the last day of such Test Period to be greater than"
+    },
+    "thresholds": [
+     {
+      "url": "https://www.sec.gov/Archives/edgar/data/1749723/000114036121013692/brhc10023371_ex10-2.htm",
+      "quote": "(i) 5.00 to 1.00,\nfor the fiscal quarters ending December 31, 2021 through September 30, 2023"
+     },
+     {
+      "url": "https://www.sec.gov/Archives/edgar/data/1749723/000114036121013692/brhc10023371_ex10-2.htm",
+      "quote": "(ii) 4.00 to 1.00, for the fiscal quarter ending December 31, 2023 and each fiscal quarter thereafter."
+     },
+     {
+      "url": "https://www.sec.gov/Archives/edgar/data/1749723/000174972326000032/a09anfe-rcfconformedcredit.htm",
+      "quote": "(i) 8.75 to 1.00, for the fiscal quarter ending March 31, 2025"
+     },
+     {
+      "url": "https://www.sec.gov/Archives/edgar/data/1749723/000174972326000032/a09anfe-rcfconformedcredit.htm",
+      "quote": "(iv) 6.50 to 1.00, for the fiscal quarter ending December 31, 2025"
+     },
+     {
+      "url": "https://www.sec.gov/Archives/edgar/data/1749723/000174972326000032/a09anfe-rcfconformedcredit.htm",
+      "quote": "(v) 7.25 to 1.00, for each of the fiscal quarters ending March 31, 2026 through September 30, 2026"
+     },
+     {
+      "url": "https://www.sec.gov/Archives/edgar/data/1749723/000174972326000032/a09anfe-rcfconformedcredit.htm",
+      "quote": "(vi) 6.75 to 1.00, for the fiscal quarter ending December 31, 2026 and each fiscal quarter thereafter."
+     }
+    ],
+    "not_tested_q2_q3_2025": {
+     "url": "https://www.sec.gov/Archives/edgar/data/1749723/000174972326000032/a09anfe-rcfconformedcredit.htm",
+     "quote": "shall not be tested for the Test Periods ending June 30, 2025 and September 30, 2025."
+    },
+    "superseded_C9_levels": {
+     "url": "https://www.sec.gov/Archives/edgar/data/1749723/000174972325000029/nfe-conformedcreditagreeme.htm",
+     "quote": "(ii) 7.25 to 1.00, for the fiscal quarter ending June 30, 2025, (iii) 6.75 to 1.00, for the fiscal quarter ending September 30, 2025"
+    },
+    "original_denominator_annualized": {
+     "url": "https://www.sec.gov/Archives/edgar/data/1749723/000114036121013692/brhc10023371_ex10-2.htm",
+     "quote": "to (b) Annualized EBITDA, in each case of the Borrower and its Restricted Subsidiaries on a consolidated basis."
+    }
+   }
+  },
+  {
+   "kind": "min_fixed_charge_coverage",
+   "direction": "min",
+   "test_period": "ttm",
+   "thresholds": [
+    {
+     "value": 0.8,
+     "effective_from": "2025-03-31",
+     "effective_to": "2025-03-31"
+    },
+    {
+     "value": 1.0,
+     "effective_from": "2025-12-31",
+     "effective_to": null
+    }
+   ],
+   "numerator_label": "Consolidated EBITDA",
+   "denominator_label": "Fixed Charges",
+   "ratio_label": "Fixed Charge Coverage Ratio",
+   "evidence": {
+    "covenant": {
+     "url": "https://www.sec.gov/Archives/edgar/data/1749723/000174972326000032/a09anfe-rcfconformedcredit.htm",
+     "quote": "(b)Fixed Charge Coverage Ratio. Commencing with the fiscal quarter ending March 31, 2025, the Borrower shall not permit the Fixed Charge Coverage Ratio as of the last Business Day of any Test Period (as certified in the most recently delivered Compliance Certificate) to be less than or equal to"
+    },
+    "thresholds": [
+     {
+      "url": "https://www.sec.gov/Archives/edgar/data/1749723/000174972326000032/a09anfe-rcfconformedcredit.htm",
+      "quote": "(i) 0.80 to 1.00, for the fiscal quarter ending March 31, 2025"
+     },
+     {
+      "url": "https://www.sec.gov/Archives/edgar/data/1749723/000174972326000032/a09anfe-rcfconformedcredit.htm",
+      "quote": "(ii) 1.00 to 1.00, for the fiscal quarter ending December 31, 2025 and each fiscal quarter thereafter."
+     }
+    ],
+    "not_tested_q2_q3_2025": {
+     "url": "https://www.sec.gov/Archives/edgar/data/1749723/000174972326000032/a09anfe-rcfconformedcredit.htm",
+     "quote": "the Fixed Charge Coverage Ratio test contemplated by this Section 6.10(b) shall not be tested for the Test Periods ending June 30, 2025 and September 30, 2025."
+    }
+   }
+  },
+  {
+   "kind": "min_liquidity",
+   "direction": "min",
+   "test_period": "point_in_time",
+   "thresholds": [
+    {
+     "value": 100000000,
+     "effective_from": "2024-12-31",
+     "effective_to": "2025-09-30"
+    },
+    {
+     "value": 100000000,
+     "effective_from": "2026-03-31",
+     "effective_to": null
+    }
+   ],
+   "numerator_label": "Consolidated Liquidity",
+   "denominator_label": null,
+   "frequency": "fiscal quarter end",
+   "evidence": {
+    "covenant": {
+     "url": "https://www.sec.gov/Archives/edgar/data/1749723/000174972326000032/a09anfe-rcfconformedcredit.htm",
+     "quote": "(1)Commencing with the fiscal quarter ending December 31, 2024, the Borrower shall not permit the Consolidated Liquidity to be less than $100,000,000.00 as of the last day of any fiscal quarter (other than for the fiscal quarter ending December 31, 2025, which shall not be tested)."
+    },
+    "thresholds": [
+     {
+      "url": "https://www.sec.gov/Archives/edgar/data/1749723/000174972324000116/a01nfe-rcfaramendmentno8.htm",
+      "quote": "Commencing with the fiscal quarter ending December 31, 2024, the Borrower shall not permit the Consolidated Liquidity to be less than $100,000,000.00 as of the last day of any fiscal quarter."
+     },
+     {
+      "url": "https://www.sec.gov/Archives/edgar/data/1749723/000174972326000032/a09anfe-rcfconformedcredit.htm",
+      "quote": "(other than for the fiscal quarter ending December 31, 2025, which shall not be tested)."
+     }
+    ]
+   }
+  },
+  {
+   "kind": "min_liquidity",
+   "direction": "min",
+   "test_period": "point_in_time",
+   "thresholds": [
+    {
+     "value": 50000000,
+     "effective_from": "2024-10-31",
+     "effective_to": null
+    }
+   ],
+   "numerator_label": "Consolidated Liquidity",
+   "denominator_label": null,
+   "frequency": "calendar month end",
+   "evidence": {
+    "covenant": {
+     "url": "https://www.sec.gov/Archives/edgar/data/1749723/000174972326000032/a09anfe-rcfconformedcredit.htm",
+     "quote": "(2)Commencing with the calendar month ending October 31, 2024, the Borrower shall not permit the Consolidated Liquidity to be less than $50,000,000.00 as of the last day of any calendar month."
+    },
+    "thresholds": [
+     {
+      "url": "https://www.sec.gov/Archives/edgar/data/1749723/000174972326000032/a09anfe-rcfconformedcredit.htm",
+      "quote": "the Consolidated Liquidity to be less than $50,000,000.00 as of the last day of any calendar month."
+     }
+    ]
+   }
+  }
+ ],
+ "terms": [
+  {
+   "label": "Debt to Total Capitalization Ratio",
+   "op": "ratio",
+   "children_labels": [
+    "Consolidated Total Debt",
+    "total capitalization"
+   ],
+   "cap": null,
+   "evidence": {
+    "url": "https://www.sec.gov/Archives/edgar/data/1749723/000114036121013692/brhc10023371_ex10-2.htm",
+    "quote": "\"Debt to Total Capitalization Ratio\": as of any date of determination for the Borrower and the Restricted Subsidiaries, the ratio of (x)\nConsolidated Total Debt to (y) the greater of (i) total capitalization calculated in accordance with GAAP and (ii) total capitalization calculated based on then-current stock trading price of the Borrower."
+   },
+   "note": "denominator is the greater of GAAP total capitalization and market-price-based total capitalization (not a defined term)"
+  },
+  {
+   "label": "Consolidated Total Debt",
+   "op": "sum",
+   "children_labels": [
+    "third party debt for borrowed money",
+    "obligations in respect of Financing Leases",
+    "purchase money Indebtedness",
+    "Disqualified Stock",
+    "Preferred Stock of its Restricted Subsidiaries",
+    "unrestricted cash and Cash Equivalents"
+   ],
+   "cap": null,
+   "evidence": {
+    "url": "https://www.sec.gov/Archives/edgar/data/1749723/000174972326000032/a09anfe-rcfconformedcredit.htm",
+    "quote": "\"Consolidated Total Debt\": as to any Person at any date of determination, an amount equal to the sum of (1) the aggregate principal amount of all third party debt for borrowed money"
+   },
+   "evidence_net_cash": {
+    "url": "https://www.sec.gov/Archives/edgar/data/1749723/000174972326000032/a09anfe-rcfconformedcredit.htm",
+    "quote": "provided that \"Consolidated Total Debt\" shall be calculated (i) net of all unrestricted cash and Cash Equivalents of such Person and its Restricted Subsidiaries at such date of determination"
+   },
+   "note": "unrestricted cash and Cash Equivalents is subtracted (net debt)"
+  },
+  {
+   "label": "Consolidated First Lien Debt Ratio",
+   "op": "ratio",
+   "children_labels": [
+    "Consolidated First Lien Debt",
+    "Consolidated EBITDA"
+   ],
+   "cap": null,
+   "evidence": {
+    "url": "https://www.sec.gov/Archives/edgar/data/1749723/000174972326000032/a09anfe-rcfconformedcredit.htm",
+    "quote": "\"Consolidated First Lien Debt Ratio\": the ratio, as of any date of determination, of (a) Consolidated First Lien Debt as of the last day of the Test Period then most recently ended on or prior to such date of determination to (b) Consolidated EBITDA for the Test Period then most recently ended on or prior to such date of determination"
+   },
+   "note": "through the A&R Eighth Amendment the denominator was Annualized EBITDA (most recent quarter x 4)"
+  },
+  {
+   "label": "Annualized EBITDA",
+   "op": "leaf",
+   "children_labels": [],
+   "cap": null,
+   "evidence": {
+    "url": "https://www.sec.gov/Archives/edgar/data/1749723/000174972324000116/a01nfe-rcfaramendmentno8.htm",
+    "quote": "\"Annualized EBITDA\": on any date of determination, Consolidated EBITDA for the most recently ended quarterly Test Period multiplied by four."
+   },
+   "note": "historical denominator of the Consolidated First Lien Debt Ratio (2021 to 2024); removed by the time of the conformed-through-Amendment-9 copy"
+  },
+  {
+   "label": "Consolidated First Lien Debt",
+   "op": "leaf",
+   "children_labels": [],
+   "cap": null,
+   "evidence": {
+    "url": "https://www.sec.gov/Archives/edgar/data/1749723/000174972326000032/a09anfe-rcfconformedcredit.htm",
+    "quote": "\"Consolidated First Lien Debt\": as to any Person at any date of determination, the aggregate principal amount of Consolidated Total Debt of such Person outstanding on such date (a) that constitutes Obligations or Secured Notes Obligations or (b) that is secured by a Lien on the Collateral that does not rank junior to the Liens on the Collateral securing the Obligations"
+   },
+   "note": "subset of Consolidated Total Debt"
+  },
+  {
+   "label": "Fixed Charge Coverage Ratio",
+   "op": "ratio",
+   "children_labels": [
+    "Consolidated EBITDA",
+    "Fixed Charges"
+   ],
+   "cap": null,
+   "evidence": {
+    "url": "https://www.sec.gov/Archives/edgar/data/1749723/000174972326000032/a09anfe-rcfconformedcredit.htm",
+    "quote": "\"Fixed Charge Coverage Ratio\": as of any date of determination, the ratio of (a) Consolidated EBITDA for the Test Period then most recently ended on or prior to such date of determination to (b) Fixed Charges for the Test Period then most recently ended on or prior to such date of determination"
+   }
+  },
+  {
+   "label": "Fixed Charges",
+   "op": "sum",
+   "children_labels": [
+    "Consolidated Interest Expense",
+    "cash dividends on Preferred Stock",
+    "cash dividends on Disqualified Stock"
+   ],
+   "cap": null,
+   "evidence": {
+    "url": "https://www.sec.gov/Archives/edgar/data/1749723/000174972326000032/a09anfe-rcfconformedcredit.htm",
+    "quote": "\"Fixed Charges\": as to the Borrower and its Restricted Subsidiaries at any date of determination, on a consolidated basis, for any period, the sum of (without duplication):\n(1)Consolidated Interest Expense for such period;"
+   }
+  },
+  {
+   "label": "Consolidated Interest Expense",
+   "op": "leaf",
+   "children_labels": [],
+   "cap": null,
+   "evidence": {
+    "url": "https://www.sec.gov/Archives/edgar/data/1749723/000174972326000032/a09anfe-rcfconformedcredit.htm",
+    "quote": "\"Consolidated Interest Expense\": cash interest expense (including that attributable to Financing Leases), net of cash interest income of the Borrower and the Restricted Subsidiaries"
+   },
+   "note": "cash interest expense net of cash interest income, with exclusions (a)-(n); not decomposed"
+  },
+  {
+   "label": "Consolidated EBITDA",
+   "op": "sum",
+   "children_labels": [
+    "Consolidated Net Income",
+    "Fixed Charges",
+    "taxes",
+    "depreciation and amortization",
+    "non-cash Charge",
+    "management equity plan and employee benefit Charges",
+    "Consolidated Net Income attributable to non-controlling interests",
+    "contingent payments in connection with the licensing of intellectual property",
+    "fees, Charges, expense reimbursements and indemnities paid to directors",
+    "Charges in connection with Permitted Receivables Financing",
+    "net pension or other post-employment benefit costs",
+    "adjustments permitted or required by Article 11 of Regulation S-X",
+    "internal software development costs",
+    "joint venture interest, taxes, depreciation and amortization",
+    "cash received relating to previously deducted non-cash gains",
+    "Run Rate Benefits",
+    "run rate income under Customer Contracts",
+    "non-cash income or non-cash gain",
+    "cash payments in respect of prior-period non-cash accruals"
+   ],
+   "cap": null,
+   "evidence": {
+    "url": "https://www.sec.gov/Archives/edgar/data/1749723/000174972326000032/a09anfe-rcfconformedcredit.htm",
+    "quote": "\"Consolidated EBITDA\": with respect to any Person for any Test Period, the sum of:\n(a)Consolidated Net Income of such Person for such period; plus"
+   },
+   "note": "children paraphrased from clauses (a), (b)(i)-(xv), (c), (d), (e) added and (f), (g) subtracted"
+  },
+  {
+   "label": "joint venture interest, taxes, depreciation and amortization",
+   "op": "cap",
+   "children_labels": [],
+   "cap": {
+    "kind": "pct_of",
+    "of": "Consolidated EBITDA",
+    "pct": 0.05
+   },
+   "evidence": {
+    "url": "https://www.sec.gov/Archives/edgar/data/1749723/000174972326000032/a09anfe-rcfconformedcredit.htm",
+    "quote": "provided that the aggregate amount added to Consolidated EBITDA pursuant to this clause (xv), shall not exceed 5.0% of Consolidated EBITDA for such period"
+   }
+  },
+  {
+   "label": "Run Rate Benefits",
+   "op": "cap",
+   "children_labels": [],
+   "cap": {
+    "kind": "pct_of",
+    "of": "Consolidated EBITDA",
+    "pct": 0.2
+   },
+   "evidence": {
+    "url": "https://www.sec.gov/Archives/edgar/data/1749723/000174972326000032/a09anfe-rcfconformedcredit.htm",
+    "quote": "provided that the aggregate amount added to Consolidated EBITDA pursuant to this clause (d) and clause (e) of this definition below shall not in the aggregate exceed 20% of Consolidated EBITDA for such period"
+   },
+   "note": "20% cap is shared by clauses (d) Run Rate Benefits and (e) Customer Contract run rate income"
+  },
+  {
+   "label": "Consolidated Liquidity",
+   "op": "sum",
+   "children_labels": [
+    "unrestricted cash and Cash Equivalents",
+    "the amount by which the Aggregate Commitments exceed the Aggregate Revolving Exposure"
+   ],
+   "cap": null,
+   "evidence": {
+    "url": "https://www.sec.gov/Archives/edgar/data/1749723/000174972326000032/a09anfe-rcfconformedcredit.htm",
+    "quote": "\"Consolidated Liquidity\": as of any date of determination, an amount determined for the Borrower and its Restricted Subsidiaries, on a consolidated basis, equal to the sum of (i) unrestricted cash and Cash Equivalents of the Borrower and its Restricted Subsidiaries as of such day and (ii) the amount by which the Aggregate Commitments exceed the Aggregate Revolving Exposure as of such day."
+   }
+  }
+ ],
+ "amendments_considered": [
+  {
+   "accession": "0001749723-23-000010",
+   "url": "https://www.sec.gov/Archives/edgar/data/1749723/000174972323000010/a1038-fourthamendmenttorcf.htm",
+   "filed": "2023-03-01",
+   "what_changed": "Fourth Amendment (Feb 7, 2023), marked conformed copy; Section 6.10 unchanged (DTC 0.70; CFLDR 5.00/4.00)."
+  },
+  {
+   "accession": "0001749723-23-000057",
+   "url": "https://www.sec.gov/Archives/edgar/data/1749723/000174972323000057/a001-amendmentno5torcf10.htm",
+   "filed": "2023-11-09",
+   "what_changed": "Fifth Amendment (Sep 15, 2023): commitment upsize; no Section 6.10 change found."
+  },
+  {
+   "accession": "0001749723-24-000011",
+   "url": "https://www.sec.gov/Archives/edgar/data/1749723/000174972324000011/rcfupsize-sixthamendment.htm",
+   "filed": "2024-02-29",
+   "what_changed": "Sixth Amendment (Dec 18, 2023): commitment upsize; no Section 6.10 change found."
+  },
+  {
+   "accession": "0001749723-24-000072",
+   "url": "https://www.sec.gov/Archives/edgar/data/1749723/000174972324000072/nfe-rcfx7thamendment.htm",
+   "filed": "2024-08-09",
+   "what_changed": "Seventh Amendment (May 3, 2024): commitment upsize; no Section 6.10 change found."
+  },
+  {
+   "accession": "0001749723-24-000116",
+   "url": "https://www.sec.gov/Archives/edgar/data/1749723/000174972324000116/a01nfe-rcfaramendmentno8.htm",
+   "filed": "2024-11-12",
+   "what_changed": "A&R Eighth Amendment (Sep 30, 2024), marked copy: DTC test excluded for Sep 30, 2024 and (if Covenant Holiday Trigger Event) Dec 31, 2024 / Mar 31, 2025; adds Minimum Liquidity ($100M quarterly from Dec 31, 2024; $50M monthly from Oct 31, 2024)."
+  },
+  {
+   "accession": "0001749723-25-000029",
+   "url": "https://www.sec.gov/Archives/edgar/data/1749723/000174972325000029/nfe-conformedcreditagreeme.htm",
+   "filed": "2025-03-10",
+   "what_changed": "Conformed copy through Ninth Amendment (Nov 6, 2024; the Ninth Amendment itself was not found as a separate exhibit): DTC covenant removed; CFLDR re-based to TTM Consolidated EBITDA with new schedule from Mar 31, 2025 (8.75x stepping to 6.75x); new Fixed Charge Coverage Ratio (0.80x Q1 2025, 1.00x thereafter); Test Period redefined as four fiscal quarters."
+  },
+  {
+   "accession": "0001749723-25-000029",
+   "url": "https://www.sec.gov/Archives/edgar/data/1749723/000174972325000029/nfe-rcfx10thamendment.htm",
+   "filed": "2025-03-10",
+   "what_changed": "Tenth Amendment (Nov 22, 2024): no Section 6.10 change found in the text."
+  },
+  {
+   "accession": "0001749723-25-000100",
+   "url": "https://www.sec.gov/Archives/edgar/data/1749723/000174972325000100/rcfamendedandrestated11tha.htm",
+   "filed": "2025-06-30",
+   "what_changed": "A&R Eleventh Amendment (Mar 3, 2025): not separately analyzed; conformed-through-12 copy reflects its net effect."
+  },
+  {
+   "accession": "0001749723-25-000123",
+   "url": "https://www.sec.gov/Archives/edgar/data/1749723/000174972325000123/a01-nfexrcf12thamendmentex.htm",
+   "filed": "2025-09-05",
+   "what_changed": "Twelfth Amendment (May 12, 2025), per conformed-through-12 copy: CFLDR and FCCR not tested for Jun 30, 2025 (CFLDR clause (ii) Reserved); FCCR 1.00x from Sep 30, 2025."
+  },
+  {
+   "accession": "0001749723-26-000032",
+   "url": "https://www.sec.gov/Archives/edgar/data/1749723/000174972326000032/nfe-rcfx13thamendmentexe.htm",
+   "filed": "2026-04-13",
+   "what_changed": "Thirteenth (Nov 20, 2025) and Fourteenth (Dec 17, 2025) Amendments, per conformed-through-14 copy: CFLDR and FCCR also not tested for Sep 30, 2025; FCCR 1.00x from Dec 31, 2025; quarterly liquidity not tested for Dec 31, 2025."
+  },
+  {
+   "accession": "0001749723-26-000062",
+   "url": "https://www.sec.gov/Archives/edgar/data/1749723/000174972326000062/a01projectlady-rcfxforbear.htm",
+   "filed": "2026-05-14",
+   "what_changed": "Forbearance Agreement (Jan 20, 2026); restructuring context (RSA 8-K filed Mar 17, 2026). Not analyzed for covenant level changes."
+  }
+ ],
+ "draft_notes": [
+  "Agreement chosen: NFE Revolving Credit Agreement dated April 15, 2021 (MUFG now agent), the main corporate RCF. NFE also has a Term Loan A, Term Loan B, an uncommitted letter-of-credit facility and project-level facilities, which were not labeled.",
+  "History is heavy and partly reconstructed from conformed copies (through Amendments 9, 12, 14). The Ninth Amendment, which removed the Debt to Total Capitalization covenant and reset the CFLDR, was not found as a standalone exhibit.",
+  "DTC effective_to = 2024-06-30 (last date it applied unconditionally). The A&R Eighth Amendment excluded Sep 30, 2024 subject to a Covenant Holiday Trigger Event, and the covenant is gone from the conformed-through-9 copy.",
+  "CFLDR 4.00x effective_to = 2024-09-30 is uncertain: the conformed-through-9 schedule starts at Mar 31, 2025 and is silent on Dec 31, 2024. Verify whether Dec 31, 2024 was tested.",
+  "CFLDR is springing (Revolving Facility Usage >= 50%). Through 2024 its denominator was Annualized EBITDA (latest quarter x 4, so effectively quarterly). From the 2025 conformed copies it is TTM Consolidated EBITDA. The label uses the current definition (ttm); the 5.00/4.00 entries were measured on the annualized basis.",
+  "Superseded before testing: CFLDR 7.25x for Jun 30, 2025 and 6.75x for Sep 30, 2025, and FCCR 1.00x for Jun/Sep 2025. These were replaced by 'not tested' and are omitted from the schedule.",
+  "FCCR breach condition is 'less than or equal to' the level (not strictly less than).",
+  "Two min_liquidity entries: $100M at fiscal quarter ends (Dec 31, 2025 not tested) and $50M at calendar month ends. The monthly test does not fit the quarterly schema; extra key 'frequency' added.",
+  "DTC kind = max_leverage and denominator 'total capitalization' (lowercase, not a defined term) are judgment calls.",
+  "Consolidated EBITDA children are paraphrased clause labels; Consolidated Net Income (long definition) not decomposed.",
+  "effective_to convention: last test date the level applies to."
+ ]
+}

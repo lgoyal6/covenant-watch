@@ -1,0 +1,265 @@
+{
+ "cik": "0001137789",
+ "agreement_accession": "0001137789-25-000023",
+ "agreement_url": "https://www.sec.gov/Archives/edgar/data/1137789/000113778925000023/seagate-creditagreementedg.htm",
+ "labeled_by": "claude-draft (unverified; Dat must check each field against evidence)",
+ "labeled_at": "2026-10-28",
+ "status": "draft",
+ "agreement_title": "Credit Agreement dated as of January 30, 2025 (Seagate HDD Cayman / Seagate Technology Holdings plc; The Bank of Nova Scotia, Administrative Agent)",
+ "covenants": [
+  {
+   "kind": "max_leverage",
+   "direction": "max",
+   "test_period": "ttm",
+   "thresholds": [
+    {
+     "value": 6.75,
+     "effective_from": "2025-06-27",
+     "effective_to": "2025-06-27"
+    },
+    {
+     "value": 5.5,
+     "effective_from": "2025-09-30",
+     "effective_to": "2026-09-30"
+    },
+    {
+     "value": 4.75,
+     "effective_from": "2026-09-30",
+     "effective_to": "2027-09-30"
+    },
+    {
+     "value": 4.25,
+     "effective_from": "2027-09-30",
+     "effective_to": null
+    }
+   ],
+   "numerator_label": "Consolidated Funded Indebtedness",
+   "denominator_label": "Consolidated EBITDA",
+   "ratio_label": "Consolidated Total Net Leverage Ratio",
+   "numerator_net_of": "Unrestricted Cash Amount",
+   "evidence": {
+    "covenant": {
+     "url": "https://www.sec.gov/Archives/edgar/data/1137789/000113778925000023/seagate-creditagreementedg.htm",
+     "quote": "permit the Consolidated Total Net Leverage Ratio as of the end of such Test Period to be greater than the ratio set forth below (the \"Financial Covenant\")"
+    },
+    "test_period": {
+     "url": "https://www.sec.gov/Archives/edgar/data/1137789/000113778925000023/seagate-creditagreementedg.htm",
+     "quote": "\"Test Period\" means (i) for purposes of the Financial Covenant, the four consecutive fiscal quarters of Holdings then last ended"
+    },
+    "thresholds": [
+     {
+      "url": "https://www.sec.gov/Archives/edgar/data/1137789/000113778925000023/seagate-creditagreementedg.htm",
+      "quote": "Test Period ending June 27, 2025 6.75 to 1.00"
+     },
+     {
+      "url": "https://www.sec.gov/Archives/edgar/data/1137789/000113778925000023/seagate-creditagreementedg.htm",
+      "quote": "Each Test Period ending on or after September 30, 2025, and on or prior to September 30, 2026 5.50 to 1.00"
+     },
+     {
+      "url": "https://www.sec.gov/Archives/edgar/data/1137789/000113778925000023/seagate-creditagreementedg.htm",
+      "quote": "Each Test Period ending on or after September 30, 2026, and on or prior to September 30, 2027 4.75 to 1.00"
+     },
+     {
+      "url": "https://www.sec.gov/Archives/edgar/data/1137789/000113778925000023/seagate-creditagreementedg.htm",
+      "quote": "Each Test Period ending on or after September 30, 2027 4.25 to 1.00"
+     }
+    ]
+   }
+  }
+ ],
+ "terms": [
+  {
+   "label": "Consolidated Total Net Leverage Ratio",
+   "op": "ratio",
+   "children_labels": [
+    "Consolidated Funded Indebtedness",
+    "Unrestricted Cash Amount",
+    "Consolidated EBITDA"
+   ],
+   "cap": null,
+   "evidence": {
+    "url": "https://www.sec.gov/Archives/edgar/data/1137789/000113778925000023/seagate-creditagreementedg.htm",
+    "quote": "the ratio of (a) Consolidated Funded Indebtedness (less the Unrestricted Cash Amount) of the Group Parties on such date, calculated on a Pro Forma Basis to (b) Consolidated EBITDA of Holdings for the Test Period most recently then ended"
+   }
+  },
+  {
+   "label": "Consolidated Funded Indebtedness",
+   "op": "sum",
+   "children_labels": [
+    "Indebtedness in respect of borrowed money and purchase money Indebtedness",
+    "Capitalized Lease Obligations"
+   ],
+   "cap": null,
+   "evidence": {
+    "url": "https://www.sec.gov/Archives/edgar/data/1137789/000113778925000023/seagate-creditagreementedg.htm",
+    "quote": "\"Consolidated Funded Indebtedness\" means all third-party Indebtedness in respect of (I) borrowed money and purchase money Indebtedness (including such obligations evidenced by promissory notes and similar instruments) of a Person and its Subsidiaries on a consolidated basis and (II) Capitalized Lease Obligations"
+   }
+  },
+  {
+   "label": "Unrestricted Cash Amount",
+   "op": "sum",
+   "children_labels": [
+    "cash and Cash Equivalents not required to be designated as restricted",
+    "cash and Cash Equivalents restricted in favor of the Facilities"
+   ],
+   "cap": null,
+   "evidence": {
+    "url": "https://www.sec.gov/Archives/edgar/data/1137789/000113778925000023/seagate-creditagreementedg.htm",
+    "quote": "\"Unrestricted Cash Amount\" means, as of any date of determination, the amount of (a) cash and Cash Equivalents of Holdings and its Subsidiaries"
+   }
+  },
+  {
+   "label": "Consolidated EBITDA",
+   "op": "sum",
+   "children_labels": [
+    "Consolidated Net Income",
+    "provision for taxes based on income, profits or capital",
+    "Consolidated Interest Expense",
+    "depreciation and amortization charges and expenses",
+    "minority interest expense",
+    "earn-out obligations",
+    "charges in connection with rollover, acceleration or payout of equity interests",
+    "non-cash losses, charges and expenses",
+    "Pro Forma Cost Savings",
+    "non-cash gains or income",
+    "minority interest income",
+    "foreign currency gains and losses (FASB ASC 830)",
+    "gain or loss relating to Swap Contracts"
+   ],
+   "cap": null,
+   "evidence": {
+    "url": "https://www.sec.gov/Archives/edgar/data/1137789/000113778925000023/seagate-creditagreementedg.htm",
+    "quote": "\"Consolidated EBITDA\" means, with respect to any Person on a consolidated basis for any period, the Consolidated Net Income of such Person and its Subsidiaries for such period:"
+   },
+   "evidence_children": [
+    {
+     "url": "https://www.sec.gov/Archives/edgar/data/1137789/000113778925000023/seagate-creditagreementedg.htm",
+     "quote": "(a)provision for taxes based on income, profits or capital"
+    },
+    {
+     "url": "https://www.sec.gov/Archives/edgar/data/1137789/000113778925000023/seagate-creditagreementedg.htm",
+     "quote": "(b)Consolidated Interest Expense of such Person and its Subsidiaries for such period"
+    },
+    {
+     "url": "https://www.sec.gov/Archives/edgar/data/1137789/000113778925000023/seagate-creditagreementedg.htm",
+     "quote": "(c)all depreciation and amortization charges and expenses"
+    },
+    {
+     "url": "https://www.sec.gov/Archives/edgar/data/1137789/000113778925000023/seagate-creditagreementedg.htm",
+     "quote": "(d)the amount of any minority interest expense"
+    },
+    {
+     "url": "https://www.sec.gov/Archives/edgar/data/1137789/000113778925000023/seagate-creditagreementedg.htm",
+     "quote": "(e)earn-out obligations incurred in connection with any acquisition"
+    },
+    {
+     "url": "https://www.sec.gov/Archives/edgar/data/1137789/000113778925000023/seagate-creditagreementedg.htm",
+     "quote": "(f)all charges, costs, expenses, accruals or reserves in connection with the rollover, acceleration or payout of equity interests"
+    },
+    {
+     "url": "https://www.sec.gov/Archives/edgar/data/1137789/000113778925000023/seagate-creditagreementedg.htm",
+     "quote": "(g)all non-cash losses, charges and expenses"
+    },
+    {
+     "url": "https://www.sec.gov/Archives/edgar/data/1137789/000113778925000023/seagate-creditagreementedg.htm",
+     "quote": "(h)Pro Forma Cost Savings;"
+    },
+    {
+     "url": "https://www.sec.gov/Archives/edgar/data/1137789/000113778925000023/seagate-creditagreementedg.htm",
+     "quote": "(2)decreased (without duplication and to the extent increasing such Consolidated Net Income for such period) by (i) non-cash gains or income"
+    },
+    {
+     "url": "https://www.sec.gov/Archives/edgar/data/1137789/000113778925000023/seagate-creditagreementedg.htm",
+     "quote": "(ii) the amount of any minority interest income"
+    },
+    {
+     "url": "https://www.sec.gov/Archives/edgar/data/1137789/000113778925000023/seagate-creditagreementedg.htm",
+     "quote": "any net gains and losses relating to (i) amounts denominated in foreign currencies resulting from the application of FASB ASC 830"
+    },
+    {
+     "url": "https://www.sec.gov/Archives/edgar/data/1137789/000113778925000023/seagate-creditagreementedg.htm",
+     "quote": "any gain or loss relating to Swap Contracts;"
+    }
+   ]
+  },
+  {
+   "label": "Pro Forma Cost Savings",
+   "op": "cap",
+   "children_labels": [],
+   "cap": {
+    "kind": "pct_of",
+    "of": "Consolidated EBITDA",
+    "pct": 0.2
+   },
+   "evidence": {
+    "url": "https://www.sec.gov/Archives/edgar/data/1137789/000113778925000023/seagate-creditagreementedg.htm",
+    "quote": "in the aggregate, in any Test Period shall not exceed an amount equal to the greater of (x) $300,000,000 and (y) 20.0% of the Consolidated EBITDA of Holdings for any Test Period"
+   },
+   "cap_greater_of_usd": 300000000,
+   "cap_note": "Shared EBITDA Cap: greater of $300,000,000 and 20.0% of Consolidated EBITDA; shared across Pro Forma Cost Savings (post-closing), CNI clause (a)(II) exclusions, and Pro Forma Basis run-rate synergies."
+  },
+  {
+   "label": "Consolidated Net Income",
+   "op": "sum",
+   "children_labels": [
+    "net income (or loss)",
+    "extraordinary/nonrecurring losses and charges; restructuring and unused capacity costs",
+    "losses related to the Transactions and transaction fees",
+    "abandoned, closed or discontinued operations",
+    "gains/losses on business and asset dispositions and early extinguishment of debt",
+    "non-cash currency translation losses",
+    "cumulative effect of a change in accounting principles",
+    "purchase accounting adjustments",
+    "non-cash impairment charges and amortization of intangibles",
+    "amortization and write-offs of deferred financing fees",
+    "Receivables Facility charges",
+    "revaluation of inventory",
+    "reimbursed fees, costs and expenses",
+    "cash dividends or returns of capital from Investments"
+   ],
+   "cap": null,
+   "evidence": {
+    "url": "https://www.sec.gov/Archives/edgar/data/1137789/000113778925000023/seagate-creditagreementedg.htm",
+    "quote": "\"Consolidated Net Income\" means, with respect to any Person on a consolidated basis for any period, the aggregate of the net income (or loss) of such Person and its Subsidiaries for such period, calculated on a consolidated basis in accordance with GAAP"
+   },
+   "cap_note": "clause (a)(II) exclusions are subject to the Shared EBITDA Cap",
+   "cap_evidence": {
+    "url": "https://www.sec.gov/Archives/edgar/data/1137789/000113778925000023/seagate-creditagreementedg.htm",
+    "quote": "(provided that the aggregate amount excluded from Consolidated Net Income pursuant to this sub-clause (II) shall be subject to the Shared EBITDA Cap), will be excluded;"
+   }
+  },
+  {
+   "label": "Consolidated Interest Expense",
+   "op": "subtract",
+   "children_labels": [
+    "cash interest expense",
+    "cash interest income"
+   ],
+   "cap": null,
+   "evidence": {
+    "url": "https://www.sec.gov/Archives/edgar/data/1137789/000113778925000023/seagate-creditagreementedg.htm",
+    "quote": "\"Consolidated Interest Expense\" means, with respect to any Person on a consolidated basis for any period, without duplication, the cash interest expense (including that attributable to Capitalized Lease Obligations), net of cash interest income"
+   }
+  }
+ ],
+ "amendments_considered": [
+  {
+   "accession": "0001137789-26-000159",
+   "url": "https://www.sec.gov/Archives/edgar/data/1137789/000113778926000159/stx-20260703.htm",
+   "filed": "2026-08-04",
+   "what_changed": "None found. FY2026 10-K (FYE July 3, 2026) still describes the single net leverage covenant starting at 6.75x; EDGAR full-text search for amendments referencing the January 30, 2025 agreement returned no amendment exhibits.",
+   "evidence": {
+    "url": "https://www.sec.gov/Archives/edgar/data/1137789/000113778926000159/stx-20260703.htm",
+    "quote": "As of July 3, 2026, the Credit Agreement includes one financial covenant, net leverage ratio of less than or equal to 6.75 to 1.00, commencing with the fiscal quarter ended June 27, 2025"
+   }
+  }
+ ],
+ "draft_notes": [
+  "Schedule dates overlap as written: 5.50x covers Test Periods ending 'on or after September 30, 2025, and on or prior to September 30, 2026', and 4.75x starts 'on or after September 30, 2026' (same overlap at Sept 30, 2027). Seagate's fiscal quarters end on Fridays (e.g. Oct 2/3), so the agreement's calendar dates are approximate; effective_from/to copied literally. Verifier should decide the boundary convention.",
+  "Testing Condition: for Test Periods ending on or prior to ~Dec 31, 2025 the covenant is not tested if revolver usage is <= 0.0% of commitments (i.e. springs only when any revolver is drawn). Thresholds still listed.",
+  "Numerator is 'Consolidated Funded Indebtedness (less the Unrestricted Cash Amount)'; numerator_label set to Consolidated Funded Indebtedness and extra key numerator_net_of records the cash netting.",
+  "Shared EBITDA Cap is a greater-of ($300,000,000 vs 20.0% of Consolidated EBITDA); cap field holds the pct form, extra key cap_greater_of_usd holds the dollar prong.",
+  "Consolidated Net Income children are short paraphrased labels of clauses (a)-(o) (exclusions; (o) is an inclusion), not defined terms. Consolidated EBITDA children after Consolidated Net Income are clause descriptions; subtractions (clause 2) and two-way adjustments (clauses 3-4) are listed in the same sum.",
+  "Prior agreement (2017 Credit Agreement as amended, e.g. 10-K EX-10.51 acc 0001137789-23-000049 and 10-Q EX-10.3 acc 0001137789-23-000128) governed 2023-2024 and was NOT labeled here."
+ ]
+}

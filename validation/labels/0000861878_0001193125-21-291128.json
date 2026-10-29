@@ -1,0 +1,237 @@
+{
+ "cik": "0000861878",
+ "agreement_accession": "0001193125-21-291128",
+ "agreement_url": "https://www.sec.gov/Archives/edgar/data/861878/000119312521291128/d233563dex101.htm",
+ "labeled_by": "claude-draft (unverified; Dat must check each field against evidence)",
+ "labeled_at": "2026-10-28",
+ "status": "draft",
+ "covenants": [
+  {
+   "kind": "min_interest_coverage",
+   "direction": "min",
+   "test_period": "ttm",
+   "thresholds": [
+    {
+     "value": 3.0,
+     "effective_from": "2021-09-30",
+     "effective_to": null
+    }
+   ],
+   "numerator_label": "Consolidated EBITDA",
+   "denominator_label": "Consolidated Interest Charges",
+   "evidence": {
+    "covenant": {
+     "url": "https://www.sec.gov/Archives/edgar/data/861878/000119312521291128/d233563dex101.htm",
+     "quote": "\"Consolidated Interest Coverage Ratio\" means, as of any date of\ndetermination, the ratio of (a) Consolidated EBITDA for the period of the four prior fiscal quarters ending on such date to (b) Consolidated Interest Charges for such period."
+    },
+    "thresholds": [
+     {
+      "url": "https://www.sec.gov/Archives/edgar/data/861878/000119312521291128/d233563dex101.htm",
+      "quote": "(a) Consolidated Interest Coverage Ratio. Permit the Consolidated Interest Coverage Ratio as of the end of any\nfiscal quarter of the Company to be less than 3.00 to 1.00."
+     }
+    ]
+   }
+  },
+  {
+   "kind": "max_leverage",
+   "direction": "max",
+   "test_period": "ttm",
+   "thresholds": [
+    {
+     "value": 4.25,
+     "effective_from": "2021-09-30",
+     "effective_to": "2022-06-30"
+    },
+    {
+     "value": 4.0,
+     "effective_from": "2022-09-30",
+     "effective_to": null
+    }
+   ],
+   "numerator_label": "Consolidated Funded Indebtedness",
+   "denominator_label": "Consolidated EBITDA",
+   "evidence": {
+    "covenant": {
+     "url": "https://www.sec.gov/Archives/edgar/data/861878/000119312521291128/d233563dex101.htm",
+     "quote": "\"Consolidated Leverage Ratio\" means, as of any date of determination, the ratio of (a) (i) Consolidated Funded\nIndebtedness as of such date minus (ii) Unrestricted Cash as of such date to (b) Consolidated EBITDA for the period of four fiscal quarters most recently ended on or prior to such date."
+    },
+    "thresholds": [
+     {
+      "url": "https://www.sec.gov/Archives/edgar/data/861878/000119312521291128/d233563dex101.htm",
+      "quote": "Consolidated Leverage Ratio as of the end of any fiscal quarter of the Company to be greater than (i) 4.25 to 1.00 as of the last day of any fiscal quarter ending before September 30, 2022"
+     },
+     {
+      "url": "https://www.sec.gov/Archives/edgar/data/861878/000119312521291128/d233563dex101.htm",
+      "quote": "(ii) 4.00 to 1.00 as of the last day of any fiscal\nquarter ending on or after September 30, 2022."
+     }
+    ]
+   }
+  }
+ ],
+ "terms": [
+  {
+   "label": "Consolidated EBITDA",
+   "op": "sum",
+   "children_labels": [
+    "Consolidated Net Income",
+    "Consolidated Interest Charges",
+    "provision for Federal, state, local and foreign income taxes",
+    "depreciation and amortization expense",
+    "other non-recurring non-cash expenses",
+    "non-cash stock compensation expenses",
+    "Transaction Costs",
+    "extraordinary and non-recurring cash expenses or charges",
+    "Business Transformation and related cash charges",
+    "government investigation settlement charges",
+    "Federal, state, local and foreign income tax credits",
+    "non-cash items increasing Consolidated Net Income"
+   ],
+   "cap": null,
+   "evidence": {
+    "url": "https://www.sec.gov/Archives/edgar/data/861878/000119312521291128/d233563dex101.htm",
+    "quote": "\"Consolidated EBITDA\" means, for any period and subject to\nSection 7.11(c), for the Company and its Subsidiaries on a consolidated basis, an amount equal to Consolidated Net Income for such period plus (a) the following to the extent deducted in calculating such\nConsolidated Net Income: (i) Consolidated Interest Charges for such period, (ii) the provision for Federal, state, local and foreign income taxes payable"
+   }
+  },
+  {
+   "label": "extraordinary and non-recurring cash expenses or charges",
+   "op": "cap",
+   "children_labels": [],
+   "cap": {
+    "kind": "abs",
+    "usd": 10000000
+   },
+   "evidence": {
+    "url": "https://www.sec.gov/Archives/edgar/data/861878/000119312521291128/d233563dex101.htm",
+    "quote": "(vii) as to any period, up to\n$10,000,000 in the aggregate of extraordinary and non-recurring cash expenses or charges in such period,"
+   }
+  },
+  {
+   "label": "Business Transformation and related cash charges",
+   "op": "cap",
+   "children_labels": [],
+   "cap": {
+    "kind": "abs",
+    "usd": 100000000
+   },
+   "evidence": {
+    "url": "https://www.sec.gov/Archives/edgar/data/861878/000119312521291128/d233563dex101.htm",
+    "quote": "(viii) (A) with respect to any four fiscal quarter period ending on or before December 31,\n2022, up to $100,000,000 in the aggregate, and (B) with respect to any four fiscal quarter period ending after December 31, 2022 and on or before December 31, 2023, up to $50,000,000 in the aggregate of cash charges incurred prior to"
+   },
+   "note": "Cap is $100,000,000 for four-quarter periods ending on or before 2022-12-31 and $50,000,000 for periods ending 2023-01-01..2023-12-31 (charges incurred before 2023-12-31); sub-item (4) 'other cash charges' separately limited to $25,000,000. Single cap field holds only the first level."
+  },
+  {
+   "label": "government investigation settlement charges",
+   "op": "leaf",
+   "children_labels": [],
+   "cap": null,
+   "evidence": {
+    "url": "https://www.sec.gov/Archives/edgar/data/861878/000162828022010920/scl-20220331x10qex101.htm",
+    "quote": "and (ix) charges accrued in accordance with GAAP in connection with the Company's settlement of the government investigations by the U.S. Department of Justice, the SEC and Governmental"
+   },
+   "note": "Added by First Amendment (2022-04-26). Limited per quarter: $61,000,000 (Q3 2021), $19,700,000 (Q4 2021), $9,200,000 (Q1 2022); cap left null because it is a per-quarter schedule, not one amount."
+  },
+  {
+   "label": "Consolidated Interest Charges",
+   "op": "sum",
+   "children_labels": [
+    "interest, premium payments, debt discount, fees, charges and related expenses in connection with borrowed money or deferred purchase price of assets",
+    "portion of rent expense under Capital Leases and Synthetic Lease Obligations treated as interest"
+   ],
+   "cap": null,
+   "evidence": {
+    "url": "https://www.sec.gov/Archives/edgar/data/861878/000119312521291128/d233563dex101.htm",
+    "quote": "\"Consolidated Interest Charges\" means, for any period, for the Company and its Subsidiaries on a consolidated basis, the\nsum of (a) all interest, premium payments, debt discount, fees, charges and related expenses of the Company and its Subsidiaries in connection with borrowed money (including capitalized interest) or in connection with the deferred purchase\nprice of assets, in each case to the extent treated as interest in accordance with GAAP, and (b)"
+   }
+  },
+  {
+   "label": "Consolidated Funded Indebtedness",
+   "op": "sum",
+   "children_labels": [
+    "obligations for borrowed money and obligations evidenced by bonds, debentures, notes, loan agreements or similar instruments",
+    "purchase money Indebtedness",
+    "drawn letters of credit, bankers' acceptances, bank guaranties and surety bonds",
+    "deferred purchase price of property or services",
+    "Attributable Indebtedness",
+    "Guarantees of Indebtedness of other Persons",
+    "Indebtedness of partnerships or joint ventures"
+   ],
+   "cap": null,
+   "evidence": {
+    "url": "https://www.sec.gov/Archives/edgar/data/861878/000119312521291128/d233563dex101.htm",
+    "quote": "\"Consolidated Funded Indebtedness\" means, as of any date of determination, for the Company and its Subsidiaries on a\nconsolidated basis, the sum of (a) the outstanding principal amount of all obligations, whether current or long-term, for borrowed money (including Obligations hereunder) and all obligations evidenced by bonds, debentures, notes, loan\nagreements or other similar instruments, (b) all purchase money Indebtedness,"
+   }
+  },
+  {
+   "label": "Attributable Indebtedness",
+   "op": "sum",
+   "children_labels": [
+    "Capital Lease",
+    "Synthetic Lease Obligation"
+   ],
+   "cap": null,
+   "evidence": {
+    "url": "https://www.sec.gov/Archives/edgar/data/861878/000119312521291128/d233563dex101.htm",
+    "quote": "\"Attributable Indebtedness\" means, on any date, (a) in respect of any Capital Lease of any Person, the capitalized\namount thereof that would appear on a balance sheet of such Person prepared as of such date in accordance with GAAP, and (b) in respect of any Synthetic Lease Obligation, the capitalized amount"
+   }
+  },
+  {
+   "label": "Unrestricted Cash",
+   "op": "leaf",
+   "children_labels": [],
+   "cap": null,
+   "evidence": {
+    "url": "https://www.sec.gov/Archives/edgar/data/861878/000119312521291128/d233563dex101.htm",
+    "quote": "\"Unrestricted Cash\" means, at any time, cash and Cash Equivalent Investments of the Company and its Subsidiaries to the"
+   },
+   "note": "Netted from Consolidated Funded Indebtedness in the leverage numerator (see Consolidated Leverage Ratio definition)."
+  },
+  {
+   "label": "Transaction Costs",
+   "op": "leaf",
+   "children_labels": [],
+   "cap": null,
+   "evidence": {
+    "url": "https://www.sec.gov/Archives/edgar/data/861878/000119312521291128/d233563dex101.htm",
+    "quote": "\"Transaction Costs\" means extraordinary and non-recurring\ncosts in respect of (a) fees payable"
+   }
+  },
+  {
+   "label": "Consolidated Net Income",
+   "op": "leaf",
+   "children_labels": [],
+   "cap": null,
+   "evidence": {
+    "url": "https://www.sec.gov/Archives/edgar/data/861878/000119312521291128/d233563dex101.htm",
+    "quote": "\"Consolidated Net Income\" means, for any period, for the Company and its Subsidiaries on a consolidated basis, the net income\nof the Company and its Subsidiaries (excluding extraordinary losses and gains) for that period determined in accordance with GAAP."
+   }
+  }
+ ],
+ "amendments_considered": [
+  {
+   "accession": "0001628280-22-010920",
+   "url": "https://www.sec.gov/Archives/edgar/data/861878/000162828022010920/scl-20220331x10qex101.htm",
+   "filed": "2022-04-28",
+   "what_changed": "First Amendment (2022-04-26): adds Consolidated EBITDA addback (ix) for anti-corruption settlement charges (capped per quarter). No change to covenant levels."
+  },
+  {
+   "accession": "0001628280-23-025817",
+   "url": "https://www.sec.gov/Archives/edgar/data/861878/000162828023025817/scl06302023-ex10x1second.htm",
+   "filed": "2023-07-27",
+   "what_changed": "Second Amendment (2023-06-15): conformed copy (Annex A); Section 7.11 levels unchanged (4.25/4.00 leverage, 3.00 ICR). Appears mainly SOFR/rate-related; definitions not diffed line by line."
+  },
+  {
+   "accession": "0001628280-24-032899",
+   "url": "https://www.sec.gov/Archives/edgar/data/861878/000162828024032899/exhibit101-bofa_stericyc.htm",
+   "filed": "2024-07-25",
+   "what_changed": "Canadian benchmark (CDOR) replacement conforming changes by the agent; no covenant changes."
+  }
+ ],
+ "draft_notes": [
+  "Leverage numerator is Consolidated Funded Indebtedness MINUS Unrestricted Cash (net leverage); numerator_label records the base defined term only.",
+  "effective_from 2021-09-30 assumes the closing-date quarter end (agreement dated 2021-09-30) is the first test date; verify whether the first Compliance Certificate was for Q3 2021 or Q4 2021.",
+  "Elevated Ratio Period (optional step-up to 4.50 for 4 quarters after a >$200M Permitted Acquisition) not listed, per README rule 3.",
+  "Section 7.11(c) 'More Favorable Provision' ties definitions to the Senior Notes; not modeled.",
+  "Stericycle was acquired by Waste Management on 2024-11-04; the facility was likely repaid/terminated then, but no termination exhibit was checked, so effective_to is left null.",
+  "Second Amendment is a merged blackline in plain text (deleted and inserted text both appear); Consolidated EBITDA definition after that amendment was not re-verified."
+ ]
+}

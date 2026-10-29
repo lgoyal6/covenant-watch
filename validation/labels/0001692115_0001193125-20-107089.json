@@ -1,0 +1,116 @@
+{
+ "cik": "0001692115",
+ "agreement_accession": "0001193125-20-107089",
+ "agreement_url": "https://www.sec.gov/Archives/edgar/data/1692115/000119312520107089/d902383dex101.htm",
+ "labeled_by": "claude-draft (unverified; Dat must check each field against evidence)",
+ "labeled_at": "2026-10-28",
+ "status": "draft",
+ "agreement_title": "Amended and Restated Revolving Credit Agreement dated as of April 10, 2020 (Southwest Gas Holdings, Inc.; The Bank of New York Mellon, Administrative Agent), as amended",
+ "covenants": [
+  {
+   "kind": "max_leverage",
+   "direction": "max",
+   "test_period": "point_in_time",
+   "thresholds": [
+    {
+     "value": 0.7,
+     "effective_from": "2020-06-30",
+     "effective_to": null
+    }
+   ],
+   "numerator_label": "Funded Debt",
+   "denominator_label": "Total Capitalization",
+   "ratio_label": "ratio of Funded Debt to Total Capitalization",
+   "evidence": {
+    "covenant": {
+     "url": "https://www.sec.gov/Archives/edgar/data/1692115/000119312520107089/d902383dex101.htm",
+     "quote": "Section\n7.03 Financial Covenant.\nUntil satisfaction in full of all the obligations of the Borrower under the Credit Documents and termination of the Commitments of the Lenders hereunder, the Borrower will not\npermit the ratio of Funded Debt to Total Capitalization to exceed 0.70 to 1.00 as of the end of any quarter of any fiscal year of the Borrower."
+    },
+    "thresholds": [
+     {
+      "url": "https://www.sec.gov/Archives/edgar/data/1692115/000119312520107089/d902383dex101.htm",
+      "quote": "the Borrower will not\npermit the ratio of Funded Debt to Total Capitalization to exceed 0.70 to 1.00 as of the end of any quarter of any fiscal year of the Borrower"
+     }
+    ],
+    "unchanged_after_amendment_1": {
+     "url": "https://www.sec.gov/Archives/edgar/data/1692115/000119312522000235/d274968dex101.htm",
+     "quote": "Borrower will not permit the ratio of Funded Debt to Total Capitalization to exceed 0.70 to 1.00 as of the end of any quarter of any fiscal year of the Borrower."
+    }
+   }
+  }
+ ],
+ "terms": [
+  {
+   "label": "Total Capitalization",
+   "op": "sum",
+   "children_labels": [
+    "Funded Debt",
+    "Net Worth"
+   ],
+   "cap": null,
+   "evidence": {
+    "url": "https://www.sec.gov/Archives/edgar/data/1692115/000119312520107089/d902383dex101.htm",
+    "quote": "\"Total Capitalization\" means Funded Debt plus Net Worth."
+   }
+  },
+  {
+   "label": "Funded Debt",
+   "op": "sum",
+   "children_labels": [
+    "obligations for borrowed money",
+    "deferred purchase price of Property or services",
+    "Capital Lease Obligations",
+    "Contingent Obligations"
+   ],
+   "cap": null,
+   "evidence": {
+    "url": "https://www.sec.gov/Archives/edgar/data/1692115/000119312520107089/d902383dex101.htm",
+    "quote": "\"Funded Debt\" means, for the\nBorrower and its Subsidiaries, (a) all obligations for borrowed money, (b) all obligations representing the deferred purchase price of Property or services which in accordance with GAAP would be shown on a balance sheet of such Person as a liability\ndue more than 12 months from the date of the occurrence or evidenced by a note or similar instrument, (c) all Capital Lease Obligations and (d) all Contingent Obligations."
+   }
+  },
+  {
+   "label": "Net Worth",
+   "op": "leaf",
+   "children_labels": [],
+   "cap": null,
+   "evidence": {
+    "url": "https://www.sec.gov/Archives/edgar/data/1692115/000119312520107089/d902383dex101.htm",
+    "quote": "\"Net Worth\" means the amount of\nthe Borrower's stockholders' equity determined in accordance with GAAP."
+   }
+  }
+ ],
+ "amendments_considered": [
+  {
+   "accession": "0001193125-22-000235",
+   "url": "https://www.sec.gov/Archives/edgar/data/1692115/000119312522000235/d274968dex101.htm",
+   "filed": "2022-01-03",
+   "what_changed": "Amendment No. 1 (Dec 28, 2021): commitment increase to $200M, maturity extension to Dec 28, 2026, SOFR pricing. Section 7.03 and Funded Debt / Total Capitalization / Net Worth definitions unchanged in the attached conformed text."
+  },
+  {
+   "accession": "0001193125-23-126894",
+   "url": "https://www.sec.gov/Archives/edgar/data/1692115/000119312523126894/d485601dex101.htm",
+   "filed": "2023-04-28",
+   "what_changed": "Amendment No. 2 (Apr 25, 2023): amends 'Permitted Investments' and Section 7.02(b) only; no change to the financial covenant level or its definitions.",
+   "evidence": {
+    "url": "https://www.sec.gov/Archives/edgar/data/1692115/000119312523126894/d485601dex101.htm",
+    "quote": "The Borrower has requested that the Lenders agree to amend (i) the definition of \"Permitted Investments\" contained\nin Section 1.01 of the Credit Agreement and (ii) Section 7.02(b) of the Credit Agreement"
+   }
+  },
+  {
+   "accession": "0001193125-25-154995",
+   "url": "https://www.sec.gov/Archives/edgar/data/1692115/000119312525154995/d93270dex102.htm",
+   "filed": "2025-07-02",
+   "what_changed": "Not an amendment: new Revolving Credit Agreement dated June 27, 2025 (Southwest Gas Holdings) with the same 0.70 Funded Debt to Total Capitalization covenant commencing with the fiscal quarter ending June 30, 2025. Presumably replaces the 2020 agreement; termination of the 2020 agreement not verified.",
+   "evidence": {
+    "url": "https://www.sec.gov/Archives/edgar/data/1692115/000119312525154995/d93270dex102.htm",
+    "quote": "the Borrower will not permit the ratio of Funded Debt to Total Capitalization to exceed 0.70 to 1.00 as of the end of any fiscal quarter of any fiscal year of the Borrower (commencing with the fiscal quarter ending June 30, 2025)."
+   }
+  }
+ ],
+ "draft_notes": [
+  "Agreement chosen: Southwest Gas Holdings, Inc. A&R Revolving Credit Agreement dated April 10, 2020 (BNY Mellon agent), the holding-company revolver in force 2023 to mid-2025. Other SWX-filed credit agreements are for subsidiaries (Southwest Gas Corporation revolver; Centuri Group credit agreement, Centuri spun off 2024) or holdco term loans, and were not labeled.",
+  "kind = max_leverage is a judgment call: the covenant is a debt-to-capitalization ratio (balance-sheet test), so test_period = point_in_time. Dat may prefer kind 'other'.",
+  "effective_from 2020-06-30 = first fiscal quarter end after the April 10, 2020 agreement date (inferred from 'as of the end of any quarter'); effective_to left null although the June 27, 2025 revolver appears to replace this agreement (same 0.70 level).",
+  "Funded Debt children are paraphrased clause labels; Capital Lease Obligations and Contingent Obligations are separately defined terms not decomposed further."
+ ]
+}

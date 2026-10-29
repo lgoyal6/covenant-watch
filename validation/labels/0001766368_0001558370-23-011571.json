@@ -1,0 +1,252 @@
+{
+ "cik": "0001766368",
+ "agreement_accession": "0001558370-23-011571",
+ "agreement_url": "https://www.sec.gov/Archives/edgar/data/1766368/000155837023011571/tmb-20230628xex10.htm",
+ "labeled_by": "claude-draft (unverified; Dat must check each field against evidence)",
+ "labeled_at": "2026-10-28",
+ "status": "draft",
+ "covenants": [
+  {
+   "kind": "max_leverage",
+   "direction": "max",
+   "test_period": "ttm",
+   "thresholds": [
+    {
+     "value": 3.5,
+     "effective_from": "2023-06-30",
+     "effective_to": "2025-12-31"
+    },
+    {
+     "value": 5.25,
+     "effective_from": "2026-03-31",
+     "effective_to": "2026-06-30"
+    },
+    {
+     "value": 5.0,
+     "effective_from": "2026-09-30",
+     "effective_to": "2026-09-30"
+    },
+    {
+     "value": 4.0,
+     "effective_from": "2026-12-31",
+     "effective_to": "2026-12-31"
+    },
+    {
+     "value": 3.5,
+     "effective_from": "2027-03-31",
+     "effective_to": null
+    }
+   ],
+   "numerator_label": "Consolidated Total Indebtedness",
+   "denominator_label": "Consolidated EBITDA",
+   "evidence": {
+    "covenant": {
+     "url": "https://www.sec.gov/Archives/edgar/data/1766368/000155837023011571/tmb-20230628xex10.htm",
+     "quote": "\"Consolidated Total Leverage Ratio\" means, as of any date of determination, the ratio of (a) Consolidated Total Indebtedness on such date to (b) Consolidated EBITDA for the period of four (4) consecutive fiscal quarters ending on or immediately prior to such date."
+    },
+    "thresholds": [
+     {
+      "url": "https://www.sec.gov/Archives/edgar/data/1766368/000155837023011571/tmb-20230628xex10.htm",
+      "quote": "(a)Consolidated Total Leverage Ratio. As of the last day of any fiscal quarter, permit the Consolidated Total Leverage Ratio to be greater than 3.50 to 1.00"
+     },
+     {
+      "url": "https://www.sec.gov/Archives/edgar/data/1766368/000110465926020541/tmb-20260225xex10d2.htm",
+      "quote": "March 31, 2026 and June 30, 2026\n5.25 to 1.00"
+     },
+     {
+      "url": "https://www.sec.gov/Archives/edgar/data/1766368/000110465926020541/tmb-20260225xex10d2.htm",
+      "quote": "September 30, 2026\n5.00 to 1.00"
+     },
+     {
+      "url": "https://www.sec.gov/Archives/edgar/data/1766368/000110465926020541/tmb-20260225xex10d2.htm",
+      "quote": "December 31, 2026\n4.00 to 1.00"
+     },
+     {
+      "url": "https://www.sec.gov/Archives/edgar/data/1766368/000110465926020541/tmb-20260225xex10d2.htm",
+      "quote": "March 31, 2027 and thereafter\n3.50 to 1.00"
+     }
+    ]
+   }
+  },
+  {
+   "kind": "min_interest_coverage",
+   "direction": "min",
+   "test_period": "ttm",
+   "thresholds": [
+    {
+     "value": 3.0,
+     "effective_from": "2023-06-30",
+     "effective_to": "2026-03-31"
+    },
+    {
+     "value": 2.75,
+     "effective_from": "2026-06-30",
+     "effective_to": "2026-12-31"
+    },
+    {
+     "value": 3.0,
+     "effective_from": "2027-03-31",
+     "effective_to": null
+    }
+   ],
+   "numerator_label": "Consolidated EBITDA",
+   "denominator_label": "Consolidated Interest Expense",
+   "evidence": {
+    "covenant": {
+     "url": "https://www.sec.gov/Archives/edgar/data/1766368/000155837023011571/tmb-20230628xex10.htm",
+     "quote": "\"Consolidated Interest Coverage Ratio\" means, as of any date of determination, the ratio of (a) an amount equal to (i) Consolidated EBITDA, minus (ii) 50% of Capital Expenditures,"
+    },
+    "thresholds": [
+     {
+      "url": "https://www.sec.gov/Archives/edgar/data/1766368/000155837023011571/tmb-20230628xex10.htm",
+      "quote": "(b)Consolidated Interest Coverage Ratio. As of the last day of any fiscal quarter, permit the Consolidated Interest Coverage Ratio to be less than 3.00 to 1.00."
+     },
+     {
+      "url": "https://www.sec.gov/Archives/edgar/data/1766368/000110465926020541/tmb-20260225xex10d2.htm",
+      "quote": "June 30, 2026 through December 31, 2026\n2.75 to 1.00"
+     },
+     {
+      "url": "https://www.sec.gov/Archives/edgar/data/1766368/000110465926020541/tmb-20260225xex10d2.htm",
+      "quote": "March 31, 2027 and thereafter\n3.00 to 1.00"
+     }
+    ]
+   }
+  }
+ ],
+ "terms": [
+  {
+   "label": "Consolidated EBITDA",
+   "op": "sum",
+   "children_labels": [
+    "Consolidated Net Income",
+    "Consolidated Interest Expense",
+    "income tax expense, net of tax refunds",
+    "depreciation and amortization expense",
+    "non-cash ESOP, profit sharing, bonus, deferred and stock-based compensation expense",
+    "restructuring costs associated with exiting a production facility",
+    "non-cash losses, charges, costs and expenses",
+    "losses in connection with discontinued operations",
+    "casualty and condemnation events and dispositions outside the ordinary course",
+    "non-cash fair value step-up expenses/income relating to Acquisitions",
+    "non-cash contingent consideration fair value adjustments",
+    "transaction costs",
+    "CEO transition costs",
+    "Peloton litigation legal fees"
+   ],
+   "cap": null,
+   "evidence": {
+    "url": "https://www.sec.gov/Archives/edgar/data/1766368/000155837023011571/tmb-20230628xex10.htm",
+    "quote": "\"Consolidated EBITDA\" for any period, the sum of the following determined on a Consolidated basis, without duplication, for the Borrower and its Subsidiaries in accordance with GAAP: (a) Consolidated Net Income for such period plus (b) the sum of the following, without duplication, to the extent deducted in determining Consolidated Net Income for such period: (i) Consolidated Interest Expense for such period,"
+   }
+  },
+  {
+   "label": "transaction costs",
+   "op": "cap",
+   "children_labels": [],
+   "cap": {
+    "kind": "abs",
+    "usd": 2500000
+   },
+   "evidence": {
+    "url": "https://www.sec.gov/Archives/edgar/data/1766368/000155837023011571/tmb-20230628xex10.htm",
+    "quote": "plus (xi) transaction costs not to exceed $2,500,000 per Acquisition"
+   },
+   "note": "Per Acquisition. First Amendment (2025-06-26) raises this to $7,000,000 per Acquisition."
+  },
+  {
+   "label": "CEO transition costs",
+   "op": "cap",
+   "children_labels": [],
+   "cap": {
+    "kind": "abs",
+    "usd": 861103
+   },
+   "evidence": {
+    "url": "https://www.sec.gov/Archives/edgar/data/1766368/000155837023011571/tmb-20230628xex10.htm",
+    "quote": "plus (xii) Borrower's CEO transition costs that occurred in the quarter ending September 30, 2022 of $861,103"
+   },
+   "note": "Fixed amount for one quarter. First Amendment replaces it with CFO transition costs of $1,166,582 (quarter ending 2025-06-30)."
+  },
+  {
+   "label": "cash item addbacks",
+   "op": "cap",
+   "children_labels": [
+    "restructuring costs associated with exiting a production facility",
+    "losses in connection with discontinued operations",
+    "casualty and condemnation events and dispositions outside the ordinary course",
+    "transaction costs",
+    "CEO transition costs",
+    "Peloton litigation legal fees"
+   ],
+   "cap": {
+    "kind": "pct_of",
+    "of": "Consolidated EBITDA",
+    "pct": 0.15
+   },
+   "evidence": {
+    "url": "https://www.sec.gov/Archives/edgar/data/1766368/000155837023011571/tmb-20230628xex10.htm",
+    "quote": "provided that, in no event shall the amount of cash items added back to Consolidated EBITDA under clauses (v), (vii), (viii), (xi), (xii) and (xiii) for any period exceed fifteen percent (15%) of aggregate Consolidated EBITDA for such period (calculated before giving effect to any such add back)."
+   }
+  },
+  {
+   "label": "Consolidated Total Indebtedness",
+   "op": "sum",
+   "children_labels": [
+    "Indebtedness"
+   ],
+   "cap": null,
+   "evidence": {
+    "url": "https://www.sec.gov/Archives/edgar/data/1766368/000155837023011571/tmb-20230628xex10.htm",
+    "quote": "\"Consolidated Total Indebtedness\" means, as of any date of determination with respect to the Borrower and its Subsidiaries on a Consolidated basis without duplication, in accordance with GAAP the sum of all Indebtedness of the Borrower and its Subsidiaries (excluding net obligations under any Hedge Agreements)."
+   }
+  },
+  {
+   "label": "Consolidated Interest Expense",
+   "op": "leaf",
+   "children_labels": [],
+   "cap": null,
+   "evidence": {
+    "url": "https://www.sec.gov/Archives/edgar/data/1766368/000155837023011571/tmb-20230628xex10.htm",
+    "quote": "\"Consolidated Interest Expense\" means, for any period, the sum of interest expense (including, without limitation, interest expense attributable to Capital Lease Obligations and all net payment obligations pursuant to Hedge Agreements) for such period, determined on a Consolidated basis, without duplication, for the Borrower and its Subsidiaries in accordance with GAAP."
+   }
+  },
+  {
+   "label": "Consolidated Net Income",
+   "op": "leaf",
+   "children_labels": [],
+   "cap": null,
+   "evidence": {
+    "url": "https://www.sec.gov/Archives/edgar/data/1766368/000155837023011571/tmb-20230628xex10.htm",
+    "quote": "\"Consolidated Net Income\" means, for any period, the net income (or loss) of the Borrower and its Subsidiaries for such period, determined on a Consolidated basis, without duplication, in accordance with GAAP;"
+   }
+  }
+ ],
+ "amendments_considered": [
+  {
+   "accession": "0001558370-25-008962",
+   "url": "https://www.sec.gov/Archives/edgar/data/1766368/000155837025008962/tmb-20250626xex10.htm",
+   "filed": "2025-06-27",
+   "what_changed": "First Amendment (2025-06-26): $100M incremental revolver. Conformed copy changes Consolidated Total Leverage Ratio numerator to Consolidated Total Indebtedness minus Unrestricted Cash and Cash Equivalents up to $25,000,000. EBITDA: restructuring addback widened, transaction-cost cap $7,000,000, CFO transition costs $1,166,582, Accu-Fab pro forma EBITDA. Leverage Increase Period trigger raised to >$40,000,000 and Accu-Fab Acquisition deemed to trigger it. Levels unchanged (3.50 / 3.00)."
+  },
+  {
+   "accession": "0001104659-26-020541",
+   "url": "https://www.sec.gov/Archives/edgar/data/1766368/000110465926020541/tmb-20260225xex10d1.htm",
+   "filed": "2026-02-26",
+   "what_changed": "Second Amendment (2025-08-15, filed as EX-10.1): amends Section 8.15 (Depository Bank) and the Collateral Agreement only; no covenant change."
+  },
+  {
+   "accession": "0001104659-26-020541",
+   "url": "https://www.sec.gov/Archives/edgar/data/1766368/000110465926020541/tmb-20260225xex10d2.htm",
+   "filed": "2026-02-26",
+   "what_changed": "Third Amendment (2026-02-25, EX-10.2): Covenant Adjustment Period; leverage table 5.25 (3/31/26, 6/30/26), 5.00 (9/30/26), 4.00 (12/31/26), 3.50 (3/31/27+); ICR 2.75 for 6/30/26-12/31/26, else 3.00; cash netting cap $10,000,000 during the Covenant Adjustment Period; new EBITDA addbacks (xiv) data center/critical power start-up costs (lifetime cap $10,000,000) and (xv) one-time non-operating losses/gains; revolver reduced to $275M."
+  }
+ ],
+ "draft_notes": [
+  "Third Amendment's leverage table also has a row 'Closing Date through December 31, 2025 / 4.00 to 1.00' (codifying the Accu-Fab Leverage Increase Period). Per README rule 3 the label keeps the base 3.50 for 2023-06-30..2025-12-31. Dat should decide whether 4.00 belongs for the 2025 quarters.",
+  "The Third Amendment is a merged blackline in plain text (deleted and inserted words run together). The table rows quoted are inserted text; the old '(a) ... 3.50 to 1.00' sentence right after the table is the struck original.",
+  "If the Borrower ends the Covenant Adjustment Period early under clause (b), levels revert to 3.50 / 3.00. Not modeled.",
+  "ICR numerator is not a single defined term: (Consolidated EBITDA - 50% of Capital Expenditures - Discretionary Repurchase Obligation Payments - income tax expense + Mandatory Repurchase Obligation Payments). numerator_label records Consolidated EBITDA only.",
+  "Terms are taken from the ORIGINAL 2023 agreement (agreement_url). Definition changes from the First and Third Amendments are listed in amendments_considered and not merged into terms.",
+  "effective_from 2023-06-30 assumes the first test date is the quarter end two days after the 2023-06-28 agreement date."
+ ]
+}

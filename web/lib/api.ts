@@ -3,6 +3,7 @@ import type {
   CompanyResponse,
   EvalResponse,
   OverviewResponse,
+  BreakevenResponse,
   ProvenanceResponse,
   TimelineResponse,
 } from "./types";
@@ -55,6 +56,7 @@ export const api = {
   eval: () => get<EvalResponse>(`/eval`),
   overview: () => get<OverviewResponse>(`/overview`),
   companyOverview: (cik: string) => get<OverviewResponse>(`/companies/${enc(cik)}/overview`),
+  breakeven: (cik: string) => get<BreakevenResponse>(`/companies/${enc(cik)}/breakeven`),
 };
 
 /** Settle a promise into {data} | {error} so pages can render partial failures. */

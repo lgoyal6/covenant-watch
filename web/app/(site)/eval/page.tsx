@@ -1,310 +1,258 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import type { ReactNode } from "react";
 import { api, settle } from "@/lib/api";
-import { fmtDate, humanize, reasonLabel, REASON_LABEL } from "@/lib/format";
-import { EmptyState, ErrorState, FixtureBadge } from "@/components/ui";
+import { fmtDate, reasonLabel } from "@/lib/format";
+import { ErrorState, FixtureBadge } from "@/components/ui";
 
 export const dynamic = "force-dynamic";
 export const metadata: Metadata = { title: "Evaluation" };
 
-type Json = null | boolean | number | string | Json[] | { [k: string]: Json };
-type Obj = { [k: string]: Json };
-
-const isObj = (v: unknown): v is Obj => typeof v === "object" && v !== null && !Array.isArray(v);
-const isScalar = (v: unknown) => v === null || ["number", "string", "boolean"].includes(typeof v);
-
-const KEY_LABELS: Record<string, string> = {
-  n: "Pairs compared",
-  median_abs_error: "Median absolute error",
-  mean_abs_error: "Mean absolute error",
-  pct_within_0_05: "Within ±0.05x",
-  pct_within_0_10: "Within ±0.10x",
-  pct_inside_range: "Reported inside computed range",
-  pct_reported_inside_range: "Reported inside computed range",
-  events: "Events",
-  hit_rate: "Hit rate",
-  median_lead_quarters: "Median lead (quarters)",
-  peer_false_alarm_rate: "Peer false alarm rate",
-  false_alarm_rate: "False alarm rate",
-  covenant_kind: "Covenant kind",
-  threshold_value: "Threshold value",
-  term_structure: "Term structure",
-  cik: "CIK",
-  f1: "F1",
+type Num = number | null | undefined;
+type Obj = Record<string, unknown>;
+type RatioRow = { cik: string; period_end: string; reported: number; computed_low?: number | null; computed_high?: number | null; inside?: boolean; midpoint_abs_error?: number };
+type EwRow = { cik: string; role: string; flagged: boolean; lead_quarters?: number | null; computable: boolean; event_kind?: string };
+type Company = {
+  cik: string; name: string; ticker?: string | null; covenants: number; quarters: number; status_counts: Record<string, number>;
+  refusals: number; disclosed_compared: number; disclosed_inside_range: number; role?: string | null; flagged_before_event?: boolean | null; lead_quarters?: number | null;
 };
 
-const SECTION_META: Record<string, { title: string; blurb: string }> = {
-  extraction: { title: "Extraction accuracy", blurb: "Field-level precision and recall of contract extraction against hand-labeled agreements." },
-  ratio_accuracy: { title: "Ratio accuracy", blurb: "Computed covenant ratios compared with the ratios companies reported in their own 10-K and 10-Q filings." },
-  early_warning: { title: "Early warning", blurb: "Did headroom shrink before a real waiver, amendment or default, and how often did matched peers trip the same signal?" },
-  refusals: { title: "Refusals by reason", blurb: "What the pipeline declined to compute, grouped by reason." },
-  per_company: { title: "Per company", blurb: "Breakdown for each company in the universe." },
-};
+const n = (v: unknown): number | null => (typeof v === "number" && Number.isFinite(v) ? v : null);
+const pct = (v: Num, d = 0) => (v == null ? "n/a" : `${(v * 100).toFixed(d)}%`);
+const STATUS = ["ok", "warning", "indeterminate", "breach", "refused"] as const;
 
-function label(k: string): string {
-  if (KEY_LABELS[k]) return KEY_LABELS[k];
-  if (REASON_LABEL[k]) return REASON_LABEL[k];
-  return humanize(k.replace(/^pct_/, "% ").replace(/_pct$/, " %"));
-}
-
-function isRateKey(k: string): boolean {
-  return /(precision|recall|rate|pct|accuracy|f1|share|within|inside|coverage)/i.test(k);
-}
-
-function fmtVal(k: string, v: Json): ReactNode {
-  if (v === null || v === undefined) return <span className="muted">n/a</span>;
-  if (typeof v === "boolean") return v ? "Yes" : "No";
-  if (typeof v === "number") {
-    if (isRateKey(k) && v >= 0 && v <= 1) return `${(v * 100).toFixed(v === 1 || v === 0 ? 0 : 1)}%`;
-    if (Number.isInteger(v)) return v.toLocaleString("en-US");
-    return v.toLocaleString("en-US", { maximumFractionDigits: Math.abs(v) < 1 ? 4 : 2 });
-  }
-  if (typeof v === "string") return /^\d{4}-\d{2}-\d{2}/.test(v) && v.length <= 25 ? fmtDate(v) : v;
-  if (Array.isArray(v)) return v.every(isScalar) ? v.map(String).join(", ") : `${v.length} items`;
-  return <code className="tiny">{JSON.stringify(v)}</code>;
-}
-
-function Cell({ k, v }: { k: string; v: Json }) {
-  if (typeof v === "number" && isRateKey(k) && v >= 0 && v <= 1) {
-    return (
-      <span className="num" style={{ whiteSpace: "nowrap" }}>
-        <span className="pbar"><i style={{ width: `${v * 100}%` }} /></span>
-        {fmtVal(k, v)}
-      </span>
-    );
-  }
-  return <span className="num">{fmtVal(k, v)}</span>;
-}
-
-function Stats({ obj }: { obj: Obj }) {
-  const entries = Object.entries(obj).filter(([, v]) => isScalar(v));
-  if (!entries.length) return null;
+function Headline({ label, value, sub, tone }: { label: string; value: string; sub: string; tone?: string }) {
   return (
-    <div className="stats">
-      {entries.map(([k, v]) => (
-        <div key={k} className="stat">
-          <div className="k">{label(k)}</div>
-          <div className="v">{fmtVal(k, v)}</div>
-        </div>
+    <div className="ev-head">
+      <div className="upper">{label}</div>
+      <div className="ev-big num" style={tone ? { color: tone } : undefined}>{value}</div>
+      <div className="small muted">{sub}</div>
+    </div>
+  );
+}
+
+function Stat({ k, v }: { k: string; v: string }) {
+  return (
+    <div className="ev-stat">
+      <span className="muted">{k}</span>
+      <span className="num">{v}</span>
+    </div>
+  );
+}
+
+/** Reported (y) vs computed (x). A point is a quarter; a horizontal bar is a computed range; the diagonal is a perfect match. */
+function Scatter({ rows }: { rows: RatioRow[] }) {
+  const pts = rows.filter((r) => n(r.computed_low) !== null || n(r.computed_high) !== null);
+  if (pts.length === 0) return <div className="small muted">No computed quarter lines up with a reported ratio yet.</div>;
+  const xs = pts.flatMap((r) => [r.computed_low, r.computed_high, r.reported].filter((v): v is number => n(v) !== null));
+  const lo = Math.max(0, Math.floor(Math.min(...xs) * 2) / 2), hi = Math.ceil(Math.max(...xs) * 2) / 2 || 1;
+  const W = 420, H = 300, P = 36;
+  const sx = (v: number) => P + ((v - lo) / (hi - lo)) * (W - P - 10);
+  const sy = (v: number) => H - P - ((v - lo) / (hi - lo)) * (H - P - 10);
+  const ticks = Array.from({ length: 5 }, (_, i) => lo + ((hi - lo) * i) / 4);
+  return (
+    <svg className="ev-scatter" viewBox={`0 0 ${W} ${H}`} role="img" aria-label="Reported versus computed covenant ratios">
+      {ticks.map((t) => (
+        <g key={t}>
+          <line x1={P} x2={W - 10} y1={sy(t)} y2={sy(t)} stroke="var(--border)" />
+          <text x={P - 6} y={sy(t) + 3.5} textAnchor="end" className="ev-axis">{t.toFixed(1)}x</text>
+          <text x={sx(t)} y={H - P + 16} textAnchor={t === hi ? "end" : "middle"} className="ev-axis">{t.toFixed(1)}x</text>
+        </g>
       ))}
-    </div>
+      <line x1={sx(lo)} y1={sy(lo)} x2={sx(hi)} y2={sy(hi)} stroke="var(--muted)" strokeDasharray="4 4" />
+      {pts.map((r, i) => {
+        const a = n(r.computed_low) ?? n(r.computed_high)!, b = n(r.computed_high) ?? a;
+        const good = (r.midpoint_abs_error ?? (r.inside ? 0 : 1)) <= 0.05 || r.inside;
+        const c = good ? "var(--ok)" : "var(--warning)";
+        return (
+          <g key={i}>
+            {b - a > 0.001 && <line x1={sx(a)} x2={sx(b)} y1={sy(r.reported)} y2={sy(r.reported)} stroke={c} strokeOpacity=".55" strokeWidth="3" strokeLinecap="round" />}
+            <circle cx={sx((a + b) / 2)} cy={sy(r.reported)} r="3.6" fill={c} fillOpacity=".85">
+              <title>{`${r.period_end}: reported ${r.reported.toFixed(2)}x, computed ${a.toFixed(2)}${b !== a ? `–${b.toFixed(2)}` : ""}x`}</title>
+            </circle>
+          </g>
+        );
+      })}
+      <text x={W - 10} y={H - P - 8} textAnchor="end" className="ev-axis">computed →</text>
+      <text x={P + 8} y={26} className="ev-axis">↑ reported</text>
+    </svg>
   );
 }
 
-function ObjTable({ rows, rowKeyLabel = "Group" }: { rows: [string, Obj][]; rowKeyLabel?: string }) {
-  const cols = [...new Set(rows.flatMap(([, o]) => Object.keys(o)))];
-  return (
-    <div className="table-wrap">
-      <table className="t">
-        <thead>
-          <tr>
-            <th>{rowKeyLabel}</th>
-            {cols.map((c) => (
-              <th key={c} className="r">{label(c)}</th>
-            ))}
-          </tr>
-        </thead>
-        <tbody>
-          {rows.map(([k, o]) => (
-            <tr key={k}>
-              <td><strong>{label(k)}</strong></td>
-              {cols.map((c) => (
-                <td key={c} className="r"><Cell k={c} v={o[c] ?? null} /></td>
-              ))}
-            </tr>
-          ))}
-        </tbody>
-      </table>
-    </div>
-  );
-}
-
-function ListTable({ items }: { items: Json[] }) {
-  const objs = items.filter(isObj);
-  if (!objs.length) return <div className="card-pad small">{items.map(String).join(", ") || "None"}</div>;
-  const cols = [...new Set(objs.flatMap((o) => Object.keys(o)))];
-  const nameCol = cols.includes("name") ? "name" : null;
-  return (
-    <div className="table-wrap">
-      <table className="t">
-        <thead>
-          <tr>
-            {cols.map((c) => (
-              <th key={c} className={typeof objs[0][c] === "number" ? "r" : undefined}>{label(c)}</th>
-            ))}
-          </tr>
-        </thead>
-        <tbody>
-          {objs.map((o, i) => (
-            <tr key={i}>
-              {cols.map((c) => {
-                const v = o[c] ?? null;
-                const cik = typeof o.cik === "string" ? o.cik : null;
-                if (c === nameCol && cik && typeof v === "string") {
-                  return <td key={c}><Link href={`/company/${encodeURIComponent(cik)}`}>{v}</Link></td>;
-                }
-                return (
-                  <td key={c} className={typeof v === "number" ? "r" : c === "cik" ? "mono small" : undefined}>
-                    {v === "FIXTURE" ? <span className="chip chip-fixture">FIXTURE</span> : <Cell k={c} v={v} />}
-                  </td>
-                );
-              })}
-            </tr>
-          ))}
-        </tbody>
-      </table>
-    </div>
-  );
-}
-
-function RefusalBars({ obj }: { obj: Obj }) {
-  const entries = Object.entries(obj)
-    .filter(([, v]) => typeof v === "number")
-    .sort((a, b) => (b[1] as number) - (a[1] as number)) as [string, number][];
-  const total = entries.reduce((s, [, v]) => s + v, 0);
-  const max = Math.max(1, ...entries.map(([, v]) => v));
-  if (!entries.length) return <div className="card-pad small muted">No refusals recorded.</div>;
-  return (
-    <div className="card-pad">
-      {entries.map(([k, v]) => (
-        <div key={k} className="bar-row">
-          <span>{reasonLabel(k)}</span>
-          <span className="bar-track"><span className="bar-fill" style={{ width: `${(v / max) * 100}%`, display: "block" }} /></span>
-          <span className="num r" style={{ textAlign: "right" }}>{v.toLocaleString()}</span>
-        </div>
-      ))}
-      <div className="small muted num" style={{ marginTop: 8 }}>{total.toLocaleString()} total</div>
-      <Nested obj={obj} />
-    </div>
-  );
-}
-
-/** Early-warning comparison: event companies flagged vs peers flagged. */
-function HitVsPeers({ obj }: { obj: Obj }) {
-  const hit = typeof obj.hit_rate === "number" ? obj.hit_rate : null;
-  const fa = typeof obj.peer_false_alarm_rate === "number" ? obj.peer_false_alarm_rate : typeof obj.false_alarm_rate === "number" ? obj.false_alarm_rate : null;
-  if (hit === null && fa === null) return null;
-  const rows: [string, number | null, string][] = [
-    ["Event companies flagged before their event", hit, "var(--accent)"],
-    ["Matched peers flagged (false alarms)", fa, "var(--refused)"],
+/** How many quarters ahead each disclosed event was flagged, plus the ones we missed. */
+function LeadChart({ rows }: { rows: EwRow[] }) {
+  const ev = rows.filter((r) => r.role === "event" && r.computable);
+  if (!ev.length) return <div className="small muted">No scored events yet.</div>;
+  const buckets = [
+    { k: "Missed", v: ev.filter((r) => !r.flagged).length, c: "var(--breach)" },
+    { k: "1 qtr", v: ev.filter((r) => r.flagged && (r.lead_quarters ?? 0) <= 1).length, c: "var(--accent)" },
+    { k: "2 qtrs", v: ev.filter((r) => r.flagged && r.lead_quarters === 2).length, c: "var(--accent)" },
+    { k: "3 qtrs", v: ev.filter((r) => r.flagged && r.lead_quarters === 3).length, c: "var(--accent)" },
+    { k: "4+ qtrs", v: ev.filter((r) => r.flagged && (r.lead_quarters ?? 0) >= 4).length, c: "var(--accent)" },
   ];
+  const max = Math.max(1, ...buckets.map((b) => b.v));
   return (
-    <div className="card-pad" style={{ borderTop: "1px solid var(--border)" }}>
-      <div className="upper" style={{ marginBottom: 8 }}>Signal vs peers</div>
-      {rows.map(([l, v, c]) => (
-        <div key={l} className="bar-row" style={{ gridTemplateColumns: "300px 1fr 56px" }}>
-          <span className="small">{l}</span>
-          <span className="bar-track" style={{ height: 14 }}>
-            <span style={{ display: "block", height: "100%", width: `${(v ?? 0) * 100}%`, background: c, borderRadius: 3 }} />
-          </span>
-          <span className="num" style={{ textAlign: "right" }}>{v === null ? "n/a" : `${(v * 100).toFixed(0)}%`}</span>
+    <div className="ev-bars">
+      {buckets.map((b) => (
+        <div key={b.k} className="ev-bar">
+          <div className="ev-bar-track"><div className="ev-bar-fill" style={{ height: `${(b.v / max) * 100}%`, background: b.c }} /></div>
+          <div className="num" style={{ fontWeight: 600 }}>{b.v}</div>
+          <div className="tiny muted">{b.k}</div>
         </div>
       ))}
     </div>
   );
 }
 
-/** Non-scalar children of a mixed object, rendered recursively. */
-function Nested({ obj }: { obj: Obj }) {
-  const rest = Object.entries(obj).filter(([, v]) => !isScalar(v));
-  if (!rest.length) return null;
+function StatusMix({ counts }: { counts: Record<string, number> }) {
+  const total = STATUS.reduce((a, s) => a + (counts[s] ?? 0), 0) || 1;
   return (
-    <div className="stack" style={{ gap: 0 }}>
-      {rest.map(([k, v]) => (
-        <div key={k} style={{ borderTop: "1px solid var(--border)" }}>
-          <div className="upper" style={{ padding: "12px 18px 4px" }}>{label(k)}</div>
-          <Generic value={v} />
-        </div>
-      ))}
+    <div className="ev-mix" title={STATUS.filter((s) => counts[s]).map((s) => `${s}: ${counts[s]}`).join(", ")}>
+      {STATUS.map((s) => (counts[s] ? <i key={s} style={{ width: `${(counts[s] / total) * 100}%`, background: `var(--${s})` }} /> : null))}
     </div>
   );
 }
-
-function Generic({ value, rowKeyLabel }: { value: Json; rowKeyLabel?: string }) {
-  if (Array.isArray(value)) return value.length ? <ListTable items={value} /> : <div className="card-pad small muted">None.</div>;
-  if (isObj(value)) {
-    const entries = Object.entries(value);
-    if (!entries.length) return <div className="card-pad small muted">No data yet.</div>;
-    if (entries.every(([, v]) => isObj(v))) return <ObjTable rows={entries as [string, Obj][]} rowKeyLabel={rowKeyLabel} />;
-    return (
-      <>
-        <Stats obj={value} />
-        <Nested obj={value} />
-      </>
-    );
-  }
-  return <div className="card-pad">{fmtVal("", value)}</div>;
-}
-
-function Section({ k, value }: { k: string; value: Json }) {
-  const meta = SECTION_META[k] ?? { title: label(k), blurb: "" };
-  let body: ReactNode;
-  if (k === "refusals" && isObj(value)) body = <RefusalBars obj={value} />;
-  else if (k === "early_warning" && isObj(value))
-    body = (
-      <>
-        <Generic value={value} />
-        <HitVsPeers obj={value} />
-      </>
-    );
-  else body = <Generic value={value} rowKeyLabel={k === "extraction" ? "Field" : undefined} />;
-  return (
-    <section className="card" style={{ overflow: "hidden" }}>
-      <div className="card-head">
-        <div className="stack" style={{ gap: 2 }}>
-          <h2>{meta.title}</h2>
-          {meta.blurb && <span className="small muted">{meta.blurb}</span>}
-        </div>
-      </div>
-      {value === null || value === undefined ? <div className="card-pad small muted">Not in this report yet.</div> : body}
-    </section>
-  );
-}
-
-const ORDER = ["ratio_accuracy", "early_warning", "extraction", "refusals", "per_company"];
-const SKIP = new Set(["schema_version", "generated_at", "source"]);
 
 export default async function EvalPage() {
   const res = await settle(api.eval());
-  const report = (res.data?.report ?? null) as Obj | null;
-  const keys = report
-    ? [...ORDER, ...Object.keys(report).filter((k) => !ORDER.includes(k) && !SKIP.has(k))]
-    : [];
+  if (res.error) return <div className="page"><ErrorState error={res.error} /></div>;
+  const { report, source } = res.data;
+  const detail = ((res.data as unknown as { detail?: { ratio_rows?: RatioRow[]; early_warning_rows?: EwRow[] } }).detail) ?? {};
+  const rep = (report ?? {}) as Obj;
+  const ra = (rep.ratio_accuracy ?? {}) as Obj;
+  const ew = (rep.early_warning ?? {}) as Obj;
+  const ex = (rep.extraction ?? {}) as Obj;
+  const refusals = Object.entries((rep.refusals ?? {}) as Record<string, number>).sort((a, b) => b[1] - a[1]);
+  const refMax = Math.max(1, ...refusals.map(([, v]) => v));
+  const companies = ((rep.per_company ?? []) as Company[]).slice().sort(
+    (a, b) => Number(b.role === "event") - Number(a.role === "event") || (b.status_counts.breach ?? 0) - (a.status_counts.breach ?? 0),
+  );
+  const labeled = n(ex.agreements_labeled) ?? 0;
+  const fields = Object.entries(ex).filter(([, v]) => typeof v === "object" && v !== null) as [string, { precision: Num; recall: Num }][];
 
   return (
-    <>
-      <div className="page stack" style={{ gap: 18 }}>
-        <div className="between">
-          <div className="stack" style={{ gap: 4 }}>
-            <div className="row">
-              <h1>Evaluation</h1>
-              <FixtureBadge source={res.data?.source} />
-            </div>
-            <p className="text-2 small">
-              Proven two ways: computed ratios vs what companies themselves reported, and headroom falling before real
-              covenant events compared with matched peers that had none.
-            </p>
-          </div>
-          {report && (
-            <span className="small muted num">
-              {typeof report.schema_version === "string" && `Schema ${report.schema_version} · `}
-              {typeof report.generated_at === "string" && `Generated ${fmtDate(report.generated_at)}`}
-            </span>
-          )}
-        </div>
-        {res.error ? (
-          <ErrorState error={res.error} />
-        ) : !report ? (
-          <div className="card">
-            <EmptyState title="No eval report yet">
-              <p className="small">Run the validation scorer to write data/eval/report.json.</p>
-            </EmptyState>
-          </div>
-        ) : (
-          keys.map((k) => <Section key={k} k={k} value={report[k] ?? null} />)
-        )}
+    <div className="page stack" style={{ gap: 22 }}>
+      <div className="stack" style={{ gap: 8 }}>
+        <div className="row"><h1>Evaluation</h1><FixtureBadge source={source} /></div>
+        <p className="text-2" style={{ maxWidth: 760 }}>
+          Proven two ways: our computed ratios against the ratios companies reported in their own filings, and whether headroom fell before
+          real waivers, defaults and loosening amendments, compared with matched peers that had none.
+        </p>
+        {typeof rep.generated_at === "string" && <span className="tiny muted">Generated {fmtDate(rep.generated_at)}</span>}
       </div>
-    </>
+
+      <section className="ev-headlines">
+        <Headline label="Within ±0.05x of reported" value={pct(n(ra.pct_within_0_05))} sub={`${n(ra.n) ?? 0} reported ratios compared`} tone="var(--ok)" />
+        <Headline label="Flagged before the event" value={pct(n(ew.hit_rate))} sub={`${n(ew.events_scored) ?? 0} events · median ${n(ew.median_lead_quarters) ?? "n/a"} quarters ahead`} tone="var(--accent)" />
+        <Headline label="Peer false alarms" value={pct(n(ew.peer_false_alarm_rate))} sub={`${n(ew.peers_scored) ?? 0} matched peers with no event`} tone="var(--warning)" />
+        <Headline label="Limit read correctly" value={pct(n(ra.threshold_agreement))} sub={`extracted limit = limit the company stated (${n(ra.threshold_n) ?? 0})`} />
+      </section>
+
+      <section className="card">
+        <div className="card-head"><div className="stack" style={{ gap: 2 }}><h2>Ratio accuracy</h2><span className="small muted">Each point is a quarter where the company reported its own covenant ratio. On the diagonal means we matched it; a bar is our computed range.</span></div></div>
+        <div className="ev-split">
+          <Scatter rows={detail.ratio_rows ?? []} />
+          <div className="ev-stats">
+            <Stat k="Reported ratios compared" v={String(n(ra.n) ?? 0)} />
+            <Stat k="Median absolute error" v={n(ra.median_abs_error) == null ? "n/a" : `${n(ra.median_abs_error)!.toFixed(3)}x`} />
+            <Stat k="Within ±0.05x" v={pct(n(ra.pct_within_0_05), 1)} />
+            <Stat k="Within ±0.25x" v={pct(n(ra.pct_within_0_25), 1)} />
+            <Stat k="Inside our computed range" v={pct(n(ra.pct_inside_range), 1)} />
+            <Stat k="Limit matches the company's" v={pct(n(ra.threshold_agreement), 1)} />
+            <Stat k="Not comparable (refused or no quarter)" v={String(n(ra.refused_or_unmatched) ?? 0)} />
+          </div>
+        </div>
+      </section>
+
+      <section className="card">
+        <div className="card-head"><div className="stack" style={{ gap: 2 }}><h2>Early warning</h2><span className="small muted">A company is flagged when any quarter in the year before its first disclosed event shows warning or breach in the worst case.</span></div></div>
+        <div className="ev-split">
+          <div>
+            <div className="upper" style={{ marginBottom: 10 }}>Lead time before the event</div>
+            <LeadChart rows={detail.early_warning_rows ?? []} />
+          </div>
+          <div className="stack" style={{ gap: 18, justifyContent: "center" }}>
+            {[
+              ["Event companies flagged", n(ew.hit_rate), "var(--accent)"],
+              ["Matched peers flagged (false alarms)", n(ew.peer_false_alarm_rate), "var(--warning)"],
+            ].map(([k, v, c]) => (
+              <div key={k as string}>
+                <div className="between small"><span>{k as string}</span><span className="num" style={{ fontWeight: 600 }}>{pct(v as Num)}</span></div>
+                <div className="bar-track" style={{ marginTop: 6 }}><div className="bar-fill" style={{ width: `${((v as number) ?? 0) * 100}%`, background: c as string }} /></div>
+              </div>
+            ))}
+            <div className="ev-stats">
+              <Stat k="Events scored" v={String(n(ew.events_scored) ?? 0)} />
+              <Stat k="Median lead" v={n(ew.median_lead_quarters) == null ? "n/a" : `${n(ew.median_lead_quarters)} quarters`} />
+              <Stat k="Peers scored" v={String(n(ew.peers_scored) ?? 0)} />
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <div className="co-pair">
+        <section className="card">
+          <div className="card-head"><div className="stack" style={{ gap: 2 }}><h2>Extraction accuracy</h2><span className="small muted">Contract fields against hand-verified gold labels.</span></div></div>
+          {labeled === 0 ? (
+            <div className="card-pad small text-2">
+              No verified gold labels yet. Twenty agreements are drafted with an exact quote for every field and are waiting for a person to check them
+              (<code>validation/labels</code>). Precision and recall appear here once they are signed off.
+            </div>
+          ) : (
+            <div className="table-wrap">
+              <table className="t">
+                <thead><tr><th>Field</th><th className="r">Precision</th><th className="r">Recall</th></tr></thead>
+                <tbody>
+                  {fields.map(([k, v]) => (
+                    <tr key={k}><td>{k.replace(/_/g, " ")}</td><td className="r num">{pct(v.precision, 1)}</td><td className="r num">{pct(v.recall, 1)}</td></tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          )}
+        </section>
+        <section className="card">
+          <div className="card-head"><div className="stack" style={{ gap: 2 }}><h2>Refusals</h2><span className="small muted">What we declined to compute, by reason. Nothing is filled in.</span></div></div>
+          <div className="card-pad stack" style={{ gap: 4 }}>
+            {refusals.length === 0 ? <span className="small muted">None.</span> : refusals.map(([k, v]) => (
+              <div key={k} className="bar-row">
+                <span>{k === "refused_quarters" ? "Quarters refused" : reasonLabel(k)}</span>
+                <div className="bar-track"><div className="bar-fill" style={{ width: `${(v / refMax) * 100}%` }} /></div>
+                <span className="num r">{v}</span>
+              </div>
+            ))}
+          </div>
+        </section>
+      </div>
+
+      <section className="card">
+        <div className="card-head"><div className="stack" style={{ gap: 2 }}><h2>By company</h2><span className="small muted">Companies with a disclosed event first, then by quarters in breach.</span></div><span className="small muted">{companies.length} companies</span></div>
+        <div className="table-wrap">
+          <table className="t ev-table">
+            <thead>
+              <tr><th>Company</th><th className="r">Covenants</th><th className="r">Quarters</th><th>Status mix</th><th className="r">Reported ratios matched</th><th>Event</th><th className="r">Refusals</th></tr>
+            </thead>
+            <tbody>
+              {companies.map((c) => (
+                <tr key={c.cik}>
+                  <td><Link href={`/company/${c.cik}`}>{c.name}</Link><div className="tiny muted">{c.ticker ? `${c.ticker} · ` : ""}CIK {c.cik}</div></td>
+                  <td className="r num">{c.covenants}</td>
+                  <td className="r num">{c.quarters}</td>
+                  <td><StatusMix counts={c.status_counts} /></td>
+                  <td className="r num">{c.disclosed_compared ? `${c.disclosed_inside_range} of ${c.disclosed_compared}` : <span className="muted">none reported</span>}</td>
+                  <td>
+                    {c.role === "event" ? (
+                      c.flagged_before_event ? <span className="chip chip-ok">Flagged {c.lead_quarters} qtr{c.lead_quarters === 1 ? "" : "s"} ahead</span> : <span className="chip chip-breach">Missed</span>
+                    ) : c.role === "peer" ? (
+                      c.flagged_before_event ? <span className="chip chip-warning">Peer, false alarm</span> : <span className="chip chip-neutral">Peer, quiet</span>
+                    ) : <span className="muted small">none</span>}
+                  </td>
+                  <td className="r num">{c.refusals}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      </section>
+    </div>
   );
 }

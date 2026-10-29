@@ -244,3 +244,20 @@ export interface OverviewResponse {
   ratio_accuracy: Record<string, number | string | null>;
   early_warning: Record<string, number | string | null>;
 }
+
+export interface Breakeven {
+  covenant_id: string;
+  kind: string;
+  direction: Direction;
+  period_end: string;
+  threshold: number | null;
+  /** % change in earnings that brings the worst case to the limit; negative = room to fall, positive = already past it. */
+  earnings_change_to_breach_pct: number | null;
+  other_change_to_breach_pct: number | null;
+  note: string | null;
+}
+
+export interface BreakevenResponse {
+  source: Source;
+  covenants: Breakeven[];
+}

@@ -12,6 +12,8 @@ const TOOL_LABEL: Record<string, string> = {
   covenant_timeline: "Read a covenant timeline",
   quarter_provenance: "Traced a quarter to its clause and filings",
   company_refusals: "Checked refusals",
+  covenant_breakeven: "Computed breakevens",
+  stress_test: "Ran a stress scenario",
 };
 
 export async function callAgent(path: string, body: unknown): Promise<AgentReply> {

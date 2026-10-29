@@ -32,7 +32,10 @@ export default async function CompanyPage({ params, searchParams }: { params: Pa
 
   const { artifact, source } = res.data;
   const realCik = artifact.contract.company.cik;
-  const tls = await Promise.all(artifact.contract.covenants.map((c) => settle(api.timeline(realCik, c.id))));
+  const [tls, be] = await Promise.all([
+    Promise.all(artifact.contract.covenants.map((c) => settle(api.timeline(realCik, c.id)))),
+    settle(api.breakeven(realCik)),
+  ]);
   const timelines: Record<string, TimelineResponse | null> = {};
   const timelineErrors: Record<string, string> = {};
   artifact.contract.covenants.forEach((c, i) => {
@@ -51,6 +54,7 @@ export default async function CompanyPage({ params, searchParams }: { params: Pa
           timelineErrors={timelineErrors}
           initialCov={sp.cov ?? null}
           initialQuarter={sp.q ?? null}
+          breakeven={be.data?.covenants ?? []}
         />
       </div>
     </>

@@ -83,3 +83,32 @@ def test_brief_agent_investigates_then_writes(tmp_path, monkeypatch):
     assert r["answer"].startswith("## Risk briefing")
     assert [s["tool"] for s in r["steps"]] == ["portfolio_overview", "covenant_timeline"]
     assert c.calls[0]["output_config"]["effort"] == "high" and "3 most at-risk" in c.calls[0]["messages"][0]["content"]
+
+
+def test_stress_tools_and_breakeven_endpoint(tmp_path, monkeypatch):
+    from fastapi.testclient import TestClient
+
+    fixture_paths(tmp_path, monkeypatch)
+    out, err = run_tool("covenant_breakeven", {"cik": "1"})
+    assert not err and {c["covenant_id"] for c in out["covenants"]} == {"lev", "icr"}
+    out, err = run_tool("stress_test", {"cik": "1", "covenant_id": "icr", "earnings_change_pct": -25, "other_change_pct": 0})
+    assert not err and out["baseline"]["status"] == "warning" and out["status"] in ("breach", "indeterminate")
+    r = TestClient(m.app).get("/companies/1/breakeven").json()
+    assert r["covenants"][1]["earnings_change_to_breach_pct"] < 0
+
+
+class Stresser(Scripted):
+    def create(self, **kw):
+        self.calls.append(kw)
+        if len(self.calls) == 1:
+            assert {t["name"] for t in kw["tools"]} == {"covenant_timeline", "company_refusals", "covenant_breakeven", "stress_test"}
+            return SimpleNamespace(stop_reason="tool_use", model=kw["model"], content=[SimpleNamespace(type="tool_use", id="s", name="covenant_breakeven", input={"cik": "1"})])
+        return SimpleNamespace(stop_reason="end_turn", model=kw["model"], content=[SimpleNamespace(type="text", text="## Stress test: Example\nCoverage trips first.")])
+
+
+def test_stress_agent(tmp_path, monkeypatch):
+    from api.agent import stress_agent
+
+    fixture_paths(tmp_path, monkeypatch)
+    r = stress_agent("1", "earnings -30%", client=Stresser())
+    assert r["steps"][0]["tool"] == "covenant_breakeven" and r["answer"].startswith("## Stress test")

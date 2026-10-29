@@ -56,6 +56,23 @@ TOOLS = [
 ]
 
 
+STRESS_TOOLS = [
+    {
+        "name": "covenant_breakeven",
+        "description": "For each covenant of a company, on its latest computed quarter: the percent change in earnings (EBITDA-like term; negative = fall) and in the other term (debt for leverage, interest or fixed charges for coverage) that would bring the worst case exactly to the limit. Computed by the engine.",
+        "input_schema": {"type": "object", "properties": {"cik": {"type": "string"}}, "required": ["cik"], "additionalProperties": False},
+    },
+    {
+        "name": "stress_test",
+        "description": "Recompute one covenant's latest quarter under a scenario: earnings_change_pct scales the earnings term (e.g. -25), other_change_pct scales debt (leverage) or interest/fixed charges (coverage). Returns the new ratio range, headroom and status next to the baseline.",
+        "input_schema": {"type": "object", "properties": {
+            "cik": {"type": "string"}, "covenant_id": {"type": "string"},
+            "earnings_change_pct": {"type": "number"}, "other_change_pct": {"type": "number"}},
+            "required": ["cik", "covenant_id", "earnings_change_pct", "other_change_pct"], "additionalProperties": False},
+    },
+]
+
+
 def _q(q: dict) -> dict:
     keep = ("covenant_id", "period_end", "ratio_low", "ratio_high", "threshold", "headroom_low", "headroom_high", "status", "missing")
     return {k: q.get(k) for k in keep}
@@ -98,6 +115,18 @@ def run_tool(name: str, args: dict):
                 "terms": [{k: t.get(k) for k in ("id", "label", "op", "children", "cap")} for t in p["terms"]],
                 "refusals": p["refusals"],
             }, False
+        if name in ("covenant_breakeven", "stress_test"):
+            from engine.stress import breakeven, latest_quarter, stress
+
+            art, _ = m._artifact(args["cik"])
+            covs = {c.id: c for c in art.contract.covenants}
+            if name == "covenant_breakeven":
+                return {"company": art.contract.company.name, "covenants": [breakeven(art, c, q) for c in covs.values() if (q := latest_quarter(art, c.id))]}, False
+            cov = covs.get(args["covenant_id"])
+            q = latest_quarter(art, args["covenant_id"]) if cov else None
+            if q is None:
+                return {"error": f"no computed quarter for covenant {args['covenant_id']}"}, True
+            return stress(art, cov, q, float(args.get("earnings_change_pct", 0)), float(args.get("other_change_pct", 0))), False
         if name == "company_refusals":
             a = m.company(args["cik"])["artifact"]
             return {"company": a["contract"]["company"]["name"], "refusals": a["refusals"]}, False
@@ -153,7 +182,7 @@ Use only numbers your tools returned, exactly as given. If a lookup fails, say s
 
 
 def run_agent(system: str, user: str, history: list[dict] | None = None, client=None, max_rounds: int = MAX_ROUNDS,
-              effort: str = "medium", max_tokens: int = 8000) -> dict:
+              effort: str = "medium", max_tokens: int = 8000, tools: list[dict] | None = None) -> dict:
     """The shared tool loop: Claude calls the read-only tools until it answers. Returns the answer and every step."""
     if client is None:
         import anthropic
@@ -167,7 +196,7 @@ def run_agent(system: str, user: str, history: list[dict] | None = None, client=
     steps = []
     response = None
     for _ in range(max_rounds):
-        response = _create(client, model=MODEL, max_tokens=max_tokens, system=system, tools=TOOLS, messages=messages,
+        response = _create(client, model=MODEL, max_tokens=max_tokens, system=system, tools=tools or TOOLS, messages=messages,
                            output_config={"effort": effort})
         if response.stop_reason != "tool_use":
             break
@@ -202,3 +231,30 @@ def brief(top: int = 5, client=None) -> dict:
     top = max(1, min(int(top), 8))
     return run_agent(BRIEF_SYSTEM, f"Write the risk briefing for the {top} most at-risk covenants.", client=client,
                      max_rounds=4 + 2 * top, effort="high", max_tokens=16000)
+
+
+STRESS_SYSTEM = """You are the stress-test agent inside Covenant Watch. For one company you find out how much bad news its loan covenants can absorb, using the engine's own math through your tools.
+
+1. Call covenant_breakeven for the company: how far earnings can fall, or debt / interest can rise, before each covenant's worst case breaches.
+2. Call covenant_timeline for the covenant with the least cushion to see the trend and the limit schedule (step-downs ahead matter).
+3. Run stress_test for the scenarios requested (or, if none: mild = earnings -10%; downturn = earnings -25%; severe = earnings -40% with debt or interest +20%) on every covenant.
+4. Write the result.
+
+Format (markdown, no tables):
+## Stress test: <Company>
+One sentence: which covenant trips first and at roughly what earnings decline.
+### Cushion today
+- one bullet per covenant: limit, worst-case ratio now, earnings decline to breach, debt/interest rise to breach.
+### Scenarios
+- one bullet per scenario: what each covenant's ratio range and status become.
+### What to watch
+- the limit step-downs ahead and the inputs that would move the answer (unsourced addbacks, rising debt).
+
+Use only numbers from your tools, rounded to one decimal for percentages and two for ratios. A positive "earnings change to breach" means the worst case is already past the limit. Not investment advice."""
+
+
+def stress_agent(cik: str, scenario: str | None = None, client=None) -> dict:
+    """Stress-test agent: breakevens and scenarios for one company, computed by the engine, written up by Claude."""
+    tools = [t for t in TOOLS if t["name"] in ("covenant_timeline", "company_refusals")] + STRESS_TOOLS
+    ask_ = f"Stress-test the covenants of company CIK {cik}." + (f" Scenario requested: {scenario}" if scenario else " Use the standard scenarios.")
+    return run_agent(STRESS_SYSTEM, ask_, client=client, max_rounds=10, effort="high", max_tokens=12000, tools=tools)

@@ -16,6 +16,7 @@ export interface CardSummary {
   quarters: number;
   refused: number;
   history?: { period_end: string; status: Status; rel: number | null }[];
+  breakeven?: { earnings: number | null; other: number | null } | null;
 }
 
 const fin = (v: number | null | undefined): v is number => typeof v === "number" && Number.isFinite(v);
@@ -137,6 +138,21 @@ export function CovenantCard({ s, selected, onClick }: { s: CardSummary; selecte
       <div style={{ width: "100%" }}>
         <HeadroomSpark s={s} />
       </div>
+      {s.breakeven && s.breakeven.earnings !== null && (
+        <div className="cov-cushion">
+          {s.breakeven.earnings < 0 ? (
+            <>
+              <span className="num" style={{ color: s.breakeven.earnings > -10 ? "var(--warning)" : "var(--ok)" }}>EBITDA can fall {Math.abs(s.breakeven.earnings).toFixed(1)}%</span>
+              <span className="muted"> before the worst case breaches</span>
+            </>
+          ) : (
+            <span className="num" style={{ color: "var(--breach)" }}>Worst case already past the limit; EBITDA must rise {s.breakeven.earnings.toFixed(1)}%</span>
+          )}
+          {s.breakeven.other !== null && s.breakeven.other > 0 && (
+            <span className="muted"> · {s.direction === "max" ? "debt" : "interest"} can rise {s.breakeven.other.toFixed(1)}%</span>
+          )}
+        </div>
+      )}
       <div className="tiny muted">
         {s.quarters} quarter{s.quarters === 1 ? "" : "s"}
         {s.refused > 0 ? ` · ${s.refused} refused` : ""}

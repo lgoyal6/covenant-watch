@@ -215,7 +215,7 @@ def eval_report():
     rep = _read(EVAL / "report.json")
     _, source = load_artifacts()
     if rep is not None and source != "fixture":  # never pair a real eval with fixture companies
-        return {"source": source, "report": rep}
+        return {"source": source, "report": rep, "detail": _read(EVAL / "detail.json")}
     return {"source": "fixture", "report": _read(FIXTURES / "eval_example.json")}
 
 
@@ -347,5 +347,37 @@ def agent_brief(body: BriefBody):
 
     try:
         return brief(body.top)
+    except RuntimeError as e:
+        raise HTTPException(503, str(e))
+
+
+
+@app.get("/companies/{cik}/breakeven")
+def company_breakeven(cik: str):
+    """Per covenant, on its latest computed quarter: how far earnings can fall (or debt/interest rise) before the worst case breaches."""
+    from engine.stress import breakeven, latest_quarter
+
+    a, source = _artifact(cik)
+    out = []
+    for cov in a.contract.covenants:
+        q = latest_quarter(a, cov.id)
+        if q is not None:
+            out.append(breakeven(a, cov, q))
+    return {"source": source, "covenants": out}
+
+
+class StressBody(_BM):
+    cik: str
+    scenario: str | None = None
+
+
+@app.post("/agent/stress")
+def agent_stress(body: StressBody):
+    """Stress-test agent: runs breakevens and scenarios through the engine for one company and writes the result."""
+    from api.agent import stress_agent
+
+    _artifact(body.cik)  # 404 early for unknown companies
+    try:
+        return stress_agent(body.cik, body.scenario)
     except RuntimeError as e:
         raise HTTPException(503, str(e))

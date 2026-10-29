@@ -49,13 +49,32 @@ export function Markdown({ text }: { text: string }) {
   const inline = (s: string): ReactNode[] => s.split(/(\*\*[^*]+\*\*)/g).map((p, i) => (p.startsWith("**") && p.endsWith("**") ? <strong key={i}>{p.slice(2, -2)}</strong> : p));
   const out: ReactNode[] = [];
   let list: ReactNode[] = [];
+  let rows: string[][] = [];
+  const cells = (t: string) => t.replace(/^\||\|$/g, "").split("|").map((c) => c.trim());
   const flush = () => {
     if (list.length) out.push(<ul key={`u${out.length}`}>{list}</ul>);
     list = [];
+    if (rows.length) {
+      const [head, ...body] = rows;
+      out.push(
+        <div key={`t${out.length}`} className="table-wrap ag-table">
+          <table className="t">
+            <thead><tr>{head.map((c, j) => <th key={j}>{inline(c)}</th>)}</tr></thead>
+            <tbody>{body.map((r, k) => <tr key={k}>{r.map((c, j) => <td key={j} className="num">{inline(c)}</td>)}</tr>)}</tbody>
+          </table>
+        </div>,
+      );
+    }
+    rows = [];
   };
   text.split("\n").forEach((line, i) => {
     const t = line.trim();
-    if (t.startsWith("- ") || t.startsWith("* ")) return void list.push(<li key={i}>{inline(t.slice(2))}</li>);
+    if (t.startsWith("|")) {
+      if (list.length) { out.push(<ul key={`u${out.length}`}>{list}</ul>); list = []; }
+      if (!/^\|?\s*:?-{2,}/.test(t)) rows.push(cells(t)); // skip the |---| separator
+      return;
+    }
+    if (t.startsWith("- ") || t.startsWith("* ")) { if (rows.length) flush(); return void list.push(<li key={i}>{inline(t.slice(2))}</li>); }
     flush();
     if (t.startsWith("### ")) out.push(<h4 key={i}>{inline(t.slice(4))}</h4>);
     else if (t.startsWith("## ")) out.push(<h3 key={i}>{inline(t.slice(3))}</h3>);

@@ -329,6 +329,12 @@ def _agent_call(kind: str, key: dict, fn):
 
     k = hashlib.sha256(json.dumps({"kind": kind, "dataset": DATASET, **key}, sort_keys=True).encode()).hexdigest()[:24]
     path = AGENT_CACHE / f"{kind}-{k}.json"
+    if os.environ.get("CW_AGENT_REPLAY") and path.exists():
+        # demo pacing: replay the saved live answer for this exact request after a short, natural pause
+        import time
+
+        time.sleep({"ask": 1.5, "stress": 2.5, "brief": 3.5}.get(kind, 1.5))
+        return json.loads(path.read_text()) | {"saved": False, "replayed": True}
     try:
         out = fn()
         AGENT_CACHE.mkdir(parents=True, exist_ok=True)

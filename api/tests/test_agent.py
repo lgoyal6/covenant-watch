@@ -133,3 +133,21 @@ def test_saved_answer_replays_when_live_call_fails(tmp_path, monkeypatch):
     r = c.post("/agent/ask", json={"question": "which  covenants are CLOSEST?"}).json()
     assert r["answer"] == "live answer" and r["saved"] is True
     assert c.post("/agent/ask", json={"question": "never asked"}).status_code == 503
+
+
+def test_replay_mode_serves_saved_answer_first(tmp_path, monkeypatch):
+    from fastapi.testclient import TestClient
+
+    import api.agent
+
+    fixture_paths(tmp_path, monkeypatch)
+    monkeypatch.setattr(m, "AGENT_CACHE", tmp_path / "cache")
+    monkeypatch.setattr(api.agent, "ask", lambda q, cik, history: {"answer": "first live", "steps": [], "model": "x"})
+    c = TestClient(m.app)
+    c.post("/agent/ask", json={"question": "q"})
+    monkeypatch.setattr(api.agent, "ask", lambda q, cik, history: {"answer": "second live", "steps": [], "model": "x"})
+    monkeypatch.setenv("CW_AGENT_REPLAY", "1")
+    monkeypatch.setattr("time.sleep", lambda s: None)
+    r = c.post("/agent/ask", json={"question": "q"}).json()
+    assert r["answer"] == "first live" and r["replayed"] is True
+    assert c.post("/agent/ask", json={"question": "new one"}).json()["answer"] == "second live"  # nothing saved: runs live

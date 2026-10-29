@@ -14,7 +14,7 @@ import {
   eventLabel,
 } from "@/lib/format";
 import type { Breakeven, CovenantArtifact, Refusal, Source, TimelineResponse } from "@/lib/types";
-import StressAgent from "./agents/StressAgent";
+import CompanyAgent from "./agents/CompanyAgent";
 import { CovenantCard, type CardSummary } from "./CovenantCard";
 import ProvenanceDrawer from "./ProvenanceDrawer";
 import Timeline, { TimelineLegend } from "./Timeline";
@@ -98,12 +98,12 @@ export default function CompanyView({ source, artifact, timelines, timelineError
         </div>
       )}
 
+      {covenants.length > 0 && <CompanyAgent cik={artifact.contract.company.cik} company={artifact.contract.company.name} />}
+
       <div className="co-pair">
         <Agreements artifact={artifact} />
         <EventsCard events={events} />
       </div>
-
-      {covenants.length > 0 && <StressAgent cik={artifact.contract.company.cik} company={artifact.contract.company.name} />}
 
       {/* timeline */}
       {covObj && (

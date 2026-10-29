@@ -510,3 +510,7 @@ h2 { font-size: 18px; font-weight: 600; letter-spacing: -0.02em; }
   .ev-head:nth-child(-n+2) { border-bottom: 1px solid var(--border); }
   .ev-split { grid-template-columns: 1fr; }
 }
+.ag-company { border-color: color-mix(in srgb, var(--accent) 35%, var(--border)); box-shadow: var(--rim), 0 24px 60px -30px rgba(109, 120, 196, 0.55); }
+.ag-asked { font-size: 13px; color: var(--text); padding: 9px 13px; border-radius: 14px 14px 14px 4px; background: var(--surface-2); border: 1px solid var(--border); align-self: flex-start; }
+.ag-table { margin: 4px 0 12px; border: 1px solid var(--border); border-radius: 14px; }
+.ag-table .t td, .ag-table .t th { padding: 7px 10px; font-size: 12.5px; }

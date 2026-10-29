@@ -49,57 +49,29 @@ The definitions are the product.
 ## Architecture
 
 ```mermaid
-flowchart TB
-    subgraph SRC["SEC EDGAR"]
-        direction LR
-        AGR["Credit agreements<br/>EX-10 + amendments"]
-        XBRL["XBRL company facts<br/>quarterly · YTD · annual"]
-        FIL["8-K · 10-Q · 10-K<br/>full-text search"]
-    end
-
-    subgraph PIPE["Pipeline"]
-        direction LR
-        C["<b>contracts/</b><br/>discover → segment → extract ×2<br/>Claude Sonnet 5.5 · Opus 5.5 verifier<br/>exact-quote check → amendments"]
-        E["<b>engine/</b><br/>XBRL series · Q4 = FY − 9M · TTM<br/>concept mapping: Claude + validator<br/>definition compiler → interval headroom"]
-        V["<b>validation/</b><br/>reported ratios · covenant events<br/>matched peers · gold labels · scorer"]
-        S[["<b>shared/schema.py</b><br/>frozen contract"]]
-    end
-
-    subgraph OUT["Serve"]
-        direction LR
-        API["<b>api/</b> FastAPI, read-only<br/>/overview · /companies · /timeline<br/>/provenance · /eval"]
-        AG["<b>Agents</b> · Claude Opus 5.5<br/>Analyst · Risk briefing<br/>5 read-only tools"]
-        WEB["<b>web/</b> Next.js<br/>dashboard · company pages<br/>provenance drawer · eval"]
-    end
-
-    AGR --> C
-    XBRL --> E
-    FIL --> V
-    C -- ContractExtraction --> E
-    E -- CovenantArtifact --> V
-    E --> API
-    V -- EvalReport --> API
-    API --> AG
-    API --> WEB
-    AG --> WEB
-    S -.- C
-    S -.- E
-    S -.- V
+flowchart LR
+    SEC["SEC EDGAR<br/>agreements · filings"] --> C["contracts/<br/>read the agreement"]
+    XB["XBRL facts"] --> E
+    C --> E["engine/<br/>rebuild the math"]
+    E --> V["validation/<br/>prove it"]
+    E --> API["api/"]
+    V --> API
+    API --> AG["Agents<br/>Claude Opus 5.5"]
+    API --> W["web/"]
+    AG --> W
 
     classDef src fill:#111113,stroke:#3a3a44,color:#fff
     classDef blue fill:#2e43ff,stroke:#b9a6ff,color:#fff
     classDef copper fill:#c2683a,stroke:#f6bf96,color:#fff
     classDef green fill:#36956f,stroke:#a6e8c8,color:#fff
-    classDef lime fill:#a3c400,stroke:#f4ffb8,color:#0b0b0c
     classDef pink fill:#d7264a,stroke:#ffb3d6,color:#fff
     classDef dark fill:#0f0f11,stroke:#a9b2ff,color:#fff
-    class AGR,XBRL,FIL src
+    class SEC,XB src
     class C blue
     class E copper
     class V green
-    class S lime
     class AG pink
-    class API,WEB dark
+    class API,W dark
 ```
 
 ### How one quarter gets computed

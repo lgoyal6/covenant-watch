@@ -6,6 +6,7 @@ import re
 from collections import Counter
 from datetime import date, datetime, timezone
 from pathlib import Path
+from zipfile import ZipFile, ZIP_DEFLATED
 
 from shared import edgar
 from shared.paths import CONTRACTS, FIXTURES
@@ -40,7 +41,8 @@ def example_artifact():
     for quarter in payload['quarters']:
         for item in quarter['inputs']:
             if item['fact_accession']:
-                item['fact_accession'] = 'example:financial-inputs'
+                item['fact_accession'] = None
+                item['validation_note'] = 'Example financial input, not sourced to a real company filing.'
     artifact = CovenantArtifact.model_validate(payload)
     sources = {}
     for agreement in artifact.contract.agreements:
@@ -119,6 +121,22 @@ def prepare_demo(directory=CONTRACTS / '_demo'):
     from shared.schema import Span
     for row in saved['observations']:
         verify_span(Span.model_validate(row['source']), {source.key: source})
+    archive_path = directory / 'covenant_watch_demo_bundle.zip'
+    temporary = directory / '.covenant_watch_demo_bundle.zip.tmp'
+    files = [directory / name for name in ('manifest.json', 'example_contract.json',
+             'example_artifact.json', 'real_sec_thresholds.json')]
+    files.extend(sorted((directory / 'example_sources').glob('*.txt')))
+    try:
+        with ZipFile(temporary, 'w', ZIP_DEFLATED) as archive:
+            for path in files:
+                archive.write(path, path.relative_to(directory))
+        with ZipFile(temporary) as archive:
+            if archive.testzip() is not None:
+                raise ValueError('Demo archive integrity check failed')
+        temporary.replace(archive_path)
+    finally:
+        if temporary.exists():
+            temporary.unlink()
     return manifest
 
 

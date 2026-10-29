@@ -14,7 +14,7 @@ def test_example_timeline_has_clear_origin_and_no_fake_sec_links():
     assert verify_contract(artifact.contract, sources) == 16
     assert all(s.url.startswith('https://example.invalid/') for s in all_spans(artifact.contract))
     assert {q.status for q in artifact.quarters} >= {'ok', 'warning', 'indeterminate', 'refused'}
-    assert all(i.fact_accession in {None, 'example:financial-inputs'} for q in artifact.quarters for i in q.inputs)
+    assert all(i.fact_accession is None for q in artifact.quarters for i in q.inputs)
 
 
 def test_real_threshold_reader_uses_exact_document_rows_and_marks_scope():

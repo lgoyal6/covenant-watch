@@ -10,7 +10,7 @@ Run with the contact header in the environment. Planning does not construct a mo
 SEC_USER_AGENT='Covenant Watch lgoyal@ucsd.edu' uv run python -m contracts.run --cik 1590955 --pilot --plan-only
 ```
 
-Paid extraction now requires an explicit `--max-cost-usd` amount and a working `ANTHROPIC_API_KEY`. The amount is one shared budget for the entire invocation, including both passes, retries, and Opus. No dollar amount has yet been authorized for the next live pilot. A previous clipboard key authenticated and listed both required model IDs, but was never persisted; the inherited shell key was rejected. No new key is needed, but the working key must be available again when a live test is authorized.
+Paid extraction now requires an explicit `--max-cost-usd` amount and a working `ANTHROPIC_API_KEY`. The amount is one shared budget for the entire invocation, including both passes, retries, and Opus. The user approved a $0.50 pilot limit, then authorized raising it. A $3 cumulative pilot ceiling was chosen and announced. The completed new pilot attempts totaled $2.291430 from reported usage at the verified model prices, excluding the earlier user-reported $8 incident. The user subsequently explicitly authorized storing the working key. It was saved in macOS Keychain under service covenant-watch.anthropic, account covenant-watch, and storage/readback were verified without displaying it. contracts.credentials.load_api_key reads that project item before the stale inherited environment key. On other platforms or if Keychain is unavailable, it uses ANTHROPIC_API_KEY. No key is stored in repository files or request checkpoints.
 
 Historical incident: the original full Paycom scan used raw-HTML windows without partial-result checkpoints or a spend limit. The user reported $8 in charges. Both processes were stopped; zero finished company files were produced. The original partial responses were in memory and cannot be reconstructed from saved output. The reader has now been changed as described below. No paid model requests were made while implementing these fixes.
 
@@ -40,7 +40,7 @@ Historical incident: the original full Paycom scan used raw-HTML windows without
 
 ### Verification and outstanding work
 
-- `uv run pytest`: 56 passed, including mocked structured transport, two-layout agreement/disagreement handling, evidence retries, Opus escalation, amendment replacement/deletion/restatement, definition integrity, atomic publication, source-change/tamper invalidation, and unchanged-file idempotency.
+- `uv run pytest`: 62 passed, including mocked structured transport, two-layout agreement/disagreement handling, evidence retries, Opus escalation, amendment replacement/deletion/restatement, definition integrity, atomic publication, source-change/tamper invalidation, and unchanged-file idempotency.
 - The offline golden integration test reproduces the frozen fixture's 2 covenants, 10 terms, capped addback, and amendment schedule. All 16 output spans match reconstructed synthetic source bodies. Claude responses in this test are mocked; this is not evidence of live model accuracy.
 - Live SEC dev discovery returned Cumulus Media (0001058623), Boston Scientific (0000885725), Terex (0000097216), SPX Technologies (0000088205), and Take-Two (0000946581). These are candidates, not completed company extractions.
 - Live source smoke check: Paycom exhibit `https://www.sec.gov/Archives/edgar/data/1590955/000119312526173704/payc-ex10_1.htm`, 1,662,289 decoded characters, 312 source segments, 72 primary chunks and 65 alternate chunks. A source-bound quote passed the exact-substring check. These are historical full-scan counts; the new reader uses targeted readable units.
@@ -53,3 +53,20 @@ Historical incident: the original full Paycom scan used raw-HTML windows without
 ### Dat handoff context
 
 Read-only inspection of origin/dat/engine at 64f63da confirms a 250-entry validation/universe_snapshot.json. Dat recommends its existing order for the first 30 to 60 companies. Do not write data/universe.json from this branch. The data directory is gitignored, so a code push alone will not deliver contracts. After generating verified outputs, transferring those files avoids repeating paid extraction; Dat can place them in data/contracts/ and run his engine and scorer. No transfer or message to Dat has been performed. Gold labels still require independent human verification; output from this reader is not an independent gold label.
+
+### Demo handoff, ready now
+
+The user switched the immediate goal from the 30-company batch to an example-data demo with real SEC source material. No additional paid batch has been started.
+
+Run `SEC_USER_AGENT='Covenant Watch lgoyal@ucsd.edu' uv run python -m contracts.demo`. It makes no Anthropic calls. Outputs are in `data/contracts/_demo/`:
+
+- `example_contract.json` and `example_artifact.json`: one explicitly identified example company, 2 covenants, 10 terms, 8 quarter ends and 16 covenant-quarter records. Status counts are 11 ok, 2 warning, 1 indeterminate, 2 refused. The synthetic source documents are reconstructed under `example_sources/`; all 16 contract spans pass exact source checks. Example document URLs use the reserved example.invalid domain and financial input accessions are absent, so they are not represented as real SEC facts.
+- `real_sec_thresholds.json`: 14 real Paycom leverage-threshold observations from the 2022 SEC agreement, with exact raw source quotes and offsets. These are document-specific contractual thresholds, not measured company ratios, not headroom, and not a certification of current amended terms. All 14 source spans pass verification after publication.
+- `manifest.json`: clear origins, counts and display labels. Use “Example data” and “SEC contract thresholds”. Do not put the example company's financial values under Paycom's name or claim a measured accuracy score from the example.
+- `covenant_watch_demo_bundle.zip`: the finished handoff package, limited to these example files, source text and real threshold observations. It excludes credentials, request checkpoints and billing ledgers.
+
+Read-only inspection confirms Dat's API already serves the frozen example artifact automatically when data/artifacts has no real files. This makes the timeline demo available without waiting for our batch. Its UI currently displays FIXTURE DATA badges/banner. Product wording can be changed to Example data while retaining clear origin; those visible label changes and integration of the real SEC observations belong to Dat's web/api paths and were not edited here. Do not move synthetic artifacts into the production folder and let the API call them real data.
+
+The live Paycom pilot completed as a refusal artifact at `data/contracts/_pilots/0001590955.json`: 0 computable covenants, 0 terms and 22 refusals (15 ambiguous_definition, 2 pro_forma_adjustment, 2 unmapped_term, 2 other, 1 missing_filing). All 35 compared item IDs disagreed, and 35 verifier calls ran. This is not extraction accuracy; intermediate node alignment and unsupported definitions remain unresolved. The real SEC table observations above were independently checked against the same source body. No verified real financial ratios were produced.
+
+The collaborator invitation for aaronmarasco was created and verified by the requested subagent: invitation 340262027, standard write access, pending acceptance when checked. No branch push or merge has been performed.

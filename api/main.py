@@ -24,7 +24,7 @@ if DATASET == "demo":
                                               DATA / "demo" / "groundtruth", DATA / "demo" / "universe.json")
 
 app = FastAPI(title="Covenant Watch API", version="1.0")
-app.add_middleware(CORSMiddleware, allow_origins=["*"], allow_methods=["GET"], allow_headers=["*"])
+app.add_middleware(CORSMiddleware, allow_origins=["*"], allow_methods=["GET", "POST"], allow_headers=["*"])
 
 CONTEXT_CHARS = 600
 
@@ -311,3 +311,41 @@ def _overview(arts: dict, source: str, gt: dict) -> dict:
         "events_total": len(events),
         "refusals": dict(refusals.most_common()),
     }
+
+
+# ---- analyst agent ----
+from pydantic import BaseModel as _BM  # noqa: E402
+
+
+class AskBody(_BM):
+    question: str
+    cik: str | None = None
+    history: list[dict] = []
+
+
+@app.post("/agent/ask")
+def agent_ask(body: AskBody):
+    """Ask the analyst agent. It reads only through the endpoints above and returns its steps."""
+    from api.agent import ask
+
+    if not body.question.strip():
+        raise HTTPException(400, "empty question")
+    try:
+        return ask(body.question.strip()[:2000], body.cik, body.history)
+    except RuntimeError as e:
+        raise HTTPException(503, str(e))
+
+
+class BriefBody(_BM):
+    top: int = 5
+
+
+@app.post("/agent/brief")
+def agent_brief(body: BriefBody):
+    """Risk briefing agent: picks the most at-risk covenants, investigates each, returns a memo and its steps."""
+    from api.agent import brief
+
+    try:
+        return brief(body.top)
+    except RuntimeError as e:
+        raise HTTPException(503, str(e))

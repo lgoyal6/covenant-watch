@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { Nav } from "@/components/Chrome";
 import SiteFooter from "@/components/SiteFooter";
+import AnalystPanel from "@/components/agents/AnalystPanel";
 
 /** The app: top bar, page, footer. The landing page (app/page.tsx) sits outside this group. */
 export default function SiteLayout({ children }: { children: React.ReactNode }) {
@@ -16,6 +17,7 @@ export default function SiteLayout({ children }: { children: React.ReactNode }) 
       </header>
       <main>{children}</main>
       <SiteFooter />
+      <AnalystPanel />
     </>
   );
 }

@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { api, settle } from "@/lib/api";
 import CovenantBento from "@/components/CovenantBento";
+import RiskBriefing from "@/components/agents/RiskBriefing";
 import { ErrorState, FixtureBadge } from "@/components/ui";
 
 export const dynamic = "force-dynamic";
@@ -19,6 +20,9 @@ export default async function DashboardPage() {
           <span className="muted" style={{ fontSize: 13 }}>Every covenant we rebuilt, across every company, from SEC filings.</span>
         </div>
         <CovenantBento o={o} />
+        <div style={{ marginTop: 20 }}>
+          <RiskBriefing />
+        </div>
       </div>
     </>
   );

@@ -222,6 +222,7 @@ def write(arts, disclosed, events, universe):
     report, detail = build_report(arts, disclosed, events, universe, labels_dir=OUT / "no-labels", contracts_dir=OUT / "no-contracts")
     report.per_company = [dict(p, note="DEMO") for p in report.per_company]
     (OUT / "eval" / "report.json").write_text(report.model_dump_json(indent=2) + "\n")
+    (OUT / "eval" / "detail.json").write_text(json.dumps(detail, indent=1, default=str) + "\n")
     return report
 
 

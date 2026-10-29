@@ -4,7 +4,7 @@
 
 **Every loan covenant, rebuilt from the contract. Every number, cited to the filing.**
 
-Covenant Watch reads a public company's credit agreement from SEC EDGAR, rebuilds each financial covenant exactly as the contract defines it, recomputes it every quarter from the company's own XBRL financials, and shows how much room is left before a breach. Two Claude agents sit on top: one answers questions, one writes risk briefings.
+Covenant Watch reads a public company's credit agreement from SEC EDGAR, rebuilds each financial covenant exactly as the contract defines it, recomputes it every quarter from the company's own XBRL financials, and shows how much room is left before a breach. Three Claude agents sit on top: one answers questions, one writes risk briefings, one stress-tests a company's covenants.
 
 ![Python](https://img.shields.io/badge/python-3.11+-0b0b0c?style=flat-square&logo=python&logoColor=white)
 ![FastAPI](https://img.shields.io/badge/FastAPI-0b0b0c?style=flat-square&logo=fastapi)
@@ -114,7 +114,7 @@ flowchart TB
 
 ## Agents
 
-Both agents run on **Claude Opus 5.5** and can only read: five tools over the same API the web app uses (`search_companies`, `portfolio_overview`, `covenant_timeline`, `quarter_provenance`, `company_refusals`). Every tool call is returned to the UI, so each answer can be traced to the data it used.
+All three run on **Claude Opus 5.5** and can only read: tools over the same API the web app uses (`search_companies`, `portfolio_overview`, `covenant_timeline`, `quarter_provenance`, `company_refusals`), plus two engine tools for the stress agent (`covenant_breakeven`, `stress_test`). Every tool call is returned to the UI, so each answer can be traced to the data it used.
 
 ```mermaid
 sequenceDiagram
@@ -133,8 +133,9 @@ sequenceDiagram
 |---|---|---|
 | **Analyst** | floating panel on every page | Answers questions in context ("why is this quarter a range?", "which covenants are closest to breach?"), pulling timelines and provenance as needed and quoting the numbers it found. |
 | **Risk briefing** | dashboard | Works on its own: finds the most at-risk covenants, reads each timeline and the filings behind the latest quarter, then writes a ranked memo covering where it stands now, the trend, what drives it, signals, and what to watch next. |
+| **Stress test** | each company page | The engine computes exact breakevens (how far EBITDA can fall, or debt and interest rise, before the worst case breaches) and reruns scenarios through the contract's own definition tree, caps included. The agent chooses the scenarios and writes which covenant trips first. |
 
-`POST /agent/ask` · `POST /agent/brief` · needs `ANTHROPIC_API_KEY` in the API process.
+`POST /agent/ask` · `POST /agent/brief` · `POST /agent/stress` · needs `ANTHROPIC_API_KEY` in the API process. Breakevens alone (`GET /companies/{cik}/breakeven`) need no key and show on every covenant card.
 
 ## Governed AI
 
@@ -161,7 +162,7 @@ sequenceDiagram
 uv sync
 export SEC_USER_AGENT="Covenant Watch you@example.com"
 export ANTHROPIC_API_KEY=...
-uv run pytest                                        # 121 tests
+uv run pytest                                        # 125 tests
 
 uv run uvicorn api.main:app --port 8000              # API
 cd web && npm install && npm run build && npm start  # http://localhost:3000
@@ -192,10 +193,10 @@ uv run python -m validation.score           # data/eval/report.json
 shared/       frozen data contract, SEC client
 fixtures/     example data in contract shape
 contracts/    agreement reader (Laksh)
-engine/       XBRL series, mapping, compiler, interval headroom (Dat)
-validation/   ground truth, gold labels, scoring, demo portfolio (Dat)
-api/          FastAPI and the agents (Dat)
-web/          Next.js app (Dat)
+engine/       XBRL series, mapping, compiler, interval headroom
+validation/   ground truth, gold labels, scoring, demo portfolio
+api/          FastAPI and the agents
+web/          Next.js app
 notes/        handoffs between the two halves
 ```
 

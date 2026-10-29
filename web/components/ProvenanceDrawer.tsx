@@ -128,25 +128,24 @@ function ProvenanceBody({ p }: { p: ProvenanceResponse }) {
 
   return (
     <>
-      {/* summary */}
-      <div className="card card-pad stack" style={{ gap: 12 }}>
-        <div className="kv">
-          <div>
-            <div className="k">Computed ratio</div>
-            <div className="v">{fmtRatioRange(q.ratio_low, q.ratio_high, q.status)}</div>
-          </div>
-          <div>
-            <div className="k">Threshold</div>
-            <div className="v">{fmtRatio(q.threshold)}</div>
-          </div>
-          <div>
-            <div className="k">Headroom</div>
-            <div className="v small">{fmtHeadroomRange(q.headroom_low, q.headroom_high, q.status)}</div>
+      {/* summary, in the company page's style: big light numerals, status colour, worst case first */}
+      <div className={`dr-hero dr-${q.status}`}>
+        <div>
+          <div className="upper">Computed ratio</div>
+          <div className="dr-big num">{fmtRatioRange(q.ratio_low, q.ratio_high, q.status)}</div>
+          <div className="small muted">limit {p.covenant.direction === "max" ? "≤" : "≥"} {fmtRatio(q.threshold)}</div>
+        </div>
+        <div>
+          <div className="upper">Headroom</div>
+          <div className="dr-big num" style={{ color: `var(--${q.status})` }}>{fmtHeadroomRange(q.headroom_low, q.headroom_high, q.status)}</div>
+          <div className="small muted">
+            {q.headroom_low != null && q.threshold
+              ? `${q.headroom_low >= 0 ? "+" : "−"}${Math.abs((q.headroom_low / Math.abs(q.threshold)) * 100).toFixed(1)}% of the limit, worst case`
+              : "worst case to best case"}
           </div>
         </div>
-        <div className="small muted">
-          {directionHelp(p.covenant.direction)}. Test period: {p.covenant.test_period === "ttm" ? "trailing four quarters" : p.covenant.test_period.replace(/_/g, " ")}. Period ending {fmtDate(q.period_end)}.
-          {q.headroom_low !== q.headroom_high && q.status !== "refused" && " Headroom is worst case to best case."}
+        <div className="dr-note small muted">
+          {directionHelp(p.covenant.direction)}. Tested on {p.covenant.test_period === "ttm" ? "the trailing four quarters" : p.covenant.test_period.replace(/_/g, " ")} ending {fmtDate(q.period_end)}.
         </div>
       </div>
 
@@ -192,12 +191,12 @@ function ProvenanceBody({ p }: { p: ProvenanceResponse }) {
       )}
 
       <section className="stack" style={{ gap: 8 }}>
-        <h3>Covenant clause</h3>
+        <h3 className="dr-h">Covenant clause</h3>
         <Clause span={p.covenant_clause} />
       </section>
 
       <section className="stack" style={{ gap: 8 }}>
-        <h3>Threshold in force</h3>
+        <h3 className="dr-h">Threshold in force</h3>
         {p.threshold_clause ? (
           <Clause span={p.threshold_clause} />
         ) : (
@@ -207,7 +206,7 @@ function ProvenanceBody({ p }: { p: ProvenanceResponse }) {
 
       <section className="stack" style={{ gap: 8 }}>
         <div className="between">
-          <h3>Definition tree</h3>
+          <h3 className="dr-h">Definition tree</h3>
           <span className="tiny muted">Click a term to read its clause</span>
         </div>
         <div className="card card-pad tree">
@@ -229,7 +228,7 @@ function ProvenanceBody({ p }: { p: ProvenanceResponse }) {
       </section>
 
       <section className="stack" style={{ gap: 8 }}>
-        <h3>XBRL inputs</h3>
+        <h3 className="dr-h">XBRL inputs</h3>
         {p.inputs.length === 0 ? (
           <div className="callout callout-muted small">No inputs were used for this quarter.</div>
         ) : (

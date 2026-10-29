@@ -55,7 +55,7 @@ export default function SiteFooter() {
       ]}
       socials={[{ icon: "github", href: REPO }]}
       copyright={`© ${new Date().getFullYear()} Covenant Watch. Not investment advice.`}
-      credit={{ label: "Dat & Laksh", href: REPO }}
+      credit={null}
       preset="glacier"
       palette={theme === "dark" ? DARK : LIGHT}
       seed={11}

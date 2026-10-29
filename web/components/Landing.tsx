@@ -27,7 +27,7 @@ export default function Landing() {
         columns={[{ title: "Explore", links: [{ label: "Dashboard", href: "/dashboard" }, { label: "Companies", href: "/companies" }, { label: "Evaluation", href: "/eval" }] }]}
         socials={[{ icon: "github", href: REPO }]}
         copyright="Built from public SEC EDGAR filings. Not investment advice."
-        credit={{ label: "Dat & Laksh", href: REPO }}
+        credit={null}
         preset="night"
         palette={PALETTE}
         seed={11}

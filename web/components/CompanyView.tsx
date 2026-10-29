@@ -13,7 +13,8 @@ import {
   refusalScopeLabel,
   eventLabel,
 } from "@/lib/format";
-import type { CovenantArtifact, Refusal, Source, TimelineResponse } from "@/lib/types";
+import type { Breakeven, CovenantArtifact, Refusal, Source, TimelineResponse } from "@/lib/types";
+import CompanyAgent from "./agents/CompanyAgent";
 import { CovenantCard, type CardSummary } from "./CovenantCard";
 import ProvenanceDrawer from "./ProvenanceDrawer";
 import Timeline, { TimelineLegend } from "./Timeline";
@@ -26,6 +27,7 @@ interface Props {
   timelineErrors: Record<string, string>;
   initialCov?: string | null;
   initialQuarter?: string | null;
+  breakeven?: Breakeven[];
 }
 
 function setUrl(cov: string | null, q: string | null) {
@@ -39,10 +41,17 @@ function setUrl(cov: string | null, q: string | null) {
   } catch {}
 }
 
-export default function CompanyView({ source, artifact, timelines, timelineErrors, initialCov, initialQuarter }: Props) {
+export default function CompanyView({ source, artifact, timelines, timelineErrors, initialCov, initialQuarter, breakeven }: Props) {
   const c = artifact.contract.company;
   const covenants = artifact.contract.covenants;
-  const summaries = useMemo(() => summarize(artifact), [artifact]);
+  const summaries = useMemo(
+    () =>
+      summarize(artifact).map((s) => {
+        const b = breakeven?.find((x) => x.covenant_id === s.id);
+        return { ...s, breakeven: b ? { earnings: b.earnings_change_to_breach_pct, other: b.other_change_to_breach_pct } : null };
+      }),
+    [artifact, breakeven],
+  );
   const [cov, setCov] = useState<string | null>(
     initialCov && covenants.some((x) => x.id === initialCov) ? initialCov : covenants[0]?.id ?? null,
   );
@@ -88,6 +97,8 @@ export default function CompanyView({ source, artifact, timelines, timelineError
           ))}
         </div>
       )}
+
+      {covenants.length > 0 && <CompanyAgent cik={artifact.contract.company.cik} company={artifact.contract.company.name} />}
 
       <div className="co-pair">
         <Agreements artifact={artifact} />

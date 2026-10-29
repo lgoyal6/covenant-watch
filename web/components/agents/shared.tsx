@@ -4,7 +4,7 @@ import type { ReactNode } from "react";
 import { API_URL } from "@/lib/api";
 
 export type Step = { tool: string; input: Record<string, unknown>; ok: boolean };
-export type AgentReply = { answer: string; steps: Step[]; model: string };
+export type AgentReply = { answer: string; steps: Step[]; model: string; saved?: boolean };
 
 const TOOL_LABEL: Record<string, string> = {
   search_companies: "Searched companies",
@@ -12,6 +12,8 @@ const TOOL_LABEL: Record<string, string> = {
   covenant_timeline: "Read a covenant timeline",
   quarter_provenance: "Traced a quarter to its clause and filings",
   company_refusals: "Checked refusals",
+  covenant_breakeven: "Computed breakevens",
+  stress_test: "Ran a stress scenario",
 };
 
 export async function callAgent(path: string, body: unknown): Promise<AgentReply> {
@@ -26,10 +28,11 @@ export async function callAgent(path: string, body: unknown): Promise<AgentReply
   return data as AgentReply;
 }
 
-export function Steps({ steps }: { steps: Step[] }) {
-  if (!steps.length) return null;
+export function Steps({ steps, saved }: { steps: Step[]; saved?: boolean }) {
+  if (!steps.length) return saved ? <div className="tiny muted">Saved answer</div> : null;
   return (
     <ol className="ag-steps">
+      {saved && <li className="tiny muted" style={{ display: "block" }}>Saved answer from an earlier live run</li>}
       {steps.map((s, i) => (
         <li key={i} className={s.ok ? "" : "bad"}>
           <span className="ag-step-n">{i + 1}</span>
@@ -46,13 +49,32 @@ export function Markdown({ text }: { text: string }) {
   const inline = (s: string): ReactNode[] => s.split(/(\*\*[^*]+\*\*)/g).map((p, i) => (p.startsWith("**") && p.endsWith("**") ? <strong key={i}>{p.slice(2, -2)}</strong> : p));
   const out: ReactNode[] = [];
   let list: ReactNode[] = [];
+  let rows: string[][] = [];
+  const cells = (t: string) => t.replace(/^\||\|$/g, "").split("|").map((c) => c.trim());
   const flush = () => {
     if (list.length) out.push(<ul key={`u${out.length}`}>{list}</ul>);
     list = [];
+    if (rows.length) {
+      const [head, ...body] = rows;
+      out.push(
+        <div key={`t${out.length}`} className="table-wrap ag-table">
+          <table className="t">
+            <thead><tr>{head.map((c, j) => <th key={j}>{inline(c)}</th>)}</tr></thead>
+            <tbody>{body.map((r, k) => <tr key={k}>{r.map((c, j) => <td key={j} className="num">{inline(c)}</td>)}</tr>)}</tbody>
+          </table>
+        </div>,
+      );
+    }
+    rows = [];
   };
   text.split("\n").forEach((line, i) => {
     const t = line.trim();
-    if (t.startsWith("- ") || t.startsWith("* ")) return void list.push(<li key={i}>{inline(t.slice(2))}</li>);
+    if (t.startsWith("|")) {
+      if (list.length) { out.push(<ul key={`u${out.length}`}>{list}</ul>); list = []; }
+      if (!/^\|?\s*:?-{2,}/.test(t)) rows.push(cells(t)); // skip the |---| separator
+      return;
+    }
+    if (t.startsWith("- ") || t.startsWith("* ")) { if (rows.length) flush(); return void list.push(<li key={i}>{inline(t.slice(2))}</li>); }
     flush();
     if (t.startsWith("### ")) out.push(<h4 key={i}>{inline(t.slice(4))}</h4>);
     else if (t.startsWith("## ")) out.push(<h3 key={i}>{inline(t.slice(3))}</h3>);

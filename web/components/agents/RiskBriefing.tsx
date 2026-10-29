@@ -45,7 +45,7 @@ export default function RiskBriefing() {
               <Markdown text={r.answer} />
               <div>
                 <div className="upper" style={{ marginBottom: 8 }}>Investigation trail</div>
-                <Steps steps={r.steps} />
+                <Steps steps={r.steps} saved={r.saved} />
               </div>
             </div>
           )}

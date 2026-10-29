@@ -1,6 +1,7 @@
 import type { Metadata, Viewport } from "next";
 import Link from "next/link";
 import { Nav, ThemeToggle } from "@/components/Chrome";
+import SiteFooter from "@/components/SiteFooter";
 import "./globals.css";
 
 export const metadata: Metadata = {
@@ -40,10 +41,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           </div>
         </header>
         <main>{children}</main>
-        <footer className="footer">
-          Covenant Watch rebuilds loan covenants from SEC EDGAR filings. Ranges reflect unmapped addbacks; refusals are shown
-          rather than guessed. Not investment advice.
-        </footer>
+        <SiteFooter />
       </body>
     </html>
   );
